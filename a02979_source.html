@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Events/PeoplemonMenu.hpp Source File</title>
+<title>Peoplemon: include/Game/States/BattleState.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,81 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_63f60c6c182692e62620af266969e641.html">States</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PeoplemonMenu.hpp</div>  </div>
+<div class="title">BattleState.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02979.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_PEOPLEMONMENU_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_PEOPLEMONMENU_HPP</span></div>
+<a href="a02979.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_BATTLESTATE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_BATTLESTATE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01432.html">   14</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01432.html">OpenPeoplemonMenu</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5">   19</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a231cd4e0b43ac815b9ddc4381fdb4f32">BattleSwitch</a>,</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a0d53e42d6330d15dd7b2d6bc5d45179f">BattleFaint</a>,</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5afdd7766febd7363d199a971fe2801e35">BattleMustSwitch</a>,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5acd11b6ca880cd691a51503c82a1b18bc">BattleReviveSwitch</a>,</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a268e19485f8a5d1088c3232535c430f1">StorageSelect</a>,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5aa6ea893fdc6e0771ff6d14028a6d7f3e">PauseMenu</a>,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5aeaa3a4cb48824c4da06052ae4b8822ee">GiveItem</a>,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a47529dc6a8f4a0b93824f2252e5b033f">UseItem</a>,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a7ffc62f25599fa34ddedd3cc83088990">UseItemBattle</a></div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    };</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a01432.html#ab9c550b47e675a0483432edcdf08e1e1">   38</a></span>&#160;    <a class="code" href="a01432.html#ab9c550b47e675a0483432edcdf08e1e1">OpenPeoplemonMenu</a>(<a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> ctx, <span class="keywordtype">int</span> <a class="code" href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">outNow</a> = -1, <span class="keywordtype">int</span>* <a class="code" href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">chosen</a> = <span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    : <a class="code" href="a01432.html#a2b4cf647ca218e4b3d1d016be88f16d7">context</a>(ctx)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    , <a class="code" href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">outNow</a>(<a class="code" href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">outNow</a>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    , <a class="code" href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">chosen</a>(<a class="code" href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">chosen</a>) {}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01432.html#a2b4cf647ca218e4b3d1d016be88f16d7">   43</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a01432.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> <a class="code" href="a01432.html#a2b4cf647ca218e4b3d1d016be88f16d7">context</a>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">   44</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">outNow</a>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">   45</a></span>&#160;    <span class="keywordtype">int</span>* <a class="code" href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">chosen</a>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;};</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01432_html"><div class="ttname"><a href="a01432.html">core::event::OpenPeoplemonMenu</a></div><div class="ttdoc">Special event to trigger the opening of the peoplemon menu.</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00014">PeoplemonMenu.hpp:14</a></div></div>
-<div class="ttc" id="aa01432_html_a2b4cf647ca218e4b3d1d016be88f16d7"><div class="ttname"><a href="a01432.html#a2b4cf647ca218e4b3d1d016be88f16d7">core::event::OpenPeoplemonMenu::context</a></div><div class="ttdeci">const Context context</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00043">PeoplemonMenu.hpp:43</a></div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5">core::event::OpenPeoplemonMenu::Context</a></div><div class="ttdeci">Context</div><div class="ttdoc">Represents where the menu is being opened from.</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00019">PeoplemonMenu.hpp:19</a></div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5a0d53e42d6330d15dd7b2d6bc5d45179f"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a0d53e42d6330d15dd7b2d6bc5d45179f">core::event::OpenPeoplemonMenu::Context::BattleFaint</a></div><div class="ttdeci">@ BattleFaint</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5a231cd4e0b43ac815b9ddc4381fdb4f32"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a231cd4e0b43ac815b9ddc4381fdb4f32">core::event::OpenPeoplemonMenu::Context::BattleSwitch</a></div><div class="ttdeci">@ BattleSwitch</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5a268e19485f8a5d1088c3232535c430f1"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a268e19485f8a5d1088c3232535c430f1">core::event::OpenPeoplemonMenu::Context::StorageSelect</a></div><div class="ttdeci">@ StorageSelect</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5a47529dc6a8f4a0b93824f2252e5b033f"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a47529dc6a8f4a0b93824f2252e5b033f">core::event::OpenPeoplemonMenu::Context::UseItem</a></div><div class="ttdeci">@ UseItem</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5a7ffc62f25599fa34ddedd3cc83088990"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5a7ffc62f25599fa34ddedd3cc83088990">core::event::OpenPeoplemonMenu::Context::UseItemBattle</a></div><div class="ttdeci">@ UseItemBattle</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5aa6ea893fdc6e0771ff6d14028a6d7f3e"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5aa6ea893fdc6e0771ff6d14028a6d7f3e">core::event::OpenPeoplemonMenu::Context::PauseMenu</a></div><div class="ttdeci">@ PauseMenu</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5acd11b6ca880cd691a51503c82a1b18bc"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5acd11b6ca880cd691a51503c82a1b18bc">core::event::OpenPeoplemonMenu::Context::BattleReviveSwitch</a></div><div class="ttdeci">@ BattleReviveSwitch</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5aeaa3a4cb48824c4da06052ae4b8822ee"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5aeaa3a4cb48824c4da06052ae4b8822ee">core::event::OpenPeoplemonMenu::Context::GiveItem</a></div><div class="ttdeci">@ GiveItem</div></div>
-<div class="ttc" id="aa01432_html_a922eedf4fe4080648361bc520b77a2d5afdd7766febd7363d199a971fe2801e35"><div class="ttname"><a href="a01432.html#a922eedf4fe4080648361bc520b77a2d5afdd7766febd7363d199a971fe2801e35">core::event::OpenPeoplemonMenu::Context::BattleMustSwitch</a></div><div class="ttdeci">@ BattleMustSwitch</div></div>
-<div class="ttc" id="aa01432_html_a9a2ae4c43e3bc50c64b1d46baece0a54"><div class="ttname"><a href="a01432.html#a9a2ae4c43e3bc50c64b1d46baece0a54">core::event::OpenPeoplemonMenu::outNow</a></div><div class="ttdeci">const int outNow</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00044">PeoplemonMenu.hpp:44</a></div></div>
-<div class="ttc" id="aa01432_html_ab9c550b47e675a0483432edcdf08e1e1"><div class="ttname"><a href="a01432.html#ab9c550b47e675a0483432edcdf08e1e1">core::event::OpenPeoplemonMenu::OpenPeoplemonMenu</a></div><div class="ttdeci">OpenPeoplemonMenu(Context ctx, int outNow=-1, int *chosen=nullptr)</div><div class="ttdoc">Construct a new Open Peoplemon Menu event.</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00038">PeoplemonMenu.hpp:38</a></div></div>
-<div class="ttc" id="aa01432_html_ad3a0d1897216e15d9672aaf0bf8367d0"><div class="ttname"><a href="a01432.html#ad3a0d1897216e15d9672aaf0bf8367d0">core::event::OpenPeoplemonMenu::chosen</a></div><div class="ttdeci">int * chosen</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00045">PeoplemonMenu.hpp:45</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02970.html">Core/Battles/Battle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03018.html">Core/Events/BagMenu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03030.html">Core/Events/PeoplemonMenu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00353.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03102.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01113.html">game</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02306.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02306.html">BattleState</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02390.html">State</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, <span class="keyword">public</span> bl::event::Listener&lt;core::event::OpenPeoplemonMenu, core::event::OpenBagMenu&gt; {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02306.html#ac3a956f6de8e41202a322f0a75154836">create</a>(<a class="code" href="a02026.html">core::system::Systems</a>&amp; <a class="code" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>,</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                         std::unique_ptr&lt;core::battle::Battle&gt;&amp;&amp; battle);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02306.html#ae6c4eb316f15f0e560d7cdbbc17307be">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02306.html#ae6c4eb316f15f0e560d7cdbbc17307be">~BattleState</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02306.html#a9a1dca10c3b3db641c3d987b0bd42700">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02306.html#ac69782ff4f2c8666907e5b05cb74832a">activate</a>(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02306.html#ab95dba1cbd60568f78e439ca10dc0ebd">deactivate</a>(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02306.html#af1280f7c8af0e255121eeb3eec92e628">update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - update battle rendering</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::unique_ptr&lt;core::battle::Battle&gt; battle;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="a02306.html">BattleState</a>(<a class="code" href="a02026.html">core::system::Systems</a>&amp; <a class="code" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, std::unique_ptr&lt;core::battle::Battle&gt;&amp;&amp; battle);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01442.html">core::event::OpenPeoplemonMenu</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01386.html">core::event::OpenBagMenu</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;};</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01386_html"><div class="ttname"><a href="a01386.html">core::event::OpenBagMenu</a></div><div class="ttdoc">Event that is fired when the bag menu should be opened.</div><div class="ttdef"><b>Definition:</b> <a href="a03018_source.html#l00016">BagMenu.hpp:16</a></div></div>
+<div class="ttc" id="aa01442_html"><div class="ttname"><a href="a01442.html">core::event::OpenPeoplemonMenu</a></div><div class="ttdoc">Special event to trigger the opening of the peoplemon menu.</div><div class="ttdef"><b>Definition:</b> <a href="a03030_source.html#l00014">PeoplemonMenu.hpp:14</a></div></div>
+<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02306_html"><div class="ttname"><a href="a02306.html">game::state::BattleState</a></div><div class="ttdoc">This game state does all battling. When the battle is complete it will pop itself from the engine sta...</div><div class="ttdef"><b>Definition:</b> <a href="a02979_source.html#l00021">BattleState.hpp:23</a></div></div>
+<div class="ttc" id="aa02306_html_a9a1dca10c3b3db641c3d987b0bd42700"><div class="ttname"><a href="a02306.html#a9a1dca10c3b3db641c3d987b0bd42700">game::state::BattleState::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;BattleState&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00050">BattleState.cpp:50</a></div></div>
+<div class="ttc" id="aa02306_html_ab95dba1cbd60568f78e439ca10dc0ebd"><div class="ttname"><a href="a02306.html#ab95dba1cbd60568f78e439ca10dc0ebd">game::state::BattleState::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00061">BattleState.cpp:61</a></div></div>
+<div class="ttc" id="aa02306_html_ac3a956f6de8e41202a322f0a75154836"><div class="ttname"><a href="a02306.html#ac3a956f6de8e41202a322f0a75154836">game::state::BattleState::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, std::unique_ptr&lt; core::battle::Battle &gt; &amp;&amp;battle)</div><div class="ttdoc">Creates a new BattleState.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00034">BattleState.cpp:34</a></div></div>
+<div class="ttc" id="aa02306_html_ac69782ff4f2c8666907e5b05cb74832a"><div class="ttname"><a href="a02306.html#ac69782ff4f2c8666907e5b05cb74832a">game::state::BattleState::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00052">BattleState.cpp:52</a></div></div>
+<div class="ttc" id="aa02306_html_ae6c4eb316f15f0e560d7cdbbc17307be"><div class="ttname"><a href="a02306.html#ae6c4eb316f15f0e560d7cdbbc17307be">game::state::BattleState::~BattleState</a></div><div class="ttdeci">virtual ~BattleState()=default</div><div class="ttdoc">Destroy the Battle State object.</div></div>
+<div class="ttc" id="aa02306_html_af1280f7c8af0e255121eeb3eec92e628"><div class="ttname"><a href="a02306.html#af1280f7c8af0e255121eeb3eec92e628">game::state::BattleState::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;, float dt, float) override</div><div class="ttdoc">Calls into the battle's update method.</div><div class="ttdef"><b>Definition:</b> <a href="a03129_source.html#l00068">BattleState.cpp:68</a></div></div>
+<div class="ttc" id="aa02390_html"><div class="ttname"><a href="a02390.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03102_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02390_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03102_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa02970_html"><div class="ttname"><a href="a02970.html">Battle.hpp</a></div></div>
+<div class="ttc" id="aa03018_html"><div class="ttname"><a href="a03018.html">BagMenu.hpp</a></div></div>
+<div class="ttc" id="aa03030_html"><div class="ttname"><a href="a03030.html">PeoplemonMenu.hpp</a></div></div>
+<div class="ttc" id="aa03102_html"><div class="ttname"><a href="a03102.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

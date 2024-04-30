@@ -83,28 +83,28 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;functional&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00155.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01098.html">editor</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01104.html">editor</a></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02116.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02116.html">MoveEditorWindow</a> {</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02130.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02130.html">MoveEditorWindow</a> {</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02116.html#abc4fda457360be93acbda0074d34fb5d">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02116.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a> = std::function&lt;void()&gt;;</div>
+<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02130.html#abc4fda457360be93acbda0074d34fb5d">   23</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02130.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a> = std::function&lt;void()&gt;;</div>
 <div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02116.html#a4ed60a31c8e3f668ac2beaf1a7fc3160">MoveEditorWindow</a>(<a class="code" href="a01612.html">core::file::MoveDB</a>&amp; moveDb, <span class="keyword">const</span> <a class="code" href="a02116.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a>&amp; onChange);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02130.html#a4ed60a31c8e3f668ac2beaf1a7fc3160">MoveEditorWindow</a>(<a class="code" href="a01622.html">core::file::MoveDB</a>&amp; moveDb, <span class="keyword">const</span> <a class="code" href="a02130.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a>&amp; onChange);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02116.html#a83b854593fee2e4bb0ad752ddd037f7b">open</a>(bl::gui::GUI* parent, <a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02130.html#a83b854593fee2e4bb0ad752ddd037f7b">open</a>(bl::gui::GUI* parent, <a class="code" href="a01076.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a01612.html">core::file::MoveDB</a>&amp; moveDb;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02116.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a> onChange;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a01622.html">core::file::MoveDB</a>&amp; moveDb;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02130.html#abc4fda457360be93acbda0074d34fb5d">OnChange</a> onChange;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> doingNewMove;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    bl::gui::Window::Ptr window;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    bl::gui::TextEntry::Ptr idEntry;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    bl::gui::TextEntry::Ptr nameEntry;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    bl::gui::TextEntry::Ptr descEntry;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02164.html#aadc2d43c81e774816dc7d87ca2cd43a9">TypeSelector::Ptr</a> typeSelect;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02178.html#aadc2d43c81e774816dc7d87ca2cd43a9">TypeSelector::Ptr</a> typeSelect;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    bl::gui::TextEntry::Ptr dmgEntry;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    bl::gui::TextEntry::Ptr accEntry;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    bl::gui::TextEntry::Ptr priorityEntry;</div>
@@ -116,7 +116,7 @@ $(function() {
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    bl::gui::TextEntry::Ptr effectIntenseEntry;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    bl::gui::CheckButton::Ptr effectSelfCheck;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> openId;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01076.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> openId;</div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> dirty;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    bl::gui::Button::Ptr applyBut;</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    </div>
@@ -133,19 +133,19 @@ $(function() {
 <div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">MoveDB.hpp</a></div></div>
 <div class="ttc" id="aa00236_html"><div class="ttname"><a href="a00236.html">MoveId.hpp</a></div></div>
 <div class="ttc" id="aa00443_html"><div class="ttname"><a href="a00443.html">TypeSelector.hpp</a></div></div>
-<div class="ttc" id="aa01070_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01070.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">MoveId.hpp:16</a></div></div>
-<div class="ttc" id="aa01098_html"><div class="ttname"><a href="a01098.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01612_html"><div class="ttname"><a href="a01612.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00022">MoveDB.hpp:22</a></div></div>
-<div class="ttc" id="aa02116_html"><div class="ttname"><a href="a02116.html">editor::component::MoveEditorWindow</a></div><div class="ttdoc">Editor window to edit moves in the move database.</div><div class="ttdef"><b>Definition:</b> <a href="a00407_source.html#l00020">MoveEditorWindow.hpp:20</a></div></div>
-<div class="ttc" id="aa02116_html_a4ed60a31c8e3f668ac2beaf1a7fc3160"><div class="ttname"><a href="a02116.html#a4ed60a31c8e3f668ac2beaf1a7fc3160">editor::component::MoveEditorWindow::MoveEditorWindow</a></div><div class="ttdeci">MoveEditorWindow(core::file::MoveDB &amp;moveDb, const OnChange &amp;onChange)</div><div class="ttdoc">Construct a new Move Editor Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00097">MoveEditorWindow.cpp:97</a></div></div>
-<div class="ttc" id="aa02116_html_a83b854593fee2e4bb0ad752ddd037f7b"><div class="ttname"><a href="a02116.html#a83b854593fee2e4bb0ad752ddd037f7b">editor::component::MoveEditorWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, core::pplmn::MoveId move)</div><div class="ttdoc">Opens the window and populates for the given move. Pass MoveId::Unknown for a new move.</div><div class="ttdef"><b>Definition:</b> <a href="a00911_source.html#l00213">MoveEditorWindow.cpp:213</a></div></div>
-<div class="ttc" id="aa02116_html_abc4fda457360be93acbda0074d34fb5d"><div class="ttname"><a href="a02116.html#abc4fda457360be93acbda0074d34fb5d">editor::component::MoveEditorWindow::OnChange</a></div><div class="ttdeci">std::function&lt; void()&gt; OnChange</div><div class="ttdoc">Callback signature on move change.</div><div class="ttdef"><b>Definition:</b> <a href="a00407_source.html#l00023">MoveEditorWindow.hpp:23</a></div></div>
-<div class="ttc" id="aa02164_html_aadc2d43c81e774816dc7d87ca2cd43a9"><div class="ttname"><a href="a02164.html#aadc2d43c81e774816dc7d87ca2cd43a9">editor::component::TypeSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; TypeSelector &gt; Ptr</div><div class="ttdoc">Pointer to a TypeSelector component.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00021">TypeSelector.hpp:21</a></div></div>
+<div class="ttc" id="aa01076_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01076.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00236_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01104_html"><div class="ttname"><a href="a01104.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
+<div class="ttc" id="aa01622_html"><div class="ttname"><a href="a01622.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00022">MoveDB.hpp:22</a></div></div>
+<div class="ttc" id="aa02130_html"><div class="ttname"><a href="a02130.html">editor::component::MoveEditorWindow</a></div><div class="ttdoc">Editor window to edit moves in the move database.</div><div class="ttdef"><b>Definition:</b> <a href="a00407_source.html#l00020">MoveEditorWindow.hpp:20</a></div></div>
+<div class="ttc" id="aa02130_html_a4ed60a31c8e3f668ac2beaf1a7fc3160"><div class="ttname"><a href="a02130.html#a4ed60a31c8e3f668ac2beaf1a7fc3160">editor::component::MoveEditorWindow::MoveEditorWindow</a></div><div class="ttdeci">MoveEditorWindow(core::file::MoveDB &amp;moveDb, const OnChange &amp;onChange)</div><div class="ttdoc">Construct a new Move Editor Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00097">MoveEditorWindow.cpp:97</a></div></div>
+<div class="ttc" id="aa02130_html_a83b854593fee2e4bb0ad752ddd037f7b"><div class="ttname"><a href="a02130.html#a83b854593fee2e4bb0ad752ddd037f7b">editor::component::MoveEditorWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, core::pplmn::MoveId move)</div><div class="ttdoc">Opens the window and populates for the given move. Pass MoveId::Unknown for a new move.</div><div class="ttdef"><b>Definition:</b> <a href="a00914_source.html#l00213">MoveEditorWindow.cpp:213</a></div></div>
+<div class="ttc" id="aa02130_html_abc4fda457360be93acbda0074d34fb5d"><div class="ttname"><a href="a02130.html#abc4fda457360be93acbda0074d34fb5d">editor::component::MoveEditorWindow::OnChange</a></div><div class="ttdeci">std::function&lt; void()&gt; OnChange</div><div class="ttdoc">Callback signature on move change.</div><div class="ttdef"><b>Definition:</b> <a href="a00407_source.html#l00023">MoveEditorWindow.hpp:23</a></div></div>
+<div class="ttc" id="aa02178_html_aadc2d43c81e774816dc7d87ca2cd43a9"><div class="ttname"><a href="a02178.html#aadc2d43c81e774816dc7d87ca2cd43a9">editor::component::TypeSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; TypeSelector &gt; Ptr</div><div class="ttdoc">Pointer to a TypeSelector component.</div><div class="ttdef"><b>Definition:</b> <a href="a00443_source.html#l00021">TypeSelector.hpp:21</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

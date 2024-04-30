@@ -77,21 +77,21 @@ $(function() {
 <a href="a00077.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_FIXEDPATHBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_FIXEDPATHBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02937.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02988.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00149.html">Core/Files/Behavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01320.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01320.html">FixedPathBehavior</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01330.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01330.html">FixedPathBehavior</a> {</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01320.html#ab757ec001a55edb4dff46ee85efdae41">FixedPathBehavior</a>(<span class="keyword">const</span> <a class="code" href="a01484.html">file::Behavior::Path</a>&amp; path);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01330.html#ab757ec001a55edb4dff46ee85efdae41">FixedPathBehavior</a>(<span class="keyword">const</span> <a class="code" href="a01494.html">file::Behavior::Path</a>&amp; path);</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01320.html#a318f25f55fbbca09333d66238d185917">update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01316.html">Controllable</a>&amp; controller);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01330.html#a318f25f55fbbca09333d66238d185917">update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01326.html">Controllable</a>&amp; controller);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01484.html">file::Behavior::Path</a> path;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01494.html">file::Behavior::Path</a> path;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordtype">bool</span> backwards;</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentPace;</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> currentStep;</div>
@@ -102,18 +102,18 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">Behavior.hpp</a></div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01316_html"><div class="ttname"><a href="a01316.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02937_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01320_html"><div class="ttname"><a href="a01320.html">core::component::FixedPathBehavior</a></div><div class="ttdoc">Add this component to an entity to make it follow a fixed path.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00017">FixedPathBehavior.hpp:17</a></div></div>
-<div class="ttc" id="aa01320_html_a318f25f55fbbca09333d66238d185917"><div class="ttname"><a href="a01320.html#a318f25f55fbbca09333d66238d185917">core::component::FixedPathBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller)</div><div class="ttdoc">Updates the entity along the path.</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00013">FixedPathBehavior.cpp:13</a></div></div>
-<div class="ttc" id="aa01320_html_ab757ec001a55edb4dff46ee85efdae41"><div class="ttname"><a href="a01320.html#ab757ec001a55edb4dff46ee85efdae41">core::component::FixedPathBehavior::FixedPathBehavior</a></div><div class="ttdeci">FixedPathBehavior(const file::Behavior::Path &amp;path)</div><div class="ttdoc">Construct a new Fixed Path Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00617_source.html#l00007">FixedPathBehavior.cpp:7</a></div></div>
-<div class="ttc" id="aa01484_html"><div class="ttname"><a href="a01484.html">core::file::Behavior::Path</a></div><div class="ttdoc">Contains data for when the behavior type is following a path.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00070">Behavior.hpp:70</a></div></div>
-<div class="ttc" id="aa02937_html"><div class="ttname"><a href="a02937.html">Controllable.hpp</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01326_html"><div class="ttname"><a href="a01326.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a02988_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01330_html"><div class="ttname"><a href="a01330.html">core::component::FixedPathBehavior</a></div><div class="ttdoc">Add this component to an entity to make it follow a fixed path.</div><div class="ttdef"><b>Definition:</b> <a href="a00077_source.html#l00017">FixedPathBehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa01330_html_a318f25f55fbbca09333d66238d185917"><div class="ttname"><a href="a01330.html#a318f25f55fbbca09333d66238d185917">core::component::FixedPathBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller)</div><div class="ttdoc">Updates the entity along the path.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00013">FixedPathBehavior.cpp:13</a></div></div>
+<div class="ttc" id="aa01330_html_ab757ec001a55edb4dff46ee85efdae41"><div class="ttname"><a href="a01330.html#ab757ec001a55edb4dff46ee85efdae41">core::component::FixedPathBehavior::FixedPathBehavior</a></div><div class="ttdeci">FixedPathBehavior(const file::Behavior::Path &amp;path)</div><div class="ttdoc">Construct a new Fixed Path Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00620_source.html#l00007">FixedPathBehavior.cpp:7</a></div></div>
+<div class="ttc" id="aa01494_html"><div class="ttname"><a href="a01494.html">core::file::Behavior::Path</a></div><div class="ttdoc">Contains data for when the behavior type is following a path.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00070">Behavior.hpp:70</a></div></div>
+<div class="ttc" id="aa02988_html"><div class="ttname"><a href="a02988.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

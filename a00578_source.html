@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Battles/BattlerControllers/RemoteController.cpp Source File</title>
+<title>Peoplemon: src/Core/Battles/BattlerControllers/PlayerController.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,54 +71,117 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">RemoteController.cpp</div>  </div>
+<div class="title">PlayerController.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00578.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00029.html">Core/Battles/BattlerControllers/RemoteController.hpp</a>&gt;</span></div>
+<a href="a00578.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00026.html">Core/Battles/BattlerControllers/PlayerController.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>battle</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00065.html">Core/Battles/View/PlayerMenu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01240.html#acb3dcab56ef4a7efb6bbc350ac7d3e3b">    7</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a01240.html#acb3dcab56ef4a7efb6bbc350ac7d3e3b">RemoteController::name</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::string n = <span class="stringliteral">&quot;&lt;NETWORK&gt;&quot;</span>;</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <span class="keywordflow">return</span> n;</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;}</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01240.html#ac004532e1dc6f2d9899d3aabbf87bf3c">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01240.html#ac004532e1dc6f2d9899d3aabbf87bf3c">RemoteController::refresh</a>() {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">void</span> RemoteController::startChooseAction() {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="comment">// TODO - get from network</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> RemoteController::startChoosePeoplemon(<span class="keywordtype">bool</span>, <span class="keywordtype">bool</span>) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// TODO - get from network</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keywordtype">void</span> RemoteController::startChooseToContinue() { <a class="code" href="a01228.html#a7bc43a137d4d03b1751dc8c9ce701e7b">chooseGiveUp</a>(<span class="keyword">false</span>); }</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01240.html#aacc8ea73f544d11fc261e44fc5c205c0">   24</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01240.html#aacc8ea73f544d11fc261e44fc5c205c0">RemoteController::removeItem</a>(<a class="code" href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="comment">// TODO - send command over network</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01240.html#a4db695bb8d788f690facc016bc37a5f5">   29</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01240.html#a4db695bb8d788f690facc016bc37a5f5">RemoteController::isHost</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace battle</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00029_html"><div class="ttname"><a href="a00029.html">RemoteController.hpp</a></div></div>
-<div class="ttc" id="aa01068_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01068.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03000_source.html#l00024">Id.hpp:24</a></div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01228_html_a7bc43a137d4d03b1751dc8c9ce701e7b"><div class="ttname"><a href="a01228.html#a7bc43a137d4d03b1751dc8c9ce701e7b">core::battle::BattlerController::chooseGiveUp</a></div><div class="ttdeci">void chooseGiveUp(bool yes)</div><div class="ttdoc">Choose whether to give up or not.</div><div class="ttdef"><b>Definition:</b> <a href="a00572_source.html#l00041">BattlerController.cpp:41</a></div></div>
-<div class="ttc" id="aa01240_html_a4db695bb8d788f690facc016bc37a5f5"><div class="ttname"><a href="a01240.html#a4db695bb8d788f690facc016bc37a5f5">core::battle::RemoteController::isHost</a></div><div class="ttdeci">virtual bool isHost() const override</div><div class="ttdoc">Returns false.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00029">RemoteController.cpp:29</a></div></div>
-<div class="ttc" id="aa01240_html_aacc8ea73f544d11fc261e44fc5c205c0"><div class="ttname"><a href="a01240.html#aacc8ea73f544d11fc261e44fc5c205c0">core::battle::RemoteController::removeItem</a></div><div class="ttdeci">virtual bool removeItem(item::Id item) override</div><div class="ttdoc">Removes the item from the battler's inventory.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00024">RemoteController.cpp:24</a></div></div>
-<div class="ttc" id="aa01240_html_ac004532e1dc6f2d9899d3aabbf87bf3c"><div class="ttname"><a href="a01240.html#ac004532e1dc6f2d9899d3aabbf87bf3c">core::battle::RemoteController::refresh</a></div><div class="ttdeci">virtual void refresh() override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00012">RemoteController.cpp:12</a></div></div>
-<div class="ttc" id="aa01240_html_acb3dcab56ef4a7efb6bbc350ac7d3e3b"><div class="ttname"><a href="a01240.html#acb3dcab56ef4a7efb6bbc350ac7d3e3b">core::battle::RemoteController::name</a></div><div class="ttdeci">virtual const std::string &amp; name() const override</div><div class="ttdoc">Returns the name of the battler.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00007">RemoteController.cpp:7</a></div></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>battle</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01246.html#a6ab1f40f519e7445a03f406e38d71007">    9</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a01246.html#a6ab1f40f519e7445a03f406e38d71007">PlayerController::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> player.<a class="code" href="a02006.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01866.html#a512f31e65aad71aa9e01f85b778dcfec">name</a>; }</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01246.html#ac9e876179b19f05299785760d672da3b">   11</a></span>&#160;<a class="code" href="a01246.html#ac9e876179b19f05299785760d672da3b">PlayerController::PlayerController</a>(<a class="code" href="a02006.html">system::Player</a>&amp; p, <a class="code" href="a01314.html">view::PlayerMenu</a>&amp; menu)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: state(State::Waiting)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, player(p)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, menu(menu) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01246.html#a305c1eb35d656dd31de1353723d3b13e">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01246.html#a305c1eb35d656dd31de1353723d3b13e">PlayerController::refresh</a>() {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">case</span> State::PickingTurn:</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">if</span> (menu.<a class="code" href="a01314.html#afca91b7d7b5318cb74670b16a87da5e9">ready</a>()) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            state = State::Waiting;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;            <span class="keywordflow">switch</span> (menu.<a class="code" href="a01314.html#a18c1310dcd92642c128b9b08f54b9680">selectedAction</a>()) {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784">TurnAction::Fight</a>:</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;                <a class="code" href="a01238.html#a8236091b722e7e449b78bdc5a831edba">chooseMove</a>(menu.<a class="code" href="a01314.html#ae10abcbb9913b568c1a423011e22b8e9">selectedMove</a>());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">TurnAction::Item</a>:</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                <a class="code" href="a01238.html#ac820b93d846f7e391de716dee326e861">chooseItem</a>(menu.<a class="code" href="a01314.html#a431286ef573fbcef38f5ae0308a9aad1">selectedPeoplemon</a>(), menu.<a class="code" href="a01314.html#acab5fdeda2a6d661f891a3560dd87d9f">selectedItem</a>());</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b">TurnAction::Switch</a>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                <a class="code" href="a01238.html#a938aaca275d1a8129f57f533c30c2226">choosePeoplemon</a>(menu.<a class="code" href="a01314.html#a431286ef573fbcef38f5ae0308a9aad1">selectedPeoplemon</a>());</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <span class="keywordflow">case</span> <a class="code" href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d">TurnAction::Run</a>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                <a class="code" href="a01238.html#ad794ddae47cbc1dc87e17de56edc0270">chooseRun</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;            }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">case</span> State::PickingFaintReplacement:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">if</span> (menu.<a class="code" href="a01314.html#afca91b7d7b5318cb74670b16a87da5e9">ready</a>()) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            state = State::Waiting;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;            <a class="code" href="a01238.html#a938aaca275d1a8129f57f533c30c2226">choosePeoplemon</a>(menu.<a class="code" href="a01314.html#a431286ef573fbcef38f5ae0308a9aad1">selectedPeoplemon</a>());</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> PlayerController::startChooseAction() {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    state = State::PickingTurn;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    menu.<a class="code" href="a01314.html#ad3314a334dd6dfb023ef4786f60dbeae">beginTurn</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> PlayerController::startChoosePeoplemon(<span class="keywordtype">bool</span> fromFaint, <span class="keywordtype">bool</span> reviveOnly) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    state = State::PickingFaintReplacement;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    menu.<a class="code" href="a01314.html#ab82abfa86821a417cec2c281896a2003">choosePeoplemonMidTurn</a>(fromFaint, reviveOnly);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keywordtype">void</span> PlayerController::startChooseToContinue() {</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="comment">// TODO - get choice from UI</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="a01238.html#a7bc43a137d4d03b1751dc8c9ce701e7b">chooseGiveUp</a>(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a01246.html#ae187b9610c61da47fcb4d619a1661e6b">   67</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01246.html#ae187b9610c61da47fcb4d619a1661e6b">PlayerController::removeItem</a>(<a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item) { <span class="keywordflow">return</span> player.<a class="code" href="a02006.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01866.html#af138e05ed91617c02df4bdd321fa1eb3">bag</a>.<a class="code" href="a01846.html#a0889148b02fd6dc5b65b1ccb02a28052">removeItem</a>(item); }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01246.html#a7c78dacf8556e841c03f1ac36bda4d0c">   69</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01246.html#a7c78dacf8556e841c03f1ac36bda4d0c">PlayerController::isHost</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace battle</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00026_html"><div class="ttname"><a href="a00026.html">PlayerController.hpp</a></div></div>
+<div class="ttc" id="aa00065_html"><div class="ttname"><a href="a00065.html">PlayerMenu.hpp</a></div></div>
+<div class="ttc" id="aa01074_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01089_html_a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679"><div class="ttname"><a href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">core::battle::TurnAction::Item</a></div><div class="ttdeci">@ Item</div></div>
+<div class="ttc" id="aa01089_html_a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b"><div class="ttname"><a href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aabbc155fb2b111bf61c4f5ff892915e6b">core::battle::TurnAction::Switch</a></div><div class="ttdeci">@ Switch</div></div>
+<div class="ttc" id="aa01089_html_a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d"><div class="ttname"><a href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aac5301693c4e792bcd5a479ef38fb8f8d">core::battle::TurnAction::Run</a></div><div class="ttdeci">@ Run</div></div>
+<div class="ttc" id="aa01089_html_a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784"><div class="ttname"><a href="a01089.html#a9f4dbdd126a3cad461c287d3626e196aac8b01a3184580b42a0bfbc05d2dab784">core::battle::TurnAction::Fight</a></div><div class="ttdeci">@ Fight</div></div>
+<div class="ttc" id="aa01238_html_a7bc43a137d4d03b1751dc8c9ce701e7b"><div class="ttname"><a href="a01238.html#a7bc43a137d4d03b1751dc8c9ce701e7b">core::battle::BattlerController::chooseGiveUp</a></div><div class="ttdeci">void chooseGiveUp(bool yes)</div><div class="ttdoc">Choose whether to give up or not.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00041">BattlerController.cpp:41</a></div></div>
+<div class="ttc" id="aa01238_html_a8236091b722e7e449b78bdc5a831edba"><div class="ttname"><a href="a01238.html#a8236091b722e7e449b78bdc5a831edba">core::battle::BattlerController::chooseMove</a></div><div class="ttdeci">void chooseMove(int move)</div><div class="ttdoc">Selects the move to use this turn when fighting.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00046">BattlerController.cpp:46</a></div></div>
+<div class="ttc" id="aa01238_html_a938aaca275d1a8129f57f533c30c2226"><div class="ttname"><a href="a01238.html#a938aaca275d1a8129f57f533c30c2226">core::battle::BattlerController::choosePeoplemon</a></div><div class="ttdeci">void choosePeoplemon(std::uint8_t i)</div><div class="ttdoc">Selects the peoplemon to switch to.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00052">BattlerController.cpp:52</a></div></div>
+<div class="ttc" id="aa01238_html_ac820b93d846f7e391de716dee326e861"><div class="ttname"><a href="a01238.html#ac820b93d846f7e391de716dee326e861">core::battle::BattlerController::chooseItem</a></div><div class="ttdeci">void chooseItem(std::uint8_t pplIndex, core::item::Id item)</div><div class="ttdoc">Selects the item to use.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00058">BattlerController.cpp:58</a></div></div>
+<div class="ttc" id="aa01238_html_ad794ddae47cbc1dc87e17de56edc0270"><div class="ttname"><a href="a01238.html#ad794ddae47cbc1dc87e17de56edc0270">core::battle::BattlerController::chooseRun</a></div><div class="ttdeci">void chooseRun()</div><div class="ttdoc">Chooses to run away.</div><div class="ttdef"><b>Definition:</b> <a href="a00575_source.html#l00065">BattlerController.cpp:65</a></div></div>
+<div class="ttc" id="aa01246_html_a305c1eb35d656dd31de1353723d3b13e"><div class="ttname"><a href="a01246.html#a305c1eb35d656dd31de1353723d3b13e">core::battle::PlayerController::refresh</a></div><div class="ttdeci">virtual void refresh() override</div><div class="ttdoc">Checks the menu state.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00016">PlayerController.cpp:16</a></div></div>
+<div class="ttc" id="aa01246_html_a6ab1f40f519e7445a03f406e38d71007"><div class="ttname"><a href="a01246.html#a6ab1f40f519e7445a03f406e38d71007">core::battle::PlayerController::name</a></div><div class="ttdeci">virtual const std::string &amp; name() const override</div><div class="ttdoc">Returns the name of the battler.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00009">PlayerController.cpp:9</a></div></div>
+<div class="ttc" id="aa01246_html_a7c78dacf8556e841c03f1ac36bda4d0c"><div class="ttname"><a href="a01246.html#a7c78dacf8556e841c03f1ac36bda4d0c">core::battle::PlayerController::isHost</a></div><div class="ttdeci">virtual bool isHost() const override</div><div class="ttdoc">Returns true.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00069">PlayerController.cpp:69</a></div></div>
+<div class="ttc" id="aa01246_html_ac9e876179b19f05299785760d672da3b"><div class="ttname"><a href="a01246.html#ac9e876179b19f05299785760d672da3b">core::battle::PlayerController::PlayerController</a></div><div class="ttdeci">PlayerController(system::Player &amp;player, view::PlayerMenu &amp;menu)</div><div class="ttdoc">Construct a new Player Controller.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00011">PlayerController.cpp:11</a></div></div>
+<div class="ttc" id="aa01246_html_ae187b9610c61da47fcb4d619a1661e6b"><div class="ttname"><a href="a01246.html#ae187b9610c61da47fcb4d619a1661e6b">core::battle::PlayerController::removeItem</a></div><div class="ttdeci">virtual bool removeItem(item::Id item) override</div><div class="ttdoc">Removes the item from the battler's inventory.</div><div class="ttdef"><b>Definition:</b> <a href="a00578_source.html#l00067">PlayerController.cpp:67</a></div></div>
+<div class="ttc" id="aa01314_html"><div class="ttname"><a href="a01314.html">core::battle::view::PlayerMenu</a></div><div class="ttdoc">The player menu for battles.</div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00028">PlayerMenu.hpp:28</a></div></div>
+<div class="ttc" id="aa01314_html_a18c1310dcd92642c128b9b08f54b9680"><div class="ttname"><a href="a01314.html#a18c1310dcd92642c128b9b08f54b9680">core::battle::view::PlayerMenu::selectedAction</a></div><div class="ttdeci">TurnAction selectedAction() const</div><div class="ttdoc">The selected turn action.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00175">PlayerMenu.cpp:175</a></div></div>
+<div class="ttc" id="aa01314_html_a431286ef573fbcef38f5ae0308a9aad1"><div class="ttname"><a href="a01314.html#a431286ef573fbcef38f5ae0308a9aad1">core::battle::view::PlayerMenu::selectedPeoplemon</a></div><div class="ttdeci">int selectedPeoplemon() const</div><div class="ttdoc">Returns the selected peoplemon index.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00181">PlayerMenu.cpp:181</a></div></div>
+<div class="ttc" id="aa01314_html_ab82abfa86821a417cec2c281896a2003"><div class="ttname"><a href="a01314.html#ab82abfa86821a417cec2c281896a2003">core::battle::view::PlayerMenu::choosePeoplemonMidTurn</a></div><div class="ttdeci">void choosePeoplemonMidTurn(bool fromFaint, bool fromRevive)</div><div class="ttdoc">Opens the menu to select a peoplemon to send out.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00144">PlayerMenu.cpp:144</a></div></div>
+<div class="ttc" id="aa01314_html_acab5fdeda2a6d661f891a3560dd87d9f"><div class="ttname"><a href="a01314.html#acab5fdeda2a6d661f891a3560dd87d9f">core::battle::view::PlayerMenu::selectedItem</a></div><div class="ttdeci">item::Id selectedItem() const</div><div class="ttdoc">Returns the selected item.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00179">PlayerMenu.cpp:179</a></div></div>
+<div class="ttc" id="aa01314_html_ad3314a334dd6dfb023ef4786f60dbeae"><div class="ttname"><a href="a01314.html#ad3314a334dd6dfb023ef4786f60dbeae">core::battle::view::PlayerMenu::beginTurn</a></div><div class="ttdeci">void beginTurn()</div><div class="ttdoc">Resets the menu to the turn start state.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00139">PlayerMenu.cpp:139</a></div></div>
+<div class="ttc" id="aa01314_html_ae10abcbb9913b568c1a423011e22b8e9"><div class="ttname"><a href="a01314.html#ae10abcbb9913b568c1a423011e22b8e9">core::battle::view::PlayerMenu::selectedMove</a></div><div class="ttdeci">int selectedMove() const</div><div class="ttdoc">Returns the selected move index.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00177">PlayerMenu.cpp:177</a></div></div>
+<div class="ttc" id="aa01314_html_afca91b7d7b5318cb74670b16a87da5e9"><div class="ttname"><a href="a01314.html#afca91b7d7b5318cb74670b16a87da5e9">core::battle::view::PlayerMenu::ready</a></div><div class="ttdeci">bool ready() const</div><div class="ttdoc">Returns true when the player's choice has been made.</div><div class="ttdef"><b>Definition:</b> <a href="a00611_source.html#l00173">PlayerMenu.cpp:173</a></div></div>
+<div class="ttc" id="aa01846_html_a0889148b02fd6dc5b65b1ccb02a28052"><div class="ttname"><a href="a01846.html#a0889148b02fd6dc5b65b1ccb02a28052">core::player::Bag::removeItem</a></div><div class="ttdeci">bool removeItem(item::Id item, unsigned int qty=1)</div><div class="ttdoc">Removes the given item from the bag.</div><div class="ttdef"><b>Definition:</b> <a href="a00770_source.html#l00052">Bag.cpp:52</a></div></div>
+<div class="ttc" id="aa01866_html_a512f31e65aad71aa9e01f85b778dcfec"><div class="ttname"><a href="a01866.html#a512f31e65aad71aa9e01f85b778dcfec">core::player::State::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00041">State.hpp:41</a></div></div>
+<div class="ttc" id="aa01866_html_af138e05ed91617c02df4bdd321fa1eb3"><div class="ttname"><a href="a01866.html#af138e05ed91617c02df4bdd321fa1eb3">core::player::State::bag</a></div><div class="ttdeci">player::Bag bag</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00043">State.hpp:43</a></div></div>
+<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">core::system::Player</a></div><div class="ttdoc">Primary system for managing the player and their data.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00033">Player.hpp:35</a></div></div>
+<div class="ttc" id="aa02006_html_a1ae5c4b4208e1adf18f0755baed9ae31"><div class="ttname"><a href="a02006.html#a1ae5c4b4208e1adf18f0755baed9ae31">core::system::Player::state</a></div><div class="ttdeci">player::State &amp; state()</div><div class="ttdoc">Returns the state of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00154">Player.cpp:154</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

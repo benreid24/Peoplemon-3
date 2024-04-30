@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/Type.hpp Source File</title>
+<title>Peoplemon: include/Core/Components/NPC.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,63 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_d0817f30fd8c8c383703ce347219b18e.html">Items</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_b572e9e567c53bf52c1d322a7f434893.html">Components</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Type.hpp</div>  </div>
+<div class="title">NPC.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03006.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_ITEMS_TYPE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_ITEMS_TYPE_HPP</span></div>
+<a href="a03006.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_NPC_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_NPC_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>item</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01068.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">   17</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a01068.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">Type</a> : std::uint16_t {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a> = 0,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">TargetPeoplemon</a> = 1,</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">Peopleball</a>,</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">EvolveStone</a>,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">PlayerModifier</a>,</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">Useless</a>,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">HoldItem</a>,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">KeyItem</a>,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">TM</a></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02967.html">Core/Files/Conversation.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03009.html">Core/Files/NPC.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01342.html">   17</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01342.html">NPC</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01342.html#a1daa2f89c95a84673d7f3ada08261905">NPC</a>(<span class="keyword">const</span> <a class="code" href="a01630.html">file::NPC</a>&amp; data);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a01342.html#afd96ec1e45b6996df6ec7ef1cf3630d5">name</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01530.html">file::Conversation</a>&amp; <a class="code" href="a01342.html#a9a66927356a70e6eeabc7846a6eabbd1">conversation</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">const</span> std::string _name;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="a01530.html">file::Conversation</a> _conversation;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;};</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace item</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01068_html_ga0e0fc5f0899c8ab17fd8d7d307e878dd"><div class="ttname"><a href="a01068.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type classification of an item. This is used to determine when an item may be used and how to use...</div><div class="ttdef"><b>Definition:</b> <a href="a03006_source.html#l00017">Type.hpp:17</a></div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda0e8524ba9fdedccd410695ffd30fbda3">core::item::Type::EvolveStone</a></div><div class="ttdeci">@ EvolveStone</div><div class="ttdoc">The item is used to evolve peoplemon.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda4e76196ca997c8f433a2a5b67f8f005d">core::item::Type::Useless</a></div><div class="ttdeci">@ Useless</div><div class="ttdoc">Items who's only use is to be sold.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda82f60caea0455676d244117d3ef104e4">core::item::Type::Peopleball</a></div><div class="ttdeci">@ Peopleball</div><div class="ttdoc">The item is used to catch peoplemon.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Type::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">Invalid type for Unknown items.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878dda972931faeff525e00bb2b27a597ef56d">core::item::Type::KeyItem</a></div><div class="ttdeci">@ KeyItem</div><div class="ttdoc">The item is a key item.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac79581d600bbe6f94d1786536f31f73">core::item::Type::TargetPeoplemon</a></div><div class="ttdeci">@ TargetPeoplemon</div><div class="ttdoc">The item is used on a peoplemon.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddaac7a4fbd0d788d94f43454817e1c208c">core::item::Type::TM</a></div><div class="ttdeci">@ TM</div><div class="ttdoc">The item is a TM.</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddac9a46d63688adc366456f9124b4cd7ab">core::item::Type::PlayerModifier</a></div><div class="ttdeci">@ PlayerModifier</div><div class="ttdoc">The item modifiers player state (ie repel)</div></div>
-<div class="ttc" id="aa01068_html_gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0"><div class="ttname"><a href="a01068.html#gga0e0fc5f0899c8ab17fd8d7d307e878ddacff0b2f6019202b5f77afa96517945f0">core::item::Type::HoldItem</a></div><div class="ttdeci">@ HoldItem</div><div class="ttdoc">The item may be held by Peoplemon.</div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01342_html"><div class="ttname"><a href="a01342.html">core::component::NPC</a></div><div class="ttdoc">Adding this to an entity will allow it to be interacted with and talked to.</div><div class="ttdef"><b>Definition:</b> <a href="a03006_source.html#l00017">NPC.hpp:17</a></div></div>
+<div class="ttc" id="aa01342_html_a1daa2f89c95a84673d7f3ada08261905"><div class="ttname"><a href="a01342.html#a1daa2f89c95a84673d7f3ada08261905">core::component::NPC::NPC</a></div><div class="ttdeci">NPC(const file::NPC &amp;data)</div><div class="ttdoc">Construct a new NPC component.</div><div class="ttdef"><b>Definition:</b> <a href="a03147_source.html#l00009">NPC.cpp:9</a></div></div>
+<div class="ttc" id="aa01342_html_a9a66927356a70e6eeabc7846a6eabbd1"><div class="ttname"><a href="a01342.html#a9a66927356a70e6eeabc7846a6eabbd1">core::component::NPC::conversation</a></div><div class="ttdeci">const file::Conversation &amp; conversation() const</div><div class="ttdoc">The conversation of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a03147_source.html#l00023">NPC.cpp:23</a></div></div>
+<div class="ttc" id="aa01342_html_afd96ec1e45b6996df6ec7ef1cf3630d5"><div class="ttname"><a href="a01342.html#afd96ec1e45b6996df6ec7ef1cf3630d5">core::component::NPC::name</a></div><div class="ttdeci">const std::string &amp; name() const</div><div class="ttdoc">The name of the NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a03147_source.html#l00021">NPC.cpp:21</a></div></div>
+<div class="ttc" id="aa01530_html"><div class="ttname"><a href="a01530.html">core::file::Conversation</a></div><div class="ttdoc">Stores a conversation that an NPC or trainer can have with the player.</div><div class="ttdef"><b>Definition:</b> <a href="a02967_source.html#l00022">Conversation.hpp:22</a></div></div>
+<div class="ttc" id="aa01630_html"><div class="ttname"><a href="a01630.html">core::file::NPC</a></div><div class="ttdoc">File data for NPCs.</div><div class="ttdef"><b>Definition:</b> <a href="a03009_source.html#l00026">NPC.hpp:26</a></div></div>
+<div class="ttc" id="aa02967_html"><div class="ttname"><a href="a02967.html">Conversation.hpp</a></div></div>
+<div class="ttc" id="aa03009_html"><div class="ttname"><a href="a03009.html">NPC.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

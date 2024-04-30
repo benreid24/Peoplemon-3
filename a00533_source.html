@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/States/NewGame.hpp Source File</title>
+<title>Peoplemon: include/Game/States/MapExplorer.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,71 +71,71 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">NewGame.hpp</div>  </div>
+<div class="title">MapExplorer.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00533.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_NEWGAME_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_NEWGAME_HPP</span></div>
+<a href="a00533.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_MAP_EXPLORER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_MAP_EXPLORER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03012.html">Core/Maps/Map.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03051.html">Game/States/State.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01107.html">game</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02336.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02336.html">NewGame</a> : <span class="keyword">public</span> <a class="code" href="a02364.html">State</a> {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02336.html#aed9aa52a2728b50fd9633705fc002aaf">create</a>(<a class="code" href="a02012.html">core::system::Systems</a>&amp; <a class="code" href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02336.html#a1beea39957a023faca4802d6a83ee6b0">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02336.html#a1beea39957a023faca4802d6a83ee6b0">~NewGame</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02336.html#a425868cb227f96f1c86b3024bc2a82ef">name</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02336.html#a35f139b50b5b15e496ae36ccd3e0e9fc">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02336.html#aae9ae100d1002573cf3c0cb038a05afe">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02336.html#afc319da97dc4da1047df9f399a2f2a00">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    bl::rc::res::TextureRef profTxtr;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    bl::gfx::Sprite background;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    bl::gfx::Sprite prof;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    std::string playerName;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">bool</span> isBoy;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    bl::rc::rgi::FadeEffectTask* fadeout;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <a class="code" href="a02336.html">NewGame</a>(<a class="code" href="a02012.html">core::system::Systems</a>&amp; <a class="code" href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> nameSet(<span class="keyword">const</span> std::string&amp; <a class="code" href="a02336.html#a425868cb227f96f1c86b3024bc2a82ef">name</a>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">void</span> genderSet(<span class="keyword">const</span> std::string&amp; gender);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordtype">void</span> fadeOut();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02012_html"><div class="ttname"><a href="a02012.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02336_html"><div class="ttname"><a href="a02336.html">game::state::NewGame</a></div><div class="ttdoc">This state does the game intro, gets the player's name and gender, and triggers the main game state i...</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00018">NewGame.hpp:18</a></div></div>
-<div class="ttc" id="aa02336_html_a1beea39957a023faca4802d6a83ee6b0"><div class="ttname"><a href="a02336.html#a1beea39957a023faca4802d6a83ee6b0">game::state::NewGame::~NewGame</a></div><div class="ttdeci">virtual ~NewGame()=default</div><div class="ttdoc">Destroy the New Game state.</div></div>
-<div class="ttc" id="aa02336_html_a35f139b50b5b15e496ae36ccd3e0e9fc"><div class="ttname"><a href="a02336.html#a35f139b50b5b15e496ae36ccd3e0e9fc">game::state::NewGame::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00028">NewGame.cpp:28</a></div></div>
-<div class="ttc" id="aa02336_html_a425868cb227f96f1c86b3024bc2a82ef"><div class="ttname"><a href="a02336.html#a425868cb227f96f1c86b3024bc2a82ef">game::state::NewGame::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;NewGame&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00026">NewGame.cpp:26</a></div></div>
-<div class="ttc" id="aa02336_html_aae9ae100d1002573cf3c0cb038a05afe"><div class="ttname"><a href="a02336.html#aae9ae100d1002573cf3c0cb038a05afe">game::state::NewGame::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Deactivates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00085">NewGame.cpp:85</a></div></div>
-<div class="ttc" id="aa02336_html_aed9aa52a2728b50fd9633705fc002aaf"><div class="ttname"><a href="a02336.html#aed9aa52a2728b50fd9633705fc002aaf">game::state::NewGame::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates the new game state.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00020">NewGame.cpp:20</a></div></div>
-<div class="ttc" id="aa02336_html_afc319da97dc4da1047df9f399a2f2a00"><div class="ttname"><a href="a02336.html#afc319da97dc4da1047df9f399a2f2a00">game::state::NewGame::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the state and menus and whatnot.</div><div class="ttdef"><b>Definition:</b> <a href="a01040_source.html#l00098">NewGame.cpp:98</a></div></div>
-<div class="ttc" id="aa02364_html"><div class="ttname"><a href="a02364.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02364_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02364.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03051_source.html#l00066">State.hpp:66</a></div></div>
-<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">Map.hpp</a></div></div>
-<div class="ttc" id="aa03051_html"><div class="ttname"><a href="a03051.html">State.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Cameras.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03063.html">Core/Maps/Map.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03102.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01113.html">game</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02358.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02358.html">MapExplorer</a></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02390.html">State</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, <span class="keyword">public</span> bl::event::Listener&lt;sf::Event&gt; {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02358.html#a7fc59fde21e63a8d3e996b44c7e74f81">create</a>(<a class="code" href="a02026.html">core::system::Systems</a>&amp; <a class="code" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02358.html#abc5e247ae2301cd134ff1289ab9aade0">   34</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02358.html#abc5e247ae2301cd134ff1289ab9aade0">~MapExplorer</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02358.html#ac370eb1c45b531c4c15565f44d420873">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02358.html#ae53c68ffd2d70541f76dc9e671380762">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02358.html#adca74eead404a4a1fd3582bb7e1960ec">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02358.html#abc3846299b4fc36af689003b50bf08d2">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keyword">enum</span> HintState { Hidden, Showing, Fading };</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    bl::gfx::Rectangle hintBox;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    bl::gfx::Text hintText;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    HintState hintState;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">float</span> hintTime;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02358.html">MapExplorer</a>(<a class="code" href="a02026.html">core::system::Systems</a>&amp; <a class="code" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> sf::Event&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;};</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02358_html"><div class="ttname"><a href="a02358.html">game::state::MapExplorer</a></div><div class="ttdoc">Debug only state that allows free roaming the map with a special camera.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00018">MapExplorer.hpp:20</a></div></div>
+<div class="ttc" id="aa02358_html_a7fc59fde21e63a8d3e996b44c7e74f81"><div class="ttname"><a href="a02358.html#a7fc59fde21e63a8d3e996b44c7e74f81">game::state::MapExplorer::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates a new MapExplorer state.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00054">MapExplorer.cpp:54</a></div></div>
+<div class="ttc" id="aa02358_html_abc3846299b4fc36af689003b50bf08d2"><div class="ttname"><a href="a02358.html#abc3846299b4fc36af689003b50bf08d2">game::state::MapExplorer::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the game world logic and the hint fadeout.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00099">MapExplorer.cpp:99</a></div></div>
+<div class="ttc" id="aa02358_html_abc5e247ae2301cd134ff1289ab9aade0"><div class="ttname"><a href="a02358.html#abc5e247ae2301cd134ff1289ab9aade0">game::state::MapExplorer::~MapExplorer</a></div><div class="ttdeci">virtual ~MapExplorer()=default</div><div class="ttdoc">Destroy the Map Explorer state.</div></div>
+<div class="ttc" id="aa02358_html_ac370eb1c45b531c4c15565f44d420873"><div class="ttname"><a href="a02358.html#ac370eb1c45b531c4c15565f44d420873">game::state::MapExplorer::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;MapExplorer&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00076">MapExplorer.cpp:76</a></div></div>
+<div class="ttc" id="aa02358_html_adca74eead404a4a1fd3582bb7e1960ec"><div class="ttname"><a href="a02358.html#adca74eead404a4a1fd3582bb7e1960ec">game::state::MapExplorer::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Reconnects the player to their entity and pops the camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00092">MapExplorer.cpp:92</a></div></div>
+<div class="ttc" id="aa02358_html_ae53c68ffd2d70541f76dc9e671380762"><div class="ttname"><a href="a02358.html#ae53c68ffd2d70541f76dc9e671380762">game::state::MapExplorer::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state and camera. Disconnects the player from their entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00078">MapExplorer.cpp:78</a></div></div>
+<div class="ttc" id="aa02390_html"><div class="ttname"><a href="a02390.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03102_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02390_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03102_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa03063_html"><div class="ttname"><a href="a03063.html">Map.hpp</a></div></div>
+<div class="ttc" id="aa03102_html"><div class="ttname"><a href="a03102.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

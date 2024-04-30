@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Resources.cpp Source File</title>
+<title>Peoplemon: src/Core/Resources/WalkAnimations.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,127 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Resources.cpp</div>  </div>
+<div class="title">WalkAnimations.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00788.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources.hpp</a>&gt;</span></div>
+<a href="a00788.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00290.html">Core/Resources/WalkAnimations.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Logging.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Resources/BundleHandlers.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/FileUtil.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>res</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">const</span> std::string BundlePath = <span class="stringliteral">&quot;data&quot;</span>;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01072.html#gad33d85e09660ea3585e1353113905170">   16</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01072.html#gad33d85e09660ea3585e1353113905170">installDevLoaders</a>() {</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    TilesetManager::installLoader&lt;TilesetDevLoader&gt;();</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    MapManager::installLoader&lt;MapDevLoader&gt;();</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    ConversationManager::installLoader&lt;ConversationDevLoader&gt;();</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    NpcManager::installLoader&lt;NpcDevLoader&gt;();</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    TrainerManager::installLoader&lt;TrainerDevLoader&gt;();</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    ItemDbManager::installLoader&lt;ItemDBDevLoader&gt;();</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    MoveDbManager::installLoader&lt;MoveDBDevLoader&gt;();</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    PeoplemonDbManager::installLoader&lt;PeoplemonDBDevLoader&gt;();</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    WalkAnimationManager::installLoader&lt;WalkAnimationLoader&gt;();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    RunWalkAnimationManager::installLoader&lt;RunWalkAnimationLoader&gt;();</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01072.html#ga49e5132b191e1d2d64eef9960598ca70">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01072.html#ga49e5132b191e1d2d64eef9960598ca70">installProdLoaders</a>() {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">if</span> (!bl::resource::FileSystem::useBundle(BundlePath)) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        BL_LOG_CRITICAL &lt;&lt; <span class="stringliteral">&quot;Unable to mount resource bundles&quot;</span>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        std::exit(1);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    TilesetManager::installLoader&lt;TilesetProdLoader&gt;();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    MapManager::installLoader&lt;MapProdLoader&gt;();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    ConversationManager::installLoader&lt;ConversationProdLoader&gt;();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    NpcManager::installLoader&lt;NpcProdLoader&gt;();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    TrainerManager::installLoader&lt;TrainerProdLoader&gt;();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    ItemDbManager::installLoader&lt;ItemDBProdLoader&gt;();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    MoveDbManager::installLoader&lt;MoveDBProdLoader&gt;();</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    PeoplemonDbManager::installLoader&lt;PeoplemonDBProdLoader&gt;();</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    WalkAnimationManager::installLoader&lt;WalkAnimationLoader&gt;();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    RunWalkAnimationManager::installLoader&lt;RunWalkAnimationLoader&gt;();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a01072.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">   47</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01072.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">createBundles</a>() {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">using namespace </span>bl::resource;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    constexpr <span class="keyword">auto</span> BundleAllFiles = bundle::BundleSource::BundleAllFiles;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    constexpr <span class="keyword">auto</span> BundleForEachRecurse =</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        bundle::BundleSource::CreateBundleForEachContainedRecursive;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    constexpr <span class="keyword">auto</span> BundleEachTopLevel = bundle::BundleSource::CreateBundleForEachContained;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Bundler bundler(</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        bundle::Config(BundlePath)</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Animations/Battle&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            .addBundleSource(</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                {<span class="stringliteral">&quot;Resources/Animations/Moves&quot;</span>,</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                 BundleEachTopLevel,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                 <span class="stringliteral">&quot;.*((Front)|(Back))[\\/\\\\]((foreground\\.anim)|(background\\.anim)|(.*\\.png))&quot;</span>})</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Audio/Playlists&quot;</span>, BundleForEachRecurse})</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Audio/Music&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Audio/Sounds&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Maps/Maps&quot;</span>, BundleForEachRecurse})</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Maps/Tilesets&quot;</span>, BundleForEachRecurse})</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Characters/Trainers&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Characters/NPCs&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Characters/Animations&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Config&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Scripts&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Fonts&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images/Menus&quot;</span>, BundleEachTopLevel})</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images/Weather&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images/Battle&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images/Peoplemon&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images/Spritesheets&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            .addBundleSource({<span class="stringliteral">&quot;Resources/Images&quot;</span>, BundleAllFiles})</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            .addFileHandler&lt;bundle::AnimationHandler&gt;(<span class="stringliteral">&quot;.*\\.anim&quot;</span>)</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;            .addFileHandler&lt;bundle::PlaylistHandler&gt;(<span class="stringliteral">&quot;.*\\.plst&quot;</span>, <span class="keyword">true</span>)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::ItemDB&gt;</a>&gt;(<span class="stringliteral">&quot;.*items\\.db&quot;</span>)</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::MoveDB&gt;</a>&gt;(<span class="stringliteral">&quot;.*moves\\.db&quot;</span>)</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::PeoplemonDB&gt;</a>&gt;(<span class="stringliteral">&quot;.*peoplemon\\.db&quot;</span>)</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::Conversation&gt;</a>&gt;(<span class="stringliteral">&quot;.*\\.conv&quot;</span>)</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::NPC&gt;</a>&gt;(<span class="stringliteral">&quot;.*\\.npc&quot;</span>)</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;file::Trainer&gt;</a>&gt;(<span class="stringliteral">&quot;.*\\.tnr&quot;</span>)</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;map::Map&gt;</a>&gt;(<span class="stringliteral">&quot;.*\\.map&quot;</span>)</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;            .addFileHandler&lt;<a class="code" href="a01868.html">PeoplemonBundleHandler&lt;map::Tileset&gt;</a>&gt;(<span class="stringliteral">&quot;.*\\.tlst&quot;</span>)</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            .withCatchAllDirectory(<span class="stringliteral">&quot;Resources&quot;</span>)</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            .build());</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">return</span> bundler.createBundles();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace res</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">BundleHandlers.hpp</a></div></div>
-<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01072_html_ga06a2b1d1c4ad02dd161574d9dc3ec524"><div class="ttname"><a href="a01072.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00047">Resources.cpp:47</a></div></div>
-<div class="ttc" id="aa01072_html_ga49e5132b191e1d2d64eef9960598ca70"><div class="ttname"><a href="a01072.html#ga49e5132b191e1d2d64eef9960598ca70">core::res::installProdLoaders</a></div><div class="ttdeci">void installProdLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00029">Resources.cpp:29</a></div></div>
-<div class="ttc" id="aa01072_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01072.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00016">Resources.cpp:16</a></div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01868_html"><div class="ttname"><a href="a01868.html">core::res::PeoplemonBundleHandler</a></div><div class="ttdoc">Generic handler for peoplemon files when being bundled. Performs format conversion and registers depe...</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00019">BundleHandlers.hpp:19</a></div></div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01894.html#a70b0f00855c9a34611b144eb2745adae">    9</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01894.html#a70b0f00855c9a34611b144eb2745adae">WalkAnimations::loadFromDirectory</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">using</span> <a class="code" href="a00293.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a> = bl::resource::ResourceManager&lt;bl::gfx::a2d::AnimationData&gt;;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">using</span> <a class="code" href="a01105.html#a6d9c3715f0042a26a07703b3a1006870">FileUtil</a>         = <a class="code" href="a01105.html#a6d9c3715f0042a26a07703b3a1006870">bl::util::FileUtil</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;up.anim&quot;</span>), *<span class="keyword">this</span>)) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    maxLen = getLength();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    prepareForStates(4);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    bl::gfx::a2d::AnimationData temp;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;right.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    addState(1, temp);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;down.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    addState(2, temp);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;left.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    addState(3, temp);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a01898.html#ac812aaa849e6d32df14b228e81d88aa8">   41</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01898.html#ac812aaa849e6d32df14b228e81d88aa8">WalkAnimationLoader::load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                               <a class="code" href="a01894.html">WalkAnimations</a>&amp; result) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> result.<a class="code" href="a01894.html#a70b0f00855c9a34611b144eb2745adae">loadFromDirectory</a>(path);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00290_html"><div class="ttname"><a href="a00290.html">WalkAnimations.hpp</a></div></div>
+<div class="ttc" id="aa00293_html_a0fa4edee4adcb3fdc713366e2d8c3eca"><div class="ttname"><a href="a00293.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; bl::gfx::a2d::AnimationData &gt; AnimationManager</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00020">Resources.hpp:20</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01105_html_a6d9c3715f0042a26a07703b3a1006870"><div class="ttname"><a href="a01105.html#a6d9c3715f0042a26a07703b3a1006870">editor::component::FileUtil</a></div><div class="ttdeci">bl::util::FileUtil FileUtil</div><div class="ttdef"><b>Definition:</b> <a href="a00923_source.html#l00015">NPCEditorWindow.cpp:15</a></div></div>
+<div class="ttc" id="aa01894_html"><div class="ttname"><a href="a01894.html">core::res::WalkAnimations</a></div><div class="ttdoc">Extension of animation data that loads and combines the animations for each movement direction into a...</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00018">WalkAnimations.hpp:18</a></div></div>
+<div class="ttc" id="aa01894_html_a70b0f00855c9a34611b144eb2745adae"><div class="ttname"><a href="a01894.html#a70b0f00855c9a34611b144eb2745adae">core::res::WalkAnimations::loadFromDirectory</a></div><div class="ttdeci">bool loadFromDirectory(const std::string &amp;path)</div><div class="ttdoc">Loads the walking animations from the given directory.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00009">WalkAnimations.cpp:9</a></div></div>
+<div class="ttc" id="aa01898_html_ac812aaa849e6d32df14b228e81d88aa8"><div class="ttname"><a href="a01898.html#ac812aaa849e6d32df14b228e81d88aa8">core::res::WalkAnimationLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *, std::size_t, std::istream &amp;, WalkAnimations &amp;result) override</div><div class="ttdoc">Loads the walking animations from the given path.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00041">WalkAnimations.cpp:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

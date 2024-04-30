@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Item.cpp Source File</title>
+<title>Peoplemon: include/Core/Player/Peopledex.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,43 +66,79 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_be6ecaab1a4ec5e27af38c3573eadf7d.html">Player</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Item.cpp</div>  </div>
+<div class="title">Peopledex.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03093.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02952.html">Core/Maps/Item.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01672.html#a7240e61c5545673944a7c3b95c0bb755">    7</a></span>&#160;<a class="code" href="a01672.html#a7240e61c5545673944a7c3b95c0bb755">Item::Item</a>()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: id(0)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, mapId(0)</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;, level(0)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, visible(false) {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01672.html#a9cfc4fe511a0f37c48ea13c5f85dab7b">   13</a></span>&#160;<a class="code" href="a01672.html#a7240e61c5545673944a7c3b95c0bb755">Item::Item</a>(std::uint16_t i, std::uint16_t mi, <span class="keyword">const</span> sf::Vector2i&amp; pos, std::uint8_t l, <span class="keywordtype">bool</span> v)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: id(i)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, mapId(mi)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, position(pos)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, level(l)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, visible(v) {}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01672_html_a7240e61c5545673944a7c3b95c0bb755"><div class="ttname"><a href="a01672.html#a7240e61c5545673944a7c3b95c0bb755">core::map::Item::Item</a></div><div class="ttdeci">Item()</div><div class="ttdoc">Makes an empty item.</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00007">Item.cpp:7</a></div></div>
-<div class="ttc" id="aa02952_html"><div class="ttname"><a href="a02952.html">Item.hpp</a></div></div>
+<a href="a03093.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_PLAYER_PEOPLEDEX_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_PLAYER_PEOPLEDEX_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03054.html">Core/Peoplemon/Id.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">class </span>Player;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>player</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">struct </span>State;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01862.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01862.html">Peopledex</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01862.html#af72738f75b59895e9be958f3938a3256ad2ad7b2ee6d7182537778f2f3b7e5345">   27</a></span>&#160;    <span class="keyword">enum</span> <a class="code" href="a01862.html#af72738f75b59895e9be958f3938a3256">IntelLevel</a> { <a class="code" href="a01862.html#af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06">NoIntel</a>, <a class="code" href="a01862.html#af72738f75b59895e9be958f3938a3256a90069f95ad8f34e7d8cd74d77ce9f138">LimitedIntel</a>, <a class="code" href="a01862.html#af72738f75b59895e9be958f3938a3256ad2ad7b2ee6d7182537778f2f3b7e5345">FullIntel</a> };</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01862.html#a9a172a6785a555f5239364113405ea65">Peopledex</a>(<a class="code" href="a01866.html">State</a>&amp; playerState);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01862.html#a575c292ce4539df2b750dfffed906f22">getSeen</a>(<a class="code" href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> peoplemon) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01862.html#a96a9bddc02e5a581271e90c2f7fd9740">getCaught</a>(<a class="code" href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> peoplemon) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">const</span> std::string&amp; <a class="code" href="a01862.html#a1429e9518d1086b5648c0f8aa1886745">getFirstSeenLocation</a>(<a class="code" href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> peoplemon) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a01862.html#af72738f75b59895e9be958f3938a3256">IntelLevel</a> <a class="code" href="a01862.html#a266e81d1213eebdece583a0d712344a2">getIntelLevel</a>(<a class="code" href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> peoplemon) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01862.html#a0dc7d28595b40550ad0f61caaa1f5a3d">registerSighting</a>(<a class="code" href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">pplmn::Id</a> peoplemon, <span class="keyword">const</span> std::string&amp; location);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <a class="code" href="a01866.html">State</a>&amp; playerState;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    std::unordered_map&lt;pplmn::Id, std::uint32_t&gt; seenCounts;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    std::unordered_map&lt;pplmn::Id, std::string&gt; firstSawLocations;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a01862.html#afe4fe45f7f9dae6210296c39230d710a">   81</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02006.html">system::Player</a>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;};</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;} <span class="comment">// namespace player</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01076_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01076.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03054_source.html#l00016">Id.hpp:16</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01862_html"><div class="ttname"><a href="a01862.html">core::player::Peopledex</a></div><div class="ttdoc">Maintains the information required to populate the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00024">Peopledex.hpp:24</a></div></div>
+<div class="ttc" id="aa01862_html_a0dc7d28595b40550ad0f61caaa1f5a3d"><div class="ttname"><a href="a01862.html#a0dc7d28595b40550ad0f61caaa1f5a3d">core::player::Peopledex::registerSighting</a></div><div class="ttdeci">void registerSighting(pplmn::Id peoplemon, const std::string &amp;location)</div><div class="ttdoc">Registers a sighting of the given peoplemon at the given location.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00049">Peopledex.cpp:49</a></div></div>
+<div class="ttc" id="aa01862_html_a1429e9518d1086b5648c0f8aa1886745"><div class="ttname"><a href="a01862.html#a1429e9518d1086b5648c0f8aa1886745">core::player::Peopledex::getFirstSeenLocation</a></div><div class="ttdeci">const std::string &amp; getFirstSeenLocation(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns the name of the location the given peoplemon was first spotted at.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00017">Peopledex.cpp:17</a></div></div>
+<div class="ttc" id="aa01862_html_a266e81d1213eebdece583a0d712344a2"><div class="ttname"><a href="a01862.html#a266e81d1213eebdece583a0d712344a2">core::player::Peopledex::getIntelLevel</a></div><div class="ttdeci">IntelLevel getIntelLevel(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns the level of intel on the given peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00042">Peopledex.cpp:42</a></div></div>
+<div class="ttc" id="aa01862_html_a575c292ce4539df2b750dfffed906f22"><div class="ttname"><a href="a01862.html#a575c292ce4539df2b750dfffed906f22">core::player::Peopledex::getSeen</a></div><div class="ttdeci">unsigned int getSeen(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns how many of the given peoplemon have been seen.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00012">Peopledex.cpp:12</a></div></div>
+<div class="ttc" id="aa01862_html_a96a9bddc02e5a581271e90c2f7fd9740"><div class="ttname"><a href="a01862.html#a96a9bddc02e5a581271e90c2f7fd9740">core::player::Peopledex::getCaught</a></div><div class="ttdeci">unsigned int getCaught(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns how many of the given peoplemon have been caught.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00026">Peopledex.cpp:26</a></div></div>
+<div class="ttc" id="aa01862_html_a9a172a6785a555f5239364113405ea65"><div class="ttname"><a href="a01862.html#a9a172a6785a555f5239364113405ea65">core::player::Peopledex::Peopledex</a></div><div class="ttdeci">Peopledex(State &amp;playerState)</div><div class="ttdoc">Construct a new Peopledex object.</div><div class="ttdef"><b>Definition:</b> <a href="a03183_source.html#l00009">Peopledex.cpp:9</a></div></div>
+<div class="ttc" id="aa01862_html_af72738f75b59895e9be958f3938a3256"><div class="ttname"><a href="a01862.html#af72738f75b59895e9be958f3938a3256">core::player::Peopledex::IntelLevel</a></div><div class="ttdeci">IntelLevel</div><div class="ttdoc">Represents an intel level on a given peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00027">Peopledex.hpp:27</a></div></div>
+<div class="ttc" id="aa01862_html_af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06"><div class="ttname"><a href="a01862.html#af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06">core::player::Peopledex::NoIntel</a></div><div class="ttdeci">@ NoIntel</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00027">Peopledex.hpp:27</a></div></div>
+<div class="ttc" id="aa01862_html_af72738f75b59895e9be958f3938a3256a90069f95ad8f34e7d8cd74d77ce9f138"><div class="ttname"><a href="a01862.html#af72738f75b59895e9be958f3938a3256a90069f95ad8f34e7d8cd74d77ce9f138">core::player::Peopledex::LimitedIntel</a></div><div class="ttdeci">@ LimitedIntel</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00027">Peopledex.hpp:27</a></div></div>
+<div class="ttc" id="aa01862_html_af72738f75b59895e9be958f3938a3256ad2ad7b2ee6d7182537778f2f3b7e5345"><div class="ttname"><a href="a01862.html#af72738f75b59895e9be958f3938a3256ad2ad7b2ee6d7182537778f2f3b7e5345">core::player::Peopledex::FullIntel</a></div><div class="ttdeci">@ FullIntel</div><div class="ttdef"><b>Definition:</b> <a href="a03093_source.html#l00027">Peopledex.hpp:27</a></div></div>
+<div class="ttc" id="aa01866_html"><div class="ttname"><a href="a01866.html">core::player::State</a></div><div class="ttdoc">Stores all player state.</div><div class="ttdef"><b>Definition:</b> <a href="a03099_source.html#l00022">State.hpp:22</a></div></div>
+<div class="ttc" id="aa02006_html"><div class="ttname"><a href="a02006.html">core::system::Player</a></div><div class="ttdoc">Primary system for managing the player and their data.</div><div class="ttdef"><b>Definition:</b> <a href="a00341_source.html#l00033">Player.hpp:35</a></div></div>
+<div class="ttc" id="aa03054_html"><div class="ttname"><a href="a03054.html">Id.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

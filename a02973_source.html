@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Events/GameSave.hpp Source File</title>
+<title>Peoplemon: include/Core/Events/Battle.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,55 +71,55 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GameSave.hpp</div>  </div>
+<div class="title">Battle.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a02973.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_GAMESAVE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_GAMESAVE_HPP</span></div>
+<a href="a02973.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_BATTLE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_BATTLE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01088.html">    9</a></span>&#160;<span class="keyword">namespace </span>file</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span><a class="code" href="a01544.html">GameSave</a>;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>event</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01400.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01400.html">GameSaveInitializing</a> {</div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01400.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">   24</a></span>&#160;    <a class="code" href="a01544.html">file::GameSave</a>&amp; <a class="code" href="a01400.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01400.html#a8f568dfb017538878fc182a74de877ae">   27</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01400.html#a8f568dfb017538878fc182a74de877ae">saving</a>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01400.html#a89aee5a2ad64a2d11d46634ff300f72e">   35</a></span>&#160;    <a class="code" href="a01400.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a>(<a class="code" href="a01544.html">file::GameSave</a>&amp; sv, <span class="keywordtype">bool</span> s)</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    : <a class="code" href="a01400.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>(sv)</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    , <a class="code" href="a01400.html#a8f568dfb017538878fc182a74de877ae">saving</a>(s) {}</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a01404.html">   46</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01404.html">GameSaveLoaded</a> {</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01404.html#a52b3f58736c5393a403f34a000fb1c32">   48</a></span>&#160;    <span class="keyword">mutable</span> std::string <a class="code" href="a01404.html#a52b3f58736c5393a403f34a000fb1c32">failMessage</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace event</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02970.html">Core/Battles/Battle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01390.html">   17</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01390.html">BattleStarted</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01390.html#a7441c17448e872495503eec88b334e5a">   19</a></span>&#160;    std::unique_ptr&lt;battle::Battle&gt; <a class="code" href="a01390.html#a7441c17448e872495503eec88b334e5a">battle</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01390.html#ad383ca87cb6d0e838ffc86fb066b7a72">   26</a></span>&#160;    <a class="code" href="a01390.html#ad383ca87cb6d0e838ffc86fb066b7a72">BattleStarted</a>(std::unique_ptr&lt;battle::Battle&gt;&amp;&amp; <a class="code" href="a01390.html#a7441c17448e872495503eec88b334e5a">battle</a>)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    : <a class="code" href="a01390.html#a7441c17448e872495503eec88b334e5a">battle</a>(std::forward&lt;std::unique_ptr&lt;<a class="code" href="a01390.html#a7441c17448e872495503eec88b334e5a">battle</a>::Battle&gt;&gt;(<a class="code" href="a01390.html#a7441c17448e872495503eec88b334e5a">battle</a>)) {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;};</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a01394.html">   36</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01394.html">BattleCompleted</a> {</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01394.html#aa8737c9ee156f6d7460fb423693573f7">   43</a></span>&#160;    <a class="code" href="a01394.html#aa8737c9ee156f6d7460fb423693573f7">BattleCompleted</a>(<a class="code" href="a01218.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> <a class="code" href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>, <a class="code" href="a01290.html">battle::Result</a>&amp;&amp; <a class="code" href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>)</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    : <a class="code" href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>(<a class="code" href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>)</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    , <a class="code" href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>(std::forward&lt;battle::Result&gt;(<a class="code" href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>)) {}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">   48</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a01218.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> <a class="code" href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">   51</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a01290.html">battle::Result</a> <a class="code" href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01400_html"><div class="ttname"><a href="a01400.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00022">GameSave.hpp:22</a></div></div>
-<div class="ttc" id="aa01400_html_a89aee5a2ad64a2d11d46634ff300f72e"><div class="ttname"><a href="a01400.html#a89aee5a2ad64a2d11d46634ff300f72e">core::event::GameSaveInitializing::GameSaveInitializing</a></div><div class="ttdeci">GameSaveInitializing(file::GameSave &amp;sv, bool s)</div><div class="ttdoc">Construct a new Game Save Initializing object.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00035">GameSave.hpp:35</a></div></div>
-<div class="ttc" id="aa01400_html_a8f568dfb017538878fc182a74de877ae"><div class="ttname"><a href="a01400.html#a8f568dfb017538878fc182a74de877ae">core::event::GameSaveInitializing::saving</a></div><div class="ttdeci">bool saving</div><div class="ttdoc">True when saving, false when loading.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00027">GameSave.hpp:27</a></div></div>
-<div class="ttc" id="aa01400_html_ac6fbd08a5bcbfc66c3df65f5f33965a8"><div class="ttname"><a href="a01400.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">core::event::GameSaveInitializing::gameSave</a></div><div class="ttdeci">file::GameSave &amp; gameSave</div><div class="ttdoc">Game save being initialized.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00024">GameSave.hpp:24</a></div></div>
-<div class="ttc" id="aa01404_html"><div class="ttname"><a href="a01404.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00046">GameSave.hpp:46</a></div></div>
-<div class="ttc" id="aa01404_html_a52b3f58736c5393a403f34a000fb1c32"><div class="ttname"><a href="a01404.html#a52b3f58736c5393a403f34a000fb1c32">core::event::GameSaveLoaded::failMessage</a></div><div class="ttdeci">std::string failMessage</div><div class="ttdoc">Modules can set this if they encounter a failure that should fail the entire load.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00048">GameSave.hpp:48</a></div></div>
-<div class="ttc" id="aa01544_html"><div class="ttname"><a href="a01544.html">core::file::GameSave</a></div><div class="ttdoc">Represents a game save and provides functionality to load and save.</div><div class="ttdef"><b>Definition:</b> <a href="a02976_source.html#l00024">GameSave.hpp:24</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01218_html_a5c4138656c418031327b3958cc6e8c62"><div class="ttname"><a href="a01218.html#a5c4138656c418031327b3958cc6e8c62">core::battle::Battle::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Represents the different types of battles. Affects only the intro.</div><div class="ttdef"><b>Definition:</b> <a href="a02970_source.html#l00025">Battle.hpp:25</a></div></div>
+<div class="ttc" id="aa01290_html"><div class="ttname"><a href="a01290.html">core::battle::Result</a></div><div class="ttdoc">Represents the result of a battle.</div><div class="ttdef"><b>Definition:</b> <a href="a00050_source.html#l00016">Result.hpp:16</a></div></div>
+<div class="ttc" id="aa01390_html"><div class="ttname"><a href="a01390.html">core::event::BattleStarted</a></div><div class="ttdoc">Fired when a battle should start. This does not actually start a battle, but communicates to the curr...</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00017">Battle.hpp:17</a></div></div>
+<div class="ttc" id="aa01390_html_a7441c17448e872495503eec88b334e5a"><div class="ttname"><a href="a01390.html#a7441c17448e872495503eec88b334e5a">core::event::BattleStarted::battle</a></div><div class="ttdeci">std::unique_ptr&lt; battle::Battle &gt; battle</div><div class="ttdoc">The battle to start.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00019">Battle.hpp:19</a></div></div>
+<div class="ttc" id="aa01390_html_ad383ca87cb6d0e838ffc86fb066b7a72"><div class="ttname"><a href="a01390.html#ad383ca87cb6d0e838ffc86fb066b7a72">core::event::BattleStarted::BattleStarted</a></div><div class="ttdeci">BattleStarted(std::unique_ptr&lt; battle::Battle &gt; &amp;&amp;battle)</div><div class="ttdoc">Construct a new Battle Started event.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00026">Battle.hpp:26</a></div></div>
+<div class="ttc" id="aa01394_html"><div class="ttname"><a href="a01394.html">core::event::BattleCompleted</a></div><div class="ttdoc">Fired when a battle finishes.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00036">Battle.hpp:36</a></div></div>
+<div class="ttc" id="aa01394_html_aa8737c9ee156f6d7460fb423693573f7"><div class="ttname"><a href="a01394.html#aa8737c9ee156f6d7460fb423693573f7">core::event::BattleCompleted::BattleCompleted</a></div><div class="ttdeci">BattleCompleted(battle::Battle::Type type, battle::Result &amp;&amp;result)</div><div class="ttdoc">Construct a new Battle Completed event.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00043">Battle.hpp:43</a></div></div>
+<div class="ttc" id="aa01394_html_aab63742f1a9bebdc5bb01ab43aa31198"><div class="ttname"><a href="a01394.html#aab63742f1a9bebdc5bb01ab43aa31198">core::event::BattleCompleted::type</a></div><div class="ttdeci">const battle::Battle::Type type</div><div class="ttdoc">The type of battle that was completed.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00048">Battle.hpp:48</a></div></div>
+<div class="ttc" id="aa01394_html_ae44f51c4e36f0fe2c7b7d167da6cb154"><div class="ttname"><a href="a01394.html#ae44f51c4e36f0fe2c7b7d167da6cb154">core::event::BattleCompleted::result</a></div><div class="ttdeci">const battle::Result result</div><div class="ttdoc">The result of the battle.</div><div class="ttdef"><b>Definition:</b> <a href="a02973_source.html#l00051">Battle.hpp:51</a></div></div>
+<div class="ttc" id="aa02970_html"><div class="ttname"><a href="a02970.html">Battle.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

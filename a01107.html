@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game Namespace Reference</title>
+<title>Peoplemon: core::res Namespace Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -64,33 +64,385 @@ $(function() {
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01107.html">res</a></li>  </ul>
+</div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">game Namespace Reference</div>  </div>
+<div class="title">core::res Namespace Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Parent namespace for all functionality unique to the game.  
+<p>Collection of utilities for resource bundling and management.  
 <a href="a01107.html#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:a01108"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html">menu</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01878.html">PeoplemonBundleHandler</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic handler for peoplemon files when being bundled. Performs format conversion and registers dependency files. Requires dev loaders to be installed.  <a href="a01878.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01109"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01109.html">state</a></td></tr>
-<tr class="memdesc:a01109"><td class="mdescLeft">&#160;</td><td class="mdescRight">Parent namespace for all engine states implemented by the game. <br /></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01882.html">PeoplemonLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic resource loader for conforming Peoplemon resource types. Resource types must be default constructable and have loadDev and loadProd methods.  <a href="a01882.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01886.html">RunWalkAnimations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension of animation data that loads and combines the animations for each movement direction into a single animation with different states.  <a href="a01886.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01890.html">RunWalkAnimationLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader for walking animations.  <a href="a01890.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01894.html">WalkAnimations</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extension of animation data that loads and combines the animations for each movement direction into a single animation with different states.  <a href="a01894.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01898.html">WalkAnimationLoader</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Specialized loader for walking animations.  <a href="a01898.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a263b778f421c5c1eed85b9333d5cd917"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a263b778f421c5c1eed85b9333d5cd917">TilesetDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01758.html">map::Tileset</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:a263b778f421c5c1eed85b9333d5cd917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa279e9645b48b34febe407baa410605e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#aa279e9645b48b34febe407baa410605e">TilesetProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01758.html">map::Tileset</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:aa279e9645b48b34febe407baa410605e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac516016d998b236c68a0eb5d67e539d4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#ac516016d998b236c68a0eb5d67e539d4">MapDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01722.html">map::Map</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:ac516016d998b236c68a0eb5d67e539d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ff7de38dfbeaa8c831441eb56164b04"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a1ff7de38dfbeaa8c831441eb56164b04">MapProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01722.html">map::Map</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a1ff7de38dfbeaa8c831441eb56164b04"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a428d9b10e8db4126c16ae04ce6517160"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a428d9b10e8db4126c16ae04ce6517160">ConversationDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01530.html">file::Conversation</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:a428d9b10e8db4126c16ae04ce6517160"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e693ec2d0ea69f551a8a10ba8346cae"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a6e693ec2d0ea69f551a8a10ba8346cae">ConversationProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01530.html">file::Conversation</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a6e693ec2d0ea69f551a8a10ba8346cae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ea8397e7a0ca91b368c5a24da21d64b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a0ea8397e7a0ca91b368c5a24da21d64b">NpcDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01630.html">file::NPC</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:a0ea8397e7a0ca91b368c5a24da21d64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a7dfa1c3ac0c3d6924ef067e93450e2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a1a7dfa1c3ac0c3d6924ef067e93450e2">NpcProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01630.html">file::NPC</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a1a7dfa1c3ac0c3d6924ef067e93450e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad55b9b6123094c81cf0b3bbb9d744315"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#ad55b9b6123094c81cf0b3bbb9d744315">TrainerDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01646.html">file::Trainer</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:ad55b9b6123094c81cf0b3bbb9d744315"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8216074458a41e5c629e1c276f084337"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a8216074458a41e5c629e1c276f084337">TrainerProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01646.html">file::Trainer</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a8216074458a41e5c629e1c276f084337"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac43a8141e895beeadb340326c2d21d11"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#ac43a8141e895beeadb340326c2d21d11">ItemDBDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01614.html">file::ItemDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:ac43a8141e895beeadb340326c2d21d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99c253e1fe10e831e4bcec5742dfcd85"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a99c253e1fe10e831e4bcec5742dfcd85">ItemDBProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01614.html">file::ItemDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a99c253e1fe10e831e4bcec5742dfcd85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16f716a0aa6e12368a93833511e914a6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a16f716a0aa6e12368a93833511e914a6">PeoplemonDBDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01638.html">file::PeoplemonDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:a16f716a0aa6e12368a93833511e914a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7faadf65cddba819652e2ab3f11f4f2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a7faadf65cddba819652e2ab3f11f4f2f">PeoplemonDBProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01638.html">file::PeoplemonDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a7faadf65cddba819652e2ab3f11f4f2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab63ea48857f465433b15ce7e02b7c242"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#ab63ea48857f465433b15ce7e02b7c242">MoveDBDevLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01622.html">file::MoveDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a> &gt;</td></tr>
+<tr class="separator:ab63ea48857f465433b15ce7e02b7c242"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7311179b2418221681414397a3c78eb4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a7311179b2418221681414397a3c78eb4">MoveDBProdLoader</a> = <a class="el" href="a01882.html">PeoplemonLoader</a>&lt; <a class="el" href="a01622.html">file::MoveDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a> &gt;</td></tr>
+<tr class="separator:a7311179b2418221681414397a3c78eb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:a3864a733b8c0ec891913f728b80f1779"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779">Mode</a> { <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>
+, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>
+ }</td></tr>
+<tr class="separator:a3864a733b8c0ec891913f728b80f1779"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad33d85e09660ea3585e1353113905170"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html#gad33d85e09660ea3585e1353113905170">installDevLoaders</a> ()</td></tr>
+<tr class="memdesc:gad33d85e09660ea3585e1353113905170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the BLIB resource managers in dev mode.  <a href="a01078.html#gad33d85e09660ea3585e1353113905170">More...</a><br /></td></tr>
+<tr class="separator:gad33d85e09660ea3585e1353113905170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga49e5132b191e1d2d64eef9960598ca70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html#ga49e5132b191e1d2d64eef9960598ca70">installProdLoaders</a> ()</td></tr>
+<tr class="memdesc:ga49e5132b191e1d2d64eef9960598ca70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.  <a href="a01078.html#ga49e5132b191e1d2d64eef9960598ca70">More...</a><br /></td></tr>
+<tr class="separator:ga49e5132b191e1d2d64eef9960598ca70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01078.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">createBundles</a> ()</td></tr>
+<tr class="memdesc:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the resource bundles.  <a href="a01078.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">More...</a><br /></td></tr>
+<tr class="separator:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Parent namespace for all functionality unique to the game. </p>
-</div></div><!-- contents -->
+<div class="textblock"><p>Collection of utilities for resource bundling and management. </p>
+</div><h2 class="groupheader">Typedef Documentation</h2>
+<a id="a428d9b10e8db4126c16ae04ce6517160"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a428d9b10e8db4126c16ae04ce6517160">&#9670;&nbsp;</a></span>ConversationDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a428d9b10e8db4126c16ae04ce6517160">core::res::ConversationDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01530.html">file::Conversation</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00071">71</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a6e693ec2d0ea69f551a8a10ba8346cae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e693ec2d0ea69f551a8a10ba8346cae">&#9670;&nbsp;</a></span>ConversationProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a6e693ec2d0ea69f551a8a10ba8346cae">core::res::ConversationProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01530.html">file::Conversation</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00072">72</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac43a8141e895beeadb340326c2d21d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac43a8141e895beeadb340326c2d21d11">&#9670;&nbsp;</a></span>ItemDBDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#ac43a8141e895beeadb340326c2d21d11">core::res::ItemDBDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01614.html">file::ItemDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00080">80</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a99c253e1fe10e831e4bcec5742dfcd85"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99c253e1fe10e831e4bcec5742dfcd85">&#9670;&nbsp;</a></span>ItemDBProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a99c253e1fe10e831e4bcec5742dfcd85">core::res::ItemDBProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01614.html">file::ItemDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00081">81</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac516016d998b236c68a0eb5d67e539d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac516016d998b236c68a0eb5d67e539d4">&#9670;&nbsp;</a></span>MapDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#ac516016d998b236c68a0eb5d67e539d4">core::res::MapDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01722.html">map::Map</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00068">68</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1ff7de38dfbeaa8c831441eb56164b04"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ff7de38dfbeaa8c831441eb56164b04">&#9670;&nbsp;</a></span>MapProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a1ff7de38dfbeaa8c831441eb56164b04">core::res::MapProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01722.html">map::Map</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00069">69</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab63ea48857f465433b15ce7e02b7c242"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab63ea48857f465433b15ce7e02b7c242">&#9670;&nbsp;</a></span>MoveDBDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#ab63ea48857f465433b15ce7e02b7c242">core::res::MoveDBDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01622.html">file::MoveDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00086">86</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7311179b2418221681414397a3c78eb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7311179b2418221681414397a3c78eb4">&#9670;&nbsp;</a></span>MoveDBProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a7311179b2418221681414397a3c78eb4">core::res::MoveDBProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01622.html">file::MoveDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00087">87</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0ea8397e7a0ca91b368c5a24da21d64b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ea8397e7a0ca91b368c5a24da21d64b">&#9670;&nbsp;</a></span>NpcDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a0ea8397e7a0ca91b368c5a24da21d64b">core::res::NpcDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01630.html">file::NPC</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00074">74</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a1a7dfa1c3ac0c3d6924ef067e93450e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a7dfa1c3ac0c3d6924ef067e93450e2">&#9670;&nbsp;</a></span>NpcProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a1a7dfa1c3ac0c3d6924ef067e93450e2">core::res::NpcProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01630.html">file::NPC</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00075">75</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a16f716a0aa6e12368a93833511e914a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16f716a0aa6e12368a93833511e914a6">&#9670;&nbsp;</a></span>PeoplemonDBDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a16f716a0aa6e12368a93833511e914a6">core::res::PeoplemonDBDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01638.html">file::PeoplemonDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00083">83</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7faadf65cddba819652e2ab3f11f4f2f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7faadf65cddba819652e2ab3f11f4f2f">&#9670;&nbsp;</a></span>PeoplemonDBProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a7faadf65cddba819652e2ab3f11f4f2f">core::res::PeoplemonDBProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01638.html">file::PeoplemonDB</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00084">84</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a263b778f421c5c1eed85b9333d5cd917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a263b778f421c5c1eed85b9333d5cd917">&#9670;&nbsp;</a></span>TilesetDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a263b778f421c5c1eed85b9333d5cd917">core::res::TilesetDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01758.html">map::Tileset</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00065">65</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa279e9645b48b34febe407baa410605e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa279e9645b48b34febe407baa410605e">&#9670;&nbsp;</a></span>TilesetProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#aa279e9645b48b34febe407baa410605e">core::res::TilesetProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01758.html">map::Tileset</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00066">66</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ad55b9b6123094c81cf0b3bbb9d744315"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad55b9b6123094c81cf0b3bbb9d744315">&#9670;&nbsp;</a></span>TrainerDevLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#ad55b9b6123094c81cf0b3bbb9d744315">core::res::TrainerDevLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01646.html">file::Trainer</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39">Dev</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00077">77</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8216074458a41e5c629e1c276f084337"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8216074458a41e5c629e1c276f084337">&#9670;&nbsp;</a></span>TrainerProdLoader</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01107.html#a8216074458a41e5c629e1c276f084337">core::res::TrainerProdLoader</a> = typedef <a class="el" href="a01882.html">PeoplemonLoader</a>&lt;<a class="el" href="a01646.html">file::Trainer</a>, <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a">Prod</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00078">78</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Enumeration Type Documentation</h2>
+<a id="a3864a733b8c0ec891913f728b80f1779"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3864a733b8c0ec891913f728b80f1779">&#9670;&nbsp;</a></span>Mode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a01107.html#a3864a733b8c0ec891913f728b80f1779">core::res::Mode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a3864a733b8c0ec891913f728b80f1779a40b3a734921feab2894c38280d4ada39"></a>Dev&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a3864a733b8c0ec891913f728b80f1779a9d002a150b426ec009bc4ed09cab571a"></a>Prod&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a00284_source.html#l00018">18</a> of file <a class="el" href="a00284_source.html">Loaders.hpp</a>.</p>
+
+</div>
+</div>
+</div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:39:00 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

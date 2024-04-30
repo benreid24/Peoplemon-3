@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Light.cpp Source File</title>
+<title>Peoplemon: src/Core/Maps/LayerSet.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,37 +71,90 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Light.cpp</div>  </div>
+<div class="title">LayerSet.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">Core/Maps/Light.hpp</a>&gt;</span></div>
+<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00188.html">Core/Maps/LayerSet.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">const</span> sf::Vector3i <a class="code" href="a01696.html#a814f9b2517b63178fdf1f4b475d3a9d9">Light::DefaultColor</a>(240, 240, 150);</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01696.html#a62ef88f9796f56cb5b2466194198b70b">    9</a></span>&#160;<a class="code" href="a01696.html#a62ef88f9796f56cb5b2466194198b70b">Light::Light</a>()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: radius(0)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, color(255, 255, 255) {}</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01696.html#a66d72fe7b91660865d4092a6a8c6ed94">   13</a></span>&#160;<a class="code" href="a01696.html#a62ef88f9796f56cb5b2466194198b70b">Light::Light</a>(std::uint16_t rad, <span class="keyword">const</span> sf::Vector2i&amp; pos, <span class="keyword">const</span> sf::Vector3i&amp; color)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;: radius(rad)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, position(pos)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, color(color) {}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03075.html">Core/Maps/Tileset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01698.html#a020db7d524731baf7ec546c647667b34">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01698.html#a020db7d524731baf7ec546c647667b34">LayerSet::init</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> bottomCount,</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;                    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ysortLayerCount, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> topLayerCount) {</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a01698.html#aad3584dd2249cf0a3e356b2ace33e64e">collisionLayer</a>().<a class="code" href="a01690.html#a1661b368529c237d40d5693fa791b253">create</a>(width, height, <a class="code" href="a01075.html#ggaa99d95911252405b5f77e93a2d5ecb0cac3bf447eabe632720a3aa1a7ce401274">Collision::Open</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a01698.html#a11fd05aa30dce62dcedf9af70a3a9dc3">catchLayer</a>().<a class="code" href="a01690.html#a1661b368529c237d40d5693fa791b253">create</a>(width, height, 0);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a01698.html#a137a4f0975b7772829d48858366daa1d">bottomLayers</a>().resize(bottomCount);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a01690.html">TileLayer</a>&amp; layer : <a class="code" href="a01698.html#a137a4f0975b7772829d48858366daa1d">bottomLayers</a>()) { layer.create(width, height, {<a class="code" href="a01746.html#a43af2a1dc372418d2e9396f2f20ef2e3">Tile::Blank</a>}); }</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Light.hpp</a></div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01696_html_a62ef88f9796f56cb5b2466194198b70b"><div class="ttname"><a href="a01696.html#a62ef88f9796f56cb5b2466194198b70b">core::map::Light::Light</a></div><div class="ttdeci">Light()</div><div class="ttdoc">Creates an empty light.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00009">Light.cpp:9</a></div></div>
-<div class="ttc" id="aa01696_html_a814f9b2517b63178fdf1f4b475d3a9d9"><div class="ttname"><a href="a01696.html#a814f9b2517b63178fdf1f4b475d3a9d9">core::map::Light::DefaultColor</a></div><div class="ttdeci">static const sf::Vector3i DefaultColor</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00021">Light.hpp:21</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">ysortLayers</a>().resize(ysortLayerCount);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a01690.html">TileLayer</a>&amp; layer : <a class="code" href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">ysortLayers</a>()) { layer.create(width, height, {<a class="code" href="a01746.html#a43af2a1dc372418d2e9396f2f20ef2e3">Tile::Blank</a>}); }</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">topLayers</a>().resize(topLayerCount);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="a01690.html">TileLayer</a>&amp; layer : <a class="code" href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">topLayers</a>()) { layer.create(width, height, {<a class="code" href="a01746.html#a43af2a1dc372418d2e9396f2f20ef2e3">Tile::Blank</a>}); }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;}</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01698.html#aad3584dd2249cf0a3e356b2ace33e64e">   25</a></span>&#160;<a class="code" href="a01690.html">CollisionLayer</a>&amp; <a class="code" href="a01698.html#aad3584dd2249cf0a3e356b2ace33e64e">LayerSet::collisionLayer</a>() { <span class="keywordflow">return</span> collisions; }</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01698.html#a6053fe0a374495a34527050635866f58">   27</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01690.html">CollisionLayer</a>&amp; <a class="code" href="a01698.html#aad3584dd2249cf0a3e356b2ace33e64e">LayerSet::collisionLayer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> collisions; }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01698.html#a11fd05aa30dce62dcedf9af70a3a9dc3">   29</a></span>&#160;<a class="code" href="a01690.html">CatchLayer</a>&amp; <a class="code" href="a01698.html#a11fd05aa30dce62dcedf9af70a3a9dc3">LayerSet::catchLayer</a>() { <span class="keywordflow">return</span> catches; }</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a01698.html#aba9ce32786a7519f782115554da0c13a">   31</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01690.html">CatchLayer</a>&amp; <a class="code" href="a01698.html#a11fd05aa30dce62dcedf9af70a3a9dc3">LayerSet::catchLayer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> catches; }</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a01698.html#a137a4f0975b7772829d48858366daa1d">   33</a></span>&#160;std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#a137a4f0975b7772829d48858366daa1d">LayerSet::bottomLayers</a>() { <span class="keywordflow">return</span> bottom; }</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">   35</a></span>&#160;std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">LayerSet::ysortLayers</a>() { <span class="keywordflow">return</span> ysort; }</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">   37</a></span>&#160;std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">LayerSet::topLayers</a>() { <span class="keywordflow">return</span> top; }</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a01698.html#afbd66f6cc0ff02ba963cde390e2d6481">   39</a></span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01698.html#afbd66f6cc0ff02ba963cde390e2d6481">LayerSet::layerCount</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bottom.size() + ysort.size() + top.size(); }</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a01698.html#afbd32f5227f35134da122ce0efe8d9e3">   41</a></span>&#160;<span class="keyword">const</span> std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#a137a4f0975b7772829d48858366daa1d">LayerSet::bottomLayers</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bottom; }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01698.html#a1175cfcdf248187a7fc1912400ff2134">   43</a></span>&#160;<span class="keyword">const</span> std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">LayerSet::ysortLayers</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> ysort; }</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="a01698.html#ac7f0852c5c9e7b3d181a2f1460d393f0">   45</a></span>&#160;<span class="keyword">const</span> std::vector&lt;TileLayer&gt;&amp; <a class="code" href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">LayerSet::topLayers</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> top; }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a01698.html#abd314695ec03b219ed93468b738fd90c">   47</a></span>&#160;<a class="code" href="a01690.html">TileLayer</a>&amp; <a class="code" href="a01698.html#abd314695ec03b219ed93468b738fd90c">LayerSet::getLayer</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> layer) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (layer &gt;= <a class="code" href="a01698.html#afbd66f6cc0ff02ba963cde390e2d6481">layerCount</a>()) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Accessing out of bounds layer: &quot;</span> &lt;&lt; layer;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">return</span> bottom.front();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (layer &lt; bottom.size()) { <span class="keywordflow">return</span> bottom[layer]; }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    layer -= bottom.size();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">if</span> (layer &lt; ysort.size()) { <span class="keywordflow">return</span> ysort[layer]; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> top[layer - ysort.size()];</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;}</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00188_html"><div class="ttname"><a href="a00188.html">LayerSet.hpp</a></div></div>
+<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa01075_html_ggaa99d95911252405b5f77e93a2d5ecb0cac3bf447eabe632720a3aa1a7ce401274"><div class="ttname"><a href="a01075.html#ggaa99d95911252405b5f77e93a2d5ecb0cac3bf447eabe632720a3aa1a7ce401274">core::map::Collision::Open</a></div><div class="ttdeci">@ Open</div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01690_html"><div class="ttname"><a href="a01690.html">core::map::Layer</a></div><div class="ttdoc">Generic map layer class. Can be used for any type of layer.</div><div class="ttdef"><b>Definition:</b> <a href="a00185_source.html#l00021">Layer.hpp:21</a></div></div>
+<div class="ttc" id="aa01690_html_a1661b368529c237d40d5693fa791b253"><div class="ttname"><a href="a01690.html#a1661b368529c237d40d5693fa791b253">core::map::Layer::create</a></div><div class="ttdeci">void create(unsigned int width, unsigned int height, const T &amp;val=T())</div><div class="ttdoc">Clears all stored data (if any) and creates the layer with the given size.</div><div class="ttdef"><b>Definition:</b> <a href="a00185_source.html#l00093">Layer.hpp:93</a></div></div>
+<div class="ttc" id="aa01698_html_a020db7d524731baf7ec546c647667b34"><div class="ttname"><a href="a01698.html#a020db7d524731baf7ec546c647667b34">core::map::LayerSet::init</a></div><div class="ttdeci">void init(unsigned int width, unsigned int height, unsigned int bottomLayerCount, unsigned int ysortLayerCount, unsigned int topLayercount)</div><div class="ttdoc">Creates the given number of layers and sets the proper size for each layer, initializing each layer t...</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00010">LayerSet.cpp:10</a></div></div>
+<div class="ttc" id="aa01698_html_a11fd05aa30dce62dcedf9af70a3a9dc3"><div class="ttname"><a href="a01698.html#a11fd05aa30dce62dcedf9af70a3a9dc3">core::map::LayerSet::catchLayer</a></div><div class="ttdeci">CatchLayer &amp; catchLayer()</div><div class="ttdoc">Returns a reference to the catchable layer for this set.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00029">LayerSet.cpp:29</a></div></div>
+<div class="ttc" id="aa01698_html_a137a4f0975b7772829d48858366daa1d"><div class="ttname"><a href="a01698.html#a137a4f0975b7772829d48858366daa1d">core::map::LayerSet::bottomLayers</a></div><div class="ttdeci">std::vector&lt; TileLayer &gt; &amp; bottomLayers()</div><div class="ttdoc">Returns a reference to the bottom tiles in this set.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00033">LayerSet.cpp:33</a></div></div>
+<div class="ttc" id="aa01698_html_a9bbc8285278880bb4bed954e67c26d52"><div class="ttname"><a href="a01698.html#a9bbc8285278880bb4bed954e67c26d52">core::map::LayerSet::topLayers</a></div><div class="ttdeci">std::vector&lt; TileLayer &gt; &amp; topLayers()</div><div class="ttdoc">Returns a reference to the top tiles in this set.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00037">LayerSet.cpp:37</a></div></div>
+<div class="ttc" id="aa01698_html_aad3584dd2249cf0a3e356b2ace33e64e"><div class="ttname"><a href="a01698.html#aad3584dd2249cf0a3e356b2ace33e64e">core::map::LayerSet::collisionLayer</a></div><div class="ttdeci">CollisionLayer &amp; collisionLayer()</div><div class="ttdoc">Returns a reference to the collision layer for this set.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00025">LayerSet.cpp:25</a></div></div>
+<div class="ttc" id="aa01698_html_abd314695ec03b219ed93468b738fd90c"><div class="ttname"><a href="a01698.html#abd314695ec03b219ed93468b738fd90c">core::map::LayerSet::getLayer</a></div><div class="ttdeci">TileLayer &amp; getLayer(unsigned int layer)</div><div class="ttdoc">Returns a reference to the given tile layer. Helper to use absolute indices to access all layer zones...</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00047">LayerSet.cpp:47</a></div></div>
+<div class="ttc" id="aa01698_html_adcfc8139cbc2571dbda7f89b5e6b4b35"><div class="ttname"><a href="a01698.html#adcfc8139cbc2571dbda7f89b5e6b4b35">core::map::LayerSet::ysortLayers</a></div><div class="ttdeci">std::vector&lt; TileLayer &gt; &amp; ysortLayers()</div><div class="ttdoc">Returns a reference to the sorted tiles in this set.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00035">LayerSet.cpp:35</a></div></div>
+<div class="ttc" id="aa01698_html_afbd66f6cc0ff02ba963cde390e2d6481"><div class="ttname"><a href="a01698.html#afbd66f6cc0ff02ba963cde390e2d6481">core::map::LayerSet::layerCount</a></div><div class="ttdeci">unsigned int layerCount() const</div><div class="ttdoc">Returns the total number of layers contained.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00039">LayerSet.cpp:39</a></div></div>
+<div class="ttc" id="aa01746_html_a43af2a1dc372418d2e9396f2f20ef2e3"><div class="ttname"><a href="a01746.html#a43af2a1dc372418d2e9396f2f20ef2e3">core::map::Tile::Blank</a></div><div class="ttdeci">static constexpr IdType Blank</div><div class="ttdoc">Special id for blank tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a00212_source.html#l00028">Tile.hpp:28</a></div></div>
+<div class="ttc" id="aa03075_html"><div class="ttname"><a href="a03075.html">Tileset.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:59 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -79,11 +79,11 @@ $(function() {
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02916.html">Core/Files/Conversation.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02958.html">Core/Files/NPC.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02964.html">Core/Files/Trainer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03012.html">Core/Maps/Map.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03024.html">Core/Maps/Tileset.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a02967.html">Core/Files/Conversation.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03009.html">Core/Files/NPC.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03015.html">Core/Files/Trainer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03063.html">Core/Maps/Map.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03075.html">Core/Maps/Tileset.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00284.html">Core/Resources/Loaders.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">Core/Resources/RunWalkAnimations.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00290.html">Core/Resources/WalkAnimations.hpp</a>&gt;</span></div>
@@ -106,15 +106,15 @@ $(function() {
 <div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a00293.html#aa159b5967fe887ca95394bd5481bb144">   30</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00293.html#aa159b5967fe887ca95394bd5481bb144">WalkAnimationManager</a>    = bl::resource::ResourceManager&lt;core::res::WalkAnimations&gt;;</div>
 <div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a00293.html#a25d570d4c1f2183a7a1f4ceb190088af">   31</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a00293.html#a25d570d4c1f2183a7a1f4ceb190088af">RunWalkAnimationManager</a> = bl::resource::ResourceManager&lt;core::res::RunWalkAnimations&gt;;</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01080.html">core</a></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;{</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span>res</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01072.html#gad33d85e09660ea3585e1353113905170">installDevLoaders</a>();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01078.html#gad33d85e09660ea3585e1353113905170">installDevLoaders</a>();</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01072.html#ga49e5132b191e1d2d64eef9960598ca70">installProdLoaders</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01078.html#ga49e5132b191e1d2d64eef9960598ca70">installProdLoaders</a>();</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01072.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">createBundles</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01078.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">createBundles</a>();</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace res</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace core</span></div>
@@ -138,20 +138,20 @@ $(function() {
 <div class="ttc" id="aa00293_html_ad2f555c791c3fe1dcc97bac8ae8227ee"><div class="ttname"><a href="a00293.html#ad2f555c791c3fe1dcc97bac8ae8227ee">ImageManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::Image &gt; ImageManager</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00018">Resources.hpp:18</a></div></div>
 <div class="ttc" id="aa00293_html_af84070f982b22277576e8fcef31c89fa"><div class="ttname"><a href="a00293.html#af84070f982b22277576e8fcef31c89fa">TrainerManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; core::file::Trainer &gt; TrainerManager</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00025">Resources.hpp:25</a></div></div>
 <div class="ttc" id="aa00293_html_afcf901edbba1cc583966e74cfd5e3ba8"><div class="ttname"><a href="a00293.html#afcf901edbba1cc583966e74cfd5e3ba8">SoundManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; sf::SoundBuffer &gt; SoundManager</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00019">Resources.hpp:19</a></div></div>
-<div class="ttc" id="aa01072_html_ga06a2b1d1c4ad02dd161574d9dc3ec524"><div class="ttname"><a href="a01072.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00047">Resources.cpp:47</a></div></div>
-<div class="ttc" id="aa01072_html_ga49e5132b191e1d2d64eef9960598ca70"><div class="ttname"><a href="a01072.html#ga49e5132b191e1d2d64eef9960598ca70">core::res::installProdLoaders</a></div><div class="ttdeci">void installProdLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00029">Resources.cpp:29</a></div></div>
-<div class="ttc" id="aa01072_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01072.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00788_source.html#l00016">Resources.cpp:16</a></div></div>
-<div class="ttc" id="aa01080_html"><div class="ttname"><a href="a01080.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02913_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa02916_html"><div class="ttname"><a href="a02916.html">Conversation.hpp</a></div></div>
-<div class="ttc" id="aa02958_html"><div class="ttname"><a href="a02958.html">NPC.hpp</a></div></div>
-<div class="ttc" id="aa02964_html"><div class="ttname"><a href="a02964.html">Trainer.hpp</a></div></div>
-<div class="ttc" id="aa03012_html"><div class="ttname"><a href="a03012.html">Map.hpp</a></div></div>
-<div class="ttc" id="aa03024_html"><div class="ttname"><a href="a03024.html">Tileset.hpp</a></div></div>
+<div class="ttc" id="aa01078_html_ga06a2b1d1c4ad02dd161574d9dc3ec524"><div class="ttname"><a href="a01078.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00047">Resources.cpp:47</a></div></div>
+<div class="ttc" id="aa01078_html_ga49e5132b191e1d2d64eef9960598ca70"><div class="ttname"><a href="a01078.html#ga49e5132b191e1d2d64eef9960598ca70">core::res::installProdLoaders</a></div><div class="ttdeci">void installProdLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00029">Resources.cpp:29</a></div></div>
+<div class="ttc" id="aa01078_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01078.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00791_source.html#l00016">Resources.cpp:16</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa02967_html"><div class="ttname"><a href="a02967.html">Conversation.hpp</a></div></div>
+<div class="ttc" id="aa03009_html"><div class="ttname"><a href="a03009.html">NPC.hpp</a></div></div>
+<div class="ttc" id="aa03015_html"><div class="ttname"><a href="a03015.html">Trainer.hpp</a></div></div>
+<div class="ttc" id="aa03063_html"><div class="ttname"><a href="a03063.html">Map.hpp</a></div></div>
+<div class="ttc" id="aa03075_html"><div class="ttname"><a href="a03075.html">Tileset.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sun Jan 7 2024 22:38:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
