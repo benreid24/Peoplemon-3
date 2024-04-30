@@ -4,6 +4,39 @@
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+#include <Game/States/Evolution/Particles.hpp>
+
+namespace bl
+{
+namespace pcl
+{
+using namespace game::state;
+
+template<>
+struct RenderConfigMap<Evolution::Spark> {
+    static constexpr std::uint32_t PipelineId  = core::Properties::EvolutionSparkPipelineId;
+    static constexpr bool ContainsTransparency = false;
+
+    static constexpr bool CreateRenderPipeline = true;
+    static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
+        RenderConfigDefaults<Evolution::Spark>::RenderPassIds;
+
+    using GlobalShaderPayload = RenderConfigDefaults<Evolution::Spark>::GlobalShaderPayload;
+    using DescriptorSets =
+        RenderConfigDescriptorList<bl::rc::ds::Scene2DFactory,
+                                   DescriptorSetFactory<Evolution::Spark, evo::GpuSpark>>;
+
+    static constexpr bool EnableDepthTesting      = false;
+    static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
+    // TODO - how to constexpr join path? need constexpr??
+    static constexpr const char* VertexShader =
+        "Resources/Shaders/Particles/evolution_spark.vert.spv";
+    static constexpr const char* FragmentShader =
+        "Resources/Shaders/Particles/evolution_spark.frag.spv";
+};
+
+} // namespace pcl
+} // namespace bl
 
 namespace game
 {
@@ -21,15 +54,8 @@ constexpr float ScalingTime = 7.f;
 constexpr float InitialRpm  = 0.9f;
 constexpr float SinMult     = 90.f / InitialRpm; // 90 so we end at 0
 
-constexpr unsigned int SparkCount = 400;
-constexpr float SparkSpawnRate    = 1600.f;
-constexpr float SparkPercent      = 1.f / 2.3f;
-constexpr float SparkStopColor    = 255.f * SparkPercent;
-const sf::Color SparkColor(252, 230, 30);
-
-sf::Color makeColor(float alpha) {
-    return sf::Color(SparkColor.r, SparkColor.g, SparkColor.b, static_cast<std::uint8_t>(alpha));
-}
+constexpr float SparkPercent   = 1.f / 2.3f;
+constexpr float SparkStopColor = 255.f * SparkPercent;
 
 sf::Color makeFade(float c) {
     const float af        = 255.f - (1.f - c * MaxColorRecip) * FadeDiff;
@@ -48,27 +74,45 @@ Evolution::Evolution(core::system::Systems& systems, core::pplmn::OwnedPeoplemon
 : State(systems, bl::engine::StateMask::Menu)
 , ppl(ppl)
 , state(AnimState::IntroMsg)
-, sparks(std::bind(&Evolution::spawnSpark, this, std::placeholders::_1), 0, 0.f)
-//, spark(4.f)
+, sparks(nullptr)
 , fadeColor(255.f) {
-    oldTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.id()));
-    newTxtr = TextureManager::load(core::pplmn::Peoplemon::opponentImage(ppl.evolvesInto()));
-    oldThumb.setTexture(*oldTxtr, true);
-    oldThumb.setOrigin(sf::Vector2f(oldTxtr->getSize()) * 0.5f);
-    oldThumb.setPosition(core::Properties::WindowSize() * 0.5f);
-    newThumb.setTexture(*newTxtr, true);
-    newThumb.setOrigin(sf::Vector2f(newTxtr->getSize()) * 0.5f);
-    newThumb.setPosition(core::Properties::WindowSize() * 0.5f);
-    bgndTxtr = TextureManager::load(
+    auto& txtrs = systems.engine().renderer().texturePool();
+
+    bgndTxtr = txtrs.getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::ImagePath(), "Battle/evolveBgnd.png"));
-    background.setTexture(*bgndTxtr, true);
+    background.create(systems.engine(), bgndTxtr);
+
+    oldTxtr = txtrs.getOrLoadTexture(core::pplmn::Peoplemon::opponentImage(ppl.id()));
+    oldThumb.create(systems.engine(), oldTxtr);
+    oldThumb.getTransform().setOrigin(oldTxtr->size() * 0.5f);
+    oldThumb.getTransform().setPosition(core::Properties::WindowSize().x * 0.5f,
+                                        core::Properties::WindowSize().y * 0.5f);
+    oldThumb.setParent(background);
+
+    newTxtr = txtrs.getOrLoadTexture(core::pplmn::Peoplemon::opponentImage(ppl.evolvesInto()));
+    newThumb.create(systems.engine(), newTxtr);
+    newThumb.getTransform().setOrigin(newTxtr->size() * 0.5f);
+    newThumb.getTransform().setPosition(core::Properties::WindowSize().x * 0.5f,
+                                        core::Properties::WindowSize().y * 0.5f);
+    newThumb.setParent(background);
+
+    sparks = &systems.engine().particleSystem().getUniqueSystem<Spark>();
+    sparks->addAffector<evo::SparkAffector>();
+    sparks->addSink<evo::SparkSink>();
 }
 
 const char* Evolution::name() const { return "Evolution"; }
 
 void Evolution::activate(bl::engine::Engine& engine) {
-    /* engine.renderSystem().cameras().pushCamera(
-         bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    oldThumb.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
+    newThumb.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);
+    sparks->addToScene(overlay);
+    engine.ecs().setEntityParent(sparks->getRenderer().getEntity(), background.entity());
+    newThumb.setHidden(true);
+    oldThumb.setHidden(false);
+
     engine.inputSystem().getActor().addListener(*this);
 
     if (ppl.evolvesInto() == core::pplmn::Id::Unknown) {
@@ -86,7 +130,7 @@ void Evolution::activate(bl::engine::Engine& engine) {
 }
 
 void Evolution::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
     engine.inputSystem().getActor().removeListener(*this);
     // TODO - stop music
 }
@@ -103,10 +147,11 @@ void Evolution::update(bl::engine::Engine&, float dt, float) {
         fadeColor = std::max(0.f, fadeColor - FadeRate * dt);
         oldThumb.setColor(makeFade(fadeColor));
         if (fadeColor == 0.f) {
-            state         = AnimState::SizeOscillating;
+            state = AnimState::SizeOscillating;
+            newThumb.setHidden(false);
             oscillateTime = 0.f;
-            newThumb.setColor(oldThumb.getColor());
-            newThumb.setScale(0.f, 0.f);
+            newThumb.component().setColor(oldThumb.component().getColor());
+            newThumb.getTransform().setScale(0.f, 0.f);
         }
         break;
 
@@ -114,25 +159,21 @@ void Evolution::update(bl::engine::Engine&, float dt, float) {
         oscillateTime  = std::min(oscillateTime + dt, ScalingTime);
         const float s  = std::abs(bl::math::sin(SinMult * oscillateTime * oscillateTime));
         const float os = 1.f - s;
-        oldThumb.setScale(os, os);
-        newThumb.setScale(s, s);
+        oldThumb.getTransform().setScale(os, os);
+        newThumb.getTransform().setScale(s, s);
         if (oscillateTime >= ScalingTime) {
             state = AnimState::NewFadeIn;
-            newThumb.setScale(1.f, 1.f);
+            oldThumb.setHidden(true);
+            newThumb.getTransform().setScale(1.f, 1.f);
             fadeColor = 0.f;
-            sparks.setTargetCount(SparkCount);
-            sparks.setCreateRate(SparkSpawnRate);
+            sparks->addEmitter<evo::SparkEmitter>();
         }
     } break;
 
     case AnimState::NewFadeIn:
         fadeColor = std::min(255.f, fadeColor + FadeRate * dt);
         newThumb.setColor(makeFade(fadeColor));
-        sparks.update(updateSpark, dt);
-        if (fadeColor >= SparkStopColor) {
-            sparks.setTargetCount(0);
-            sparks.setCreateRate(0.f);
-        }
+        if (fadeColor >= SparkStopColor) { sparks->removeAllEmitters(); }
         if (fadeColor >= 255.f) {
             state = AnimState::EvolvedMsg;
             ppl.evolve();
@@ -143,9 +184,6 @@ void Evolution::update(bl::engine::Engine&, float dt, float) {
         }
         break;
     case AnimState::EvolvedMsg:
-        sparks.update(updateSpark, dt);
-        break;
-
     case AnimState::IntroMsg:
     case AnimState::CancelMsg:
     case AnimState::CancelConfirm:
@@ -153,41 +191,6 @@ void Evolution::update(bl::engine::Engine&, float dt, float) {
         break;
     }
 }
-
-// void Evolution::render(bl::engine::Engine& engine, float lag) {
-//     engine.window().clear();
-//     engine.window().draw(background);
-//     systems.hud().render(engine.window(), lag);
-//
-//     const auto renderSpark = [this, &engine](const Spark& s) {
-//         spark.setPosition(s.position);
-//         spark.setCenterColor(makeColor(255.f - 255.f * (s.time / s.lifetime)));
-//         spark.setRadius(s.radius);
-//         engine.window().draw(spark);
-//     };
-//
-//     switch (state) {
-//     case AnimState::IntroMsg:
-//     case AnimState::OldFadeOut:
-//         engine.window().draw(oldThumb);
-//         break;
-//     case AnimState::CancelConfirm:
-//     case AnimState::CancelMsg:
-//     case AnimState::SizeOscillating:
-//         engine.window().draw(oldThumb);
-//         engine.window().draw(newThumb);
-//         break;
-//     case AnimState::EvolvedMsg:
-//     case AnimState::NewFadeIn:
-//         engine.window().draw(newThumb);
-//         sparks.render(renderSpark);
-//         break;
-//     default:
-//         break;
-//     }
-//
-//     engine.window().display();
-// }
 
 void Evolution::messageDone() {
     switch (state) {
@@ -240,20 +243,6 @@ bool Evolution::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::D
         }
     }
     return true;
-}
-
-void Evolution::spawnSpark(Spark* sp) {
-    const float a  = bl::util::Random::get<float>(0.f, 360.f);
-    const float d  = bl::util::Random::get<float>(1.f, 40.f);
-    const float v  = bl::util::Random::get<float>(150.f, 900.f);
-    const float c  = bl::math::cos(a);
-    const float s  = bl::math::sin(a);
-    sp->position   = core::Properties::WindowSize() * 0.5f + sf::Vector2f(c, s) * d;
-    sp->velocity.x = v * c;
-    sp->velocity.y = v * s;
-    sp->time       = 0.f;
-    sp->lifetime   = bl::util::Random::get<float>(0.75f, 1.4f);
-    sp->radius     = bl::util::Random::get<float>(2.f, 7.f);
 }
 
 } // namespace state

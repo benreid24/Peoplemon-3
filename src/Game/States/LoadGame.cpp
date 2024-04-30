@@ -68,7 +68,7 @@ void LoadGame::activate(bl::engine::Engine& engine) {
         actionMenu.addItem(del, load.get(), Item::Bottom);
         actionMenu.addItem(back, del.get(), Item::Bottom);
         actionMenu.configureBackground(
-            sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 0.f});
+            sf::Color::White, sf::Color::Black, 3.f, {22.f, 2.f, 2.f, 2.f});
     }
 
     scene = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();

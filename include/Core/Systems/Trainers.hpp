@@ -74,6 +74,7 @@ private:
     enum struct State { Searching, PoppingUp, Holding, Rising, Walking, Battling };
 
     Systems& owner;
+    bl::ecs::ComponentPool<component::Trainer>& trainerPool;
     bl::rc::res::TextureRef exclaimTxtr;
     bl::gfx::Sprite exclaim;
     bl::audio::AudioSystem::Handle exclaimSound;
@@ -97,7 +98,7 @@ private:
     virtual void observe(const event::EntityMoveFinished& moved) override;
     virtual void observe(const event::EntityRotated& rotated) override;
 
-    void checkTrainer(bl::ecs::Entity ent);
+    void checkTrainer(bl::ecs::Entity ent, component::Trainer& trainer);
     void cleanup();
 };
 

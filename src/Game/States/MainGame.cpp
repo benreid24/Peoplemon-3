@@ -49,6 +49,7 @@ const char* MainGame::name() const { return "MainGame"; }
 void MainGame::activate(bl::engine::Engine&) {
     bl::event::Dispatcher::subscribe(this);
     if (state == MapFadein) {
+        systems.controllable().setAllLocks(true);
         fadeout = systems.engine()
                       .renderer()
                       .getObserver()
@@ -58,7 +59,10 @@ void MainGame::activate(bl::engine::Engine&) {
     }
 }
 
-void MainGame::deactivate(bl::engine::Engine&) {}
+void MainGame::deactivate(bl::engine::Engine& engine) {
+    state = Running;
+    engine.renderer().getObserver().getRenderGraph().removeTasks<bl::rc::rgi::FadeEffectTask>();
+}
 
 void MainGame::update(bl::engine::Engine&, float dt, float) {
     switch (state) {
@@ -83,7 +87,8 @@ void MainGame::update(bl::engine::Engine&, float dt, float) {
 
     case MapFadein:
         if (fadeout->complete()) {
-            state   = Running;
+            state = Running;
+            systems.controllable().resetAllLocks();
             fadeout = nullptr;
             systems.engine()
                 .renderer()
@@ -139,6 +144,12 @@ void MainGame::observe(const sf::Event& event) {
                     }
                 }
             }
+        }
+        else if (event.key.code == sf::Keyboard::F6) {
+            auto& visited     = systems.player().state().visitedTowns;
+            const auto& towns = core::map::Map::FlyMapTowns();
+            for (const auto& town : towns) { visited.emplace(town.name); }
+            core::debug::DebugBanner::display("All towns visited");
         }
     }
 #else

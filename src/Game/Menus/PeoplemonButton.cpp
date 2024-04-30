@@ -59,6 +59,7 @@ void PeoplemonButton::doCreate(bl::engine::Engine& engine) {
     txtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "Peoplemon/button.png"));
     image.create(engine, txtr);
+    image.getTransform().setDepth(-2.f);
 
     name.create(engine,
                 core::Properties::MenuFont(),
@@ -132,7 +133,7 @@ void PeoplemonButton::doCreate(bl::engine::Engine& engine) {
     const sf::Vector2f size(bounds.width - bounds.left, bounds.height - bounds.top);
     const sf::Vector2f dscale(95.f / size.x, 95.f / size.y);
     const float scale = std::min(dscale.x, dscale.y);
-    face.getTransform().setOrigin(faceTxtr->size() * scale * 0.5f);
+    face.getTransform().setOrigin(faceTxtr->size() * 0.5f);
     face.getTransform().setScale(scale, scale);
     face.getTransform().setPosition(71.f, 76.f);
 }

@@ -10,7 +10,7 @@ namespace menu
 namespace
 {
 constexpr unsigned int FontSize = 16;
-constexpr float Margin          = 4.f;
+constexpr float Margin          = 1.f;
 constexpr float TopMargin       = Margin * 0.5f;
 constexpr float Width           = 352.f;
 } // namespace
@@ -43,8 +43,10 @@ void StoreItemRow::doCreate(bl::engine::Engine& engine) {
     qtyText.create(engine, core::Properties::MenuFont(), "", FontSize, sf::Color(30, 75, 240));
     qtyText.setParent(dummy);
     qtyText.getTransform().setPosition({Margin, TopMargin});
+
+    float LeftMargin = 30.f;
     if (qty > 0) { updateQty(qty); }
-    const float LeftMargin = qtyText.getLocalBounds().width;
+    else { LeftMargin = Margin; }
 
     nameText.create(engine,
                     core::Properties::MenuFont(),
@@ -60,7 +62,7 @@ void StoreItemRow::doCreate(bl::engine::Engine& engine) {
                      FontSize,
                      sf::Color::Black);
     priceText.getTransform().setPosition(
-        {Width - Margin - priceText.getLocalBounds().width, TopMargin});
+        {Width - Margin - priceText.getLocalBounds().width - 6.f, TopMargin});
     priceText.setParent(dummy);
 }
 
@@ -76,7 +78,7 @@ void StoreItemRow::doSceneRemove() {
     qtyText.removeFromScene();
 }
 
-bl::ecs::Entity StoreItemRow::getEntity() const { return bl::ecs::Entity(); }
+bl::ecs::Entity StoreItemRow::getEntity() const { return dummy.entity(); }
 
 } // namespace menu
 } // namespace game

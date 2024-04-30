@@ -69,7 +69,7 @@ public:
         /// Thick fog obscures everything
         ThickFog = 11,
 
-        /// A very sunny day with puslating light
+        /// A very sunny day with pulsating light
         Sunny = 12,
 
         /// A sandstorm ravages you

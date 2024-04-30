@@ -32,18 +32,10 @@ bl::engine::State::Ptr StoreMenu::create(core::system::Systems& systems,
 StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpened& data)
 : State(systems, bl::engine::StateMask::Menu)
 , menuState(MenuState::GetAction)
-, qtyEntry(systems.engine())
-//, actionMenu(bl::menu::ArrowSelector::create(14.f, sf::Color::Black))
-//, buyMenu(bl::menu::ArrowSelector::create(8.f, sf::Color::Black))
-//, sellMenus{{bl::menu::ArrowSelector::create(8.f, sf::Color::Black)},
-//            {bl::menu::ArrowSelector::create(8.f, sf::Color::Black)},
-//            {bl::menu::ArrowSelector::create(8.f, sf::Color::Black)}}
-//, leftArrow({0.f, 13.f}, {15.f, 0.f}, {15.f, 26.f})
-//, rightArrow({0.f, 0.f}, {0.f, 26.f}, {15.f, 13.f})
-{
-    bgndTxtr = TextureManager::load(
+, qtyEntry(systems.engine()) {
+    bgndTxtr = systems.engine().renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "store.png"));
-    background.setTexture(*bgndTxtr, true);
+    background.create(systems.engine(), bgndTxtr);
 
     dingSound = bl::audio::AudioSystem::getOrLoadSound(
         bl::util::FileUtil::joinPath(core::Properties::SoundPath(), "Menu/ding.wav"));
@@ -64,24 +56,38 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
         for (const auto& item : data.items) { items.emplace_back(item.first, item.second); }
     }
 
-    boxText.setPosition(28.f, 408.f);
-    moneyText.setPosition(605.f, 15.f);
-    actionText.setPosition(378.f, 67.f);
-    /*boxText.setFont(core::Properties::MenuFont());
-    moneyText.setFont(core::Properties::MenuFont());
-    actionText.setFont(core::Properties::MenuFont());*/
-    boxText.setCharacterSize(18);
-    moneyText.setCharacterSize(20);
-    actionText.setCharacterSize(30);
-    boxText.setFillColor(sf::Color::Black);
-    moneyText.setFillColor(sf::Color(10, 115, 0));
-    // catText.setFont(core::Properties::MenuFont());
-    catText.setCharacterSize(30);
-    catText.setFillColor(sf::Color(0, 60, 20));
+    actionMenu.create(systems.engine(),
+                      systems.engine().renderer().getObserver(),
+                      bl::menu::ArrowSelector::create(14.f, sf::Color::Black));
+    buyMenu.create(systems.engine(),
+                   systems.engine().renderer().getObserver(),
+                   bl::menu::ArrowSelector::create(8.f, sf::Color::Black));
+    for (auto& sellMenu : sellMenus) {
+        sellMenu.create(systems.engine(),
+                        systems.engine().renderer().getObserver(),
+                        bl::menu::ArrowSelector::create(8.f, sf::Color::Black));
+    }
 
-    /*leftArrow.setFillColor(sf::Color::Black);
+    boxText.create(systems.engine(), core::Properties::MenuFont(), "", 18, sf::Color::Black);
+    boxText.wordWrap(260.f);
+    boxText.getTransform().setPosition(28.f, 408.f);
+    boxText.setParent(background);
+    moneyText.create(systems.engine(), core::Properties::MenuFont(), "", 20, sf::Color(10, 115, 0));
+    moneyText.getTransform().setPosition(605.f, 15.f);
+    moneyText.setParent(background);
+    actionText.create(systems.engine(), core::Properties::MenuFont(), "", 28, sf::Color::Black);
+    actionText.getTransform().setPosition(378.f, 67.f);
+    actionText.setParent(background);
+    catText.create(systems.engine(), core::Properties::MenuFont(), "", 26, sf::Color(0, 60, 20));
+    catText.setParent(background);
+
+    leftArrow.create(systems.engine(), {0.f, 13.f}, {15.f, 0.f}, {15.f, 26.f});
+    rightArrow.create(systems.engine(), {0.f, 0.f}, {0.f, 26.f}, {15.f, 13.f});
+    leftArrow.setFillColor(sf::Color::Black);
     rightArrow.setFillColor(sf::Color::Black);
-    rightArrow.setPosition(730.f, 83.f);*/
+    rightArrow.getTransform().setPosition(730.f, 73.f);
+    leftArrow.setParent(background);
+    rightArrow.setParent(background);
 
     bl::menu::TextItem::Ptr buyItem =
         bl::menu::TextItem::create("Buy", core::Properties::MenuFont(), sf::Color::Black, 28);
@@ -99,7 +105,7 @@ StoreMenu::StoreMenu(core::system::Systems& systems, const core::event::StoreOpe
     actionMenu.addItem(sellItem, buyItem.get(), bl::menu::Item::Bottom);
     actionMenu.addItem(closeItem, sellItem.get(), bl::menu::Item::Bottom);
     actionMenu.setSelectedItem(buyItem.get());
-    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {5.f, 2.f, -4.f, -6.f});
+    actionMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});
     actionMenu.setPosition({20.f, 230.f});
 
     buyMenu.setPosition({378.f, 140.f});
@@ -122,9 +128,18 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
         return;
     }
 
-    // create view for menu
-    /*engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    // create scene and add to it
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    actionMenu.addToOverlay(background.entity());
+    buyMenu.addToOverlay(background.entity());
+    for (auto& sellMenu : sellMenus) { sellMenu.addToOverlay(background.entity()); }
+    actionText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    boxText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    moneyText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    catText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    leftArrow.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    rightArrow.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 
     // populate buy menu
     bl::menu::Item::Ptr root = makeItemRow(items.front().item, items.front().price, 0);
@@ -183,6 +198,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
                     enterState(MenuState::ImpulseBuyMessage);
                     setBoxText(ppl.name() + " made an Impulse Buy and purchased a " +
                                core::item::Item::getName(cheapest) + "!");
+                    break;
                 }
             }
         }
@@ -190,7 +206,7 @@ void StoreMenu::activate(bl::engine::Engine& engine) {
 }
 
 void StoreMenu::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
     systems.engine().inputSystem().getActor().removeListener(*this);
     bl::event::Dispatcher::dispatch<core::event::StoreClosed>({});
 }
@@ -214,32 +230,22 @@ void StoreMenu::update(bl::engine::Engine&, float dt, float) {
     }
 }
 
-// void StoreMenu::render(bl::engine::Engine& engine, float) {
-//     engine.window().clear();
-//
-//     engine.window().draw(background);
-//     engine.window().draw(moneyText);
-//     engine.window().draw(boxText);
-//     engine.window().draw(actionText);
-//
-//     actionMenu.render(engine.window());
-//     renderMenu->render(engine.window());
-//
-//     if (menuState == MenuState::BuyQty || menuState == MenuState::SellQty) {
-//         qtyEntry.render(engine.window());
-//     }
-//     if (menuState == MenuState::SellMenu || menuState == MenuState::SellDing ||
-//         menuState == MenuState::SellQty) {
-//         engine.window().draw(catText);
-//         engine.window().draw(rightArrow);
-//         engine.window().draw(leftArrow);
-//     }
-//
-//     engine.window().display();
-// }
-
 void StoreMenu::enterState(MenuState newState) {
     menuState = newState;
+
+    // TODO - handle visibility
+    buyMenu.setHidden(true);
+    for (auto& sellMenu : sellMenus) { sellMenu.setHidden(true); }
+    qtyEntry.hide();
+    catText.setHidden(true);
+    rightArrow.setHidden(true);
+    leftArrow.setHidden(true);
+
+    const auto unhideSellItems = [this]() {
+        catText.setHidden(false);
+        rightArrow.setHidden(false);
+        leftArrow.setHidden(false);
+    };
 
     switch (newState) {
     case MenuState::GetAction:
@@ -249,15 +255,16 @@ void StoreMenu::enterState(MenuState newState) {
     case MenuState::BuyMenu:
         renderMenu = &buyMenu;
         setBoxText("What would you like to buy?");
-        actionText.setFillColor(sf::Color(20, 60, 240));
-        actionText.setString("Buying");
+        actionText.getSection().setFillColor(sf::Color(20, 60, 240));
+        actionText.getSection().setString("Buying");
         break;
 
     case MenuState::SellMenu:
         renderMenu = &sellMenus[curCat];
         setBoxText("What can I take off your hands?");
-        actionText.setFillColor(sf::Color(240, 60, 20));
-        actionText.setString("Selling");
+        actionText.getSection().setFillColor(sf::Color(240, 60, 20));
+        actionText.getSection().setString("Selling");
+        unhideSellItems();
         break;
 
     case MenuState::BuyQty:
@@ -270,32 +277,33 @@ void StoreMenu::enterState(MenuState newState) {
         qtyEntry.configure(0, systems.player().state().bag.itemCount(sellingItem->getItem()), 1);
         qtyEntry.setPosition(QtyPosition - qtyEntry.getSize());
         setBoxText("How many would you like to sell?");
+        unhideSellItems();
         break;
 
     case MenuState::TooPoorDing:
         setBoxText("You're too poor!");
         [[fallthrough]];
 
-    case MenuState::BuyDing:
     case MenuState::SellDing:
+    case MenuState::BuyDing:
     case MenuState::ImpulseBuyMessage:
         bl::audio::AudioSystem::playOrRestartSound(dingSound);
         dingTime = 0.f;
         setMoneyText();
+        if (newState == MenuState::SellDing) { unhideSellItems(); }
         break;
 
     default:
         break;
     }
+
+    renderMenu->setHidden(false);
 }
 
-void StoreMenu::setBoxText(const std::string& t) {
-    boxText.setString(t);
-    // bl::interface::wordWrap(boxText, 260.f);
-}
+void StoreMenu::setBoxText(const std::string& t) { boxText.getSection().setString(t); }
 
 void StoreMenu::setMoneyText() {
-    moneyText.setString("$" + std::to_string(systems.player().state().monei));
+    moneyText.getSection().setString("$" + std::to_string(systems.player().state().monei));
 }
 
 void StoreMenu::close() { systems.engine().popState(); }
@@ -453,12 +461,13 @@ void StoreMenu::catLeft() {
 }
 
 void StoreMenu::catSync() {
-    catText.setString(catTexts[curCat]);
-    /* catText.setPosition(745.f - catText.getGlobalBounds().width -
-                             rightArrow.getGlobalBounds().width - 9.f,
-                         actionText.getPosition().y);
-     leftArrow.setPosition(catText.getPosition().x - leftArrow.getGlobalBounds().width + 3.f,
-                           rightArrow.getPosition().y);*/
+    catText.getSection().setString(catTexts[curCat]);
+    catText.getTransform().setPosition(745.f - catText.getGlobalSize().x -
+                                           rightArrow.getGlobalSize().x - 9.f,
+                                       actionText.getTransform().getGlobalPosition().y);
+    leftArrow.getTransform().setPosition(catText.getTransform().getGlobalPosition().x -
+                                             leftArrow.getGlobalSize().x - 3.f,
+                                         rightArrow.getTransform().getGlobalPosition().y);
     renderMenu = &sellMenus[curCat];
 }
 

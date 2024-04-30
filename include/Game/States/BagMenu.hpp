@@ -1,6 +1,7 @@
 #ifndef GAME_STATES_BAGMENU_HPP
 #define GAME_STATES_BAGMENU_HPP
 
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/Menu.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Events/BagMenu.hpp>
@@ -17,7 +18,6 @@ namespace state
  * @brief State for displaying the player's inventory and selecting items
  *
  * @ingroup States
- *
  */
 class BagMenu
 : public State
@@ -42,25 +42,21 @@ public:
 
     /**
      * @brief Destroy the Bag Menu object
-     *
      */
     virtual ~BagMenu() = default;
 
     /**
      * @brief Returns "BagMenu"
-     *
      */
     virtual const char* name() const override;
 
     /**
      * @brief Populates the menu with the player's inventory
-     *
      */
     virtual void activate(bl::engine::Engine&) override;
 
     /**
      * @brief Unsubscribes from event and input buses
-     *
      */
     virtual void deactivate(bl::engine::Engine&) override;
 
@@ -72,7 +68,6 @@ public:
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update bag menu rendering
     enum struct MenuState {
         Browsing,
         Sliding,
@@ -94,8 +89,8 @@ private:
     bl::menu::Menu* activeMenu;
     bl::menu::Menu* slideOut;
 
-    bl::resource::Ref<sf::Texture> bgndTxtr;
-    sf::Sprite background;
+    bl::rc::res::TextureRef bgndTxtr;
+    bl::gfx::Sprite background;
 
     core::input::MenuDriver inputDriver;
     bl::menu::Menu actionMenu;
@@ -104,8 +99,9 @@ private:
     bl::menu::Menu keyMenu;
     bl::menu::Menu tmMenu;
     bl::menu::Menu* menuTabs[4];
-    sf::Text pocketLabel;
-    sf::Text description;
+    bl::gfx::Text pocketLabel;
+
+    bl::gfx::Text description;
     bool actionOpen;
     menu::BagItemButton* selectedItem;
     int selectedPeoplemon;

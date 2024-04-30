@@ -29,47 +29,68 @@ const sf::Color ShowingColor(255, 255, 255, 255);
 bl::engine::State::Ptr Peopledex::create(core::system::Systems& s) { return Ptr(new Peopledex(s)); }
 
 Peopledex::Peopledex(core::system::Systems& s)
-: State(s, bl::engine::StateMask::Menu)
-//, menu(bl::menu::NoSelector::create()) {
-{
+: State(s, bl::engine::StateMask::Menu) {
     const std::string& ImgPath = core::Properties::MenuImagePath();
     auto& joinPath             = bl::util::FileUtil::joinPath;
 
-    bgndTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/background.png"));
-    background.setTexture(*bgndTxtr, true);
+    menu.create(s.engine(), s.engine().renderer().getObserver(), bl::menu::NoSelector::create());
 
-    seenTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/seenBox.png"));
-    seenBox.setTexture(*seenTxtr, true);
-    // seenBox.setPosition(SeenBoxPos);
-    // seenLabel.setFont(core::Properties::MenuFont());
-    seenLabel.setCharacterSize(26);
-    seenLabel.setFillColor(sf::Color(20, 65, 245));
-    /*seenLabel.setPosition(
-        SeenBoxPos +
-        glm::vec2(InfoPadding - 12.f, static_cast<float>(seenTxtr->getSize().y) * 0.5f));*/
+    bgndTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        joinPath(ImgPath, "Peopledex/background.png"));
+    background.create(s.engine(), bgndTxtr);
 
-    ownedTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/ownedBox.png"));
-    ownedBox.setTexture(*ownedTxtr, true);
-    // ownedBox.setPosition(OwnBoxPos);
-    // ownedLabel.setFont(core::Properties::MenuFont());
-    ownedLabel.setCharacterSize(26);
-    ownedLabel.setFillColor(sf::Color::Red);
-    /*ownedLabel.setPosition(
-        OwnBoxPos + sf::Vector2(InfoPadding, static_cast<float>(ownedTxtr->getSize().y) * 0.5f));*/
+    seenTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        joinPath(ImgPath, "Peopledex/seenBox.png"));
+    BL_LOG_INFO << "SeenBox texture: " << seenTxtr.id();
+    seenBox.create(s.engine(), seenTxtr);
+    seenBox.getTransform().setPosition(SeenBoxPos);
+    seenBox.setParent(background);
 
-    thumbnail.setPosition({InfoLeft + InfoWidth * 0.5f, InfoTop + 20.f});
-    // nameLabel.setFont(core::Properties::MenuFont());
-    nameLabel.setCharacterSize(26);
-    nameLabel.setFillColor(sf::Color(0, 20, 65));
-    nameLabel.setPosition(InfoLeft + 8.f, InfoTop + 245.f);
-    // descLabel.setFont(core::Properties::MenuFont());
-    descLabel.setCharacterSize(18);
-    descLabel.setFillColor(sf::Color::Black);
-    descLabel.setPosition(InfoLeft + 3.f, InfoTop + 275.f);
-    // locationLabel.setFont(core::Properties::MenuFont());
-    locationLabel.setCharacterSize(22);
-    locationLabel.setFillColor(sf::Color(0, 65, 20));
-    locationLabel.setPosition(130.f, 442.f);
+    seenLabel.create(s.engine(), core::Properties::MenuFont(), "", 26, sf::Color(20, 65, 245));
+    seenLabel.setParent(seenBox);
+    seenLabel.getTransform().setPosition(InfoPadding - 12.f, seenTxtr->size().y * 0.5f);
+
+    ownedTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        joinPath(ImgPath, "Peopledex/ownedBox.png"));
+    ownedBox.create(s.engine(), ownedTxtr);
+    ownedBox.getTransform().setPosition(OwnBoxPos);
+    ownedBox.setParent(background);
+
+    ownedLabel.create(s.engine(), core::Properties::MenuFont(), "", 26, sf::Color::Red);
+    ownedLabel.setParent(ownedBox);
+    ownedLabel.getTransform().setPosition(InfoPadding, ownedTxtr->size().y * 0.5f);
+
+    thumbTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown));
+    thumbnail.create(s.engine(), thumbTxtr);
+    thumbnail.getTransform().setPosition(InfoLeft + InfoWidth * 0.5f, InfoTop + 20.f);
+    thumbnail.getTransform().setOrigin(100.f, 0.f);
+    thumbnail.setParent(background);
+
+    nameLabel.create(s.engine(), core::Properties::MenuFont(), "", 26, sf::Color(0, 20, 65));
+    nameLabel.getTransform().setPosition(InfoLeft + 8.f, InfoTop + 245.f);
+    nameLabel.setParent(background);
+
+    descLabel.create(s.engine(), core::Properties::MenuFont(), "", 18, sf::Color::Black);
+    descLabel.setParent(background);
+    descLabel.wordWrap(InfoWidth - 20.f);
+    descLabel.getTransform().setPosition(InfoLeft + 3.f, InfoTop + 275.f);
+
+    locationLabel.create(s.engine(), core::Properties::MenuFont(), "", 22, sf::Color(0, 65, 20));
+    locationLabel.getTransform().setPosition(130.f, 442.f);
+    locationLabel.setParent(background);
+
+    upTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        joinPath(ImgPath, "Peopledex/upArrow.png"));
+    BL_LOG_INFO << "UpArrow texture: " << upTxtr.id();
+    upArrow.create(s.engine(), upTxtr);
+    upArrow.getTransform().setOrigin(0.f, upTxtr->size().y);
+    upArrow.setParent(background);
+
+    downTxtr = s.engine().renderer().texturePool().getOrLoadTexture(
+        joinPath(ImgPath, "Peopledex/downArrow.png"));
+    downArrow.create(s.engine(), downTxtr);
+    downArrow.setParent(background);
 
     const auto& all = core::pplmn::Peoplemon::validIds();
     firstId         = all[1];
@@ -90,16 +111,10 @@ Peopledex::Peopledex(core::system::Systems& s)
     menuDriver.drive(&menu);
     const float mw = menu.getBounds().width;
 
-    upTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/upArrow.png"));
-    upArrow.setTexture(*upTxtr, true);
-    upArrow.setOrigin(0.f, static_cast<float>(upTxtr->getSize().y));
-    // upArrow.setPosition(MenuPos + glm::vec2(mw * 0.5f, -ArrowPadding));
-
-    downTxtr = TextureManager::load(joinPath(ImgPath, "Peopledex/downArrow.png"));
-    downArrow.setTexture(*downTxtr, true);
-    downArrow.setPosition(
-        MenuPos.x + mw * 0.5f,
-        static_cast<float>(core::Properties::WindowHeight() - downTxtr->getSize().y - 5));
+    upArrow.getTransform().setPosition(MenuPos + glm::vec2(mw * 0.5f, -ArrowPadding));
+    downArrow.getTransform().setPosition(MenuPos.x + mw * 0.5f,
+                                         static_cast<float>(core::Properties::WindowHeight()) -
+                                             downTxtr->size().y - 5.f);
 }
 
 const char* Peopledex::name() const { return "Peopledex"; }
@@ -107,13 +122,24 @@ const char* Peopledex::name() const { return "Peopledex"; }
 void Peopledex::activate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().addListener(*this);
 
-    /*engine.renderSystem().cameras().pushCamera(
-        bl::render::camera::StaticCamera::create(core::Properties::WindowSize()));*/
+    auto overlay = engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    upArrow.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    downArrow.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    seenBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    seenLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    ownedBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    ownedLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    thumbnail.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    nameLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    descLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    locationLabel.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    menu.addToOverlay(background.entity());
 }
 
 void Peopledex::deactivate(bl::engine::Engine& engine) {
     systems.engine().inputSystem().getActor().removeListener(*this);
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
 }
 
 void Peopledex::update(bl::engine::Engine&, float, float) {}
@@ -125,57 +151,35 @@ bool Peopledex::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::D
     return true;
 }
 
-// void Peopledex::render(bl::engine::Engine& engine, float) {
-//     engine.window().clear();
-//
-//     engine.window().draw(background);
-//     engine.window().draw(upArrow);
-//     engine.window().draw(downArrow);
-//     menu.render(engine.window());
-//
-//     engine.window().draw(thumbnail);
-//     engine.window().draw(nameLabel);
-//     engine.window().draw(descLabel);
-//     engine.window().draw(locationLabel);
-//
-//     engine.window().draw(seenBox);
-//     engine.window().draw(seenLabel);
-//     engine.window().draw(ownedBox);
-//     engine.window().draw(ownedLabel);
-//
-//     engine.window().display();
-// }
-
 void Peopledex::onHighlight(core::pplmn::Id ppl) {
     if (systems.player().state().peopledex.getIntelLevel(ppl) != core::player::Peopledex::NoIntel) {
-        nameLabel.setString(core::pplmn::Peoplemon::name(ppl));
-        descLabel.setString(core::pplmn::Peoplemon::description(ppl));
-        thumbTxtr = TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(ppl));
+        nameLabel.getSection().setString(core::pplmn::Peoplemon::name(ppl));
+        descLabel.getSection().setString(core::pplmn::Peoplemon::description(ppl));
+        thumbTxtr = systems.engine().renderer().texturePool().getOrLoadTexture(
+            core::pplmn::Peoplemon::thumbnailImage(ppl));
     }
     else {
-        nameLabel.setString("???");
-        descLabel.setString("");
-        thumbTxtr =
-            TextureManager::load(core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown));
+        nameLabel.getSection().setString("???");
+        descLabel.getSection().setString("");
+        thumbTxtr = systems.engine().renderer().texturePool().getOrLoadTexture(
+            core::pplmn::Peoplemon::thumbnailImage(core::pplmn::Id::Unknown));
     }
-    thumbnail.setScale(200.f / static_cast<float>(thumbTxtr->getSize().x),
-                       200.f / static_cast<float>(thumbTxtr->getSize().y));
-    thumbnail.setTexture(*thumbTxtr, true);
-    thumbnail.setOrigin(100.f, 0.f);
+    thumbnail.getTransform().setScale(200.f / thumbTxtr->size());
+    thumbnail.setTexture(thumbTxtr);
 
-    // bl::interface::wordWrap(descLabel, InfoWidth - 20.f);
-    locationLabel.setString(systems.player().state().peopledex.getFirstSeenLocation(ppl));
-    seenLabel.setString(std::to_string(systems.player().state().peopledex.getSeen(ppl)));
-    seenLabel.setOrigin(
-        0.f, seenLabel.getGlobalBounds().height * 0.5f + seenLabel.getLocalBounds().top * 0.5f);
-    ownedLabel.setString(std::to_string(systems.player().state().peopledex.getCaught(ppl)));
-    ownedLabel.setOrigin(
-        0.f, ownedLabel.getGlobalBounds().height * 0.5f + ownedLabel.getLocalBounds().top * 0.5f);
+    locationLabel.getSection().setString(
+        systems.player().state().peopledex.getFirstSeenLocation(ppl));
+    seenLabel.getSection().setString(
+        std::to_string(systems.player().state().peopledex.getSeen(ppl)));
+    seenLabel.getTransform().setOrigin(
+        0.f, seenLabel.getLocalBounds().height * 0.5f + seenLabel.getLocalBounds().top * 0.5f);
+    ownedLabel.getSection().setString(
+        std::to_string(systems.player().state().peopledex.getCaught(ppl)));
+    ownedLabel.getTransform().setOrigin(
+        0.f, ownedLabel.getLocalBounds().height * 0.5f + ownedLabel.getLocalBounds().top * 0.5f);
 
-    if (ppl == firstId) { upArrow.setColor(HiddenColor); }
-    else { upArrow.setColor(ShowingColor); }
-    if (ppl == lastId) { downArrow.setColor(HiddenColor); }
-    else { downArrow.setColor(ShowingColor); }
+    upArrow.setHidden(ppl == firstId);
+    downArrow.setHidden(ppl == lastId);
 }
 
 void Peopledex::onSelect(core::pplmn::Id) {

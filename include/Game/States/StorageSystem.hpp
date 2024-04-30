@@ -15,7 +15,6 @@ namespace state
  * @brief Game state for the peoplemon storage system menu
  *
  * @ingroup States
- *
  */
 class StorageSystem
 : public State
@@ -31,13 +30,11 @@ public:
 
     /**
      * @brief Destroy the Storage System object
-     *
      */
     virtual ~StorageSystem() = default;
 
     /**
      * @brief Returns "StorageSystem"
-     *
      */
     virtual const char* name() const override;
 
@@ -64,12 +61,11 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update storage menu rendering
-
     enum struct MenuState {
         // entry states
         ChooseAction,
         PlacingPeoplemon,
+        WaitingHudMessage,
 
         // browse states
         BrowsingBox,
@@ -90,18 +86,17 @@ private:
     MenuState prevState;
     int currentBox;
     core::pplmn::StoredPeoplemon* hovered;
-    bool showInfo;
     sf::Vector2i selectPos;
     bool closeMenuAfterMessage;
+    bl::rc::Scene* overlay;
 
-    bl::resource::Ref<sf::Texture> backgroundTxtr;
-    sf::Sprite background;
-    sf::View view;
-    sf::View boxView;
+    bl::rc::res::TextureRef backgroundTxtr;
+    bl::gfx::Sprite background;
 
     core::input::MenuDriver menuDriver;
-    menu::StorageGrid activeGrid;
-    menu::StorageGrid slidingOutGrid;
+    menu::StorageGrid grids[2];
+    menu::StorageGrid* activeGrid;
+    menu::StorageGrid* slidingOutGrid;
     menu::StorageCursor cursor;
     float slideOffset;
     float slideVel;
@@ -110,18 +105,17 @@ private:
     bl::audio::AudioSystem::Handle pageSlideSound;
     bl::audio::AudioSystem::Handle pageSlideFailSound;
 
-    bl::resource::Ref<sf::Texture> leftArrowTxtr;
-    bl::resource::Ref<sf::Texture> rightArrowTxtr;
-    sf::Sprite leftArrow;
-    sf::Sprite rightArrow;
-    sf::Text boxTitle;
+    bl::rc::res::TextureRef leftArrowTxtr;
+    bl::rc::res::TextureRef rightArrowTxtr;
+    bl::gfx::Sprite leftArrow;
+    bl::gfx::Sprite rightArrow;
+    bl::gfx::Text boxTitle;
 
-    bl::resource::Ref<sf::Texture> thumbTxtr;
-    sf::Sprite thumbnail;
-    sf::Text nickname;
-    sf::Text level;
-    sf::Text itemLabel;
-    sf::Text itemName;
+    bl::rc::res::TextureRef thumbTxtr;
+    bl::gfx::Sprite thumbnail;
+    bl::gfx::Text nickname;
+    bl::gfx::Text level;
+    bl::gfx::Text itemLabel;
 
     bl::menu::Menu actionMenu;
     bl::menu::Item::Ptr withdrawActionItem;
@@ -159,7 +153,10 @@ private:
     void onReleaseConfirm(const std::string& choice);
     void onMessageDone();
     void updatePeoplemonInfo(const core::pplmn::OwnedPeoplemon& ppl);
+    void showPeoplemonInfo(bool show);
+    void updateThumbnail(const std::string& src);
     void showContextMessage(const std::string& msg, bool closeMenu = true);
+    void positionContextMenu();
 };
 
 } // namespace state

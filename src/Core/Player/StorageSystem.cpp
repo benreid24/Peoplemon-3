@@ -1,5 +1,7 @@
 #include <Core/Player/StorageSystem.hpp>
 
+#include <algorithm>
+
 namespace core
 {
 namespace player
@@ -39,14 +41,39 @@ void StorageSystem::remove(unsigned int b, const sf::Vector2i& pos) {
 
 pplmn::StoredPeoplemon* StorageSystem::move(pplmn::StoredPeoplemon& ppl, unsigned int newBox,
                                             const sf::Vector2i& newPos) {
-    boxes[newBox].emplace_back(ppl.peoplemon, newBox, newPos);
-    for (auto it = boxes[ppl.boxNumber].begin(); it != boxes[ppl.boxNumber].end(); ++it) {
-        if (&(*it) == &ppl) {
-            boxes[ppl.boxNumber].erase(it);
-            break;
-        }
+    // find peoplemon being moved
+    const auto it = std::find_if(
+        boxes[ppl.boxNumber].begin(),
+        boxes[ppl.boxNumber].end(),
+        [&ppl](const pplmn::StoredPeoplemon& cmp) { return ppl.position == cmp.position; });
+    if (it == boxes[ppl.boxNumber].end()) {
+        BL_LOG_CRITICAL << "Could not find Peoplemon to move at position: " << ppl.position;
+        return nullptr;
     }
-    return &boxes[newBox].back();
+
+    // handle swap
+    const auto oit = std::find_if(
+        boxes[newBox].begin(), boxes[newBox].end(), [&newPos](const pplmn::StoredPeoplemon& cmp) {
+            return newPos == cmp.position;
+        });
+    if (oit != boxes[newBox].end()) {
+        std::swap(it->peoplemon, oit->peoplemon);
+        return &*oit;
+    }
+
+    // move position
+    ppl.position = newPos;
+
+    // change box if different
+    if (newBox != ppl.boxNumber) {
+        const unsigned int ogBox = ppl.boxNumber;
+        ppl.boxNumber            = newBox;
+        boxes[newBox].emplace_back(ppl);
+        boxes[ogBox].erase(it);
+        return &boxes[newBox].back();
+    }
+
+    return &*it;
 }
 
 bool StorageSystem::spaceFree(int box, int x, int y) const {

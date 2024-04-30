@@ -18,3 +18,5 @@ target_sources(Peoplemon PUBLIC
     StorageSystem.hpp
     StoreMenu.hpp
 )
+
+add_subdirectory(Evolution)

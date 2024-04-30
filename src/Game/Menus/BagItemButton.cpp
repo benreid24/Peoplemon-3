@@ -12,7 +12,8 @@ BagItemButton::Ptr BagItemButton::create(const core::player::Bag::Item& item) {
     return Ptr(new BagItemButton(item));
 }
 
-BagItemButton::BagItemButton(const core::player::Bag::Item& item) {
+BagItemButton::BagItemButton(const core::player::Bag::Item& item)
+: item(item) {
     getSignal(Item::Selected).willAlwaysCall(std::bind(&BagItemButton::onSelect, this));
     getSignal(Item::Deselected).willAlwaysCall(std::bind(&BagItemButton::onDeselect, this));
 }
@@ -29,7 +30,7 @@ void BagItemButton::update(const core::player::Bag::Item& i) {
     }
     else {
         label.getSection().setString(core::item::Item::getName(item.id));
-        qty.getSection().setString("Qty: " + std::to_string(item.qty));
+        qty.getSection(1).setString(std::to_string(item.qty));
         label.getTransform().setPosition(
             8.f, txtr->size().y * 0.5f - label.getLocalBounds().height * 0.5f);
         qty.getTransform().setPosition(txtr->size().x * 0.75f,
@@ -58,7 +59,9 @@ void BagItemButton::doCreate(bl::engine::Engine& engine) {
     label.create(engine, core::Properties::MenuFont(), "", 22, bl::sfcol(sf::Color::Black));
     label.setParent(background);
 
-    qty.create(engine, core::Properties::MenuFont(), "", 18, bl::sfcol(sf::Color(30, 140, 230)));
+    qty.create(
+        engine, core::Properties::MenuFont(), "Qty:", 16, bl::sfcol(sf::Color(30, 140, 230)));
+    qty.addSection("", 18, sf::Color(10, 10, 60));
     qty.setParent(background);
 
     update(item);
