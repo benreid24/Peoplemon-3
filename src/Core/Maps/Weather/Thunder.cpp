@@ -46,9 +46,7 @@ void Thunder::update(float dt) {
         if (lightning.getFillColor().a != 0) {
             const float a = computeAlpha(timeSinceLastThunder);
             if (a <= 0.f) { lightning.setFillColor(sf::Color::Transparent); }
-            else {
-                lightning.setFillColor(sf::Color(255, 255, 255, a));
-            }
+            else { lightning.setFillColor(sf::Color(255, 255, 255, a)); }
         }
         else if (!stopping) {
             if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
@@ -60,14 +58,14 @@ void Thunder::update(float dt) {
     }
 }
 
-void Thunder::render(sf::RenderTarget& target, float) const {
-    if (enabled && lightning.getFillColor().a > 0) {
-        lightning.setOrigin(target.getView().getSize() / 2.f);
-        lightning.setPosition(target.getView().getCenter());
-        lightning.setSize(target.getView().getSize());
-        target.draw(lightning);
-    }
-}
+// void Thunder::render(sf::RenderTarget& target, float) const {
+//     if (enabled && lightning.getFillColor().a > 0) {
+//         lightning.setOrigin(target.getView().getSize() / 2.f);
+//         lightning.setPosition(target.getView().getCenter());
+//         lightning.setSize(target.getView().getSize());
+//         target.draw(lightning);
+//     }
+// }
 
 } // namespace weather
 } // namespace map

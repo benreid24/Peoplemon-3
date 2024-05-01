@@ -125,14 +125,6 @@ public:
      */
     void update(float dt);
 
-    /**
-     * @brief Renders the current weather
-     *
-     * @param target The target to render to
-     * @param residual Residual time not yet accounted for in update
-     */
-    void render(sf::RenderTarget& target, float residual) const;
-
 private:
     enum State { Continuous, WaitingWeather, Stopping, WaitingStopped };
 

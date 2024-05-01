@@ -117,12 +117,6 @@ void Weather::update(float dt) {
     }
 }
 
-void Weather::render(sf::RenderTarget& target, float lag) const {
-    area = {target.getView().getCenter() - target.getView().getSize() * 0.5f,
-            target.getView().getSize()};
-    if (weather) weather->render(target, lag);
-}
-
 void Weather::makeWeather() {
     const auto makeRain = [this](bool hard, bool thunder) {
         BL_LOG_INFO << "Created rain";

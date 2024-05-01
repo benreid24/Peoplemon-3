@@ -132,23 +132,24 @@ void LightingSystem::update(float dt) {
     if (weatherModifier != targetWeatherModifier) {
         weatherResidual += AdjustSpeed * dt;
         const float p = std::floor(weatherResidual);
-        if (p > 0.f) {
+        if (p >= 1.f) {
             weatherResidual -= p;
             if (targetWeatherModifier > weatherModifier) {
                 weatherModifier += static_cast<int>(p);
                 if (weatherModifier > targetWeatherModifier) {
                     weatherModifier = targetWeatherModifier;
+                    weatherResidual = 0.f;
                 }
             }
             else {
                 weatherModifier -= static_cast<int>(p);
                 if (weatherModifier < targetWeatherModifier) {
                     weatherModifier = targetWeatherModifier;
+                    weatherResidual = 0.f;
                 }
             }
         }
     }
-    else { weatherResidual = 0.f; }
 
     if (lightsAreOn() && !lightsActive) {
         lightsActive = true;

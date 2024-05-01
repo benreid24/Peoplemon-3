@@ -133,6 +133,7 @@ public:
     static const std::string& TrainerExclaimSound();
 
     static constexpr std::uint32_t EvolutionSparkPipelineId = 200;
+    static constexpr std::uint32_t RaindropPipelineId       = 201;
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

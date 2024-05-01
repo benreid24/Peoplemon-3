@@ -46,14 +46,6 @@ public:
      */
     void update(float dt);
 
-    /**
-     * @brief Render the lightning if present
-     *
-     * @param target The target to render to
-     * @param residual Time not accounted for in update()
-     */
-    void render(sf::RenderTarget& target, float residual) const;
-
 private:
     const bool enabled;
     const float minInterval;

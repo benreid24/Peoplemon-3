@@ -46,15 +46,6 @@ struct Base {
     virtual void update(float dt) = 0;
 
     /**
-     * @brief Render the weather to the target. Take note of the target render area for spawning new
-     *        particles
-     *
-     * @param target The target to render to
-     * @param residual Residual time between calls to update()
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const = 0;
-
-    /**
      * @brief Start the weather using the initial area
      *
      * @param initialView The area the camera can currently see

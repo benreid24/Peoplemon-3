@@ -68,14 +68,6 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the snow
-     *
-     * @param target Target to render to
-     * @param residual Time elapsed in seconds not accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
     struct Flake {
         sf::Vector3f position;

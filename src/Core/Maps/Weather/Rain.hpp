@@ -73,14 +73,6 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Render the rain and thunder if any
-     *
-     * @param target The target to render to
-     * @param residual Residual time not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
     const Weather::Type _type;
     const unsigned int targetParticleCount;

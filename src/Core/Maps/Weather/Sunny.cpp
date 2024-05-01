@@ -46,15 +46,15 @@ void Sunny::update(float dt) {
     }
 }
 
-void Sunny::render(sf::RenderTarget& target, float lag) const {
-    const int a =
-        stopping ? std::max(0, static_cast<int>(t - StopDecay * lag)) : computeLevel(t + lag);
-    sun.setPosition(target.getView().getCenter());
-    sun.setSize(target.getView().getSize());
-    sun.setOrigin(target.getView().getSize() / 2.f);
-    sun.setFillColor(sf::Color(255, 200, 0, a));
-    target.draw(sun);
-}
+// void Sunny::render(sf::RenderTarget& target, float lag) const {
+//     const int a =
+//         stopping ? std::max(0, static_cast<int>(t - StopDecay * lag)) : computeLevel(t + lag);
+//     sun.setPosition(target.getView().getCenter());
+//     sun.setSize(target.getView().getSize());
+//     sun.setOrigin(target.getView().getSize() / 2.f);
+//     sun.setFillColor(sf::Color(255, 200, 0, a));
+//     target.draw(sun);
+// }
 
 } // namespace weather
 } // namespace map

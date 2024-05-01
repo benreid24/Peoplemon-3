@@ -103,28 +103,28 @@ void Sandstorm::update(float dt) {
     }
 }
 
-void Sandstorm::render(sf::RenderTarget& target, float lag) const {
-    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
-            target.getView().getSize()};
-
-    const float a  = computeAlpha(alpha, targetAlpha, lag);
-    const float sa = a * SwirlRatio;
-
-    sand.setColor(sf::Color(255, 255, 255, a));
-    for (const sf::Vector2f& sp : sandPatches) {
-        sand.setPosition(sp + SandVelocity * lag);
-        target.draw(sand);
-    }
-
-    swirl.setColor(sf::Color(255, 255, 255, sa));
-    for (const Swirl& s : swirlParticles) {
-        const sf::Vector2f interp(s.position + SwirlVelocity * lag);
-        swirl.setPosition(interp.x, interp.y);
-        swirl.setRotation(s.angle + s.angularVel * lag);
-        swirl.setScale(s.scale, s.scale);
-        target.draw(swirl);
-    }
-}
+// void Sandstorm::render(sf::RenderTarget& target, float lag) const {
+//     area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+//             target.getView().getSize()};
+//
+//     const float a  = computeAlpha(alpha, targetAlpha, lag);
+//     const float sa = a * SwirlRatio;
+//
+//     sand.setColor(sf::Color(255, 255, 255, a));
+//     for (const sf::Vector2f& sp : sandPatches) {
+//         sand.setPosition(sp + SandVelocity * lag);
+//         target.draw(sand);
+//     }
+//
+//     swirl.setColor(sf::Color(255, 255, 255, sa));
+//     for (const Swirl& s : swirlParticles) {
+//         const sf::Vector2f interp(s.position + SwirlVelocity * lag);
+//         swirl.setPosition(interp.x, interp.y);
+//         swirl.setRotation(s.angle + s.angularVel * lag);
+//         swirl.setScale(s.scale, s.scale);
+//         target.draw(swirl);
+//     }
+// }
 
 void Sandstorm::Swirl::set(float x, float y) {
     position.x = x;

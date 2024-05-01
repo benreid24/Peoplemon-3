@@ -63,14 +63,6 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the sunny weather
-     *
-     * @param target Target to render to
-     * @param lag Time not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float lag) const override;
-
 private:
     mutable sf::RectangleShape sun;
     float t;

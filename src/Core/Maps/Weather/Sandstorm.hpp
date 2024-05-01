@@ -63,14 +63,6 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the sandstorm
-     *
-     * @param target Target to render to
-     * @param lag Time elapsed in seconds not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float lag) const override;
-
 private:
     struct Swirl {
         sf::Vector2f position;

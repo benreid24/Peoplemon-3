@@ -76,18 +76,18 @@ void Fog::update(float dt) {
     }
 }
 
-void Fog::render(sf::RenderTarget& target, float lag) const {
-    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
-            target.getView().getSize()};
-
-    fog.setColor(sf::Color(255, 255, 255, computeAlpha(alpha, targetOpacity, lag)));
-    for (const Particle& p : particles) {
-        fog.setPosition(p.position + FogVelocity * lag);
-        fog.setRotation(p.rotation + p.angularVelocity * lag);
-        fog.setScale(p.scale, p.scale);
-        target.draw(fog);
-    }
-}
+// void Fog::render(sf::RenderTarget& target, float lag) const {
+//     area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+//             target.getView().getSize()};
+//
+//     fog.setColor(sf::Color(255, 255, 255, computeAlpha(alpha, targetOpacity, lag)));
+//     for (const Particle& p : particles) {
+//         fog.setPosition(p.position + FogVelocity * lag);
+//         fog.setRotation(p.rotation + p.angularVelocity * lag);
+//         fog.setScale(p.scale, p.scale);
+//         target.draw(fog);
+//     }
+// }
 
 void Fog::Particle::set(const sf::Vector2f& pos) {
     position        = pos;

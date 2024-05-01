@@ -65,14 +65,6 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the fog
-     *
-     * @param target Target to render to
-     * @param residual Time in seconds not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
     struct Particle {
         sf::Vector2f position;

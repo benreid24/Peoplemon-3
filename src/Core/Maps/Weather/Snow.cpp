@@ -80,26 +80,26 @@ void Snow::update(float dt) {
     }
 }
 
-void Snow::render(sf::RenderTarget& target, float lag) const {
-    const auto renderFlake = [this, &target, lag](const Flake& flake) {
-        if (flake.position.z >= 0.f) {
-            const sf::Vector3f interp(flake.position + flake.velocity * lag);
-            this->snowFlake.setPosition(interp.x + interp.z / 4.f, interp.y - interp.z / 2.f);
-            this->snowFlake.setColor(sf::Color(255, 255, 255, 255));
-        }
-        else {
-            const float s = flake.position.z / GroundTime;
-            this->snowFlake.setPosition(flake.position.x, flake.position.y);
-            this->snowFlake.setColor(sf::Color(255, 255, 255, 255 - 255.f * s));
-        }
-        target.draw(this->snowFlake);
-    };
-
-    snow.render(renderFlake);
-
-    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
-            target.getView().getSize()};
-}
+// void Snow::render(sf::RenderTarget& target, float lag) const {
+//     const auto renderFlake = [this, &target, lag](const Flake& flake) {
+//         if (flake.position.z >= 0.f) {
+//             const sf::Vector3f interp(flake.position + flake.velocity * lag);
+//             this->snowFlake.setPosition(interp.x + interp.z / 4.f, interp.y - interp.z / 2.f);
+//             this->snowFlake.setColor(sf::Color(255, 255, 255, 255));
+//         }
+//         else {
+//             const float s = flake.position.z / GroundTime;
+//             this->snowFlake.setPosition(flake.position.x, flake.position.y);
+//             this->snowFlake.setColor(sf::Color(255, 255, 255, 255 - 255.f * s));
+//         }
+//         target.draw(this->snowFlake);
+//     };
+//
+//     snow.render(renderFlake);
+//
+//     area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
+//             target.getView().getSize()};
+// }
 
 void Snow::createFlake(Flake* flake) {
     flake = new (flake)
