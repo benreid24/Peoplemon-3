@@ -41,8 +41,9 @@ public:
     /**
      * @brief Starts the sunny weather
      *
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect&) override;
+    virtual void start(bl::engine::Engine& engine) override;
 
     /**
      * @brief Stops the sunny weather

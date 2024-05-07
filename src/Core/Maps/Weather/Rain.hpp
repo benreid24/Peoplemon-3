@@ -7,6 +7,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Particles.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -26,6 +27,19 @@ namespace weather
  */
 class Rain : public Base {
 public:
+    struct Raindrop {
+        glm::vec2 pos;
+        float height;
+
+        Raindrop() = default;
+
+        Raindrop(const sf::FloatRect& area) {
+            pos.x = bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f);
+            pos.y = bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f);
+            height = bl::util::Random::get<float>(120.f, 180.f);
+        }
+    };
+
     /**
      * @brief Construct a new Rain system
      *
@@ -49,9 +63,9 @@ public:
     /**
      * @brief Start the rain
      *
-     * @param area The initial area to spawn drops in
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine) override;
 
     /**
      * @brief Stop the rain
@@ -74,11 +88,11 @@ public:
     virtual void update(float dt) override;
 
 private:
+    bl::engine::Engine* engine;
+    bl::pcl::ParticleManager<Raindrop>* particles;
     const Weather::Type _type;
     const unsigned int targetParticleCount;
-    bl::particle::System<sf::Vector3f> rain;
     const sf::Vector3f fallVelocity;
-    mutable sf::FloatRect area;
     float stopFactor;
 
     bl::resource::Ref<sf::Texture> dropTxtr;
@@ -91,8 +105,6 @@ private:
     bl::audio::AudioSystem::Handle rainSoundHandle;
 
     Thunder thunder;
-
-    void createDrop(sf::Vector3f* drop);
 };
 
 } // namespace weather

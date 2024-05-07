@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_HPP
 #define CORE_MAPS_WEATHER_HPP
 
+#include <BLIB/Engine/Engine.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 #include <memory>
@@ -100,9 +101,9 @@ public:
     /**
      * @brief Activates the weather system
      *
-     * @param area Initial area to spawn particles in
+     * @param engine The game engine instance
      */
-    void activate(const sf::FloatRect& area);
+    void activate(bl::engine::Engine& engine);
 
     /**
      * @brief Sets the current weather type
@@ -132,7 +133,7 @@ private:
     std::unique_ptr<weather::Base> weather;
     State state;
     float stateTime;
-    mutable sf::FloatRect area;
+    bl::engine::Engine* engine;
 
     void makeWeather();
 };

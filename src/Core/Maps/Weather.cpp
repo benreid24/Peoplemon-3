@@ -41,11 +41,11 @@ Weather::Weather()
 : type(None)
 , state(Continuous)
 , stateTime(-1.f)
-, area(0, 0, 800, 600) {}
+, engine(nullptr) {}
 
 Weather::~Weather() { weather.reset(); }
 
-void Weather::activate(const sf::FloatRect& a) { area = a; }
+void Weather::activate(bl::engine::Engine& e) { engine = &e; }
 
 void Weather::set(Type t, bool im) {
     if (t != type) {
@@ -210,7 +210,7 @@ void Weather::makeWeather() {
     }
 
     if (weather) {
-        weather->start(area);
+        weather->start(*engine);
         bl::event::Dispatcher::dispatch<event::WeatherStarted>({weather->type()});
     }
 }

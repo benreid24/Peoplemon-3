@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_BASE_HPP
 #define CORE_MAPS_WEATHER_BASE_HPP
 
+#include <BLIB/Engine/Engine.hpp>
 #include <Core/Maps/Weather.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -8,7 +9,6 @@
  * @addtogroup Weather
  * @ingroup Maps
  * @brief Collection of weather type implementations
- *
  */
 
 namespace core
@@ -22,12 +22,10 @@ namespace weather
  * @brief Base class for all weather types
  *
  * @ingroup Weather
- *
  */
 struct Base {
     /**
      * @brief Destroy the Base object
-     *
      */
     virtual ~Base() = default;
 
@@ -48,13 +46,12 @@ struct Base {
     /**
      * @brief Start the weather using the initial area
      *
-     * @param initialView The area the camera can currently see
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect& initialView) = 0;
+    virtual void start(bl::engine::Engine& engine) = 0;
 
     /**
      * @brief Stop the weather
-     *
      */
     virtual void stop() = 0;
 

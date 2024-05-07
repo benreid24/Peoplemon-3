@@ -2,9 +2,10 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Particles.hpp>
-#include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
+
+using Raindrop = core::map::weather::Rain::Raindrop;
 
 namespace
 {
@@ -14,19 +15,6 @@ constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
 constexpr float StopTime   = 4.f;
 constexpr float StopSpeed  = 1.f / StopTime;
-
-struct Raindrop {
-    glm::vec2 pos;
-    float height;
-
-    Raindrop() = default;
-
-    Raindrop(const sf::FloatRect& area) {
-        pos.x  = bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f);
-        pos.y  = bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f);
-        height = bl::util::Random::get<float>(120.f, 180.f);
-    }
-};
 
 struct GpuRaindrop {
     glm::vec2 pos;
@@ -158,11 +146,12 @@ namespace weather
 {
 
 Rain::Rain(bool hard, bool canThunder)
-: _type(hard ? (canThunder ? Weather::HardRainThunder : Weather::HardRain) :
+: engine(nullptr)
+, particles(nullptr)
+, _type(hard ? (canThunder ? Weather::HardRainThunder : Weather::HardRain) :
                (canThunder ? Weather::LightRainThunder : Weather::LightRain))
 , targetParticleCount(hard ? Properties::HardRainParticleCount() :
                              Properties::LightRainParticleCount())
-, rain(std::bind(&Rain::createDrop, this, std::placeholders::_1), targetParticleCount, 200.f)
 , fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
 , stopFactor(-1.f)
 , thunder(canThunder, hard) {
@@ -180,16 +169,15 @@ Rain::Rain(bool hard, bool canThunder)
 
     rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
         hard ? Properties::HardRainSoundFile() : Properties::LightRainSoundFile());
-
-    rain.setReplaceDestroyed(true);
 }
 
 Rain::~Rain() { stop(); }
 
 Weather::Type Rain::type() const { return _type; }
 
-void Rain::start(const sf::FloatRect& a) {
-    area = a;
+void Rain::start(bl::engine::Engine& e) {
+    // TODO - update
+    engine = &e;
     bl::audio::AudioSystem::playSound(rainSoundHandle, 1.5f, true);
 }
 
@@ -199,32 +187,19 @@ void Rain::stop() {
     thunder.stop();
 }
 
-bool Rain::stopped() const { return rain.particleCount() == 0; }
+bool Rain::stopped() const { return particles && particles->getParticleCount() == 0; }
 
 void Rain::update(float dt) {
-    const auto updateDrop = [this, dt](sf::Vector3f& drop) -> bool {
-        if (drop.z >= 0.f) {
-            drop += this->fallVelocity * dt;
-            if (drop.z < 0.f) drop.z = -0.001f;
-            return true;
-        }
-        else {
-            drop.z -= dt;
-            return drop.z >= DeadTime;
-        }
-    };
-
-    rain.update(updateDrop, dt);
     thunder.update(dt);
 
     if (stopFactor >= 0.f) {
         stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);
-        rain.setTargetCount(
+        /*rain.setTargetCount(
             targetParticleCount -
-            static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));
+            static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));*/
         if (stopFactor >= 1.f) {
             stopFactor = -1.f;
-            rain.setTargetCount(0);
+            // TODO - target count to zero
         }
     }
 }
@@ -253,13 +228,6 @@ void Rain::update(float dt) {
 //     rain.render(renderDrop);
 //     thunder.render(target, lag);
 // }
-
-void Rain::createDrop(sf::Vector3f* drop) {
-    drop = new (drop) sf::Vector3f(
-        bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f),
-        bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f),
-        bl::util::Random::get<float>(120.f, 180.f));
-}
 
 } // namespace weather
 } // namespace map

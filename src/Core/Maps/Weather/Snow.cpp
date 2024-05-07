@@ -37,7 +37,9 @@ Snow::Snow(bool hard, bool thunder)
 
 Weather::Type Snow::type() const { return _type; }
 
-void Snow::start(const sf::FloatRect& a) { area = a; }
+void Snow::start(bl::engine::Engine&) {
+    // TODO
+}
 
 void Snow::stop() {
     stopFactor = 0.f;

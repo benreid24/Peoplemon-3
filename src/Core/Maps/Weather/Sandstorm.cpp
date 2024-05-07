@@ -45,8 +45,8 @@ void Sandstorm::stop() { targetAlpha = 0; }
 
 bool Sandstorm::stopped() const { return static_cast<int>(alpha) == 0; }
 
-void Sandstorm::start(const sf::FloatRect& a) {
-    area        = a;
+void Sandstorm::start(bl::engine::Engine&) {
+    // TODO - update
     targetAlpha = MaxAlpha;
     alpha       = 0;
 

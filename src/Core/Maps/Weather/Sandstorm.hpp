@@ -40,9 +40,9 @@ public:
     /**
      * @brief Starts the sandstorm
      *
-     * @param area The area to cover with sandstorm
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine) override;
 
     /**
      * @brief Stops the sandstorm

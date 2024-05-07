@@ -42,9 +42,9 @@ public:
     /**
      * @brief Starts the fog
      *
-     * @param area The area to surround with fog
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine) override;
 
     /**
      * @brief Stops the fog

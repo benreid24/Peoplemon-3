@@ -45,9 +45,9 @@ public:
     /**
      * @brief Start the snow
      *
-     * @param area Initial area to spawn flakes in
+     * @param engine The game engine instance
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine) override;
 
     /**
      * @brief Stops the snow
