@@ -24,8 +24,8 @@ layout(std140, set = 2, binding = 0) readonly buffer pcl {
 } particles;
 
 struct ModeInfo {
-    uint textureId;
     vec2 texCoordCenter;
+    uint textureId;
     float radius;
 };
 

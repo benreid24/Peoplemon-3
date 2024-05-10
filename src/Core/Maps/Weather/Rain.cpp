@@ -52,14 +52,14 @@ struct GpuRaindrop {
     }
 };
 
-struct GlobalShaderInfo {
-    struct ModeInfo {
-        std::uint32_t textureId;
+struct alignas(8) GlobalShaderInfo {
+    struct alignas(8) ModeInfo {
         glm::vec2 textureCenter;
+        std::uint32_t textureId;
         float radius;
     };
 
-    ModeInfo info[3];
+    alignas(8) ModeInfo info[3];
 };
 } // namespace rain
 } // namespace weather
