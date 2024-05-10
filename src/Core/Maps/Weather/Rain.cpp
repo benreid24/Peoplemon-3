@@ -77,7 +77,7 @@ using GlobalShaderInfo = core::map::weather::rain::GlobalShaderInfo;
 template<>
 struct RenderConfigMap<Raindrop> {
     static constexpr std::uint32_t PipelineId  = core::Properties::RaindropPipelineId;
-    static constexpr bool ContainsTransparency = false;
+    static constexpr bool ContainsTransparency = true;
 
     static constexpr bool CreateRenderPipeline = true;
 
@@ -93,7 +93,7 @@ struct RenderConfigMap<Raindrop> {
     static constexpr bool EnableDepthTesting      = true;
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
     static constexpr const char* VertexShader     = "Resources/Shaders/Particles/raindrop.vert.spv";
-    static constexpr const char* FragmentShader   = bl::rc::Config::ShaderIds::Fragment2DSkinnedLit;
+    static constexpr const char* FragmentShader   = "Resources/Shaders/Particles/raindrop.frag.spv";
 };
 } // namespace pcl
 } // namespace bl
@@ -202,9 +202,11 @@ void Rain::start(bl::engine::Engine& e, Map& map) {
     particles = &e.particleSystem().getUniqueSystem<rain::Raindrop>();
 
     // TODO - figure out how to rotate 45 : 15
-    dropTxtr    = e.renderer().texturePool().getOrLoadTexture(Properties::RainDropFile());
-    splash1Txtr = e.renderer().texturePool().getOrLoadTexture(Properties::RainSplash1File());
-    splash2Txtr = e.renderer().texturePool().getOrLoadTexture(Properties::RainSplash2File());
+    const auto sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();
+    auto& tpool        = e.renderer().texturePool();
+    dropTxtr           = tpool.getOrLoadTexture(Properties::RainDropFile(), sampler);
+    splash1Txtr        = tpool.getOrLoadTexture(Properties::RainSplash1File(), sampler);
+    splash2Txtr        = tpool.getOrLoadTexture(Properties::RainSplash2File(), sampler);
 
     const bl::rc::res::TextureRef* textures[] = {&dropTxtr, &splash1Txtr, &splash2Txtr};
     for (unsigned int i = 0; i < 3; ++i) {
@@ -212,7 +214,7 @@ void Rain::start(bl::engine::Engine& e, Map& map) {
         auto& info = particles->getRenderer().getGlobals().info[i];
 
         info.textureId     = tex.id();
-        info.textureCenter = tex->size() * 0.5f;
+        info.textureCenter = tex->normalizeAndConvertCoord(tex->size() * 0.5f);
         info.radius        = glm::length(tex->size()) * 0.5f;
     }
 
