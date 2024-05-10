@@ -89,6 +89,7 @@ private:
     const unsigned int targetParticleCount;
     const glm::vec2 velocity;
     const float fallSpeed;
+    const float rotation;
     float stopFactor;
 
     bl::rc::res::TextureRef dropTxtr;

@@ -60,6 +60,7 @@ struct alignas(8) GlobalShaderInfo {
     };
 
     alignas(8) ModeInfo info[3];
+    float rotation;
 };
 } // namespace rain
 } // namespace weather
@@ -117,7 +118,11 @@ public:
     virtual void update(Proxy& proxy, float dt, float) override {
         for (Raindrop& drop : proxy.particles()) {
             drop.pos += vel * dt;
-            drop.height -= fallVel * dt;
+            if (drop.height > 0.f) {
+                drop.height -= fallVel * dt;
+                if (drop.height < 0.f) { drop.height = 0.f; }
+            }
+            else { drop.height -= dt; }
         }
     }
 
@@ -183,6 +188,7 @@ Rain::Rain(bool hard, bool canThunder)
                              Properties::LightRainParticleCount())
 , velocity(hard ? glm::vec2{-90.f, 30.f} : glm::vec2{0.f, 0.f})
 , fallSpeed(hard ? 740.f : 500.f)
+, rotation(bl::math::degreesToRadians(hard ? 45.f : 15.f))
 , stopFactor(-1.f)
 , thunder(canThunder, hard) {
     rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
@@ -201,7 +207,6 @@ void Rain::start(bl::engine::Engine& e, Map& map) {
 
     particles = &e.particleSystem().getUniqueSystem<rain::Raindrop>();
 
-    // TODO - figure out how to rotate 45 : 15
     const auto sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();
     auto& tpool        = e.renderer().texturePool();
     dropTxtr           = tpool.getOrLoadTexture(Properties::RainDropFile(), sampler);
@@ -213,10 +218,17 @@ void Rain::start(bl::engine::Engine& e, Map& map) {
         auto& tex  = *textures[i];
         auto& info = particles->getRenderer().getGlobals().info[i];
 
+        sf::FloatRect bounds(0.f, 0.f, tex->size().x, tex->size().y);
+        sf::Transform transform;
+        transform.rotate(bl::math::radiansToDegrees(rotation));
+        bounds = transform.transformRect(bounds);
+        const glm::vec2 rotSize(bounds.width, bounds.height);
+
         info.textureId     = tex.id();
         info.textureCenter = tex->normalizeAndConvertCoord(tex->size() * 0.5f);
-        info.radius        = glm::length(tex->size()) * 0.5f;
+        info.radius        = glm::length(glm::vec2(bounds.width, bounds.height)) * 0.5f;
     }
+    particles->getRenderer().getGlobals().rotation = rotation;
 
     emitter =
         particles->addEmitter<rain::TimeEmitter>(e.renderer().getObserver(), targetParticleCount);
@@ -250,31 +262,6 @@ void Rain::update(float dt) {
         }
     }
 }
-
-// void Rain::render(sf::RenderTarget& target, float lag) const {
-//     const auto renderDrop = [this, &target, lag](const sf::Vector3f& drop) {
-//         if (drop.z >= 0.f) {
-//             const sf::Vector3f pos = drop + this->fallVelocity * lag;
-//             const sf::Vector2f tpos(pos.x + pos.z * 0.25f, pos.y - pos.z * 0.5f);
-//             this->drop.setPosition(tpos);
-//             target.draw(this->drop);
-//         }
-//         else {
-//             sf::Sprite& spr = drop.z >= SplashTime ? this->splash1 : this->splash2;
-//             spr.setPosition(drop.x, drop.y);
-//             static const float TransLen = std::abs(DeadTime - TransTime);
-//             const float s               = std::min((drop.z - TransTime) / TransLen, 0.f);
-//             const float minusA          = 255.f * s;
-//             spr.setColor(sf::Color(255, 255, 255, 255 + minusA));
-//             target.draw(spr);
-//         }
-//     };
-//
-//     area = {target.getView().getCenter() - target.getView().getSize() * 0.5f,
-//             target.getView().getSize()};
-//     rain.render(renderDrop);
-//     thunder.render(target, lag);
-// }
 
 } // namespace weather
 } // namespace map

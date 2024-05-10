@@ -4,6 +4,7 @@ layout(location = 0) in vec4 fragColor;
 layout(location = 1) in vec2 texCoords;
 layout(location = 2) flat in uint textureIndex;
 layout(location = 3) in vec2 fragPos;
+layout(location = 4) in flat float rotation;
 
 layout(location = 0) out vec4 outColor;
 
@@ -20,9 +21,15 @@ layout(std140, set = 1, binding = 1) uniform lb {
 } lighting;
 
 void main() {
+    float s = sin(rotation);
+    float c = cos(rotation);
+    mat2 rotationMatrix = mat2(c, -s, s, c);
+    vec2 center = vec2(0.5, 0.5);
+    vec2 texCoords = rotationMatrix * (gl_PointCoord - center) + center;
+
     // TODO - maybe this shader should go into engine?
     // TODO - need to account for atlasing here
-    vec4 texColor = texture(textures[textureIndex], gl_PointCoord);
+    vec4 texColor = texture(textures[textureIndex], texCoords);
     if (texColor.a == 0.0) {
         discard;
     }

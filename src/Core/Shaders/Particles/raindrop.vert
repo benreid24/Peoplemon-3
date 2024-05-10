@@ -8,6 +8,7 @@ layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragTexCoords;
 layout(location = 2) flat out uint fragTextureId;
 layout(location = 3) out vec2 fragPos;
+layout(location = 4) flat out float rotation;
 
 layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
@@ -31,6 +32,7 @@ struct ModeInfo {
 
 layout(set = 2, binding = 1) uniform gpcl {
     ModeInfo modeInfo[3];
+    float rotation;
 } globals;
 
 void main() {
@@ -38,8 +40,8 @@ void main() {
 
     vec2 pos = particle.pos;
     mat4 particleTransform = mat4(1.0);
-    particleTransform[3][0] = pos[0];
-    particleTransform[3][1] = pos[1];
+    particleTransform[3][0] = pos[0] + particle.height * 0.25;
+    particleTransform[3][1] = pos[1] - particle.height * 0.5;
     vec4 worldPos = particleTransform * vec4(inPosition, 1.0);
 	gl_Position = camera.viewProj * worldPos;
 
@@ -55,4 +57,5 @@ void main() {
     fragTextureId = info.textureId;
     fragPos = worldPos.xy;
     fragColor = vec4(1.0, 1.0, 1.0, alpha);
+    rotation = globals.rotation;
 }
