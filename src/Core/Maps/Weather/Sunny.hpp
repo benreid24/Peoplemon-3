@@ -42,8 +42,9 @@ public:
      * @brief Starts the sunny weather
      *
      * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stops the sunny weather

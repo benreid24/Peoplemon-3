@@ -45,7 +45,10 @@ Weather::Weather()
 
 Weather::~Weather() { weather.reset(); }
 
-void Weather::activate(bl::engine::Engine& e) { engine = &e; }
+void Weather::activate(bl::engine::Engine& e, Map& m) {
+    engine = &e;
+    owner  = &m;
+}
 
 void Weather::set(Type t, bool im) {
     if (t != type) {
@@ -210,7 +213,7 @@ void Weather::makeWeather() {
     }
 
     if (weather) {
-        weather->start(*engine);
+        weather->start(*engine, *owner);
         bl::event::Dispatcher::dispatch<event::WeatherStarted>({weather->type()});
     }
 }

@@ -15,6 +15,8 @@ class Systems;
 
 namespace map
 {
+class Map;
+
 namespace weather
 {
 struct Base;
@@ -102,8 +104,9 @@ public:
      * @brief Activates the weather system
      *
      * @param engine The game engine instance
+     * @param map The map that the weather is in
      */
-    void activate(bl::engine::Engine& engine);
+    void activate(bl::engine::Engine& engine, Map& map);
 
     /**
      * @brief Sets the current weather type
@@ -134,6 +137,7 @@ private:
     State state;
     float stateTime;
     bl::engine::Engine* engine;
+    Map* owner;
 
     void makeWeather();
 };

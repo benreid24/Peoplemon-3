@@ -19,6 +19,12 @@ namespace map
 {
 namespace weather
 {
+namespace rain
+{
+struct Raindrop;
+class TimeEmitter;
+} // namespace rain
+
 /**
  * @brief Weather type for rainy days. Handles light and hard rain and owns thunder if need be
  *
@@ -27,19 +33,6 @@ namespace weather
  */
 class Rain : public Base {
 public:
-    struct Raindrop {
-        glm::vec2 pos;
-        float height;
-
-        Raindrop() = default;
-
-        Raindrop(const sf::FloatRect& area) {
-            pos.x = bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f);
-            pos.y = bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f);
-            height = bl::util::Random::get<float>(120.f, 180.f);
-        }
-    };
-
     /**
      * @brief Construct a new Rain system
      *
@@ -64,8 +57,9 @@ public:
      * @brief Start the rain
      *
      * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stop the rain
@@ -89,18 +83,17 @@ public:
 
 private:
     bl::engine::Engine* engine;
-    bl::pcl::ParticleManager<Raindrop>* particles;
+    bl::pcl::ParticleManager<rain::Raindrop>* particles;
+    rain::TimeEmitter* emitter;
     const Weather::Type _type;
     const unsigned int targetParticleCount;
-    const sf::Vector3f fallVelocity;
+    const glm::vec2 velocity;
+    const float fallSpeed;
     float stopFactor;
 
-    bl::resource::Ref<sf::Texture> dropTxtr;
-    mutable sf::Sprite drop;
-    bl::resource::Ref<sf::Texture> splash1Txtr;
-    mutable sf::Sprite splash1;
-    bl::resource::Ref<sf::Texture> splash2Txtr;
-    mutable sf::Sprite splash2;
+    bl::rc::res::TextureRef dropTxtr;
+    bl::rc::res::TextureRef splash1Txtr;
+    bl::rc::res::TextureRef splash2Txtr;
 
     bl::audio::AudioSystem::Handle rainSoundHandle;
 

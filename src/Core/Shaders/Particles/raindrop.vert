@@ -29,12 +29,16 @@ struct ModeInfo {
     float radius;
 };
 
-layout(set = 1, binding = 1) uniform gpcl {
-    ModeInfo modeInfo[3];
+layout(set = 2, binding = 1) uniform gpcl {
+    ModeInfo mode0;
+    ModeInfo mode1;
+    ModeInfo mode2;
 } globals;
 
 void main() {
     Particle particle = particles.particles[gl_InstanceIndex];
+
+    ModeInfo modes[3] = {globals.mode0, globals.mode1, globals.mode2};
 
     vec2 pos = particle.pos;
     mat4 particleTransform = mat4(1.0);

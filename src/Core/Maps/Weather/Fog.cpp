@@ -38,7 +38,7 @@ Weather::Type Fog::type() const {
     return maxOpacity == Properties::ThickFogAlpha() ? Weather::ThickFog : Weather::ThinFog;
 }
 
-void Fog::start(bl::engine::Engine& engine) {
+void Fog::start(bl::engine::Engine& engine, Map& map) {
     // TODO - update
     const unsigned int width  = area.width * 2 / (fogTxtr->getSize().x / 2);
     const unsigned int height = area.height * 2 / (fogTxtr->getSize().y / 2);

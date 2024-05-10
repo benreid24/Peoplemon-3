@@ -15,6 +15,8 @@ namespace core
 {
 namespace map
 {
+class Map;
+
 /// Collection of different weather types
 namespace weather
 {
@@ -47,8 +49,9 @@ struct Base {
      * @brief Start the weather using the initial area
      *
      * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine) = 0;
+    virtual void start(bl::engine::Engine& engine, Map& map) = 0;
 
     /**
      * @brief Stop the weather

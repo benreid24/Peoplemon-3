@@ -2,10 +2,9 @@
 
 #include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Particles.hpp>
+#include <Core/Maps/Map.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
-
-using Raindrop = core::map::weather::Rain::Raindrop;
 
 namespace
 {
@@ -15,6 +14,28 @@ constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
 constexpr float StopTime   = 4.f;
 constexpr float StopSpeed  = 1.f / StopTime;
+} // namespace
+
+namespace core
+{
+namespace map
+{
+namespace weather
+{
+namespace rain
+{
+struct Raindrop {
+    glm::vec2 pos;
+    float height;
+
+    Raindrop() = default;
+
+    Raindrop(const sf::FloatRect& area) {
+        pos.x  = bl::util::Random::get<float>(area.left - 300.f, area.left + area.width + 300.f);
+        pos.y  = bl::util::Random::get<float>(area.top - 300.f, area.top + area.height + 300.f);
+        height = bl::util::Random::get<float>(120.f, 180.f);
+    }
+};
 
 struct GpuRaindrop {
     glm::vec2 pos;
@@ -40,12 +61,19 @@ struct GlobalShaderInfo {
 
     ModeInfo info[3];
 };
-} // namespace
+} // namespace rain
+} // namespace weather
+} // namespace map
+} // namespace core
 
 namespace bl
 {
 namespace pcl
 {
+using Raindrop         = core::map::weather::rain::Raindrop;
+using GpuRaindrop      = core::map::weather::rain::GpuRaindrop;
+using GlobalShaderInfo = core::map::weather::rain::GlobalShaderInfo;
+
 template<>
 struct RenderConfigMap<Raindrop> {
     static constexpr std::uint32_t PipelineId  = core::Properties::RaindropPipelineId;
@@ -64,13 +92,19 @@ struct RenderConfigMap<Raindrop> {
 
     static constexpr bool EnableDepthTesting      = true;
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
-    static constexpr const char* VertexShader     = "Resources/Shaders/Particles/raindrop.vert";
+    static constexpr const char* VertexShader     = "Resources/Shaders/Particles/raindrop.vert.spv";
     static constexpr const char* FragmentShader   = bl::rc::Config::ShaderIds::Fragment2DSkinnedLit;
 };
 } // namespace pcl
 } // namespace bl
 
-namespace
+namespace core
+{
+namespace map
+{
+namespace weather
+{
+namespace rain
 {
 class GravityAffector : public bl::pcl::Affector<Raindrop> {
 public:
@@ -112,6 +146,8 @@ public:
 
     virtual ~TimeEmitter() = default;
 
+    void setTarget(std::size_t t) { target = t; }
+
     virtual void update(Proxy& proxy, float dt, float) override {
         const std::size_t current = proxy.getManager().getParticleCount();
         if (current < target) {
@@ -136,14 +172,7 @@ private:
     float residual;
 };
 
-} // namespace
-
-namespace core
-{
-namespace map
-{
-namespace weather
-{
+} // namespace rain
 
 Rain::Rain(bool hard, bool canThunder)
 : engine(nullptr)
@@ -152,32 +181,48 @@ Rain::Rain(bool hard, bool canThunder)
                (canThunder ? Weather::LightRainThunder : Weather::LightRain))
 , targetParticleCount(hard ? Properties::HardRainParticleCount() :
                              Properties::LightRainParticleCount())
-, fallVelocity(hard ? sf::Vector3f(-90.f, 30.f, -740.f) : sf::Vector3f(0.f, 0.f, -500.f))
+, velocity(hard ? glm::vec2{-90.f, 30.f} : glm::vec2{0.f, 0.f})
+, fallSpeed(hard ? 740.f : 500.f)
 , stopFactor(-1.f)
 , thunder(canThunder, hard) {
-    dropTxtr = TextureManager::load(Properties::RainDropFile());
-    drop.setTexture(*dropTxtr, true);
-    drop.setRotation(hard ? 45.f : 15.f);
-    drop.setOrigin(dropTxtr->getSize().x / 2, dropTxtr->getSize().y);
-    splash1Txtr = TextureManager::load(Properties::RainSplash1File());
-    splash1.setTexture(*splash1Txtr, true);
-    splash1.setRotation(hard ? 45.f : 15.f);
-    splash1.setOrigin(splash1Txtr->getSize().x / 2, splash1Txtr->getSize().y);
-    splash2Txtr = TextureManager::load(Properties::RainSplash2File());
-    splash2.setTexture(*splash2Txtr, true);
-    splash2.setOrigin(splash2Txtr->getSize().x / 2, splash2Txtr->getSize().y);
-
     rainSoundHandle = bl::audio::AudioSystem::getOrLoadSound(
         hard ? Properties::HardRainSoundFile() : Properties::LightRainSoundFile());
 }
 
-Rain::~Rain() { stop(); }
+Rain::~Rain() {
+    stop();
+    if (engine) { engine->particleSystem().removeUniqueSystem<rain::Raindrop>(); }
+}
 
 Weather::Type Rain::type() const { return _type; }
 
-void Rain::start(bl::engine::Engine& e) {
-    // TODO - update
+void Rain::start(bl::engine::Engine& e, Map& map) {
     engine = &e;
+
+    particles = &e.particleSystem().getUniqueSystem<rain::Raindrop>();
+
+    // TODO - figure out how to rotate 45 : 15
+    dropTxtr    = e.renderer().texturePool().getOrLoadTexture(Properties::RainDropFile());
+    splash1Txtr = e.renderer().texturePool().getOrLoadTexture(Properties::RainSplash1File());
+    splash2Txtr = e.renderer().texturePool().getOrLoadTexture(Properties::RainSplash2File());
+
+    const bl::rc::res::TextureRef* textures[] = {&dropTxtr, &splash1Txtr, &splash2Txtr};
+    for (unsigned int i = 0; i < 3; ++i) {
+        auto& tex  = *textures[i];
+        auto& info = particles->getRenderer().getGlobals().info[i];
+
+        info.textureId     = tex.id();
+        info.textureCenter = tex->size() * 0.5f;
+        info.radius        = glm::length(tex->size()) * 0.5f;
+    }
+
+    emitter =
+        particles->addEmitter<rain::TimeEmitter>(e.renderer().getObserver(), targetParticleCount);
+    particles->addAffector<rain::GravityAffector>(velocity, fallSpeed);
+    particles->addSink<rain::TimeSink>();
+    particles->addToScene(e.renderer().getObserver().getCurrentScene());
+    particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
+
     bl::audio::AudioSystem::playSound(rainSoundHandle, 1.5f, true);
 }
 
@@ -194,12 +239,12 @@ void Rain::update(float dt) {
 
     if (stopFactor >= 0.f) {
         stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);
-        /*rain.setTargetCount(
+        emitter->setTarget(
             targetParticleCount -
-            static_cast<unsigned int>(static_cast<float>(targetParticleCount) * stopFactor));*/
+            static_cast<std::size_t>(static_cast<float>(targetParticleCount) * stopFactor));
         if (stopFactor >= 1.f) {
             stopFactor = -1.f;
-            // TODO - target count to zero
+            particles->removeAllEmitters();
         }
     }
 }

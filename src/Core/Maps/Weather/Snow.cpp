@@ -37,7 +37,7 @@ Snow::Snow(bool hard, bool thunder)
 
 Weather::Type Snow::type() const { return _type; }
 
-void Snow::start(bl::engine::Engine&) {
+void Snow::start(bl::engine::Engine&, Map&) {
     // TODO
 }
 
