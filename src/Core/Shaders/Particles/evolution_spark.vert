@@ -22,6 +22,10 @@ layout(std140, set = 1, binding = 0) readonly buffer pcl {
     Particle particles[];
 } particles;
 
+layout(std140, set = 2, binding = 1) uniform gpinfo {
+    float cameraToWindowScale;
+} globalInfo;
+
 void main() {
     vec2 pos = particles.particles[gl_InstanceIndex].pos;
     mat4 particleTransform = mat4(1.0);
@@ -33,6 +37,6 @@ void main() {
     fragCenter = vec2(worldPos.x, worldPos.y);
     fragAlpha = particles.particles[gl_InstanceIndex].alpha;
     fragRadius = particles.particles[gl_InstanceIndex].radius;
-    gl_PointSize = fragRadius;
+    gl_PointSize = fragRadius * globalInfo.cameraToWindowScale;
 
 }

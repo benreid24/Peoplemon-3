@@ -61,7 +61,6 @@ struct alignas(8) GlobalShaderInfo {
 
     alignas(8) ModeInfo info[3];
     float rotation;
-    float scale;
 };
 } // namespace rain
 } // namespace weather
@@ -251,13 +250,6 @@ bool Rain::stopped() const { return particles && particles->getParticleCount() =
 
 void Rain::update(float dt) {
     thunder.update(dt);
-
-    if (particles) {
-        const float scale =
-            engine->renderer().getObserver().getRegionSize().x /
-            engine->renderer().getObserver().getCurrentCamera<bl::cam::Camera2D>()->getSize().x;
-        particles->getRenderer().getGlobals().scale = scale;
-    }
 
     if (stopFactor >= 0.f) {
         stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);

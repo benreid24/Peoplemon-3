@@ -24,6 +24,10 @@ layout(std140, set = 2, binding = 0) readonly buffer pcl {
     Particle particles[];
 } particles;
 
+layout(std140, set = 2, binding = 1) uniform gpinfo {
+    float cameraToWindowScale;
+} globalInfo;
+
 struct ModeInfo {
     vec2 texCoordCenter;
     uint textureId;
@@ -33,7 +37,6 @@ struct ModeInfo {
 layout(set = 2, binding = 1) uniform gpcl {
     ModeInfo modeInfo[3];
     float rotation;
-    float scale;
 } globals;
 
 void main() {
@@ -53,7 +56,7 @@ void main() {
     }
 
     ModeInfo info = globals.modeInfo[particle.mode];
-    gl_PointSize = info.radius * globals.scale;
+    gl_PointSize = info.radius * globalInfo.cameraToWindowScale;
     fragTexCoords = info.texCoordCenter;
     fragTextureId = info.textureId;
     fragPos = worldPos.xy;
