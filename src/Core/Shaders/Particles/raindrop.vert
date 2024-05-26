@@ -33,6 +33,7 @@ struct ModeInfo {
 layout(set = 2, binding = 1) uniform gpcl {
     ModeInfo modeInfo[3];
     float rotation;
+    float scale;
 } globals;
 
 void main() {
@@ -52,7 +53,7 @@ void main() {
     }
 
     ModeInfo info = globals.modeInfo[particle.mode];
-    gl_PointSize = info.radius;
+    gl_PointSize = info.radius * globals.scale;
     fragTexCoords = info.texCoordCenter;
     fragTextureId = info.textureId;
     fragPos = worldPos.xy;
