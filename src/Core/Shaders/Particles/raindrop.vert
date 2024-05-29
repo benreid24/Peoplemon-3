@@ -34,7 +34,7 @@ struct ModeInfo {
     float radius;
 };
 
-layout(set = 2, binding = 1) uniform gpcl {
+layout(set = 2, binding = 2) uniform gpcl {
     ModeInfo modeInfo[3];
     float rotation;
 } globals;
