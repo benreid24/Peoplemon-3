@@ -8,13 +8,15 @@
 
 namespace
 {
-constexpr float SpawnRate  = 200.f;
-constexpr float SplashTime = -0.15f;
-constexpr float TransTime  = -0.3f;
-constexpr float DeadTime   = -0.4f;
-constexpr float StopTime   = 4.f;
-constexpr float StopSpeed  = 1.f / StopTime;
-std::size_t deadCount      = 0;
+constexpr float SpawnRate    = 250.f;
+constexpr float SplashTime   = -0.15f;
+constexpr float TransTime    = -0.3f;
+constexpr float DeadTime     = -0.4f;
+constexpr float StopTime     = 4.f;
+constexpr float StopSpeed    = 1.f / StopTime;
+constexpr float RespawnDelay = 2.f;
+
+std::size_t deadCount = 0;
 } // namespace
 
 namespace core
@@ -95,7 +97,8 @@ struct RenderConfigMap<Raindrop> {
     static constexpr bool EnableDepthTesting      = true;
     static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
     static constexpr const char* VertexShader     = "Resources/Shaders/Particles/raindrop.vert.spv";
-    static constexpr const char* FragmentShader   = "Resources/Shaders/Particles/raindrop.frag.spv";
+    static constexpr const char* FragmentShader =
+        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;
 };
 } // namespace pcl
 } // namespace bl
@@ -134,16 +137,23 @@ private:
 
 class TimeSink : public bl::pcl::Sink<Raindrop> {
 public:
+    TimeSink()
+    : time(0.f) {}
+
     virtual ~TimeSink() = default;
 
-    virtual void update(Proxy& proxy, std::span<Raindrop> particles, float, float) override {
+    virtual void update(Proxy& proxy, std::span<Raindrop> particles, float dt, float) override {
+        time += dt;
         for (Raindrop& drop : particles) {
             if (drop.height <= DeadTime) {
                 proxy.destroy(drop);
-                ++deadCount;
+                if (time >= RespawnDelay) { ++deadCount; }
             }
         }
     }
+
+private:
+    float time;
 };
 
 class TimeEmitter : public bl::pcl::Emitter<Raindrop> {

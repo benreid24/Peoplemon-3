@@ -7,5 +7,4 @@ compile_shaders(
 	Particles/evolution_spark.vert
     Particles/evolution_spark.frag
     Particles/raindrop.vert
-    Particles/raindrop.frag
 )
