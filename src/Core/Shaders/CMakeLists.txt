@@ -8,4 +8,5 @@ compile_shaders(
     Particles/evolution_spark.frag
     Particles/raindrop.vert
     Particles/snowflake.vert
+    Particles/fog.vert
 )

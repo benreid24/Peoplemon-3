@@ -12,11 +12,15 @@ namespace map
 {
 namespace weather
 {
+namespace fog
+{
+struct Particle;
+}
+
 /**
  * @brief Weather type for thin or thick fog
  *
  * @ingroup Weather
- *
  */
 class Fog : public Base {
 public:
@@ -29,13 +33,11 @@ public:
 
     /**
      * @brief No more fog
-     *
      */
     virtual ~Fog() = default;
 
     /**
      * @brief Returns ThinFog or ThickFog
-     *
      */
     virtual Weather::Type type() const override;
 
@@ -49,13 +51,11 @@ public:
 
     /**
      * @brief Stops the fog
-     *
      */
     virtual void stop() override;
 
     /**
      * @brief Returns true when the fog is fully dissipated, false if not
-     *
      */
     virtual bool stopped() const override;
 
@@ -67,23 +67,10 @@ public:
     virtual void update(float dt) override;
 
 private:
-    struct Particle {
-        sf::Vector2f position;
-        float rotation;
-        float angularVelocity;
-        float scale;
-
-        Particle() = default;
-        void set(const sf::Vector2f& pos);
-    };
-
-    const std::uint8_t maxOpacity;
-    std::uint8_t targetOpacity;
-    float alpha;
-    bl::resource::Ref<sf::Texture> fogTxtr;
-    mutable sf::Sprite fog;
-    mutable sf::FloatRect area;
-    std::vector<Particle> particles;
+    const float maxOpacity;
+    float targetOpacity;
+    bl::rc::res::TextureRef fogTxtr;
+    bl::pcl::ParticleManager<fog::Particle>* particles;
 };
 
 } // namespace weather

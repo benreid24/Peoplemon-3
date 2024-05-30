@@ -135,6 +135,7 @@ public:
     static constexpr std::uint32_t EvolutionSparkPipelineId = 200;
     static constexpr std::uint32_t RaindropPipelineId       = 201;
     static constexpr std::uint32_t SnowflakePipelineId      = 202;
+    static constexpr std::uint32_t FogPipelineId            = 203;
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

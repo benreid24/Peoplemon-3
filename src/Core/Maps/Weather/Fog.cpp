@@ -1,5 +1,6 @@
 #include "Fog.hpp"
 
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Util/Random.hpp>
 #include <Core/Properties.hpp>
 
@@ -11,89 +12,250 @@ namespace weather
 {
 namespace
 {
-constexpr float AlphaRate = 25.f;
-const sf::Vector2f FogVelocity(64.f, 25.f);
+constexpr float AlphaRate = 0.1f;
+const glm::vec2 FogVelocity(64.f, 25.f);
 
-float computeAlpha(float current, std::uint8_t target, float step) {
+float computeAlpha(float current, float target, float step) {
     const float rate = target > current ? AlphaRate : -AlphaRate;
     const float na   = current + rate * step;
-    if (na < 0) return 0;
-    if (na > 255) return 255;
+    if (na < 0.f) return 0.f;
+    if (na > 1.f) return 1.f;
     if (current < target && na > target) return target;
     return na;
 }
 
 } // namespace
 
+namespace fog
+{
+struct Particle {
+    glm::vec2 pos;
+    float rotation;
+    float angularVelocity;
+    float scale;
+
+    Particle() = default;
+
+    Particle(const glm::vec2& pos)
+    : pos(pos)
+    , rotation(bl::util::Random::get<float>(0.f, 2.f * bl::math::Pi))
+    , angularVelocity(bl::util::Random::get<float>(-bl::math::Pi, bl::math::Pi))
+    , scale(bl::util::Random::get<float>(0.8f, 1.8f)) {}
+};
+
+struct GpuParticle {
+    glm::vec2 pos;
+    float rotation;
+    float scale;
+
+    GpuParticle() = default;
+
+    GpuParticle& operator=(const Particle& p) {
+        pos      = p.pos;
+        rotation = p.rotation;
+        scale    = p.scale;
+        return *this;
+    }
+};
+
+struct GlobalShaderInfo {
+    std::uint32_t textureId;
+    glm::vec2 textureCenter;
+    float alpha;
+    float radius;
+};
+
+} // namespace fog
+} // namespace weather
+} // namespace map
+} // namespace core
+
+namespace bl
+{
+namespace pcl
+{
+using Particle         = core::map::weather::fog::Particle;
+using GpuParticle      = core::map::weather::fog::GpuParticle;
+using GlobalShaderInfo = core::map::weather::fog::GlobalShaderInfo;
+
+template<>
+struct RenderConfigMap<Particle> {
+    static constexpr std::uint32_t PipelineId  = core::Properties::FogPipelineId;
+    static constexpr bool ContainsTransparency = true;
+
+    static constexpr bool CreateRenderPipeline = true;
+
+    static constexpr std::initializer_list<std::uint32_t> RenderPassIds =
+        bl::pcl::RenderConfigDefaults<Particle>::RenderPassIds;
+
+    using GlobalShaderPayload = GlobalShaderInfo;
+    using DescriptorSets =
+        bl::pcl::RenderConfigDescriptorList<bl::rc::ds::TexturePoolFactory,
+                                            bl::rc::ds::Scene2DFactory,
+                                            bl::pcl::DescriptorSetFactory<Particle, GpuParticle>>;
+
+    static constexpr bool EnableDepthTesting      = true;
+    static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
+    static constexpr const char* VertexShader     = "Resources/Shaders/Particles/fog.vert.spv";
+    static constexpr const char* FragmentShader =
+        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;
+};
+} // namespace pcl
+} // namespace bl
+
+namespace core
+{
+namespace map
+{
+namespace weather
+{
+namespace fog
+{
+class FogSink : public bl::pcl::Sink<fog::Particle> {
+public:
+    FogSink()
+    : clear(false) {}
+
+    virtual ~FogSink() = default;
+
+    virtual void update(Proxy& proxy, std::span<Particle> particles, float, float) override {
+        if (clear) {
+            clear = false;
+            for (Particle& p : particles) { proxy.destroy(p); }
+        }
+    }
+
+    void clearAll() { clear = true; }
+
+private:
+    bool clear;
+};
+
+class FogUpdater : public bl::pcl::MetaUpdater<fog::Particle> {
+public:
+    FogUpdater(bl::rc::Observer& observer, FogSink& sink)
+    : observer(observer)
+    , sink(sink)
+    , prevArea(1.f, 1.f, 1.f, 1.f) {}
+
+    virtual ~FogUpdater() = default;
+
+    virtual void update(Proxy&, float, float) override {
+        const sf::FloatRect area = observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
+        const float dx           = area.width / prevArea.width;
+        const float dy           = area.height / prevArea.height;
+        if (dx >= 1.75f || dy >= 1.75f) {
+            sink.clearAll();
+            prevArea = area;
+        }
+    }
+
+private:
+    bl::rc::Observer& observer;
+    FogSink& sink;
+    sf::FloatRect prevArea;
+};
+
+class FogAffector : public bl::pcl::Affector<fog::Particle> {
+public:
+    FogAffector(bl::rc::Observer& observer)
+    : observer(observer) {}
+
+    virtual ~FogAffector() = default;
+
+    virtual void update(Proxy& proxy, float dt, float) override {
+        const sf::FloatRect area = observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
+        for (Particle& p : proxy.particles()) {
+            p.pos += FogVelocity * dt;
+            p.rotation += p.angularVelocity * dt;
+            if (p.pos.x >= area.left + area.width * 1.5f) { p.pos.x -= area.width * 2.f; }
+            else if (p.pos.x < area.left - area.width * 0.5f) { p.pos.x += area.width * 2.f; }
+            if (p.pos.y >= area.top + area.height * 1.5f) { p.pos.y -= area.height * 2.f; }
+            else if (p.pos.y < area.top - area.height * 0.5f) { p.pos.y += area.height * 2.f; }
+        }
+    }
+
+private:
+    bl::rc::Observer& observer;
+};
+
+class FogEmitter : public bl::pcl::Emitter<fog::Particle> {
+public:
+    FogEmitter(bl::rc::Observer& observer, glm::vec2 txtrSize)
+    : observer(observer)
+    , txtrHalfSize(txtrSize * 0.4f) {}
+
+    virtual ~FogEmitter() = default;
+
+    virtual void update(Proxy& proxy, float, float) override {
+        if (proxy.getManager().getParticleCount() == 0) {
+            const sf::FloatRect area =
+                observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
+            const unsigned int width  = std::ceil(area.width * 2.5f / txtrHalfSize.x);
+            const unsigned int height = std::ceil(area.height * 2.f / txtrHalfSize.y);
+            const glm::vec2 corner(area.left - area.width * 0.5f, area.top - area.height * 0.5f);
+
+            for (unsigned int x = 0; x < width; ++x) {
+                for (unsigned int y = 0; y < height; ++y) {
+                    const glm::vec2 pos{static_cast<float>(x), static_cast<float>(y)};
+                    proxy.emit(pos * txtrHalfSize + corner);
+                }
+            }
+        }
+    }
+
+private:
+    bl::rc::Observer& observer;
+    const glm::vec2 txtrHalfSize;
+};
+
+} // namespace fog
+
 Fog::Fog(bool thick)
-: maxOpacity(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha())
-, targetOpacity(0)
-, alpha(0) {
-    fogTxtr = TextureManager::load(Properties::FogFile());
-    fog.setTexture(*fogTxtr, true);
-    fog.setOrigin(fogTxtr->getSize().x / 2, fogTxtr->getSize().y / 2);
-}
+: maxOpacity(static_cast<float>(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha()) /
+             255.f)
+, targetOpacity(0.f)
+, particles(nullptr) {}
 
 Weather::Type Fog::type() const {
     return maxOpacity == Properties::ThickFogAlpha() ? Weather::ThickFog : Weather::ThinFog;
 }
 
-void Fog::start(bl::engine::Engine& engine, Map& map) {
-    // TODO - update
-    const unsigned int width  = area.width * 2 / (fogTxtr->getSize().x / 2);
-    const unsigned int height = area.height * 2 / (fogTxtr->getSize().y / 2);
-    const sf::Vector2f corner(area.left - area.width / 2.f, area.top - area.height / 2.f);
-
-    particles.clear();
-    particles.reserve(width * height);
-    for (unsigned int x = 0; x < width; ++x) {
-        for (unsigned int y = 0; y < height; ++y) {
-            particles.emplace_back();
-            particles.back().set({static_cast<float>(x * fogTxtr->getSize().x / 2),
-                                  static_cast<float>(y * fogTxtr->getSize().y / 2)});
-        }
-    }
-
-    alpha         = 0;
+void Fog::start(bl::engine::Engine& e, Map& map) {
     targetOpacity = maxOpacity;
+
+    const auto sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();
+    fogTxtr = e.renderer().texturePool().getOrLoadTexture(Properties::FogFile(), sampler);
+
+    particles          = &e.particleSystem().getUniqueSystem<fog::Particle>();
+    fog::FogSink* sink = particles->addSink<fog::FogSink>();
+    particles->addUpdater<fog::FogUpdater>(std::ref(e.renderer().getObserver()), std::ref(*sink));
+    particles->addAffector<fog::FogAffector>(e.renderer().getObserver());
+    particles->addEmitter<fog::FogEmitter>(e.renderer().getObserver(), fogTxtr->size());
+
+    particles->getRenderer().getGlobals().alpha = 0.f;
+    particles->getRenderer().getGlobals().textureCenter =
+        fogTxtr->normalizeAndConvertCoord(fogTxtr->size() * 0.5f);
+    particles->getRenderer().getGlobals().textureId = fogTxtr.id();
+    particles->getRenderer().getGlobals().radius    = glm::length(fogTxtr->size()) * 0.5f;
+
+    particles->addToScene(e.renderer().getObserver().getCurrentScene());
+    particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
 }
 
-void Fog::stop() { targetOpacity = 0; }
+void Fog::stop() { targetOpacity = 0.f; }
 
-bool Fog::stopped() const { return alpha == 0; }
+bool Fog::stopped() const {
+    return particles && particles->getRenderer().getGlobals().alpha <= 0.01f;
+}
 
 void Fog::update(float dt) {
-    if (alpha != targetOpacity) { alpha = computeAlpha(alpha, targetOpacity, dt); }
-    for (Particle& p : particles) {
-        p.position += FogVelocity * dt;
-        p.rotation += p.angularVelocity * dt;
-        if (p.position.x >= area.left + area.width * 1.5f) { p.position.x -= area.width * 2.f; }
-        else if (p.position.x <= area.left - area.width / 2.f) { p.position.x += area.width * 2.f; }
-        if (p.position.y >= area.top + area.height * 1.5f) { p.position.y -= area.height * 2.f; }
-        else if (p.position.y <= area.top - area.height / 2.f) {
-            p.position.y += area.height * 2.f;
+    if (particles) {
+        if (particles->getRenderer().getGlobals().alpha != targetOpacity) {
+            particles->getRenderer().getGlobals().alpha =
+                computeAlpha(particles->getRenderer().getGlobals().alpha, targetOpacity, dt);
         }
     }
-}
-
-// void Fog::render(sf::RenderTarget& target, float lag) const {
-//     area = {target.getView().getCenter() - target.getView().getSize() / 2.f,
-//             target.getView().getSize()};
-//
-//     fog.setColor(sf::Color(255, 255, 255, computeAlpha(alpha, targetOpacity, lag)));
-//     for (const Particle& p : particles) {
-//         fog.setPosition(p.position + FogVelocity * lag);
-//         fog.setRotation(p.rotation + p.angularVelocity * lag);
-//         fog.setScale(p.scale, p.scale);
-//         target.draw(fog);
-//     }
-// }
-
-void Fog::Particle::set(const sf::Vector2f& pos) {
-    position        = pos;
-    rotation        = bl::util::Random::get<float>(0.f, 360.f);
-    angularVelocity = bl::util::Random::get<float>(-180.f, 180.f);
-    scale           = bl::util::Random::get<float>(0.8f, 1.8f);
 }
 
 } // namespace weather
