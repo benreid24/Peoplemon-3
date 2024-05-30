@@ -177,7 +177,6 @@ public:
                     std::min(static_cast<std::size_t>(std::floor(residual)) + deadCount, maxSpawn);
                 residual -= static_cast<float>(toSpawn);
 
-                // TODO - density based target count?
                 const sf::FloatRect area =
                     observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
                 for (std::size_t i = 0; i < toSpawn; ++i) { proxy.emit(area); }
@@ -212,6 +211,7 @@ Rain::Rain(bool hard, bool canThunder)
 Rain::~Rain() {
     stop();
     if (engine) { engine->particleSystem().removeUniqueSystem<rain::Raindrop>(); }
+    deadCount = 0;
 }
 
 Weather::Type Rain::type() const { return _type; }
