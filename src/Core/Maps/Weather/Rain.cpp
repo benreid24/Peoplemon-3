@@ -8,12 +8,13 @@
 
 namespace
 {
-constexpr float SpawnRate  = 500.f;
+constexpr float SpawnRate  = 200.f;
 constexpr float SplashTime = -0.15f;
 constexpr float TransTime  = -0.3f;
 constexpr float DeadTime   = -0.4f;
 constexpr float StopTime   = 4.f;
 constexpr float StopSpeed  = 1.f / StopTime;
+std::size_t deadCount      = 0;
 } // namespace
 
 namespace core
@@ -117,8 +118,8 @@ public:
 
     virtual void update(Proxy& proxy, float dt, float) override {
         for (Raindrop& drop : proxy.particles()) {
-            drop.pos += vel * dt;
             if (drop.height > 0.f) {
+                drop.pos += vel * dt;
                 drop.height -= fallVel * dt;
                 if (drop.height < 0.f) { drop.height = 0.f; }
             }
@@ -137,7 +138,10 @@ public:
 
     virtual void update(Proxy& proxy, std::span<Raindrop> particles, float, float) override {
         for (Raindrop& drop : particles) {
-            if (drop.height <= DeadTime) { proxy.destroy(drop); }
+            if (drop.height <= DeadTime) {
+                proxy.destroy(drop);
+                ++deadCount;
+            }
         }
     }
 };
@@ -157,10 +161,10 @@ public:
         const std::size_t current = proxy.getManager().getParticleCount();
         if (current < target) {
             residual += SpawnRate * dt;
-            if (residual >= 1.f) {
+            if (residual >= 1.f || deadCount > 0) {
                 const std::size_t maxSpawn = target - current;
                 const std::size_t toSpawn =
-                    std::min(static_cast<std::size_t>(std::floor(residual)), maxSpawn);
+                    std::min(static_cast<std::size_t>(std::floor(residual)) + deadCount, maxSpawn);
                 residual -= static_cast<float>(toSpawn);
 
                 // TODO - density based target count?

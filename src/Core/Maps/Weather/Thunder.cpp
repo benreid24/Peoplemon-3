@@ -1,7 +1,9 @@
 #include "Thunder.hpp"
 
 #include <BLIB/Audio/AudioSystem.hpp>
+#include <BLIB/Events.hpp>
 #include <BLIB/Util/Random.hpp>
+#include <Core/Events/Weather.hpp>
 #include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <cmath>
@@ -32,7 +34,6 @@ Thunder::Thunder(bool e, bool f)
                   Properties::InfrequentThunderMaxInterval())
 , timeSinceLastThunder(0.f)
 , stopping(false) {
-    lightning.setFillColor(sf::Color::Transparent);
     if (e) { sound = bl::audio::AudioSystem::getOrLoadSound(Properties::ThunderSoundFile()); }
 }
 
@@ -43,29 +44,15 @@ void Thunder::stop() { stopping = true; }
 void Thunder::update(float dt) {
     if (enabled) {
         timeSinceLastThunder += dt;
-        if (lightning.getFillColor().a != 0) {
-            const float a = computeAlpha(timeSinceLastThunder);
-            if (a <= 0.f) { lightning.setFillColor(sf::Color::Transparent); }
-            else { lightning.setFillColor(sf::Color(255, 255, 255, a)); }
-        }
-        else if (!stopping) {
+        if (!stopping) {
             if (bl::util::Random::get<float>(minInterval, maxInterval) <= timeSinceLastThunder) {
                 timeSinceLastThunder = 0.f;
                 bl::audio::AudioSystem::playSound(sound);
-                lightning.setFillColor(sf::Color(255, 255, 255, computeAlpha(0.f)));
+                bl::event::Dispatcher::dispatch<event::Thundered>({});
             }
         }
     }
 }
-
-// void Thunder::render(sf::RenderTarget& target, float) const {
-//     if (enabled && lightning.getFillColor().a > 0) {
-//         lightning.setOrigin(target.getView().getSize() / 2.f);
-//         lightning.setPosition(target.getView().getCenter());
-//         lightning.setSize(target.getView().getSize());
-//         target.draw(lightning);
-//     }
-// }
 
 } // namespace weather
 } // namespace map

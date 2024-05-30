@@ -51,7 +51,6 @@ private:
     const float minInterval;
     const float maxInterval;
     float timeSinceLastThunder;
-    mutable sf::RectangleShape lightning;
     bl::audio::AudioSystem::Handle sound;
     bool stopping;
 };

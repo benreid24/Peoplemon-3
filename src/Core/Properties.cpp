@@ -56,7 +56,7 @@ constexpr float InfrequentThunderMinInt = 15.f;
 constexpr float InfrequentThunderMaxInt = 40.f;
 
 constexpr unsigned int LightRainDropCount  = 700;
-constexpr unsigned int HardRainDropCount   = 1300;
+constexpr unsigned int HardRainDropCount   = 1700;
 constexpr unsigned int LightSnowFlakeCount = 1500;
 constexpr unsigned int HardSnowFlakeCount  = 4000;
 

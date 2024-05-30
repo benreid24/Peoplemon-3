@@ -11,7 +11,6 @@ namespace event
  * @brief Fired when weather starts
  *
  * @ingroup Events
- *
  */
 struct WeatherStarted {
     /**
@@ -30,7 +29,6 @@ struct WeatherStarted {
  * @brief Fired when weather stops
  *
  * @ingroup Events
- *
  */
 struct WeatherStopped {
     /**
@@ -44,6 +42,13 @@ struct WeatherStopped {
     /// The type of weather that stopped
     const map::Weather::Type type;
 };
+
+/**
+ * @brief Fired when thunder happens
+ *
+ * @ingroup Events
+ */
+struct Thundered {};
 
 } // namespace event
 } // namespace core

@@ -24,7 +24,8 @@ namespace map
  * @ingroup Maps
  */
 class LightingSystem
-: public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped> {
+: public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped,
+                             event::Thundered> {
 public:
     /// Handle representing a light in the map
     using Handle = std::uint16_t;
@@ -177,6 +178,11 @@ public:
      */
     virtual void observe(const event::WeatherStopped& event) override;
 
+    /**
+     * @brief Triggers the lighting cycle for thunder
+     */
+    virtual void observe(const event::Thundered&) override;
+
 private:
     std::vector<Light> rawLights;
     std::uint8_t minLevel;
@@ -192,6 +198,7 @@ private:
     int weatherModifier;
     int targetWeatherModifier;
     float weatherResidual;
+    float thunderTime;
 
     std::uint8_t computeAmbient() const;
     void addLightToScene(const Light& light);
