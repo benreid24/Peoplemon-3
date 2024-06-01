@@ -31,8 +31,8 @@ struct Swirl {
 
     Swirl(float x, float y)
     : pos(x, y) {
-        angle           = bl::util::Random::get<float>(0.f, 360.f);
-        angularVelocity = bl::util::Random::get<float>(560.f, 820.f);
+        angle           = bl::util::Random::get<float>(0.f, 2.f * bl::math::Pi);
+        angularVelocity = bl::math::degreesToRadians(bl::util::Random::get<float>(560.f, 820.f));
         if (bl::util::Random::chance(1, 2)) { angularVelocity *= -1.f; }
         scale = bl::util::Random::get<float>(0.75f, 1.2f);
     }
@@ -130,10 +130,10 @@ namespace weather
 {
 namespace
 {
-constexpr glm::vec2 SandVelocity(-1100.f, 345.f);
+constexpr glm::vec2 SandVelocity(-1100.f * 0.8f, 345.f * 0.8f);
 constexpr glm::vec2 SwirlVelocity(-680.f, 325.f);
 constexpr float MaxAlpha          = 230.f / 256.f;
-constexpr float SwirlRatio        = 0.3f;
+constexpr float SwirlRatio        = 0.5f;
 constexpr float AlphaRate         = 85.f / 256.f;
 constexpr unsigned int SwirlCount = 40;
 
@@ -281,10 +281,10 @@ public:
         if (!cam) { return; }
         const sf::FloatRect area = cam->getVisibleArea();
 
-        const float leftBound   = area.left + area.width * 0.5f - wrapWidth * 0.5f;
-        const float rightBound  = leftBound + wrapWidth;
-        const float topBound    = area.top + area.height * 0.5f - wrapHeight * 0.5f;
-        const float bottomBound = topBound + wrapHeight;
+        const float leftBound   = area.left - area.width * 0.5f;
+        const float rightBound  = leftBound + area.width * 2.f;
+        const float topBound    = area.top - area.height * 0.5f;
+        const float bottomBound = topBound + area.height * 2.f;
 
         for (Swirl& s : proxy.particles()) {
             s.pos += SwirlVelocity * dt;
