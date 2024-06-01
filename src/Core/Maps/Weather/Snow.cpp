@@ -181,8 +181,9 @@ public:
                     std::min(static_cast<std::size_t>(std::floor(residual)) + deadCount, maxSpawn);
                 residual -= static_cast<float>(toSpawn);
 
-                const sf::FloatRect area =
-                    observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
+                bl::cam::Camera2D* cam = observer.getCurrentCamera<bl::cam::Camera2D>();
+                if (!cam) { return; }
+                const sf::FloatRect area = cam->getVisibleArea();
                 for (std::size_t i = 0; i < toSpawn; ++i) { proxy.emit(area); }
             }
         }

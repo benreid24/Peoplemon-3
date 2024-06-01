@@ -9,4 +9,6 @@ compile_shaders(
     Particles/raindrop.vert
     Particles/snowflake.vert
     Particles/fog.vert
+    Particles/sand.vert
+    Particles/sandSwirl.vert
 )

@@ -140,14 +140,20 @@ public:
 
     virtual ~FogUpdater() = default;
 
-    virtual void update(Proxy&, float, float) override {
-        const sf::FloatRect area = observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
-        const float dx           = area.width / prevArea.width;
-        const float dy           = area.height / prevArea.height;
-        if (dx >= 1.75f || dy >= 1.75f) {
-            sink.clearAll();
-            prevArea = area;
+    virtual void update(Proxy& proxy, float, float) override {
+        bl::cam::Camera2D* cam = observer.getCurrentCamera<bl::cam::Camera2D>();
+        if (!cam) { return; }
+        const sf::FloatRect area = cam->getVisibleArea();
+
+        if (proxy.getManager().getParticleCount() > 0) {
+            const float dx = area.width / prevArea.width;
+            const float dy = area.height / prevArea.height;
+            if (dx >= 1.25f || dy >= 1.25f) {
+                sink.clearAll();
+                prevArea = area;
+            }
         }
+        else { prevArea = area; }
     }
 
 private:
@@ -155,6 +161,9 @@ private:
     FogSink& sink;
     sf::FloatRect prevArea;
 };
+
+float wrapWidth  = 800.f;
+float wrapHeight = 600.f;
 
 class FogAffector : public bl::pcl::Affector<fog::Particle> {
 public:
@@ -164,14 +173,22 @@ public:
     virtual ~FogAffector() = default;
 
     virtual void update(Proxy& proxy, float dt, float) override {
-        const sf::FloatRect area = observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
+        bl::cam::Camera2D* cam = observer.getCurrentCamera<bl::cam::Camera2D>();
+        if (!cam) { return; }
+
+        const sf::FloatRect area = cam->getVisibleArea();
+        const float leftBound    = area.left + area.width * 0.5f - wrapWidth * 0.5f;
+        const float rightBound   = leftBound + wrapWidth;
+        const float topBound     = area.top + area.height * 0.5f - wrapHeight * 0.5f;
+        const float bottomBound  = topBound + wrapHeight;
+
         for (Particle& p : proxy.particles()) {
             p.pos += FogVelocity * dt;
             p.rotation += p.angularVelocity * dt;
-            if (p.pos.x >= area.left + area.width * 1.5f) { p.pos.x -= area.width * 2.f; }
-            else if (p.pos.x < area.left - area.width * 0.5f) { p.pos.x += area.width * 2.f; }
-            if (p.pos.y >= area.top + area.height * 1.5f) { p.pos.y -= area.height * 2.f; }
-            else if (p.pos.y < area.top - area.height * 0.5f) { p.pos.y += area.height * 2.f; }
+            if (p.pos.x < leftBound) { p.pos.x += wrapWidth; }
+            else if (p.pos.x > rightBound) { p.pos.x -= wrapWidth; }
+            if (p.pos.y < topBound) { p.pos.y += wrapHeight; }
+            else if (p.pos.y > bottomBound) { p.pos.y -= wrapHeight; }
         }
     }
 
@@ -189,11 +206,17 @@ public:
 
     virtual void update(Proxy& proxy, float, float) override {
         if (proxy.getManager().getParticleCount() == 0) {
-            const sf::FloatRect area =
-                observer.getCurrentCamera<bl::cam::Camera2D>()->getVisibleArea();
-            const unsigned int width  = std::ceil(area.width * 2.5f / txtrHalfSize.x);
+            bl::cam::Camera2D* cam = observer.getCurrentCamera<bl::cam::Camera2D>();
+            if (!cam) { return; }
+            const sf::FloatRect area = cam->getVisibleArea();
+
+            const unsigned int width  = std::ceil(area.width * 2.f / txtrHalfSize.x);
             const unsigned int height = std::ceil(area.height * 2.f / txtrHalfSize.y);
-            const glm::vec2 corner(area.left - area.width * 0.5f, area.top - area.height * 0.5f);
+
+            wrapWidth  = static_cast<float>(width) * txtrHalfSize.x;
+            wrapHeight = static_cast<float>(height) * txtrHalfSize.y;
+            const glm::vec2 corner(area.left + area.width * 0.5f - wrapWidth * 0.5f,
+                                   area.top + area.height * 0.5f - wrapHeight * 0.5f);
 
             for (unsigned int x = 0; x < width; ++x) {
                 for (unsigned int y = 0; y < height; ++y) {
@@ -212,16 +235,22 @@ private:
 } // namespace fog
 
 Fog::Fog(bool thick)
-: maxOpacity(static_cast<float>(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha()) /
+: engine(nullptr)
+, maxOpacity(static_cast<float>(thick ? Properties::ThickFogAlpha() : Properties::ThinFogAlpha()) /
              255.f)
 , targetOpacity(0.f)
 , particles(nullptr) {}
+
+Fog::~Fog() {
+    if (engine) { engine->particleSystem().removeUniqueSystem<fog::Particle>(); }
+}
 
 Weather::Type Fog::type() const {
     return maxOpacity == Properties::ThickFogAlpha() ? Weather::ThickFog : Weather::ThinFog;
 }
 
 void Fog::start(bl::engine::Engine& e, Map& map) {
+    engine        = &e;
     targetOpacity = maxOpacity;
 
     const auto sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();

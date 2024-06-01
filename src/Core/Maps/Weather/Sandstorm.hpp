@@ -3,6 +3,7 @@
 
 #include "Base.hpp"
 
+#include <BLIB/Particles.hpp>
 #include <Core/Resources.hpp>
 
 namespace core
@@ -11,29 +12,31 @@ namespace map
 {
 namespace weather
 {
+namespace sandstorm
+{
+struct Sand;
+struct Swirl;
+} // namespace sandstorm
+
 /**
  * @brief Creates sandstorms
  *
  * @ingroup Weather
- *
  */
 class Sandstorm : public Base {
 public:
     /**
      * @brief Creates the sandstorm
-     *
      */
     Sandstorm();
 
     /**
      * @brief Destroy the Sandstorm object
-     *
      */
-    virtual ~Sandstorm() = default;
+    virtual ~Sandstorm();
 
     /**
      * @brief Returns Sandstorm
-     *
      */
     virtual Weather::Type type() const override;
 
@@ -47,13 +50,11 @@ public:
 
     /**
      * @brief Stops the sandstorm
-     *
      */
     virtual void stop() override;
 
     /**
      * @brief Returns true if the sandstorm is fully stopped, false if stopping
-     *
      */
     virtual bool stopped() const override;
 
@@ -65,24 +66,15 @@ public:
     virtual void update(float dt) override;
 
 private:
-    struct Swirl {
-        sf::Vector2f position;
-        float angle;
-        float scale;
-        float angularVel;
-
-        void set(float x, float y);
-    };
-
-    bl::resource::Ref<sf::Texture> sandTxtr;
-    bl::resource::Ref<sf::Texture> swirlTxtr;
-    mutable sf::Sprite sand;
-    mutable sf::Sprite swirl;
-    mutable sf::FloatRect area;
-    std::vector<sf::Vector2f> sandPatches;
-    std::vector<Swirl> swirlParticles;
-    std::uint8_t targetAlpha;
+    bl::engine::Engine* engine;
+    bl::rc::res::TextureRef sandTxtr;
+    bl::rc::res::TextureRef swirlTxtr;
+    bl::pcl::ParticleManager<sandstorm::Sand>* sand;
+    bl::pcl::ParticleManager<sandstorm::Swirl>* swirls;
+    float targetAlpha;
     float alpha;
+
+    void setAlpha();
 };
 
 } // namespace weather

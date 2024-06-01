@@ -34,7 +34,7 @@ public:
     /**
      * @brief No more fog
      */
-    virtual ~Fog() = default;
+    virtual ~Fog();
 
     /**
      * @brief Returns ThinFog or ThickFog
@@ -67,6 +67,7 @@ public:
     virtual void update(float dt) override;
 
 private:
+    bl::engine::Engine* engine;
     const float maxOpacity;
     float targetOpacity;
     bl::rc::res::TextureRef fogTxtr;

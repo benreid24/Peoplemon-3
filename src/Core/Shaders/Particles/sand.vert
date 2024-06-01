@@ -16,8 +16,6 @@ layout(set = 1, binding = 0) uniform cam {
 
 struct Particle {
     vec2 pos;
-    float rotation;
-    float scale;
 };
 
 layout(std140, set = 2, binding = 0) readonly buffer pcl {
@@ -45,10 +43,10 @@ void main() {
     vec4 worldPos = particleTransform * vec4(inPosition, 1.0);
 	gl_Position = camera.viewProj * worldPos;
 
-    gl_PointSize = globals.radius * globalInfo.cameraToWindowScale * particle.scale;
+    gl_PointSize = globals.radius * globalInfo.cameraToWindowScale;
     fragTexCoords = globals.texCoordCenter;
     fragTextureId = globals.textureId;
     fragPos = worldPos.xy;
     fragColor = vec4(1.0, 1.0, 1.0, globals.alpha);
-    rotation = particle.rotation;
+    rotation = 0.0;
 }
