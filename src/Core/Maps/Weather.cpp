@@ -41,11 +41,14 @@ Weather::Weather()
 : type(None)
 , state(Continuous)
 , stateTime(-1.f)
-, area(0, 0, 800, 600) {}
+, engine(nullptr) {}
 
 Weather::~Weather() { weather.reset(); }
 
-void Weather::activate(const sf::FloatRect& a) { area = a; }
+void Weather::activate(bl::engine::Engine& e, Map& m) {
+    engine = &e;
+    owner  = &m;
+}
 
 void Weather::set(Type t, bool im) {
     if (t != type) {
@@ -115,12 +118,6 @@ void Weather::update(float dt) {
     default:
         break;
     }
-}
-
-void Weather::render(sf::RenderTarget& target, float lag) const {
-    area = {target.getView().getCenter() - target.getView().getSize() * 0.5f,
-            target.getView().getSize()};
-    if (weather) weather->render(target, lag);
 }
 
 void Weather::makeWeather() {
@@ -216,7 +213,7 @@ void Weather::makeWeather() {
     }
 
     if (weather) {
-        weather->start(area);
+        weather->start(*engine, *owner);
         bl::event::Dispatcher::dispatch<event::WeatherStarted>({weather->type()});
     }
 }

@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_HPP
 #define CORE_MAPS_WEATHER_HPP
 
+#include <BLIB/Engine/Engine.hpp>
 #include <SFML/Graphics.hpp>
 #include <cstdint>
 #include <memory>
@@ -14,6 +15,8 @@ class Systems;
 
 namespace map
 {
+class Map;
+
 namespace weather
 {
 struct Base;
@@ -100,9 +103,10 @@ public:
     /**
      * @brief Activates the weather system
      *
-     * @param area Initial area to spawn particles in
+     * @param engine The game engine instance
+     * @param map The map that the weather is in
      */
-    void activate(const sf::FloatRect& area);
+    void activate(bl::engine::Engine& engine, Map& map);
 
     /**
      * @brief Sets the current weather type
@@ -125,14 +129,6 @@ public:
      */
     void update(float dt);
 
-    /**
-     * @brief Renders the current weather
-     *
-     * @param target The target to render to
-     * @param residual Residual time not yet accounted for in update
-     */
-    void render(sf::RenderTarget& target, float residual) const;
-
 private:
     enum State { Continuous, WaitingWeather, Stopping, WaitingStopped };
 
@@ -140,7 +136,8 @@ private:
     std::unique_ptr<weather::Base> weather;
     State state;
     float stateTime;
-    mutable sf::FloatRect area;
+    bl::engine::Engine* engine;
+    Map* owner;
 
     void makeWeather();
 };

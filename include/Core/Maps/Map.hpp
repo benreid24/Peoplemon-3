@@ -29,7 +29,6 @@
  * @addtogroup Maps
  * @ingroup Core
  * @brief Collection of classes responsible for loading, editing, rendering, and updating maps
- *
  */
 
 namespace core
@@ -46,31 +45,16 @@ namespace map
  * @brief The primary map class that represents a usable map in the game
  *
  * @ingroup Maps
- *
  */
 class Map : public bl::event::Listener<event::EntityMoved> {
 public:
     /**
-     * @brief Function signature for the callback to render rows of entities
-     *
-     * @param level Which level to render entities from
-     * @param row Which row to render entities from
-     * @param minX Starting x coordinate to render entities at
-     * @param maxX Ending x coordinate to render entities at, exclusive
-     *
-     */
-    using EntityRenderCallback = std::function<void(std::uint8_t level, unsigned int row,
-                                                    unsigned int minX, unsigned int maxX)>;
-
-    /**
      * @brief Creates an empty Map
-     *
      */
     Map();
 
     /**
      * @brief Destroy the Map
-     *
      */
     virtual ~Map();
 
@@ -152,37 +136,31 @@ public:
 
     /**
      * @brief Returns the name of the map
-     *
      */
     const std::string& name() const;
 
     /**
      * @brief Returns a reference to the weather system in this map
-     *
      */
     Weather& weatherSystem();
 
     /**
      * @brief Returns a reference to the lighting system in this map
-     *
      */
     LightingSystem& lightingSystem();
 
     /**
      * @brief Returns the size of the map in tiles
-     *
      */
     const sf::Vector2i& sizeTiles() const;
 
     /**
      * @brief Returns the size of the map in pixels
-     *
      */
     sf::Vector2f sizePixels() const;
 
     /**
      * @brief Returns the number of levels in the map
-     *
      */
     std::uint8_t levelCount() const;
 
@@ -255,13 +233,11 @@ public:
 
     /**
      * @brief Returns the set of towns that can be flown to
-     *
      */
     static const std::vector<Town>& FlyMapTowns();
 
     /**
      * @brief Returns whether or not the player can fly from this map
-     *
      */
     bool canFlyFromHere() const;
 

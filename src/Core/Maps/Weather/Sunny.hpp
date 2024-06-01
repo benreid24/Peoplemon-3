@@ -41,8 +41,10 @@ public:
     /**
      * @brief Starts the sunny weather
      *
+     * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(const sf::FloatRect&) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stops the sunny weather
@@ -63,18 +65,11 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the sunny weather
-     *
-     * @param target Target to render to
-     * @param lag Time not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float lag) const override;
-
 private:
-    mutable sf::RectangleShape sun;
     float t;
+    float factor;
     bool stopping;
+    Map* map;
 };
 
 } // namespace weather

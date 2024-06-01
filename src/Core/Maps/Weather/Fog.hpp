@@ -12,11 +12,15 @@ namespace map
 {
 namespace weather
 {
+namespace fog
+{
+struct Particle;
+}
+
 /**
  * @brief Weather type for thin or thick fog
  *
  * @ingroup Weather
- *
  */
 class Fog : public Base {
 public:
@@ -29,32 +33,29 @@ public:
 
     /**
      * @brief No more fog
-     *
      */
-    virtual ~Fog() = default;
+    virtual ~Fog();
 
     /**
      * @brief Returns ThinFog or ThickFog
-     *
      */
     virtual Weather::Type type() const override;
 
     /**
      * @brief Starts the fog
      *
-     * @param area The area to surround with fog
+     * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stops the fog
-     *
      */
     virtual void stop() override;
 
     /**
      * @brief Returns true when the fog is fully dissipated, false if not
-     *
      */
     virtual bool stopped() const override;
 
@@ -65,32 +66,12 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the fog
-     *
-     * @param target Target to render to
-     * @param residual Time in seconds not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
-    struct Particle {
-        sf::Vector2f position;
-        float rotation;
-        float angularVelocity;
-        float scale;
-
-        Particle() = default;
-        void set(const sf::Vector2f& pos);
-    };
-
-    const std::uint8_t maxOpacity;
-    std::uint8_t targetOpacity;
-    float alpha;
-    bl::resource::Ref<sf::Texture> fogTxtr;
-    mutable sf::Sprite fog;
-    mutable sf::FloatRect area;
-    std::vector<Particle> particles;
+    bl::engine::Engine* engine;
+    const float maxOpacity;
+    float targetOpacity;
+    bl::rc::res::TextureRef fogTxtr;
+    bl::pcl::ParticleManager<fog::Particle>* particles;
 };
 
 } // namespace weather

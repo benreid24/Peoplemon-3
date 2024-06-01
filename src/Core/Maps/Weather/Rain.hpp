@@ -7,6 +7,7 @@
 #include <BLIB/Audio.hpp>
 #include <BLIB/Particles.hpp>
 #include <BLIB/Resources.hpp>
+#include <BLIB/Util/Random.hpp>
 #include <SFML/Graphics/RectangleShape.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 #include <SFML/Graphics/Texture.hpp>
@@ -18,6 +19,12 @@ namespace map
 {
 namespace weather
 {
+namespace rain
+{
+struct Raindrop;
+class TimeEmitter;
+} // namespace rain
+
 /**
  * @brief Weather type for rainy days. Handles light and hard rain and owns thunder if need be
  *
@@ -49,9 +56,10 @@ public:
     /**
      * @brief Start the rain
      *
-     * @param area The initial area to spawn drops in
+     * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stop the rain
@@ -73,34 +81,24 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Render the rain and thunder if any
-     *
-     * @param target The target to render to
-     * @param residual Residual time not yet accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
+    bl::engine::Engine* engine;
+    bl::pcl::ParticleManager<rain::Raindrop>* particles;
+    rain::TimeEmitter* emitter;
     const Weather::Type _type;
     const unsigned int targetParticleCount;
-    bl::particle::System<sf::Vector3f> rain;
-    const sf::Vector3f fallVelocity;
-    mutable sf::FloatRect area;
+    const glm::vec2 velocity;
+    const float fallSpeed;
+    const float rotation;
     float stopFactor;
 
-    bl::resource::Ref<sf::Texture> dropTxtr;
-    mutable sf::Sprite drop;
-    bl::resource::Ref<sf::Texture> splash1Txtr;
-    mutable sf::Sprite splash1;
-    bl::resource::Ref<sf::Texture> splash2Txtr;
-    mutable sf::Sprite splash2;
+    bl::rc::res::TextureRef dropTxtr;
+    bl::rc::res::TextureRef splash1Txtr;
+    bl::rc::res::TextureRef splash2Txtr;
 
     bl::audio::AudioSystem::Handle rainSoundHandle;
 
     Thunder thunder;
-
-    void createDrop(sf::Vector3f* drop);
 };
 
 } // namespace weather

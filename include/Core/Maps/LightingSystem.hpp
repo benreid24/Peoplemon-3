@@ -24,7 +24,8 @@ namespace map
  * @ingroup Maps
  */
 class LightingSystem
-: public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped> {
+: public bl::event::Listener<event::TimeChange, event::WeatherStarted, event::WeatherStopped,
+                             event::Thundered> {
 public:
     /// Handle representing a light in the map
     using Handle = std::uint16_t;
@@ -157,6 +158,13 @@ public:
     void update(float dt);
 
     /**
+     * @brief Sets a color tint to apply to the ambient lighting
+     *
+     * @param tint The tint to apply to the ambient light color
+     */
+    void setColorTint(const glm::vec3& tint);
+
+    /**
      * @brief Updates the light level based on the new current time
      *
      * @param timeChange The new current time
@@ -177,11 +185,17 @@ public:
      */
     virtual void observe(const event::WeatherStopped& event) override;
 
+    /**
+     * @brief Triggers the lighting cycle for thunder
+     */
+    virtual void observe(const event::Thundered&) override;
+
 private:
     std::vector<Light> rawLights;
     std::uint8_t minLevel;
     std::uint8_t maxLevel;
     std::uint8_t sunlight;
+    glm::vec3 tint;
 
     bl::rc::lgt::Scene2DLighting* sceneLighting;
     std::vector<bl::rc::lgt::Light2D> activeLights;
@@ -192,6 +206,7 @@ private:
     int weatherModifier;
     int targetWeatherModifier;
     float weatherResidual;
+    float thunderTime;
 
     std::uint8_t computeAmbient() const;
     void addLightToScene(const Light& light);

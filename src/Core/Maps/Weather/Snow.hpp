@@ -14,11 +14,16 @@ namespace map
 {
 namespace weather
 {
+namespace snow
+{
+struct Snowflake;
+struct TimeEmitter;
+} // namespace snow
+
 /**
  * @brief Snow weather system
  *
  * @ingroup Weather
- *
  */
 class Snow : public Base {
 public:
@@ -32,32 +37,29 @@ public:
 
     /**
      * @brief Destroy the Snow object
-     *
      */
-    virtual ~Snow() = default;
+    virtual ~Snow();
 
     /**
      * @brief One of LightSnow, LightSnowThunder, HardSnow, HardSnowThunder
-     *
      */
     virtual Weather::Type type() const override;
 
     /**
      * @brief Start the snow
      *
-     * @param area Initial area to spawn flakes in
+     * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(const sf::FloatRect& area) override;
+    virtual void start(bl::engine::Engine& engine, Map& map) override;
 
     /**
      * @brief Stops the snow
-     *
      */
     virtual void stop() override;
 
     /**
      * @brief Returns true when no snow is left after a call to stop()
-     *
      */
     virtual bool stopped() const override;
 
@@ -68,35 +70,17 @@ public:
      */
     virtual void update(float dt) override;
 
-    /**
-     * @brief Renders the snow
-     *
-     * @param target Target to render to
-     * @param residual Time elapsed in seconds not accounted for in update
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const override;
-
 private:
-    struct Flake {
-        sf::Vector3f position;
-        sf::Vector3f velocity;
-
-        Flake() = default;
-        Flake(float x, float y, float z, float fallSpeed);
-    };
-
+    bl::engine::Engine* engine;
     const Weather::Type _type;
     const unsigned int targetParticleCount;
     const float fallSpeed;
-    bl::resource::Ref<sf::Texture> snowTxtr;
-    mutable sf::Sprite snowFlake;
-    mutable sf::FloatRect area;
     float stopFactor;
 
-    bl::particle::System<Flake> snow;
+    bl::pcl::ParticleManager<snow::Snowflake>* particles;
+    snow::TimeEmitter* emitter;
     Thunder thunder;
-
-    void createFlake(Flake* flake);
+    bl::rc::res::TextureRef snowTxtr;
 };
 
 } // namespace weather

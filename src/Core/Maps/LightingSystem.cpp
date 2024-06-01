@@ -16,17 +16,20 @@ namespace
 constexpr float AdjustSpeed             = 30.f;
 constexpr std::size_t GameBufferExtra   = 0;
 constexpr std::size_t EditorBufferExtra = 64;
+constexpr float ThunderDuration         = 1.3f;
 } // namespace
 
 LightingSystem::LightingSystem()
 : minLevel(175)
 , maxLevel(255)
 , sunlight(1)
+, tint(1.f)
 , lightsActive(false)
 , sunlightFactor(1.f)
 , weatherModifier(0)
 , targetWeatherModifier(0)
-, weatherResidual(0.f) {}
+, weatherResidual(0.f)
+, thunderTime(-1.f) {}
 
 void LightingSystem::addLight(const Light& light) {
     rawLights.push_back(light);
@@ -132,23 +135,24 @@ void LightingSystem::update(float dt) {
     if (weatherModifier != targetWeatherModifier) {
         weatherResidual += AdjustSpeed * dt;
         const float p = std::floor(weatherResidual);
-        if (p > 0.f) {
+        if (p >= 1.f) {
             weatherResidual -= p;
             if (targetWeatherModifier > weatherModifier) {
                 weatherModifier += static_cast<int>(p);
                 if (weatherModifier > targetWeatherModifier) {
                     weatherModifier = targetWeatherModifier;
+                    weatherResidual = 0.f;
                 }
             }
             else {
                 weatherModifier -= static_cast<int>(p);
                 if (weatherModifier < targetWeatherModifier) {
                     weatherModifier = targetWeatherModifier;
+                    weatherResidual = 0.f;
                 }
             }
         }
     }
-    else { weatherResidual = 0.f; }
 
     if (lightsAreOn() && !lightsActive) {
         lightsActive = true;
@@ -166,14 +170,34 @@ void LightingSystem::update(float dt) {
         for (auto& handle : activeLights) { handle.setColor(glm::vec3(0.f)); }
     }
 
+    if (thunderTime >= 0.f) {
+        thunderTime += dt;
+        if (thunderTime >= ThunderDuration) { thunderTime = -1.f; }
+    }
+
     updateAmbientLighting();
 }
 
 void LightingSystem::updateAmbientLighting() {
     if (sceneLighting) {
         const std::uint8_t ambient = computeAmbient();
-        const float a              = static_cast<float>(255 - ambient) / 255.f;
-        sceneLighting->setAmbientLight(glm::vec3(a));
+        float a                    = static_cast<float>(255 - ambient) / 255.f;
+        if (thunderTime >= 0.f) {
+            if (thunderTime <= 0.5f) {
+                const float x = thunderTime - 0.2f;
+                const float m = -3.92f * x * x + 1.88f;
+                a *= m;
+            }
+            else {
+                const float x = (thunderTime - 0.5f) - 0.2f;
+                const float m = -2.16f * x * x + 1.78f;
+                a *= m;
+            }
+        }
+
+        glm::vec3 color(a);
+        color *= tint;
+        sceneLighting->setAmbientLight(color);
     }
 }
 
@@ -237,6 +261,10 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
 }
 
 void LightingSystem::observe(const event::WeatherStopped&) { targetWeatherModifier = 0; }
+
+void LightingSystem::observe(const event::Thundered&) { thunderTime = 0.f; }
+
+void LightingSystem::setColorTint(const glm::vec3& t) { tint = t; }
 
 } // namespace map
 } // namespace core

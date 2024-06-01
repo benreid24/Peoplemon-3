@@ -1,6 +1,7 @@
 #ifndef CORE_MAPS_WEATHER_BASE_HPP
 #define CORE_MAPS_WEATHER_BASE_HPP
 
+#include <BLIB/Engine/Engine.hpp>
 #include <Core/Maps/Weather.hpp>
 #include <SFML/Graphics.hpp>
 
@@ -8,13 +9,14 @@
  * @addtogroup Weather
  * @ingroup Maps
  * @brief Collection of weather type implementations
- *
  */
 
 namespace core
 {
 namespace map
 {
+class Map;
+
 /// Collection of different weather types
 namespace weather
 {
@@ -22,12 +24,10 @@ namespace weather
  * @brief Base class for all weather types
  *
  * @ingroup Weather
- *
  */
 struct Base {
     /**
      * @brief Destroy the Base object
-     *
      */
     virtual ~Base() = default;
 
@@ -46,24 +46,15 @@ struct Base {
     virtual void update(float dt) = 0;
 
     /**
-     * @brief Render the weather to the target. Take note of the target render area for spawning new
-     *        particles
-     *
-     * @param target The target to render to
-     * @param residual Residual time between calls to update()
-     */
-    virtual void render(sf::RenderTarget& target, float residual) const = 0;
-
-    /**
      * @brief Start the weather using the initial area
      *
-     * @param initialView The area the camera can currently see
+     * @param engine The game engine instance
+     * @param map The map the weather is in
      */
-    virtual void start(const sf::FloatRect& initialView) = 0;
+    virtual void start(bl::engine::Engine& engine, Map& map) = 0;
 
     /**
      * @brief Stop the weather
-     *
      */
     virtual void stop() = 0;
 
