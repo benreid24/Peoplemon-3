@@ -158,6 +158,13 @@ public:
     void update(float dt);
 
     /**
+     * @brief Sets a color tint to apply to the ambient lighting
+     *
+     * @param tint The tint to apply to the ambient light color
+     */
+    void setColorTint(const glm::vec3& tint);
+
+    /**
      * @brief Updates the light level based on the new current time
      *
      * @param timeChange The new current time
@@ -188,6 +195,7 @@ private:
     std::uint8_t minLevel;
     std::uint8_t maxLevel;
     std::uint8_t sunlight;
+    glm::vec3 tint;
 
     bl::rc::lgt::Scene2DLighting* sceneLighting;
     std::vector<bl::rc::lgt::Light2D> activeLights;

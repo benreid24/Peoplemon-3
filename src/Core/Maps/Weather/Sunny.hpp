@@ -66,9 +66,10 @@ public:
     virtual void update(float dt) override;
 
 private:
-    mutable sf::RectangleShape sun;
     float t;
+    float factor;
     bool stopping;
+    Map* map;
 };
 
 } // namespace weather

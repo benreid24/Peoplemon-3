@@ -23,6 +23,7 @@ LightingSystem::LightingSystem()
 : minLevel(175)
 , maxLevel(255)
 , sunlight(1)
+, tint(1.f)
 , lightsActive(false)
 , sunlightFactor(1.f)
 , weatherModifier(0)
@@ -193,7 +194,10 @@ void LightingSystem::updateAmbientLighting() {
                 a *= m;
             }
         }
-        sceneLighting->setAmbientLight(glm::vec3(a));
+
+        glm::vec3 color(a);
+        color *= tint;
+        sceneLighting->setAmbientLight(color);
     }
 }
 
@@ -259,6 +263,8 @@ void LightingSystem::observe(const event::WeatherStarted& event) {
 void LightingSystem::observe(const event::WeatherStopped&) { targetWeatherModifier = 0; }
 
 void LightingSystem::observe(const event::Thundered&) { thunderTime = 0.f; }
+
+void LightingSystem::setColorTint(const glm::vec3& t) { tint = t; }
 
 } // namespace map
 } // namespace core
