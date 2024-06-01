@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::SwitchMapTriggered Struct Reference</title>
+<title>Peoplemon: core::event::MapExited Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01434.html">SwitchMapTriggered</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01434.html">MapExited</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,37 +75,34 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01431.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::SwitchMapTriggered Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::MapExited Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when the map should be switched to something else.  
+<p>Fired when a map is exited.  
  <a href="a01434.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="a00125_source.html">Maps.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ae2cee84e6ff4ace69c39c00cbf2c46d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01434.html#ae2cee84e6ff4ace69c39c00cbf2c46d3">SwitchMapTriggered</a> (const std::string &amp;<a class="el" href="a01434.html#a00ff75fa358f180551ec141cabe054cb">newMap</a>, int <a class="el" href="a01434.html#a21a77ef99757ce3ea0e92d355136d787">spawn</a>)</td></tr>
-<tr class="memdesc:ae2cee84e6ff4ace69c39c00cbf2c46d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Switch Map Triggered event.  <a href="a01434.html#ae2cee84e6ff4ace69c39c00cbf2c46d3">More...</a><br /></td></tr>
-<tr class="separator:ae2cee84e6ff4ace69c39c00cbf2c46d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4feeec150e1479e33ed080dd12c61df"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01434.html#ae4feeec150e1479e33ed080dd12c61df">MapExited</a> (const <a class="el" href="a01730.html">map::Map</a> &amp;<a class="el" href="a01434.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a>)</td></tr>
+<tr class="memdesc:ae4feeec150e1479e33ed080dd12c61df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01434.html" title="Fired when a map is exited.">MapExited</a> event.  <a href="a01434.html#ae4feeec150e1479e33ed080dd12c61df">More...</a><br /></td></tr>
+<tr class="separator:ae4feeec150e1479e33ed080dd12c61df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a00ff75fa358f180551ec141cabe054cb"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01434.html#a00ff75fa358f180551ec141cabe054cb">newMap</a></td></tr>
-<tr class="memdesc:a00ff75fa358f180551ec141cabe054cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">The new map to switch to.  <a href="a01434.html#a00ff75fa358f180551ec141cabe054cb">More...</a><br /></td></tr>
-<tr class="separator:a00ff75fa358f180551ec141cabe054cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a77ef99757ce3ea0e92d355136d787"><td class="memItemLeft" align="right" valign="top">const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01434.html#a21a77ef99757ce3ea0e92d355136d787">spawn</a></td></tr>
-<tr class="memdesc:a21a77ef99757ce3ea0e92d355136d787"><td class="mdescLeft">&#160;</td><td class="mdescRight">The spawn to start the player at.  <a href="a01434.html#a21a77ef99757ce3ea0e92d355136d787">More...</a><br /></td></tr>
-<tr class="separator:a21a77ef99757ce3ea0e92d355136d787"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01730.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01434.html#a61fb2a7377d2165b3c714ec0ff88c72d">map</a></td></tr>
+<tr class="memdesc:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the map that was just exited.  <a href="a01434.html#a61fb2a7377d2165b3c714ec0ff88c72d">More...</a><br /></td></tr>
+<tr class="separator:a61fb2a7377d2165b3c714ec0ff88c72d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when the map should be switched to something else. </p>
+<div class="textblock"><p>Fired when a map is exited. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00079">79</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00060">60</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae2cee84e6ff4ace69c39c00cbf2c46d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2cee84e6ff4ace69c39c00cbf2c46d3">&#9670;&nbsp;</a></span>SwitchMapTriggered()</h2>
+<a id="ae4feeec150e1479e33ed080dd12c61df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4feeec150e1479e33ed080dd12c61df">&#9670;&nbsp;</a></span>MapExited()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,21 +111,11 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::SwitchMapTriggered::SwitchMapTriggered </td>
+          <td class="memname">core::event::MapExited::MapExited </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>newMap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a01730.html">map::Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>spawn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -138,53 +125,34 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new Switch Map Triggered event. </p>
+<p>Construct a new <a class="el" href="a01434.html" title="Fired when a map is exited.">MapExited</a> event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">newMap</td><td>The file of the new map </td></tr>
-    <tr><td class="paramname">spawn</td><td>The spawn to spawn the player at </td></tr>
+    <tr><td class="paramname">map</td><td>The map that was exited </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00086">86</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00066">66</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a00ff75fa358f180551ec141cabe054cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00ff75fa358f180551ec141cabe054cb">&#9670;&nbsp;</a></span>newMap</h2>
+<a id="a61fb2a7377d2165b3c714ec0ff88c72d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61fb2a7377d2165b3c714ec0ff88c72d">&#9670;&nbsp;</a></span>map</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const std::string core::event::SwitchMapTriggered::newMap</td>
+          <td class="memname">const <a class="el" href="a01730.html">map::Map</a>&amp; core::event::MapExited::map</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The new map to switch to. </p>
+<p>A reference to the map that was just exited. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00091">91</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a21a77ef99757ce3ea0e92d355136d787"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21a77ef99757ce3ea0e92d355136d787">&#9670;&nbsp;</a></span>spawn</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int core::event::SwitchMapTriggered::spawn</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The spawn to start the player at. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00094">94</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00070">70</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
@@ -195,7 +163,7 @@ Public Attributes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

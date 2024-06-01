@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::page::VariousEditors Class Reference</title>
+<title>Peoplemon: editor::page::Tileset Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,302 +66,463 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01111.html">page</a></li><li class="navelem"><a class="el" href="a02266.html">VariousEditors</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01111.html">page</a></li><li class="navelem"><a class="el" href="a02266.html">Tileset</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02263.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::VariousEditors Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &raquo; <a class="el" href="a01082.html">Pages</a></div></div>  </div>
+<div class="title">editor::page::Tileset Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &raquo; <a class="el" href="a01082.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02202.html" title="Base class for all editor pages.">Page</a> for opening various editor windows outside the map editor.  
+<p>Subpage for tileset editing and use. Used by the map editor page.  
  <a href="a02266.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00485_source.html">VariousEditors.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::VariousEditors:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02266.png" usemap="#editor::page::VariousEditors_map" alt=""/>
-  <map id="editor::page::VariousEditors_map" name="editor::page::VariousEditors_map">
-<area href="a02202.html" title="Base class for all editor pages." alt="editor::page::Page" shape="rect" coords="0,0,167,24"/>
-  </map>
-</div></div>
+<p><code>#include &lt;<a class="el" href="a03218_source.html">Tileset.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7049fefb68c338e40a28edd7a95d6fbf"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbf">Active</a> { <br />
+&#160;&#160;<a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfaecf491af322f435fee45d7a7d893aaf4">Tiles</a>
+, <a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfa8b7f33d12c43a7f3f9a03914cb3d0cbd">Animations</a>
+, <a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfae869863ed5341ca6dda4d31bdbb21b9c">CollisionTiles</a>
+, <a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfa286d805dd1b3aa583f59e1d28db4fb44">TownTiles</a>
+, <br />
+&#160;&#160;<a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfa81c23648705ec469d8843dedf5602910">CatchTiles</a>
+, <a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbfa1059c9fb92ede268096e23b1df101c53">LevelTiles</a>
+<br />
+ }</td></tr>
+<tr class="separator:a7049fefb68c338e40a28edd7a95d6fbf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6a0e90609ab2788232413c564cb4685"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#ac6a0e90609ab2788232413c564cb4685">DeleteCb</a> = std::function&lt; void(<a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a>, bool)&gt;</td></tr>
+<tr class="separator:ac6a0e90609ab2788232413c564cb4685"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac11498856ab7be2deef9f27fd9df8bda"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#ac11498856ab7be2deef9f27fd9df8bda">VariousEditors</a> (<a class="el" href="a02026.html">core::system::Systems</a> &amp;<a class="el" href="a02202.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
-<tr class="memdesc:ac11498856ab7be2deef9f27fd9df8bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02266.html" title="Page for opening various editor windows outside the map editor.">VariousEditors</a> tab.  <a href="a02266.html#ac11498856ab7be2deef9f27fd9df8bda">More...</a><br /></td></tr>
-<tr class="separator:ac11498856ab7be2deef9f27fd9df8bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa8e5eb71e517b46d277e7795e3020675"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#aa8e5eb71e517b46d277e7795e3020675">~VariousEditors</a> ()=default</td></tr>
-<tr class="memdesc:aa8e5eb71e517b46d277e7795e3020675"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02202.html" title="Base class for all editor pages.">Page</a>.  <a href="a02266.html#aa8e5eb71e517b46d277e7795e3020675">More...</a><br /></td></tr>
-<tr class="separator:aa8e5eb71e517b46d277e7795e3020675"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a955aae06b1bd2c8e6e7a1f2ad9c9917a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">update</a> (float dt) override</td></tr>
-<tr class="memdesc:a955aae06b1bd2c8e6e7a1f2ad9c9917a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a02266.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">More...</a><br /></td></tr>
-<tr class="separator:a955aae06b1bd2c8e6e7a1f2ad9c9917a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02202.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
-<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="a02202.html#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
-<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02202.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a> (bl::gui::GUI *<a class="el" href="a02202.html#a7ece0b91553c68d952d61903d417d51b">parent</a>)</td></tr>
-<tr class="memdesc:ad50b571e79e7c949f5097ba17ad4aa03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the parent GUI.  <a href="a02202.html#ad50b571e79e7c949f5097ba17ad4aa03">More...</a><br /></td></tr>
-<tr class="separator:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02202.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
-<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02202.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
-<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7ece0b91553c68d952d61903d417d51b"><td class="memItemLeft" align="right" valign="top">bl::gui::GUI *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02202.html#a7ece0b91553c68d952d61903d417d51b">parent</a></td></tr>
-<tr class="separator:a7ece0b91553c68d952d61903d417d51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0faa19772ede247b3f3ab95e69a47862"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a0faa19772ede247b3f3ab95e69a47862">Tileset</a> (const <a class="el" href="a02266.html#ac6a0e90609ab2788232413c564cb4685">DeleteCb</a> &amp;deleteCb, <a class="el" href="a02262.html">MapArea</a> &amp;map)</td></tr>
+<tr class="memdesc:a0faa19772ede247b3f3ab95e69a47862"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the GUI elements.  <a href="a02266.html#a0faa19772ede247b3f3ab95e69a47862">More...</a><br /></td></tr>
+<tr class="separator:a0faa19772ede247b3f3ab95e69a47862"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5f033e8b303c43c709aacce1c0dc45d4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a5f033e8b303c43c709aacce1c0dc45d4">loadTileset</a> (const std::string &amp;tileset)</td></tr>
+<tr class="memdesc:a5f033e8b303c43c709aacce1c0dc45d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the given tileset and updates the GUI elements.  <a href="a02266.html#a5f033e8b303c43c709aacce1c0dc45d4">More...</a><br /></td></tr>
+<tr class="separator:a5f033e8b303c43c709aacce1c0dc45d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8e1f4463c91cce60d40f9eed47dc0b5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a8e1f4463c91cce60d40f9eed47dc0b5e">setGUI</a> (bl::gui::GUI *gui)</td></tr>
+<tr class="memdesc:a8e1f4463c91cce60d40f9eed47dc0b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent GUI object.  <a href="a02266.html#a8e1f4463c91cce60d40f9eed47dc0b5e">More...</a><br /></td></tr>
+<tr class="separator:a8e1f4463c91cce60d40f9eed47dc0b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9a0cef4926c30647cf959bf2625e6c64"><td class="memItemLeft" align="right" valign="top">bl::gui::Element::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a9a0cef4926c30647cf959bf2625e6c64">getContent</a> ()</td></tr>
+<tr class="memdesc:a9a0cef4926c30647cf959bf2625e6c64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the gui element to pack.  <a href="a02266.html#a9a0cef4926c30647cf959bf2625e6c64">More...</a><br /></td></tr>
+<tr class="separator:a9a0cef4926c30647cf959bf2625e6c64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1785d17b7bc7c1c93e246e8c6c9cb43a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbf">Active</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a1785d17b7bc7c1c93e246e8c6c9cb43a">getActiveTool</a> () const</td></tr>
+<tr class="memdesc:a1785d17b7bc7c1c93e246e8c6c9cb43a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns what is currently selected as the active edit type.  <a href="a02266.html#a1785d17b7bc7c1c93e246e8c6c9cb43a">More...</a><br /></td></tr>
+<tr class="separator:a1785d17b7bc7c1c93e246e8c6c9cb43a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab56b9a050266cf2b5926e968a4148af5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#ab56b9a050266cf2b5926e968a4148af5">getActiveTile</a> () const</td></tr>
+<tr class="memdesc:ab56b9a050266cf2b5926e968a4148af5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the active tile.  <a href="a02266.html#ab56b9a050266cf2b5926e968a4148af5">More...</a><br /></td></tr>
+<tr class="separator:ab56b9a050266cf2b5926e968a4148af5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab2491be356b4fff989b1f7cab1c9b586"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#ab2491be356b4fff989b1f7cab1c9b586">getActiveAnim</a> () const</td></tr>
+<tr class="memdesc:ab2491be356b4fff989b1f7cab1c9b586"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the id of the active animation.  <a href="a02266.html#ab2491be356b4fff989b1f7cab1c9b586">More...</a><br /></td></tr>
+<tr class="separator:ab2491be356b4fff989b1f7cab1c9b586"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af225ca2d27496b267d99d3fa5e424922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01075.html#gaa99d95911252405b5f77e93a2d5ecb0c">core::map::Collision</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#af225ca2d27496b267d99d3fa5e424922">getActiveCollision</a> () const</td></tr>
+<tr class="memdesc:af225ca2d27496b267d99d3fa5e424922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the active collision type.  <a href="a02266.html#af225ca2d27496b267d99d3fa5e424922">More...</a><br /></td></tr>
+<tr class="separator:af225ca2d27496b267d99d3fa5e424922"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08c9a1130898c8f82c36ae8f8767594c"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a08c9a1130898c8f82c36ae8f8767594c">getActiveCatch</a> () const</td></tr>
+<tr class="memdesc:a08c9a1130898c8f82c36ae8f8767594c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the active catch type.  <a href="a02266.html#a08c9a1130898c8f82c36ae8f8767594c">More...</a><br /></td></tr>
+<tr class="separator:a08c9a1130898c8f82c36ae8f8767594c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb43734b66db7b20147536e0c2289262"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#acb43734b66db7b20147536e0c2289262">getActiveTown</a> () const</td></tr>
+<tr class="memdesc:acb43734b66db7b20147536e0c2289262"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected town.  <a href="a02266.html#acb43734b66db7b20147536e0c2289262">More...</a><br /></td></tr>
+<tr class="separator:acb43734b66db7b20147536e0c2289262"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49d8a6af053af65a264d11692aeb682d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01075.html#gacd6894855472f8b22d022ece25eda9b4">core::map::LevelTransition</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a49d8a6af053af65a264d11692aeb682d">getActiveLevel</a> () const</td></tr>
+<tr class="memdesc:a49d8a6af053af65a264d11692aeb682d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the actively selected level transition type.  <a href="a02266.html#a49d8a6af053af65a264d11692aeb682d">More...</a><br /></td></tr>
+<tr class="separator:a49d8a6af053af65a264d11692aeb682d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37a1360e9ee653cca8cf31ab61749a19"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a37a1360e9ee653cca8cf31ab61749a19">unsavedChanges</a> () const</td></tr>
+<tr class="memdesc:a37a1360e9ee653cca8cf31ab61749a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the tileset is in a dirty state.  <a href="a02266.html#a37a1360e9ee653cca8cf31ab61749a19">More...</a><br /></td></tr>
+<tr class="separator:a37a1360e9ee653cca8cf31ab61749a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a089852dea8afa0d2298736dd863ac151"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a089852dea8afa0d2298736dd863ac151">markSaved</a> ()</td></tr>
+<tr class="memdesc:a089852dea8afa0d2298736dd863ac151"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks the tileset clean.  <a href="a02266.html#a089852dea8afa0d2298736dd863ac151">More...</a><br /></td></tr>
+<tr class="separator:a089852dea8afa0d2298736dd863ac151"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a830a1167c6b42c3ada74c6f5d3fc1de4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02266.html#a830a1167c6b42c3ada74c6f5d3fc1de4">refresh</a> ()</td></tr>
+<tr class="memdesc:a830a1167c6b42c3ada74c6f5d3fc1de4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the GUI.  <a href="a02266.html#a830a1167c6b42c3ada74c6f5d3fc1de4">More...</a><br /></td></tr>
+<tr class="separator:a830a1167c6b42c3ada74c6f5d3fc1de4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02202.html" title="Base class for all editor pages.">Page</a> for opening various editor windows outside the map editor. </p>
+<div class="textblock"><p>Subpage for tileset editing and use. Used by the map editor page. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00485_source.html#l00021">21</a> of file <a class="el" href="a00485_source.html">VariousEditors.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac11498856ab7be2deef9f27fd9df8bda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac11498856ab7be2deef9f27fd9df8bda">&#9670;&nbsp;</a></span>VariousEditors()</h2>
+<p class="definition">Definition at line <a class="el" href="a03218_source.html#l00028">28</a> of file <a class="el" href="a03218_source.html">Tileset.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ac6a0e90609ab2788232413c564cb4685"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6a0e90609ab2788232413c564cb4685">&#9670;&nbsp;</a></span>DeleteCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::page::VariousEditors::VariousEditors </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a02266.html#ac6a0e90609ab2788232413c564cb4685">editor::page::Tileset::DeleteCb</a> =  std::function&lt;void(<a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a>, bool)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a02266.html" title="Page for opening various editor windows outside the map editor.">VariousEditors</a> tab. </p>
+<p class="definition">Definition at line <a class="el" href="a03218_source.html#l00031">31</a> of file <a class="el" href="a03218_source.html">Tileset.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a7049fefb68c338e40a28edd7a95d6fbf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7049fefb68c338e40a28edd7a95d6fbf">&#9670;&nbsp;</a></span>Active</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbf">editor::page::Tileset::Active</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfaecf491af322f435fee45d7a7d893aaf4"></a>Tiles&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfa8b7f33d12c43a7f3f9a03914cb3d0cbd"></a>Animations&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfae869863ed5341ca6dda4d31bdbb21b9c"></a>CollisionTiles&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfa286d805dd1b3aa583f59e1d28db4fb44"></a>TownTiles&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfa81c23648705ec469d8843dedf5602910"></a>CatchTiles&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a7049fefb68c338e40a28edd7a95d6fbfa1059c9fb92ede268096e23b1df101c53"></a>LevelTiles&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="a03218_source.html#l00030">30</a> of file <a class="el" href="a03218_source.html">Tileset.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a0faa19772ede247b3f3ab95e69a47862"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0faa19772ede247b3f3ab95e69a47862">&#9670;&nbsp;</a></span>Tileset()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::page::Tileset::Tileset </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02266.html#ac6a0e90609ab2788232413c564cb4685">DeleteCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>deleteCb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a02262.html">MapArea</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the GUI elements. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">deleteCb</td><td>Called when a tile or animation is removed </td></tr>
+    <tr><td class="paramname">map</td><td>The map being edited </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00014">14</a> of file <a class="el" href="a00992_source.html">VariousEditors.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa8e5eb71e517b46d277e7795e3020675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8e5eb71e517b46d277e7795e3020675">&#9670;&nbsp;</a></span>~VariousEditors()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual editor::page::VariousEditors::~VariousEditors </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroy the <a class="el" href="a02202.html" title="Base class for all editor pages.">Page</a>. </p>
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00032">32</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6ca56d8d39860251755e5800924e57ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
+<a id="ab2491be356b4fff989b1f7cab1c9b586"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab2491be356b4fff989b1f7cab1c9b586">&#9670;&nbsp;</a></span>getActiveAnim()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
+          <td class="memname"><a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a> editor::page::Tileset::getActiveAnim </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the id of the active animation. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00183">183</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a08c9a1130898c8f82c36ae8f8767594c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a08c9a1130898c8f82c36ae8f8767594c">&#9670;&nbsp;</a></span>getActiveCatch()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t editor::page::Tileset::getActiveCatch </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the active catch type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00187">187</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af225ca2d27496b267d99d3fa5e424922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af225ca2d27496b267d99d3fa5e424922">&#9670;&nbsp;</a></span>getActiveCollision()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01075.html#gaa99d95911252405b5f77e93a2d5ecb0c">core::map::Collision</a> editor::page::Tileset::getActiveCollision </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the active collision type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00185">185</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a49d8a6af053af65a264d11692aeb682d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49d8a6af053af65a264d11692aeb682d">&#9670;&nbsp;</a></span>getActiveLevel()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01075.html#gacd6894855472f8b22d022ece25eda9b4">core::map::LevelTransition</a> editor::page::Tileset::getActiveLevel </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the actively selected level transition type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00191">191</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab56b9a050266cf2b5926e968a4148af5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab56b9a050266cf2b5926e968a4148af5">&#9670;&nbsp;</a></span>getActiveTile()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01754.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a> editor::page::Tileset::getActiveTile </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the id of the active tile. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00181">181</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a1785d17b7bc7c1c93e246e8c6c9cb43a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1785d17b7bc7c1c93e246e8c6c9cb43a">&#9670;&nbsp;</a></span>getActiveTool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02266.html#a7049fefb68c338e40a28edd7a95d6fbf">Tileset::Active</a> editor::page::Tileset::getActiveTool </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns what is currently selected as the active edit type. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00179">179</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acb43734b66db7b20147536e0c2289262"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb43734b66db7b20147536e0c2289262">&#9670;&nbsp;</a></span>getActiveTown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t editor::page::Tileset::getActiveTown </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the currently selected town. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00189">189</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9a0cef4926c30647cf959bf2625e6c64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9a0cef4926c30647cf959bf2625e6c64">&#9670;&nbsp;</a></span>getContent()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Element::Ptr editor::page::Tileset::getContent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Returns the content to put in the editor. </p>
+<p>Returns the gui element to pack. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00011">11</a> of file <a class="el" href="a00965_source.html">Page.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00177">177</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad50b571e79e7c949f5097ba17ad4aa03"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad50b571e79e7c949f5097ba17ad4aa03">&#9670;&nbsp;</a></span>registerGui()</h2>
+<a id="a5f033e8b303c43c709aacce1c0dc45d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f033e8b303c43c709aacce1c0dc45d4">&#9670;&nbsp;</a></span>loadTileset()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::Page::registerGui </td>
+          <td class="memname">bool editor::page::Tileset::loadTileset </td>
           <td>(</td>
-          <td class="paramtype">bl::gui::GUI *&#160;</td>
-          <td class="paramname"><em>parent</em></td><td>)</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>tileset</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Registers the parent GUI. </p>
+<p>Loads the given tileset and updates the GUI elements. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
+    <tr><td class="paramname">tileset</td><td>The path to the tileset to load </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00013">13</a> of file <a class="el" href="a00965_source.html">Page.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00193">193</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a955aae06b1bd2c8e6e7a1f2ad9c9917a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a955aae06b1bd2c8e6e7a1f2ad9c9917a">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a089852dea8afa0d2298736dd863ac151"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a089852dea8afa0d2298736dd863ac151">&#9670;&nbsp;</a></span>markSaved()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::VariousEditors::update </td>
+          <td class="memname">void editor::page::Tileset::markSaved </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Does nothing. </p>
+<p>Marks the tileset clean. </p>
 
-<p>Implements <a class="el" href="a02202.html#a2b795b1243ceabcf90c0cb492ae7f903">editor::page::Page</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00046">46</a> of file <a class="el" href="a00992_source.html">VariousEditors.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00250">250</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
+<a id="a830a1167c6b42c3ada74c6f5d3fc1de4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a830a1167c6b42c3ada74c6f5d3fc1de4">&#9670;&nbsp;</a></span>refresh()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
+          <td class="memname">void editor::page::Tileset::refresh </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00458_source.html#l00069">69</a> of file <a class="el" href="a00458_source.html">Page.hpp</a>.</p>
+<p>Refreshes the GUI. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00252">252</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7ece0b91553c68d952d61903d417d51b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7ece0b91553c68d952d61903d417d51b">&#9670;&nbsp;</a></span>parent</h2>
+<a id="a8e1f4463c91cce60d40f9eed47dc0b5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8e1f4463c91cce60d40f9eed47dc0b5e">&#9670;&nbsp;</a></span>setGUI()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::gui::GUI* editor::page::Page::parent</td>
+          <td class="memname">void editor::page::Tileset::setGUI </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>gui</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00458_source.html#l00070">70</a> of file <a class="el" href="a00458_source.html">Page.hpp</a>.</p>
+<p>Sets the parent GUI object. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00172">172</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
+<a id="a37a1360e9ee653cca8cf31ab61749a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37a1360e9ee653cca8cf31ab61749a19">&#9670;&nbsp;</a></span>unsavedChanges()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02026.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
+          <td class="memname">bool editor::page::Tileset::unsavedChanges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00458_source.html#l00068">68</a> of file <a class="el" href="a00458_source.html">Page.hpp</a>.</p>
+<p>Returns whether or not the tileset is in a dirty state. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03308_source.html#l00248">248</a> of file <a class="el" href="a03308_source.html">Tileset.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Pages/<a class="el" href="a00485_source.html">VariousEditors.hpp</a></li>
-<li>src/Editor/Pages/<a class="el" href="a00992_source.html">VariousEditors.cpp</a></li>
+<li>include/Editor/Pages/Subpages/<a class="el" href="a03218_source.html">Tileset.hpp</a></li>
+<li>src/Editor/Pages/Subpages/<a class="el" href="a03308_source.html">Tileset.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

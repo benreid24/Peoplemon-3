@@ -66,31 +66,32 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02310.html">BattleWrapperState</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02310.html">BagMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">game::state::BattleWrapperState Member List</div>  </div>
+<div class="title">game::state::BagMenu Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02310.html">game::state::BattleWrapperState</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02310.html">game::state::BagMenu</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a67162e4a37ebc80912c244f47f258aad">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02310.html#a6cecd61bc346696253d9a21e24a16928">create</a>(core::system::Systems &amp;systems, std::unique_ptr&lt; core::battle::Battle &gt; &amp;&amp;battle)</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a6ee9f441d832df34c482d46e3069cacc">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02310.html#a069f8ae5b55cc3b0af6d6dbacf9cac6a">name</a>() const override</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02310.html#adcc44c8e13d32d7ee85afa8d168b75b2">update</a>(bl::engine::Engine &amp;engine, float dt, float) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02310.html#aed1b9c7f376373417b3c32eaa4ad59dd">~BattleWrapperState</a>()=default</td><td class="entry"><a class="el" href="a02310.html">game::state::BattleWrapperState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a76ae8f0f65ec5366ca2c2f2b6e08006f">activate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02310.html#adcee68f55ecb21a05c0f8065e7dbce42">Context</a> typedef</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a65e0da150c8e36094303fe48d0fa2328">create</a>(core::system::Systems &amp;systems, Context ctx, core::item::Id *result=nullptr, int outNow=-1, int *chosenPeoplemon=nullptr, bool *unpause=nullptr)</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02310.html#af1ad3b4caeada4056d033e6b99315860">deactivate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a9f3b38601508ee5d60ae2447440a84a8">name</a>() const override</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02398.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02310.html#ae6c3f1ab32aeca7fb43c9068e717d212">update</a>(bl::engine::Engine &amp;, float dt, float) override</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02310.html#a3a59980fcd86ef8b23fdf056c1f41df0">~BagMenu</a>()=default</td><td class="entry"><a class="el" href="a02310.html">game::state::BagMenu</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02398.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -76,163 +76,490 @@ $(function() {
 <div class="contents">
 <a href="a00716.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00719.html">Sandstorm.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">const</span> sf::Vector2f SandVelocity(-1100.f, 345.f);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">const</span> sf::Vector2f SwirlVelocity(-680.f, 325.f);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr std::uint8_t MaxAlpha   = 230;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr <span class="keywordtype">float</span> SwirlRatio        = 0.3f;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr <span class="keywordtype">float</span> AlphaRate         = 85.f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> SwirlCount = 40;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keywordtype">float</span> computeAlpha(<span class="keywordtype">float</span> current, <span class="keywordtype">float</span> target, <span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> rate = target &gt; current ? AlphaRate : -AlphaRate;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> na   = current + rate * dt;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (na &lt; 0) <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (na &gt; 255) <span class="keywordflow">return</span> 255.f;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (na &gt; target &amp;&amp; target &gt; current) <span class="keywordflow">return</span> target;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> na;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02426.html#a2dd614987eab30634c1583fea2b3ce78">   31</a></span>&#160;<a class="code" href="a02426.html#a2dd614987eab30634c1583fea2b3ce78">Sandstorm::Sandstorm</a>()</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;: targetAlpha(0)</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;, alpha(0) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    sandTxtr  = TextureManager::load(<a class="code" href="a01874.html#a6a3dacf355c1e960492ee560ee19fa9f">Properties::SandPatchFile</a>());</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    swirlTxtr = TextureManager::load(<a class="code" href="a01874.html#a1c5a341e88fccdf66e13375f2aa94b12">Properties::SandSwirlFile</a>());</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    sand.setTexture(*sandTxtr, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    swirl.setTexture(*swirlTxtr, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sand.setOrigin(sandTxtr-&gt;getSize().x / 2, sandTxtr-&gt;getSize().y / 2);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    swirl.setOrigin(swirlTxtr-&gt;getSize().x / 2, swirlTxtr-&gt;getSize().y / 2);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02426.html#a6137cabe409261ebd68b3de8ff975d30">   42</a></span>&#160;<a class="code" href="a01774.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02426.html#a6137cabe409261ebd68b3de8ff975d30">Sandstorm::type</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="a01774.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">Weather::SandStorm</a>; }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02426.html#a2ed89923f6145684440ad67d94ddfa50">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02426.html#a2ed89923f6145684440ad67d94ddfa50">Sandstorm::stop</a>() { targetAlpha = 0; }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Cameras/2D/Camera2D.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01137.html">   13</a></span>&#160;<span class="keyword">namespace </span>sandstorm</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02494.html">   15</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02494.html">Sand</a> {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">   16</a></span>&#160;    glm::vec2 <a class="code" href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">pos</a>;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02494.html#a5069fbd45fc23488c5d426532a431f37">   18</a></span>&#160;    <a class="code" href="a02494.html#a5069fbd45fc23488c5d426532a431f37">Sand</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02494.html#af207c8ab8118795c08439fc692e5dfe2">   20</a></span>&#160;    <a class="code" href="a02494.html#af207c8ab8118795c08439fc692e5dfe2">Sand</a>(<span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">pos</a>)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    : <a class="code" href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">pos</a>(<a class="code" href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">pos</a>) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;};</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02498.html">   24</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02498.html">Swirl</a> {</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02498.html#aa159ce47259462542e41939148492b83">   25</a></span>&#160;    glm::vec2 <a class="code" href="a02498.html#aa159ce47259462542e41939148492b83">pos</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02498.html#a3a51cdcd40916e3d93dfdc5a26cb8154">   26</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02498.html#a3a51cdcd40916e3d93dfdc5a26cb8154">angle</a>;</div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a02498.html#a45fffbda554376e55427de0508c3edb2">   27</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02498.html#a45fffbda554376e55427de0508c3edb2">angularVelocity</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02498.html#a9c5462870cd0babcd3e3878ff91eee85">   28</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02498.html#a9c5462870cd0babcd3e3878ff91eee85">scale</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02498.html#a8234230f87e78fe1730410dd7628e134">   30</a></span>&#160;    <a class="code" href="a02498.html#a8234230f87e78fe1730410dd7628e134">Swirl</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02498.html#a35e48a832c4595fac676249821afcb7c">   32</a></span>&#160;    <a class="code" href="a02498.html#a35e48a832c4595fac676249821afcb7c">Swirl</a>(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    : <a class="code" href="a02498.html#aa159ce47259462542e41939148492b83">pos</a>(x, y) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <a class="code" href="a02498.html#a3a51cdcd40916e3d93dfdc5a26cb8154">angle</a>           = bl::util::Random::get&lt;float&gt;(0.f, 2.f * bl::math::Pi);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="a02498.html#a45fffbda554376e55427de0508c3edb2">angularVelocity</a> = bl::math::degreesToRadians(bl::util::Random::get&lt;float&gt;(560.f, 820.f));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (bl::util::Random::chance(1, 2)) { <a class="code" href="a02498.html#a45fffbda554376e55427de0508c3edb2">angularVelocity</a> *= -1.f; }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <a class="code" href="a02498.html#a9c5462870cd0babcd3e3878ff91eee85">scale</a> = bl::util::Random::get&lt;float&gt;(0.75f, 1.2f);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    }</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02502.html">   41</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02502.html">GpuSwirl</a> {</div>
+<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a02502.html#a8769c9b67042f684060dc99436171ee8">   42</a></span>&#160;    glm::vec2 <a class="code" href="a02502.html#a8769c9b67042f684060dc99436171ee8">pos</a>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a02502.html#aeabed7519654228ac79cc146678291fb">   43</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02502.html#aeabed7519654228ac79cc146678291fb">angle</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02502.html#aedba80d8666d2f30636112498374e73e">   44</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02502.html#aedba80d8666d2f30636112498374e73e">scale</a>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02426.html#a07ac834a6cc7ba446edd52f27ebe35c3">   46</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02426.html#a07ac834a6cc7ba446edd52f27ebe35c3">Sandstorm::stopped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(alpha) == 0; }</div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02502.html#aa211107778d383cd8af48b71336abf20">   46</a></span>&#160;    <a class="code" href="a02502.html#aa211107778d383cd8af48b71336abf20">GpuSwirl</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02426.html#a28215791042bca10602a826fd79dac8f">   48</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02426.html#a28215791042bca10602a826fd79dac8f">Sandstorm::start</a>(<span class="keyword">const</span> sf::FloatRect&amp; a) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    area        = a;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    targetAlpha = MaxAlpha;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    alpha       = 0;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">const</span> sf::Vector2f corner(area.left - area.width / 2.f, area.top - area.height / 2.f);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> w             = sandTxtr-&gt;getSize().x / 1.2;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> h             = sandTxtr-&gt;getSize().y / 1.2;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width  = area.width * 2 / w;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height = area.height * 2 / h;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    sandPatches.clear();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    sandPatches.reserve(width * height);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = 0; y &lt; height; ++y) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            sandPatches.emplace_back(corner.x + w * x, corner.y + h * y);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    swirlParticles.clear();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    swirlParticles.reserve(SwirlCount);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; SwirlCount; ++i) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        swirlParticles.emplace_back();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        swirlParticles.back().set(</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            bl::util::Random::get&lt;float&gt;(corner.x, area.left + area.width * 1.5f),</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            bl::util::Random::get&lt;float&gt;(corner.y, area.top + area.height * 1.5f));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02502.html#a9137f4af1b17b25513f78e89fc4c95bb">   48</a></span>&#160;    <a class="code" href="a02502.html">GpuSwirl</a>&amp; <a class="code" href="a02502.html#a9137f4af1b17b25513f78e89fc4c95bb">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02498.html">Swirl</a>&amp; swirl) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a02502.html#a8769c9b67042f684060dc99436171ee8">pos</a>   = swirl.<a class="code" href="a02498.html#aa159ce47259462542e41939148492b83">pos</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <a class="code" href="a02502.html#aeabed7519654228ac79cc146678291fb">angle</a> = swirl.<a class="code" href="a02498.html#a3a51cdcd40916e3d93dfdc5a26cb8154">angle</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="a02502.html#aedba80d8666d2f30636112498374e73e">scale</a> = swirl.<a class="code" href="a02498.html#a9c5462870cd0babcd3e3878ff91eee85">scale</a>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;};</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a02506.html">   56</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02506.html">GlobalShaderInfo</a> {</div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02506.html#a6532098dfe90adf64c99eb2d99ee78a4">   57</a></span>&#160;    std::uint32_t <a class="code" href="a02506.html#a6532098dfe90adf64c99eb2d99ee78a4">textureId</a>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02506.html#ab8c3a61e99ba09bbf1eba57a29ed7fd0">   58</a></span>&#160;    glm::vec2 <a class="code" href="a02506.html#ab8c3a61e99ba09bbf1eba57a29ed7fd0">textureCenter</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02506.html#a7db998c2d896e9fcbe199be7aa07a369">   59</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02506.html#a7db998c2d896e9fcbe199be7aa07a369">alpha</a>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02506.html#ad7f678610aa28a67106edca7647698c5">   60</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02506.html#ad7f678610aa28a67106edca7647698c5">radius</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace sandstorm</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01096.html">bl</a></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;{</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">namespace </span>pcl</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a01134.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">   72</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02494.html">Sand</a>             = <a class="code" href="a01134.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">core::map::weather::sandstorm::Sand</a>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno"><a class="line" href="a01134.html#a923cf8da7c5d618e47d0cb6de16f813e">   73</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02498.html">Swirl</a>            = <a class="code" href="a01134.html#a923cf8da7c5d618e47d0cb6de16f813e">core::map::weather::sandstorm::Swirl</a>;</div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a01134.html#a1bf25e3d34eb0f246503862f82749948">   74</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02502.html">GpuSwirl</a>         = <a class="code" href="a01134.html#a1bf25e3d34eb0f246503862f82749948">core::map::weather::sandstorm::GpuSwirl</a>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderInfo</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">core::map::weather::sandstorm::GlobalShaderInfo</a>;</div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02426.html#a12ffb97e3a097d0ebb79499ef5c33fa1">   77</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02426.html#a12ffb97e3a097d0ebb79499ef5c33fa1">Sandstorm::update</a>(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(alpha) != targetAlpha) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        alpha = computeAlpha(alpha, targetAlpha, dt);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a02510.html">   78</a></span>&#160;<span class="keyword">struct </span>RenderConfigMap&lt;<a class="code" href="a02494.html">Sand</a>&gt; {</div>
+<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a02510.html#a6fab0eec8ce3ce38dadb99ae93b09c75">   79</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t PipelineId  = <a class="code" href="a01882.html#aeea2f1a5964d8d2b6fb1f2ab1c1b01e2">core::Properties::SandstormSandPipelineId</a>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02510.html#ac9a3b936a98ae44c8a15f1cf660d37e2">   80</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> ContainsTransparency = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> leftBound   = area.left - area.width / 2.f;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> rightBound  = area.left + area.width * 1.5;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> topBound    = area.top - area.height / 2.f;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> bottomBound = area.top + area.height * 1.5;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> width       = area.width * 2.f;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> height      = area.height * 2.f;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">for</span> (sf::Vector2f&amp; sp : sandPatches) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        sp += SandVelocity * dt;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="keywordflow">if</span> (sp.x &lt; leftBound) sp.x += width;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">if</span> (sp.x &gt; rightBound) sp.x -= width;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">if</span> (sp.y &lt; topBound) sp.y += height;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordflow">if</span> (sp.y &gt; bottomBound) sp.y -= height;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">for</span> (Swirl&amp; s : swirlParticles) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        s.position += SwirlVelocity * dt;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        s.angle += s.angularVel * dt;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;        <span class="keywordflow">if</span> (s.position.x &lt; leftBound || s.position.y &gt; bottomBound) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            s.set(bl::util::Random::get&lt;float&gt;(rightBound - 100.f, rightBound),</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                  bl::util::Random::get&lt;float&gt;(topBound, topBound + width));</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        }</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02426.html#a7f7ec1d4afeb6b57be5d97423b259a90">  106</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02426.html#a7f7ec1d4afeb6b57be5d97423b259a90">Sandstorm::render</a>(sf::RenderTarget&amp; target, <span class="keywordtype">float</span> lag)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    area = {target.getView().getCenter() - target.getView().getSize() / 2.f,</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            target.getView().getSize()};</div>
+<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02510.html#a87ef252bc41a384e84a8c87a178c6f6e">   82</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> CreateRenderPipeline = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02510.html#add0c7f6da5f45bdff1c47ff7411bfaa3">   84</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; RenderPassIds =</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        bl::pcl::RenderConfigDefaults&lt;Sand&gt;::RenderPassIds;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a02510.html#ab9b41e394d0becd857346a7f43b98b58">   87</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderPayload</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a>;</div>
+<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02510.html#a3cf7adbab32301668315a2355e556637">   88</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02510.html#a3cf7adbab32301668315a2355e556637">DescriptorSets</a> =</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        bl::pcl::RenderConfigDescriptorList&lt;bl::rc::ds::TexturePoolFactory,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                            bl::rc::ds::Scene2DFactory,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                            bl::pcl::DescriptorSetFactory&lt;Sand, Sand&gt;&gt;;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno"><a class="line" href="a02510.html#ad3952e6daca9a4eb130dda8c0d16291e">   93</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> EnableDepthTesting      = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02510.html#a484683b453afd51e397a45434149ddc5">   94</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
+<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a02510.html#a2f23f583a6fe2ce0e6ed988e75455d6e">   95</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* VertexShader     = <span class="stringliteral">&quot;Resources/Shaders/Particles/sand.vert.spv&quot;</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02510.html#a5cabee7a879705a0e6e14e7900e20417">   96</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* FragmentShader =</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;};</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00101"></a><span class="lineno"><a class="line" href="a02514.html">  101</a></span>&#160;<span class="keyword">struct </span>RenderConfigMap&lt;<a class="code" href="a02498.html">Swirl</a>&gt; {</div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a02514.html#ae33313aa7b819138f5e6f207aaf8f2d5">  102</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t PipelineId  = <a class="code" href="a01882.html#af68a210e9f4c2d22b49ae43eaaea3b6a">core::Properties::SandstormSwirlPipelineId</a>;</div>
+<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a02514.html#a5a49822ec58b107f42fdc2e142481eda">  103</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> ContainsTransparency = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a02514.html#a1c8e6fb3d21450c1e9e2aacd8d667413">  105</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> CreateRenderPipeline = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a02514.html#a6ea021d56f2a1b353bfeb594e7ac258e">  107</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; RenderPassIds =</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        bl::pcl::RenderConfigDefaults&lt;Swirl&gt;::RenderPassIds;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> a  = computeAlpha(alpha, targetAlpha, lag);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> sa = a * SwirlRatio;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    sand.setColor(sf::Color(255, 255, 255, a));</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> sf::Vector2f&amp; sp : sandPatches) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;        sand.setPosition(sp + SandVelocity * lag);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        target.draw(sand);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    }</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    swirl.setColor(sf::Color(255, 255, 255, sa));</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Swirl&amp; s : swirlParticles) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keyword">const</span> sf::Vector2f interp(s.position + SwirlVelocity * lag);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        swirl.setPosition(interp.x, interp.y);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        swirl.setRotation(s.angle + s.angularVel * lag);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        swirl.setScale(s.scale, s.scale);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        target.draw(swirl);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keywordtype">void</span> Sandstorm::Swirl::set(<span class="keywordtype">float</span> x, <span class="keywordtype">float</span> y) {</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    position.x = x;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    position.y = y;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    angle      = bl::util::Random::get&lt;float&gt;(0.f, 360.f);</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    angularVel = bl::util::Random::get&lt;float&gt;(560.f, 820.f);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">if</span> (bl::util::Random::chance(1, 2)) angularVel *= -1;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    scale = bl::util::Random::get&lt;float&gt;(0.75f, 1.2f);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="a02514.html#a5dd6638c799bad2f58d0e3c4fb679ab6">  110</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderPayload</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02514.html#a372e539483be0f574239de9857a8bcff">  111</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02514.html#a372e539483be0f574239de9857a8bcff">DescriptorSets</a> =</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        bl::pcl::RenderConfigDescriptorList&lt;bl::rc::ds::TexturePoolFactory,</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                                            bl::rc::ds::Scene2DFactory,</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;                                            bl::pcl::DescriptorSetFactory&lt;Swirl, GpuSwirl&gt;&gt;;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a02514.html#aca14c395d58ac475de5401087f99dc23">  116</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> EnableDepthTesting      = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="a02514.html#a54812bca46f88fb51ed51d54f1a36958">  117</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
+<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02514.html#ae1ee33c96ef0cf09356dc653b80b8b68">  118</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* VertexShader = <span class="stringliteral">&quot;Resources/Shaders/Particles/sandSwirl.vert.spv&quot;</span>;</div>
+<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a02514.html#a65146af02e48c66ab5917faa06f3f24f">  119</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* FragmentShader =</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;};</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160; </div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;{</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;{</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;constexpr glm::vec2 SandVelocity(-1100.f * 0.8f, 345.f * 0.8f);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;constexpr glm::vec2 SwirlVelocity(-680.f, 325.f);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;constexpr <span class="keywordtype">float</span> MaxAlpha          = 230.f / 256.f;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;constexpr <span class="keywordtype">float</span> SwirlRatio        = 0.5f;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;constexpr <span class="keywordtype">float</span> AlphaRate         = 85.f / 256.f;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> SwirlCount = 40;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keywordtype">float</span> computeAlpha(<span class="keywordtype">float</span> current, <span class="keywordtype">float</span> target, <span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> rate = target &gt; current ? AlphaRate : -AlphaRate;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> na   = current + rate * dt;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">if</span> (na &lt; 0.f) <span class="keywordflow">return</span> 0.f;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">if</span> (na &gt; 1.f) <span class="keywordflow">return</span> 1.f;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">if</span> (na &gt; target &amp;&amp; target &gt; current) <span class="keywordflow">return</span> target;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">return</span> na;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;}</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="keyword">namespace </span>sandstorm</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;{</div>
+<div class="line"><a name="l00152"></a><span class="lineno"><a class="line" href="a02518.html">  152</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02518.html">SandSink</a> : <span class="keyword">public</span> bl::pcl::Sink&lt;Sand&gt; {</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a02518.html#aeaa1bc1e64e6a86b72a0531058469a45">  154</a></span>&#160;    <a class="code" href="a02518.html#aeaa1bc1e64e6a86b72a0531058469a45">SandSink</a>()</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    : clear(false) {}</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="a02518.html#a3618c6a23221ecf08c3403fd020aef75">  157</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02518.html#a3618c6a23221ecf08c3403fd020aef75">~SandSink</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="a02518.html#a816120682ccd7a80b34b21f08d3d7a3b">  159</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02518.html#a816120682ccd7a80b34b21f08d3d7a3b">update</a>(Proxy&amp; proxy, std::span&lt;Sand&gt; particles, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keywordflow">if</span> (clear) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;            clear = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="a02494.html">Sand</a>&amp; p : particles) { proxy.destroy(p); }</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    }</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="a02518.html#a6ae66a48d5c8cd6d985ecc82083d62fd">  166</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02518.html#a6ae66a48d5c8cd6d985ecc82083d62fd">clearAll</a>() { clear = <span class="keyword">true</span>; }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <span class="keywordtype">bool</span> clear;</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;};</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a02522.html">  172</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02522.html">SandUpdater</a> : <span class="keyword">public</span> bl::pcl::MetaUpdater&lt;Sand&gt; {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a02522.html#a5c507d030982e9fc220691b596fa5606">  174</a></span>&#160;    <a class="code" href="a02522.html#a5c507d030982e9fc220691b596fa5606">SandUpdater</a>(bl::rc::Observer&amp; observer, <a class="code" href="a02518.html">SandSink</a>&amp; sink)</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    : observer(observer)</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    , sink(sink)</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    , prevArea(1.f, 1.f, 1.f, 1.f) {}</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="a02522.html#a011d4ace44b8d94c8101698a31eae2b0">  179</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02522.html#a011d4ace44b8d94c8101698a31eae2b0">~SandUpdater</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno"><a class="line" href="a02522.html#a65f8529d1675ead1cf016511b981197f">  181</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02522.html#a65f8529d1675ead1cf016511b981197f">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160; </div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        <span class="keywordflow">if</span> (proxy.getManager().getParticleCount() &gt; 0) {</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> dx = area.width / prevArea.width;</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> dy = area.height / prevArea.height;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">if</span> (dx &gt;= 1.25f || dy &gt;= 1.25f) {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                sink.<a class="code" href="a02518.html#a6ae66a48d5c8cd6d985ecc82083d62fd">clearAll</a>();</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;                prevArea = area;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;            }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        }</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">else</span> { prevArea = area; }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    }</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    bl::rc::Observer&amp; observer;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="a02518.html">SandSink</a>&amp; sink;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    sf::FloatRect prevArea;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;};</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160; </div>
+<div class="line"><a name="l00203"></a><span class="lineno"><a class="line" href="a01137.html#ac04aac6272fa91430343805d90898811">  203</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a>  = 800.f;</div>
+<div class="line"><a name="l00204"></a><span class="lineno"><a class="line" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">  204</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a> = 600.f;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160; </div>
+<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="a02526.html">  206</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02526.html">SandAffector</a> : <span class="keyword">public</span> bl::pcl::Affector&lt;Sand&gt; {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00208"></a><span class="lineno"><a class="line" href="a02526.html#a3828d5851096a035fcabd5692ca970f7">  208</a></span>&#160;    <a class="code" href="a02526.html#a3828d5851096a035fcabd5692ca970f7">SandAffector</a>(bl::rc::Observer&amp; observer)</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    : observer(observer) {}</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno"><a class="line" href="a02526.html#a861aef2f486bd264f62bed63f385c15b">  211</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02526.html#a861aef2f486bd264f62bed63f385c15b">~SandAffector</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
+<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="a02526.html#a1fc6b18d9e2f47d28d594d753994a227">  213</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02526.html#a1fc6b18d9e2f47d28d594d753994a227">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;        bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> leftBound   = area.left + area.width * 0.5f - <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a> * 0.5f;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> rightBound  = leftBound + <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> topBound    = area.top + area.height * 0.5f - <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a> * 0.5f;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> bottomBound = topBound + <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02494.html">Sand</a>&amp; s : proxy.particles()) {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;            s.pos += SandVelocity * dt;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;            <span class="keywordflow">if</span> (s.pos.x &lt; leftBound) { s.pos.x += <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a>; }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (s.pos.x &gt; rightBound) { s.pos.x -= <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a>; }</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;            <span class="keywordflow">if</span> (s.pos.y &lt; topBound) { s.pos.y += <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a>; }</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (s.pos.y &gt; bottomBound) { s.pos.y -= <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a>; }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;    }</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    bl::rc::Observer&amp; observer;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;};</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="a02530.html">  236</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02530.html">SandEmitter</a> : <span class="keyword">public</span> bl::pcl::Emitter&lt;Sand&gt; {</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00238"></a><span class="lineno"><a class="line" href="a02530.html#a153ddb10bfe374add397a04b242a13ae">  238</a></span>&#160;    <a class="code" href="a02530.html#a153ddb10bfe374add397a04b242a13ae">SandEmitter</a>(bl::rc::Observer&amp; observer, glm::vec2 txtrSize)</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    : observer(observer)</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    , txtrHalfSize(txtrSize / 1.6f) {}</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
+<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="a02530.html#a7af3462a3d5ae4ba727f54cbd404e0d9">  242</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02530.html#a7af3462a3d5ae4ba727f54cbd404e0d9">~SandEmitter</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
+<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="a02530.html#a1a7a7d97f24207e8867c935a00be768e">  244</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02530.html#a1a7a7d97f24207e8867c935a00be768e">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        <span class="keywordflow">if</span> (proxy.getManager().getParticleCount() == 0) {</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;            bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width  = std::ceil(area.width * 2.f / txtrHalfSize.x);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height = std::ceil(area.height * 2.f / txtrHalfSize.y);</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a>  = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width) * txtrHalfSize.x;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(height) * txtrHalfSize.y;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;            <span class="keyword">const</span> glm::vec2 corner(area.left + area.width * 0.5f - <a class="code" href="a01137.html#ac04aac6272fa91430343805d90898811">wrapWidth</a> * 0.5f,</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;                                   area.top + area.height * 0.5f - <a class="code" href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">wrapHeight</a> * 0.5f);</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160; </div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = 0; y &lt; height; ++y) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;                    <span class="keyword">const</span> glm::vec2 pos(x, y);</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                    proxy.emit(corner + txtrHalfSize * pos);</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;                }</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;        }</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    bl::rc::Observer&amp; observer;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <span class="keyword">const</span> glm::vec2 txtrHalfSize;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;};</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160; </div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="a02534.html">  272</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02534.html">SwirlAffector</a> : <span class="keyword">public</span> bl::pcl::Affector&lt;Swirl&gt; {</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00274"></a><span class="lineno"><a class="line" href="a02534.html#a35a27e04a4a828e90f8a7f83f584e570">  274</a></span>&#160;    <a class="code" href="a02534.html#a35a27e04a4a828e90f8a7f83f584e570">SwirlAffector</a>(bl::rc::Observer&amp; observer)</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    : observer(observer) {}</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
+<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="a02534.html#a3974f504855c12f83314742e975b965b">  277</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02534.html#a3974f504855c12f83314742e975b965b">~SwirlAffector</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160; </div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="a02534.html#a38f015e7180e520a680fd8a5aa4cb775">  279</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02534.html#a38f015e7180e520a680fd8a5aa4cb775">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;        <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> leftBound   = area.left - area.width * 0.5f;</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> rightBound  = leftBound + area.width * 2.f;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> topBound    = area.top - area.height * 0.5f;</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> bottomBound = topBound + area.height * 2.f;</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02498.html">Swirl</a>&amp; s : proxy.particles()) {</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;            s.pos += SwirlVelocity * dt;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;            s.angle += s.angularVelocity * dt;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;            <span class="keywordflow">if</span> (s.pos.x &lt; leftBound || s.pos.y &gt; bottomBound) {</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;                s = <a class="code" href="a01134.html#a923cf8da7c5d618e47d0cb6de16f813e">Swirl</a>(bl::util::Random::get&lt;float&gt;(rightBound - 100.f, rightBound),</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;                          bl::util::Random::get&lt;float&gt;(topBound, bottomBound - 100.f));</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;            }</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        }</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    }</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160; </div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    bl::rc::Observer&amp; observer;</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;};</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160; </div>
+<div class="line"><a name="l00304"></a><span class="lineno"><a class="line" href="a02538.html">  304</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02538.html">SwirlEmitter</a> : <span class="keyword">public</span> bl::pcl::Emitter&lt;Swirl&gt; {</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00306"></a><span class="lineno"><a class="line" href="a02538.html#a2fa383b6b3260b1c70f7b3b7bcc71d6e">  306</a></span>&#160;    <a class="code" href="a02538.html#a2fa383b6b3260b1c70f7b3b7bcc71d6e">SwirlEmitter</a>(bl::rc::Observer&amp; observer, glm::vec2 txtrSize)</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    : observer(observer)</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    , txtrHalfSize(txtrSize / 1.6f) {}</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160; </div>
+<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="a02538.html#aa62f7f35b3a3367a6f3731a9659363f6">  310</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02538.html#aa62f7f35b3a3367a6f3731a9659363f6">~SwirlEmitter</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160; </div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="a02538.html#a5e2a6f02851b7598070cf0cf16393125">  312</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02538.html#a5e2a6f02851b7598070cf0cf16393125">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;        <span class="keywordflow">if</span> (proxy.getManager().getParticleCount() == 0) {</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;            bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;            <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;            <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;            <span class="keyword">const</span> glm::vec2 corner(area.left - area.width * 0.5f, area.top - area.height * 0.5f);</div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;            <span class="keyword">const</span> glm::vec2 otherCorner(corner + glm::vec2(area.width * 2.f, area.height * 2.f));</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160; </div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; SwirlCount; ++i) {</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;                proxy.emit(bl::util::Random::get&lt;float&gt;(corner.x, otherCorner.x),</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;                           bl::util::Random::get&lt;float&gt;(corner.y, otherCorner.y));</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;            }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        }</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    }</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160; </div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    bl::rc::Observer&amp; observer;</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keyword">const</span> glm::vec2 txtrHalfSize;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;};</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;} <span class="comment">// namespace sandstorm</span></div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160; </div>
+<div class="line"><a name="l00333"></a><span class="lineno"><a class="line" href="a02542.html#a2dd614987eab30634c1583fea2b3ce78">  333</a></span>&#160;<a class="code" href="a02542.html#a2dd614987eab30634c1583fea2b3ce78">Sandstorm::Sandstorm</a>()</div>
+<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;: targetAlpha(0.f)</div>
+<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;, alpha(0.f) {}</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
+<div class="line"><a name="l00337"></a><span class="lineno"><a class="line" href="a02542.html#a34ce4ca40ef37db01cf6345afd8f7ec3">  337</a></span>&#160;<a class="code" href="a02542.html#a34ce4ca40ef37db01cf6345afd8f7ec3">Sandstorm::~Sandstorm</a>() {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">if</span> (engine) {</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;        engine-&gt;particleSystem().removeUniqueSystem&lt;<a class="code" href="a02494.html">sandstorm::Sand</a>&gt;();</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;        engine-&gt;particleSystem().removeUniqueSystem&lt;<a class="code" href="a02498.html">sandstorm::Swirl</a>&gt;();</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    }</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;}</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160; </div>
+<div class="line"><a name="l00344"></a><span class="lineno"><a class="line" href="a02542.html#a6137cabe409261ebd68b3de8ff975d30">  344</a></span>&#160;<a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02542.html#a6137cabe409261ebd68b3de8ff975d30">Sandstorm::type</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">Weather::SandStorm</a>; }</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160; </div>
+<div class="line"><a name="l00346"></a><span class="lineno"><a class="line" href="a02542.html#a2ed89923f6145684440ad67d94ddfa50">  346</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02542.html#a2ed89923f6145684440ad67d94ddfa50">Sandstorm::stop</a>() { targetAlpha = 0; }</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno"><a class="line" href="a02542.html#a07ac834a6cc7ba446edd52f27ebe35c3">  348</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02542.html#a07ac834a6cc7ba446edd52f27ebe35c3">Sandstorm::stopped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sand &amp;&amp; sand-&gt;getRenderer().getGlobals().alpha &lt;= 0.f; }</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160; </div>
+<div class="line"><a name="l00350"></a><span class="lineno"><a class="line" href="a02542.html#a91a3979cb4d89974ee985e9b56455f5f">  350</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02542.html#a91a3979cb4d89974ee985e9b56455f5f">Sandstorm::start</a>(bl::engine::Engine&amp; e, <a class="code" href="a01730.html">Map</a>&amp; map) {</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;    engine      = &amp;e;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    targetAlpha = MaxAlpha;</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    alpha       = 0.f;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160; </div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    sandTxtr  = e.renderer().texturePool().getOrLoadTexture(<a class="code" href="a01882.html#a6a3dacf355c1e960492ee560ee19fa9f">Properties::SandPatchFile</a>(), sampler);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    swirlTxtr = e.renderer().texturePool().getOrLoadTexture(<a class="code" href="a01882.html#a1c5a341e88fccdf66e13375f2aa94b12">Properties::SandSwirlFile</a>(), sampler);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;    <span class="comment">// sand</span></div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;    sand                      = &amp;e.particleSystem().getUniqueSystem&lt;<a class="code" href="a02494.html">sandstorm::Sand</a>&gt;();</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <a class="code" href="a02518.html">sandstorm::SandSink</a>* sink = sand-&gt;addSink&lt;<a class="code" href="a02518.html">sandstorm::SandSink</a>&gt;();</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;    sand-&gt;addUpdater&lt;<a class="code" href="a02522.html">sandstorm::SandUpdater</a>&gt;(std::ref(e.renderer().getObserver()), std::ref(*sink));</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;    sand-&gt;addAffector&lt;<a class="code" href="a02526.html">sandstorm::SandAffector</a>&gt;(e.renderer().getObserver());</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    sand-&gt;addEmitter&lt;<a class="code" href="a02530.html">sandstorm::SandEmitter</a>&gt;(e.renderer().getObserver(), sandTxtr-&gt;size());</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;    sand-&gt;getRenderer().getGlobals().textureCenter =</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;        sandTxtr-&gt;normalizeAndConvertCoord(sandTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;    sand-&gt;getRenderer().getGlobals().textureId = sandTxtr.id();</div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    sand-&gt;getRenderer().getGlobals().radius    = glm::length(sandTxtr-&gt;size()) * 0.5f;</div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160; </div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;    sand-&gt;addToScene(e.renderer().getObserver().getCurrentScene());</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    sand-&gt;getRenderer().getComponent()-&gt;vertexBuffer.vertices()[0].pos.z = map.<a class="code" href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">getMinDepth</a>() + 0.3f;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160; </div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="comment">// swirls</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    swirls = &amp;e.particleSystem().getUniqueSystem&lt;<a class="code" href="a02498.html">sandstorm::Swirl</a>&gt;();</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    swirls-&gt;addAffector&lt;<a class="code" href="a02534.html">sandstorm::SwirlAffector</a>&gt;(e.renderer().getObserver());</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    swirls-&gt;addEmitter&lt;<a class="code" href="a02538.html">sandstorm::SwirlEmitter</a>&gt;(e.renderer().getObserver(), sandTxtr-&gt;size());</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;    swirls-&gt;getRenderer().getGlobals().textureCenter =</div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;        swirlTxtr-&gt;normalizeAndConvertCoord(swirlTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;    swirls-&gt;getRenderer().getGlobals().textureId = swirlTxtr.id();</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    swirls-&gt;getRenderer().getGlobals().radius    = glm::length(swirlTxtr-&gt;size()) * 0.5f;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160; </div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;    swirls-&gt;addToScene(e.renderer().getObserver().getCurrentScene());</div>
+<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;    swirls-&gt;getRenderer().getComponent()-&gt;vertexBuffer.vertices()[0].pos.z = map.<a class="code" href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">getMinDepth</a>();</div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;    setAlpha();</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;}</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160; </div>
+<div class="line"><a name="l00390"></a><span class="lineno"><a class="line" href="a02542.html#a12ffb97e3a097d0ebb79499ef5c33fa1">  390</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02542.html#a12ffb97e3a097d0ebb79499ef5c33fa1">Sandstorm::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;    <span class="keywordflow">if</span> (alpha != targetAlpha) {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;        alpha = computeAlpha(alpha, targetAlpha, dt);</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;        setAlpha();</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    }</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;}</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keywordtype">void</span> Sandstorm::setAlpha() {</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordflow">if</span> (sand) {</div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        sand-&gt;getRenderer().getGlobals().alpha   = alpha;</div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;        swirls-&gt;getRenderer().getGlobals().alpha = alpha * SwirlRatio;</div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    }</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;}</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
 <div class="ttc" id="aa00719_html"><div class="ttname"><a href="a00719.html">Sandstorm.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a02964_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01774_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01774.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03048_source.html#l00035">Weather.hpp:35</a></div></div>
-<div class="ttc" id="aa01774_html_a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60"><div class="ttname"><a href="a01774.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">core::map::Weather::SandStorm</a></div><div class="ttdeci">@ SandStorm</div><div class="ttdoc">A sandstorm ravages you.</div><div class="ttdef"><b>Definition:</b> <a href="a03048_source.html#l00076">Weather.hpp:76</a></div></div>
-<div class="ttc" id="aa01874_html_a1c5a341e88fccdf66e13375f2aa94b12"><div class="ttname"><a href="a01874.html#a1c5a341e88fccdf66e13375f2aa94b12">core::Properties::SandSwirlFile</a></div><div class="ttdeci">static const std::string &amp; SandSwirlFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00419">Properties.cpp:419</a></div></div>
-<div class="ttc" id="aa01874_html_a6a3dacf355c1e960492ee560ee19fa9f"><div class="ttname"><a href="a01874.html#a6a3dacf355c1e960492ee560ee19fa9f">core::Properties::SandPatchFile</a></div><div class="ttdeci">static const std::string &amp; SandPatchFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00413">Properties.cpp:413</a></div></div>
-<div class="ttc" id="aa02426_html_a07ac834a6cc7ba446edd52f27ebe35c3"><div class="ttname"><a href="a02426.html#a07ac834a6cc7ba446edd52f27ebe35c3">core::map::weather::Sandstorm::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true if the sandstorm is fully stopped, false if stopping.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00046">Sandstorm.cpp:46</a></div></div>
-<div class="ttc" id="aa02426_html_a12ffb97e3a097d0ebb79499ef5c33fa1"><div class="ttname"><a href="a02426.html#a12ffb97e3a097d0ebb79499ef5c33fa1">core::map::weather::Sandstorm::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00077">Sandstorm.cpp:77</a></div></div>
-<div class="ttc" id="aa02426_html_a28215791042bca10602a826fd79dac8f"><div class="ttname"><a href="a02426.html#a28215791042bca10602a826fd79dac8f">core::map::weather::Sandstorm::start</a></div><div class="ttdeci">virtual void start(const sf::FloatRect &amp;area) override</div><div class="ttdoc">Starts the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00048">Sandstorm.cpp:48</a></div></div>
-<div class="ttc" id="aa02426_html_a2dd614987eab30634c1583fea2b3ce78"><div class="ttname"><a href="a02426.html#a2dd614987eab30634c1583fea2b3ce78">core::map::weather::Sandstorm::Sandstorm</a></div><div class="ttdeci">Sandstorm()</div><div class="ttdoc">Creates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00031">Sandstorm.cpp:31</a></div></div>
-<div class="ttc" id="aa02426_html_a2ed89923f6145684440ad67d94ddfa50"><div class="ttname"><a href="a02426.html#a2ed89923f6145684440ad67d94ddfa50">core::map::weather::Sandstorm::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00044">Sandstorm.cpp:44</a></div></div>
-<div class="ttc" id="aa02426_html_a6137cabe409261ebd68b3de8ff975d30"><div class="ttname"><a href="a02426.html#a6137cabe409261ebd68b3de8ff975d30">core::map::weather::Sandstorm::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns Sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00042">Sandstorm.cpp:42</a></div></div>
-<div class="ttc" id="aa02426_html_a7f7ec1d4afeb6b57be5d97423b259a90"><div class="ttname"><a href="a02426.html#a7f7ec1d4afeb6b57be5d97423b259a90">core::map::weather::Sandstorm::render</a></div><div class="ttdeci">virtual void render(sf::RenderTarget &amp;target, float lag) const override</div><div class="ttdoc">Renders the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00106">Sandstorm.cpp:106</a></div></div>
+<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
+<div class="ttc" id="aa01134_html_a1bf25e3d34eb0f246503862f82749948"><div class="ttname"><a href="a01134.html#a1bf25e3d34eb0f246503862f82749948">bl::pcl::GpuSwirl</a></div><div class="ttdeci">core::map::weather::sandstorm::GpuSwirl GpuSwirl</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00074">Sandstorm.cpp:74</a></div></div>
+<div class="ttc" id="aa01134_html_a1fe2649dda87e4a4cc500096513be57c"><div class="ttname"><a href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a></div><div class="ttdeci">core::map::weather::fog::GlobalShaderInfo GlobalShaderInfo</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00079">Fog.cpp:79</a></div></div>
+<div class="ttc" id="aa01134_html_a923cf8da7c5d618e47d0cb6de16f813e"><div class="ttname"><a href="a01134.html#a923cf8da7c5d618e47d0cb6de16f813e">bl::pcl::Swirl</a></div><div class="ttdeci">core::map::weather::sandstorm::Swirl Swirl</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00073">Sandstorm.cpp:73</a></div></div>
+<div class="ttc" id="aa01134_html_ad6d56c8b6ae3bbaa1fc5f6ade882484e"><div class="ttname"><a href="a01134.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">bl::pcl::Sand</a></div><div class="ttdeci">core::map::weather::sandstorm::Sand Sand</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00072">Sandstorm.cpp:72</a></div></div>
+<div class="ttc" id="aa01137_html_ac04aac6272fa91430343805d90898811"><div class="ttname"><a href="a01137.html#ac04aac6272fa91430343805d90898811">core::map::weather::sandstorm::wrapWidth</a></div><div class="ttdeci">float wrapWidth</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00203">Sandstorm.cpp:203</a></div></div>
+<div class="ttc" id="aa01137_html_af3eb44c7b5fcfdc0842161af2d750dd6"><div class="ttname"><a href="a01137.html#af3eb44c7b5fcfdc0842161af2d750dd6">core::map::weather::sandstorm::wrapHeight</a></div><div class="ttdeci">float wrapHeight</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00204">Sandstorm.cpp:204</a></div></div>
+<div class="ttc" id="aa01730_html"><div class="ttname"><a href="a01730.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03203_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01730_html_a01b804ccb6fd078385d99426ee3fee4c"><div class="ttname"><a href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">core::map::Map::getMinDepth</a></div><div class="ttdeci">float getMinDepth() const</div><div class="ttdoc">Returns the maximum depth possible for this map. Maximum is always 0.f. Minimum is negative,...</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00765">Map.cpp:765</a></div></div>
+<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00038">Weather.hpp:38</a></div></div>
+<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">core::map::Weather::SandStorm</a></div><div class="ttdeci">@ SandStorm</div><div class="ttdoc">A sandstorm ravages you.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00079">Weather.hpp:79</a></div></div>
+<div class="ttc" id="aa01882_html_a1c5a341e88fccdf66e13375f2aa94b12"><div class="ttname"><a href="a01882.html#a1c5a341e88fccdf66e13375f2aa94b12">core::Properties::SandSwirlFile</a></div><div class="ttdeci">static const std::string &amp; SandSwirlFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00419">Properties.cpp:419</a></div></div>
+<div class="ttc" id="aa01882_html_a6a3dacf355c1e960492ee560ee19fa9f"><div class="ttname"><a href="a01882.html#a6a3dacf355c1e960492ee560ee19fa9f">core::Properties::SandPatchFile</a></div><div class="ttdeci">static const std::string &amp; SandPatchFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00413">Properties.cpp:413</a></div></div>
+<div class="ttc" id="aa01882_html_aeea2f1a5964d8d2b6fb1f2ab1c1b01e2"><div class="ttname"><a href="a01882.html#aeea2f1a5964d8d2b6fb1f2ab1c1b01e2">core::Properties::SandstormSandPipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t SandstormSandPipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00139">Properties.hpp:139</a></div></div>
+<div class="ttc" id="aa01882_html_af68a210e9f4c2d22b49ae43eaaea3b6a"><div class="ttname"><a href="a01882.html#af68a210e9f4c2d22b49ae43eaaea3b6a">core::Properties::SandstormSwirlPipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t SandstormSwirlPipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00140">Properties.hpp:140</a></div></div>
+<div class="ttc" id="aa02430_html"><div class="ttname"><a href="a02430.html">core::map::weather::fog::GlobalShaderInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00061">Fog.cpp:61</a></div></div>
+<div class="ttc" id="aa02494_html"><div class="ttname"><a href="a02494.html">core::map::weather::sandstorm::Sand</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00015">Sandstorm.cpp:15</a></div></div>
+<div class="ttc" id="aa02494_html_a5069fbd45fc23488c5d426532a431f37"><div class="ttname"><a href="a02494.html#a5069fbd45fc23488c5d426532a431f37">core::map::weather::sandstorm::Sand::Sand</a></div><div class="ttdeci">Sand()=default</div></div>
+<div class="ttc" id="aa02494_html_a8496b9d06ad8fb43112fd666f13ddd1d"><div class="ttname"><a href="a02494.html#a8496b9d06ad8fb43112fd666f13ddd1d">core::map::weather::sandstorm::Sand::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00016">Sandstorm.cpp:16</a></div></div>
+<div class="ttc" id="aa02494_html_af207c8ab8118795c08439fc692e5dfe2"><div class="ttname"><a href="a02494.html#af207c8ab8118795c08439fc692e5dfe2">core::map::weather::sandstorm::Sand::Sand</a></div><div class="ttdeci">Sand(const glm::vec2 &amp;pos)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00020">Sandstorm.cpp:20</a></div></div>
+<div class="ttc" id="aa02498_html"><div class="ttname"><a href="a02498.html">core::map::weather::sandstorm::Swirl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00024">Sandstorm.cpp:24</a></div></div>
+<div class="ttc" id="aa02498_html_a35e48a832c4595fac676249821afcb7c"><div class="ttname"><a href="a02498.html#a35e48a832c4595fac676249821afcb7c">core::map::weather::sandstorm::Swirl::Swirl</a></div><div class="ttdeci">Swirl(float x, float y)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00032">Sandstorm.cpp:32</a></div></div>
+<div class="ttc" id="aa02498_html_a3a51cdcd40916e3d93dfdc5a26cb8154"><div class="ttname"><a href="a02498.html#a3a51cdcd40916e3d93dfdc5a26cb8154">core::map::weather::sandstorm::Swirl::angle</a></div><div class="ttdeci">float angle</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00026">Sandstorm.cpp:26</a></div></div>
+<div class="ttc" id="aa02498_html_a45fffbda554376e55427de0508c3edb2"><div class="ttname"><a href="a02498.html#a45fffbda554376e55427de0508c3edb2">core::map::weather::sandstorm::Swirl::angularVelocity</a></div><div class="ttdeci">float angularVelocity</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00027">Sandstorm.cpp:27</a></div></div>
+<div class="ttc" id="aa02498_html_a8234230f87e78fe1730410dd7628e134"><div class="ttname"><a href="a02498.html#a8234230f87e78fe1730410dd7628e134">core::map::weather::sandstorm::Swirl::Swirl</a></div><div class="ttdeci">Swirl()=default</div></div>
+<div class="ttc" id="aa02498_html_a9c5462870cd0babcd3e3878ff91eee85"><div class="ttname"><a href="a02498.html#a9c5462870cd0babcd3e3878ff91eee85">core::map::weather::sandstorm::Swirl::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00028">Sandstorm.cpp:28</a></div></div>
+<div class="ttc" id="aa02498_html_aa159ce47259462542e41939148492b83"><div class="ttname"><a href="a02498.html#aa159ce47259462542e41939148492b83">core::map::weather::sandstorm::Swirl::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00025">Sandstorm.cpp:25</a></div></div>
+<div class="ttc" id="aa02502_html"><div class="ttname"><a href="a02502.html">core::map::weather::sandstorm::GpuSwirl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00041">Sandstorm.cpp:41</a></div></div>
+<div class="ttc" id="aa02502_html_a8769c9b67042f684060dc99436171ee8"><div class="ttname"><a href="a02502.html#a8769c9b67042f684060dc99436171ee8">core::map::weather::sandstorm::GpuSwirl::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00042">Sandstorm.cpp:42</a></div></div>
+<div class="ttc" id="aa02502_html_a9137f4af1b17b25513f78e89fc4c95bb"><div class="ttname"><a href="a02502.html#a9137f4af1b17b25513f78e89fc4c95bb">core::map::weather::sandstorm::GpuSwirl::operator=</a></div><div class="ttdeci">GpuSwirl &amp; operator=(const Swirl &amp;swirl)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00048">Sandstorm.cpp:48</a></div></div>
+<div class="ttc" id="aa02502_html_aa211107778d383cd8af48b71336abf20"><div class="ttname"><a href="a02502.html#aa211107778d383cd8af48b71336abf20">core::map::weather::sandstorm::GpuSwirl::GpuSwirl</a></div><div class="ttdeci">GpuSwirl()=default</div></div>
+<div class="ttc" id="aa02502_html_aeabed7519654228ac79cc146678291fb"><div class="ttname"><a href="a02502.html#aeabed7519654228ac79cc146678291fb">core::map::weather::sandstorm::GpuSwirl::angle</a></div><div class="ttdeci">float angle</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00043">Sandstorm.cpp:43</a></div></div>
+<div class="ttc" id="aa02502_html_aedba80d8666d2f30636112498374e73e"><div class="ttname"><a href="a02502.html#aedba80d8666d2f30636112498374e73e">core::map::weather::sandstorm::GpuSwirl::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00044">Sandstorm.cpp:44</a></div></div>
+<div class="ttc" id="aa02506_html"><div class="ttname"><a href="a02506.html">core::map::weather::sandstorm::GlobalShaderInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00056">Sandstorm.cpp:56</a></div></div>
+<div class="ttc" id="aa02506_html_a6532098dfe90adf64c99eb2d99ee78a4"><div class="ttname"><a href="a02506.html#a6532098dfe90adf64c99eb2d99ee78a4">core::map::weather::sandstorm::GlobalShaderInfo::textureId</a></div><div class="ttdeci">std::uint32_t textureId</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00057">Sandstorm.cpp:57</a></div></div>
+<div class="ttc" id="aa02506_html_a7db998c2d896e9fcbe199be7aa07a369"><div class="ttname"><a href="a02506.html#a7db998c2d896e9fcbe199be7aa07a369">core::map::weather::sandstorm::GlobalShaderInfo::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00059">Sandstorm.cpp:59</a></div></div>
+<div class="ttc" id="aa02506_html_ab8c3a61e99ba09bbf1eba57a29ed7fd0"><div class="ttname"><a href="a02506.html#ab8c3a61e99ba09bbf1eba57a29ed7fd0">core::map::weather::sandstorm::GlobalShaderInfo::textureCenter</a></div><div class="ttdeci">glm::vec2 textureCenter</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00058">Sandstorm.cpp:58</a></div></div>
+<div class="ttc" id="aa02506_html_ad7f678610aa28a67106edca7647698c5"><div class="ttname"><a href="a02506.html#ad7f678610aa28a67106edca7647698c5">core::map::weather::sandstorm::GlobalShaderInfo::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00060">Sandstorm.cpp:60</a></div></div>
+<div class="ttc" id="aa02510_html_a3cf7adbab32301668315a2355e556637"><div class="ttname"><a href="a02510.html#a3cf7adbab32301668315a2355e556637">bl::pcl::RenderConfigMap&lt; Sand &gt;::DescriptorSets</a></div><div class="ttdeci">bl::pcl::RenderConfigDescriptorList&lt; bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt; Sand, Sand &gt; &gt; DescriptorSets</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00088">Sandstorm.cpp:91</a></div></div>
+<div class="ttc" id="aa02514_html_a372e539483be0f574239de9857a8bcff"><div class="ttname"><a href="a02514.html#a372e539483be0f574239de9857a8bcff">bl::pcl::RenderConfigMap&lt; Swirl &gt;::DescriptorSets</a></div><div class="ttdeci">bl::pcl::RenderConfigDescriptorList&lt; bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt; Swirl, GpuSwirl &gt; &gt; DescriptorSets</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00111">Sandstorm.cpp:114</a></div></div>
+<div class="ttc" id="aa02518_html"><div class="ttname"><a href="a02518.html">core::map::weather::sandstorm::SandSink</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00152">Sandstorm.cpp:152</a></div></div>
+<div class="ttc" id="aa02518_html_a3618c6a23221ecf08c3403fd020aef75"><div class="ttname"><a href="a02518.html#a3618c6a23221ecf08c3403fd020aef75">core::map::weather::sandstorm::SandSink::~SandSink</a></div><div class="ttdeci">virtual ~SandSink()=default</div></div>
+<div class="ttc" id="aa02518_html_a6ae66a48d5c8cd6d985ecc82083d62fd"><div class="ttname"><a href="a02518.html#a6ae66a48d5c8cd6d985ecc82083d62fd">core::map::weather::sandstorm::SandSink::clearAll</a></div><div class="ttdeci">void clearAll()</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00166">Sandstorm.cpp:166</a></div></div>
+<div class="ttc" id="aa02518_html_a816120682ccd7a80b34b21f08d3d7a3b"><div class="ttname"><a href="a02518.html#a816120682ccd7a80b34b21f08d3d7a3b">core::map::weather::sandstorm::SandSink::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, std::span&lt; Sand &gt; particles, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00159">Sandstorm.cpp:159</a></div></div>
+<div class="ttc" id="aa02518_html_aeaa1bc1e64e6a86b72a0531058469a45"><div class="ttname"><a href="a02518.html#aeaa1bc1e64e6a86b72a0531058469a45">core::map::weather::sandstorm::SandSink::SandSink</a></div><div class="ttdeci">SandSink()</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00154">Sandstorm.cpp:154</a></div></div>
+<div class="ttc" id="aa02522_html"><div class="ttname"><a href="a02522.html">core::map::weather::sandstorm::SandUpdater</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00172">Sandstorm.cpp:172</a></div></div>
+<div class="ttc" id="aa02522_html_a011d4ace44b8d94c8101698a31eae2b0"><div class="ttname"><a href="a02522.html#a011d4ace44b8d94c8101698a31eae2b0">core::map::weather::sandstorm::SandUpdater::~SandUpdater</a></div><div class="ttdeci">virtual ~SandUpdater()=default</div></div>
+<div class="ttc" id="aa02522_html_a5c507d030982e9fc220691b596fa5606"><div class="ttname"><a href="a02522.html#a5c507d030982e9fc220691b596fa5606">core::map::weather::sandstorm::SandUpdater::SandUpdater</a></div><div class="ttdeci">SandUpdater(bl::rc::Observer &amp;observer, SandSink &amp;sink)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00174">Sandstorm.cpp:174</a></div></div>
+<div class="ttc" id="aa02522_html_a65f8529d1675ead1cf016511b981197f"><div class="ttname"><a href="a02522.html#a65f8529d1675ead1cf016511b981197f">core::map::weather::sandstorm::SandUpdater::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00181">Sandstorm.cpp:181</a></div></div>
+<div class="ttc" id="aa02526_html"><div class="ttname"><a href="a02526.html">core::map::weather::sandstorm::SandAffector</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00206">Sandstorm.cpp:206</a></div></div>
+<div class="ttc" id="aa02526_html_a1fc6b18d9e2f47d28d594d753994a227"><div class="ttname"><a href="a02526.html#a1fc6b18d9e2f47d28d594d753994a227">core::map::weather::sandstorm::SandAffector::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00213">Sandstorm.cpp:213</a></div></div>
+<div class="ttc" id="aa02526_html_a3828d5851096a035fcabd5692ca970f7"><div class="ttname"><a href="a02526.html#a3828d5851096a035fcabd5692ca970f7">core::map::weather::sandstorm::SandAffector::SandAffector</a></div><div class="ttdeci">SandAffector(bl::rc::Observer &amp;observer)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00208">Sandstorm.cpp:208</a></div></div>
+<div class="ttc" id="aa02526_html_a861aef2f486bd264f62bed63f385c15b"><div class="ttname"><a href="a02526.html#a861aef2f486bd264f62bed63f385c15b">core::map::weather::sandstorm::SandAffector::~SandAffector</a></div><div class="ttdeci">virtual ~SandAffector()=default</div></div>
+<div class="ttc" id="aa02530_html"><div class="ttname"><a href="a02530.html">core::map::weather::sandstorm::SandEmitter</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00236">Sandstorm.cpp:236</a></div></div>
+<div class="ttc" id="aa02530_html_a153ddb10bfe374add397a04b242a13ae"><div class="ttname"><a href="a02530.html#a153ddb10bfe374add397a04b242a13ae">core::map::weather::sandstorm::SandEmitter::SandEmitter</a></div><div class="ttdeci">SandEmitter(bl::rc::Observer &amp;observer, glm::vec2 txtrSize)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00238">Sandstorm.cpp:238</a></div></div>
+<div class="ttc" id="aa02530_html_a1a7a7d97f24207e8867c935a00be768e"><div class="ttname"><a href="a02530.html#a1a7a7d97f24207e8867c935a00be768e">core::map::weather::sandstorm::SandEmitter::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00244">Sandstorm.cpp:244</a></div></div>
+<div class="ttc" id="aa02530_html_a7af3462a3d5ae4ba727f54cbd404e0d9"><div class="ttname"><a href="a02530.html#a7af3462a3d5ae4ba727f54cbd404e0d9">core::map::weather::sandstorm::SandEmitter::~SandEmitter</a></div><div class="ttdeci">virtual ~SandEmitter()=default</div></div>
+<div class="ttc" id="aa02534_html"><div class="ttname"><a href="a02534.html">core::map::weather::sandstorm::SwirlAffector</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00272">Sandstorm.cpp:272</a></div></div>
+<div class="ttc" id="aa02534_html_a35a27e04a4a828e90f8a7f83f584e570"><div class="ttname"><a href="a02534.html#a35a27e04a4a828e90f8a7f83f584e570">core::map::weather::sandstorm::SwirlAffector::SwirlAffector</a></div><div class="ttdeci">SwirlAffector(bl::rc::Observer &amp;observer)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00274">Sandstorm.cpp:274</a></div></div>
+<div class="ttc" id="aa02534_html_a38f015e7180e520a680fd8a5aa4cb775"><div class="ttname"><a href="a02534.html#a38f015e7180e520a680fd8a5aa4cb775">core::map::weather::sandstorm::SwirlAffector::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00279">Sandstorm.cpp:279</a></div></div>
+<div class="ttc" id="aa02534_html_a3974f504855c12f83314742e975b965b"><div class="ttname"><a href="a02534.html#a3974f504855c12f83314742e975b965b">core::map::weather::sandstorm::SwirlAffector::~SwirlAffector</a></div><div class="ttdeci">virtual ~SwirlAffector()=default</div></div>
+<div class="ttc" id="aa02538_html"><div class="ttname"><a href="a02538.html">core::map::weather::sandstorm::SwirlEmitter</a></div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00304">Sandstorm.cpp:304</a></div></div>
+<div class="ttc" id="aa02538_html_a2fa383b6b3260b1c70f7b3b7bcc71d6e"><div class="ttname"><a href="a02538.html#a2fa383b6b3260b1c70f7b3b7bcc71d6e">core::map::weather::sandstorm::SwirlEmitter::SwirlEmitter</a></div><div class="ttdeci">SwirlEmitter(bl::rc::Observer &amp;observer, glm::vec2 txtrSize)</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00306">Sandstorm.cpp:306</a></div></div>
+<div class="ttc" id="aa02538_html_a5e2a6f02851b7598070cf0cf16393125"><div class="ttname"><a href="a02538.html#a5e2a6f02851b7598070cf0cf16393125">core::map::weather::sandstorm::SwirlEmitter::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00312">Sandstorm.cpp:312</a></div></div>
+<div class="ttc" id="aa02538_html_aa62f7f35b3a3367a6f3731a9659363f6"><div class="ttname"><a href="a02538.html#aa62f7f35b3a3367a6f3731a9659363f6">core::map::weather::sandstorm::SwirlEmitter::~SwirlEmitter</a></div><div class="ttdeci">virtual ~SwirlEmitter()=default</div></div>
+<div class="ttc" id="aa02542_html_a07ac834a6cc7ba446edd52f27ebe35c3"><div class="ttname"><a href="a02542.html#a07ac834a6cc7ba446edd52f27ebe35c3">core::map::weather::Sandstorm::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true if the sandstorm is fully stopped, false if stopping.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00348">Sandstorm.cpp:348</a></div></div>
+<div class="ttc" id="aa02542_html_a12ffb97e3a097d0ebb79499ef5c33fa1"><div class="ttname"><a href="a02542.html#a12ffb97e3a097d0ebb79499ef5c33fa1">core::map::weather::Sandstorm::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00390">Sandstorm.cpp:390</a></div></div>
+<div class="ttc" id="aa02542_html_a2dd614987eab30634c1583fea2b3ce78"><div class="ttname"><a href="a02542.html#a2dd614987eab30634c1583fea2b3ce78">core::map::weather::Sandstorm::Sandstorm</a></div><div class="ttdeci">Sandstorm()</div><div class="ttdoc">Creates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00333">Sandstorm.cpp:333</a></div></div>
+<div class="ttc" id="aa02542_html_a2ed89923f6145684440ad67d94ddfa50"><div class="ttname"><a href="a02542.html#a2ed89923f6145684440ad67d94ddfa50">core::map::weather::Sandstorm::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00346">Sandstorm.cpp:346</a></div></div>
+<div class="ttc" id="aa02542_html_a34ce4ca40ef37db01cf6345afd8f7ec3"><div class="ttname"><a href="a02542.html#a34ce4ca40ef37db01cf6345afd8f7ec3">core::map::weather::Sandstorm::~Sandstorm</a></div><div class="ttdeci">virtual ~Sandstorm()</div><div class="ttdoc">Destroy the Sandstorm object.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00337">Sandstorm.cpp:337</a></div></div>
+<div class="ttc" id="aa02542_html_a6137cabe409261ebd68b3de8ff975d30"><div class="ttname"><a href="a02542.html#a6137cabe409261ebd68b3de8ff975d30">core::map::weather::Sandstorm::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns Sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00344">Sandstorm.cpp:344</a></div></div>
+<div class="ttc" id="aa02542_html_a91a3979cb4d89974ee985e9b56455f5f"><div class="ttname"><a href="a02542.html#a91a3979cb4d89974ee985e9b56455f5f">core::map::weather::Sandstorm::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Starts the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00350">Sandstorm.cpp:350</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

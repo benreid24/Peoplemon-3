@@ -66,27 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a01117.html">evo</a></li><li class="navelem"><a class="el" href="a02314.html">GpuSpark</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02314.html">BattleState</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">game::state::evo::GpuSpark Member List</div>  </div>
+<div class="title">game::state::BattleState Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02314.html">game::state::evo::GpuSpark</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02314.html">game::state::BattleState</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02314.html#afa70bc134e09e75bc471489fc41515ab">alpha</a></td><td class="entry"><a class="el" href="a02314.html">game::state::evo::GpuSpark</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02314.html#aba1cef4889e3e26ccc40d160833d52fd">GpuSpark</a>()=default</td><td class="entry"><a class="el" href="a02314.html">game::state::evo::GpuSpark</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02314.html#a38a24c2af4734fa7d6db4ff96adb293a">operator=</a>(const Evolution::Spark &amp;spark)</td><td class="entry"><a class="el" href="a02314.html">game::state::evo::GpuSpark</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02314.html#ac2041bd75b6d455fc0a694ca428c1f69">pos</a></td><td class="entry"><a class="el" href="a02314.html">game::state::evo::GpuSpark</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02314.html#a786a843c1eb65e93d745a63e5a18340d">radius</a></td><td class="entry"><a class="el" href="a02314.html">game::state::evo::GpuSpark</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02314.html#ac69782ff4f2c8666907e5b05cb74832a">activate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02314.html#ac3a956f6de8e41202a322f0a75154836">create</a>(core::system::Systems &amp;systems, std::unique_ptr&lt; core::battle::Battle &gt; &amp;&amp;battle)</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02314.html#ab95dba1cbd60568f78e439ca10dc0ebd">deactivate</a>(bl::engine::Engine &amp;) override</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02314.html#a9a1dca10c3b3db641c3d987b0bd42700">name</a>() const override</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02398.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02314.html#af1280f7c8af0e255121eeb3eec92e628">update</a>(bl::engine::Engine &amp;, float dt, float) override</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02314.html#ae6c4eb316f15f0e560d7cdbbc17307be">~BattleState</a>()=default</td><td class="entry"><a class="el" href="a02314.html">game::state::BattleState</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02398.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

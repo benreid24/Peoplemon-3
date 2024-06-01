@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::SettingsMenu Class Reference</title>
+<title>Peoplemon: game::state::PeoplemonMenu Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,95 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02386.html">SettingsMenu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02386.html">PeoplemonMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02383.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::SettingsMenu Class Reference</div>  </div>
+<div class="title">game::state::PeoplemonMenu Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00548_source.html">SettingsMenu.hpp</a>&gt;</code></p>
+<p>Provides the menu for viewing and selecting Peoplemon.  
+ <a href="a02386.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a03173_source.html">PeoplemonMenu.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::SettingsMenu:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::PeoplemonMenu:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02386.png" usemap="#game::state::SettingsMenu_map" alt=""/>
-  <map id="game::state::SettingsMenu_map" name="game::state::SettingsMenu_map">
-<area href="a02390.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,156,80"/>
+  <img src="a02386.png" usemap="#game::state::PeoplemonMenu_map" alt=""/>
+  <map id="game::state::PeoplemonMenu_map" name="game::state::PeoplemonMenu_map">
+<area href="a02398.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,174,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a9afe096f82cbf02b9f8bf6810b77b1d3"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a9afe096f82cbf02b9f8bf6810b77b1d3">Context</a> = <a class="el" href="a01446.html#a922eedf4fe4080648361bc520b77a2d5">core::event::OpenPeoplemonMenu::Context</a></td></tr>
+<tr class="separator:a9afe096f82cbf02b9f8bf6810b77b1d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a526e11ed36c235e6a4146b0fc22a00f3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a526e11ed36c235e6a4146b0fc22a00f3">~SettingsMenu</a> ()=default</td></tr>
-<tr class="memdesc:a526e11ed36c235e6a4146b0fc22a00f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Settings Menu state.  <a href="a02386.html#a526e11ed36c235e6a4146b0fc22a00f3">More...</a><br /></td></tr>
-<tr class="separator:a526e11ed36c235e6a4146b0fc22a00f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a64452c6a49f58de995ecaaabd7d90337"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a64452c6a49f58de995ecaaabd7d90337">name</a> () const override</td></tr>
-<tr class="memdesc:a64452c6a49f58de995ecaaabd7d90337"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "SettingsMenu".  <a href="a02386.html#a64452c6a49f58de995ecaaabd7d90337">More...</a><br /></td></tr>
-<tr class="separator:a64452c6a49f58de995ecaaabd7d90337"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d8d69ea9226527e0475406d6667782e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a9d8d69ea9226527e0475406d6667782e">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:a9d8d69ea9226527e0475406d6667782e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the state.  <a href="a02386.html#a9d8d69ea9226527e0475406d6667782e">More...</a><br /></td></tr>
-<tr class="separator:a9d8d69ea9226527e0475406d6667782e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7c99b77867c35f6281134570309f43e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#ad7c99b77867c35f6281134570309f43e">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:ad7c99b77867c35f6281134570309f43e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates the state.  <a href="a02386.html#ad7c99b77867c35f6281134570309f43e">More...</a><br /></td></tr>
-<tr class="separator:ad7c99b77867c35f6281134570309f43e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abab198d0171b8d72eb7dae1cc3fe0d96"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#abab198d0171b8d72eb7dae1cc3fe0d96">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
-<tr class="memdesc:abab198d0171b8d72eb7dae1cc3fe0d96"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state and menus and whatnot.  <a href="a02386.html#abab198d0171b8d72eb7dae1cc3fe0d96">More...</a><br /></td></tr>
-<tr class="separator:abab198d0171b8d72eb7dae1cc3fe0d96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6e691464490bc3c2007b4747e6087e17"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a6e691464490bc3c2007b4747e6087e17">~PeoplemonMenu</a> ()=default</td></tr>
+<tr class="memdesc:a6e691464490bc3c2007b4747e6087e17"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cleans up all resources.  <a href="a02386.html#a6e691464490bc3c2007b4747e6087e17">More...</a><br /></td></tr>
+<tr class="separator:a6e691464490bc3c2007b4747e6087e17"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d55deb0256a0c8d65d276013a3875c9"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a1d55deb0256a0c8d65d276013a3875c9">name</a> () const override</td></tr>
+<tr class="memdesc:a1d55deb0256a0c8d65d276013a3875c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "PeoplemonMenu".  <a href="a02386.html#a1d55deb0256a0c8d65d276013a3875c9">More...</a><br /></td></tr>
+<tr class="separator:a1d55deb0256a0c8d65d276013a3875c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0417128978d6a9cc83c1aece588ea645"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a0417128978d6a9cc83c1aece588ea645">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a0417128978d6a9cc83c1aece588ea645"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the menu to the engine event bus.  <a href="a02386.html#a0417128978d6a9cc83c1aece588ea645">More...</a><br /></td></tr>
+<tr class="separator:a0417128978d6a9cc83c1aece588ea645"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4330f4c2b468c538b342661fe13dbc8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#ae4330f4c2b468c538b342661fe13dbc8">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:ae4330f4c2b468c538b342661fe13dbc8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the menu to the engine event bus.  <a href="a02386.html#ae4330f4c2b468c538b342661fe13dbc8">More...</a><br /></td></tr>
+<tr class="separator:ae4330f4c2b468c538b342661fe13dbc8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9d615cd4f473ec58e55b2d0af178ec16"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a9d615cd4f473ec58e55b2d0af178ec16">update</a> (bl::engine::Engine &amp;, float dt, float) override</td></tr>
+<tr class="memdesc:a9d615cd4f473ec58e55b2d0af178ec16"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a02386.html#a9d615cd4f473ec58e55b2d0af178ec16">More...</a><br /></td></tr>
+<tr class="separator:a9d615cd4f473ec58e55b2d0af178ec16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e42ff838ef88ec840c935bfe35e9308"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#a1e42ff838ef88ec840c935bfe35e9308">create</a> (<a class="el" href="a02026.html">core::system::Systems</a> &amp;<a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
-<tr class="memdesc:a1e42ff838ef88ec840c935bfe35e9308"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the settings menu state.  <a href="a02386.html#a1e42ff838ef88ec840c935bfe35e9308">More...</a><br /></td></tr>
-<tr class="separator:a1e42ff838ef88ec840c935bfe35e9308"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aee15106459f57eb6ce63160a3b1139dd"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02386.html#aee15106459f57eb6ce63160a3b1139dd">create</a> (<a class="el" href="a02034.html">core::system::Systems</a> &amp;<a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <a class="el" href="a01446.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> ctx, int outNow=-1, int *chosen=nullptr, <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item=<a class="el" href="a01074.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a>)</td></tr>
+<tr class="memdesc:aee15106459f57eb6ce63160a3b1139dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a02386.html" title="Provides the menu for viewing and selecting Peoplemon.">PeoplemonMenu</a> state.  <a href="a02386.html#aee15106459f57eb6ce63160a3b1139dd">More...</a><br /></td></tr>
+<tr class="separator:aee15106459f57eb6ce63160a3b1139dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
+<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02034.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
 <tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00548_source.html#l00012">12</a> of file <a class="el" href="a00548_source.html">SettingsMenu.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a526e11ed36c235e6a4146b0fc22a00f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a526e11ed36c235e6a4146b0fc22a00f3">&#9670;&nbsp;</a></span>~SettingsMenu()</h2>
+<div class="textblock"><p>Provides the menu for viewing and selecting Peoplemon. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03173_source.html#l00021">21</a> of file <a class="el" href="a03173_source.html">PeoplemonMenu.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a9afe096f82cbf02b9f8bf6810b77b1d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9afe096f82cbf02b9f8bf6810b77b1d3">&#9670;&nbsp;</a></span>Context</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a01446.html#a922eedf4fe4080648361bc520b77a2d5">game::state::PeoplemonMenu::Context</a> =  <a class="el" href="a01446.html#a922eedf4fe4080648361bc520b77a2d5">core::event::OpenPeoplemonMenu::Context</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03173_source.html#l00025">25</a> of file <a class="el" href="a03173_source.html">PeoplemonMenu.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6e691464490bc3c2007b4747e6087e17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e691464490bc3c2007b4747e6087e17">&#9670;&nbsp;</a></span>~PeoplemonMenu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -136,7 +163,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::SettingsMenu::~SettingsMenu </td>
+          <td class="memname">virtual game::state::PeoplemonMenu::~PeoplemonMenu </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -149,13 +176,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Settings Menu state. </p>
+<p>Cleans up all resources. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9d8d69ea9226527e0475406d6667782e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d8d69ea9226527e0475406d6667782e">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a0417128978d6a9cc83c1aece588ea645"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0417128978d6a9cc83c1aece588ea645">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,7 +191,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::SettingsMenu::activate </td>
+          <td class="memname">void game::state::PeoplemonMenu::activate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"><em>engine</em></td><td>)</td>
@@ -178,22 +205,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Activates the state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Subscribes the menu to the engine event bus. </p>
 
-<p>Implements <a class="el" href="a02390.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
+<p>Implements <a class="el" href="a02398.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00068">68</a> of file <a class="el" href="a01061_source.html">SettingsMenu.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00135">135</a> of file <a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a1e42ff838ef88ec840c935bfe35e9308"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e42ff838ef88ec840c935bfe35e9308">&#9670;&nbsp;</a></span>create()</h2>
+<a id="aee15106459f57eb6ce63160a3b1139dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aee15106459f57eb6ce63160a3b1139dd">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,11 +223,39 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::engine::State::Ptr game::state::SettingsMenu::create </td>
+          <td class="memname">bl::engine::State::Ptr game::state::PeoplemonMenu::create </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02034.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a01446.html#a922eedf4fe4080648361bc520b77a2d5">Context</a>&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>outNow</em> = <code>-1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&#160;</td>
+          <td class="paramname"><em>chosen</em> = <code>nullptr</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td>
+          <td class="paramname"><em>item</em> = <code><a class="el" href="a01074.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a></code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -216,21 +265,24 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the settings menu state. </p>
+<p>Creates a new <a class="el" href="a02386.html" title="Provides the menu for viewing and selecting Peoplemon.">PeoplemonMenu</a> state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
+    <tr><td class="paramname">ctx</td><td>The context the menu is being used in </td></tr>
+    <tr><td class="paramname">outNow</td><td>Optional index of the peoplemon that is currently out </td></tr>
+    <tr><td class="paramname">chosen</td><td>Value to populate with the selected peoplemon's index </td></tr>
+    <tr><td class="paramname">item</td><td>The item to use (or being used in battle) </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The new state </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00057">57</a> of file <a class="el" href="a01061_source.html">SettingsMenu.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00039">39</a> of file <a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad7c99b77867c35f6281134570309f43e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7c99b77867c35f6281134570309f43e">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="ae4330f4c2b468c538b342661fe13dbc8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae4330f4c2b468c538b342661fe13dbc8">&#9670;&nbsp;</a></span>deactivate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,7 +291,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::SettingsMenu::deactivate </td>
+          <td class="memname">void game::state::PeoplemonMenu::deactivate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"><em>engine</em></td><td>)</td>
@@ -253,22 +305,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deactivates the state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Unsubscribes the menu to the engine event bus. </p>
 
-<p>Implements <a class="el" href="a02390.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
+<p>Implements <a class="el" href="a02398.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00324">324</a> of file <a class="el" href="a01061_source.html">SettingsMenu.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00205">205</a> of file <a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a64452c6a49f58de995ecaaabd7d90337"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a64452c6a49f58de995ecaaabd7d90337">&#9670;&nbsp;</a></span>name()</h2>
+<a id="a1d55deb0256a0c8d65d276013a3875c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d55deb0256a0c8d65d276013a3875c9">&#9670;&nbsp;</a></span>name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -277,7 +323,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * game::state::SettingsMenu::name </td>
+          <td class="memname">const char * game::state::PeoplemonMenu::name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -290,16 +336,16 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns "SettingsMenu". </p>
+<p>Returns "PeoplemonMenu". </p>
 
-<p>Implements <a class="el" href="a02390.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
+<p>Implements <a class="el" href="a02398.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00066">66</a> of file <a class="el" href="a01061_source.html">SettingsMenu.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00133">133</a> of file <a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a>.</p>
 
 </div>
 </div>
-<a id="abab198d0171b8d72eb7dae1cc3fe0d96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abab198d0171b8d72eb7dae1cc3fe0d96">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a9d615cd4f473ec58e55b2d0af178ec16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d615cd4f473ec58e55b2d0af178ec16">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,10 +354,10 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::SettingsMenu::update </td>
+          <td class="memname">void game::state::PeoplemonMenu::update </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname">, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -338,18 +384,11 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Updates the state and menus and whatnot. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Does nothing. </p>
 
-<p>Implements <a class="el" href="a02390.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
+<p>Implements <a class="el" href="a02398.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="a01061_source.html#l00332">332</a> of file <a class="el" href="a01061_source.html">SettingsMenu.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01055_source.html#l00259">259</a> of file <a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a>.</p>
 
 </div>
 </div>
@@ -364,7 +403,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02026.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+          <td class="memname"><a class="el" href="a02034.html">core::system::Systems</a>&amp; game::state::State::systems</td>
         </tr>
       </table>
   </td>
@@ -374,19 +413,19 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03102_source.html#l00066">66</a> of file <a class="el" href="a03102_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03242_source.html#l00066">66</a> of file <a class="el" href="a03242_source.html">State.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a00548_source.html">SettingsMenu.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a01061_source.html">SettingsMenu.cpp</a></li>
+<li>include/Game/States/<a class="el" href="a03173_source.html">PeoplemonMenu.hpp</a></li>
+<li>src/Game/States/<a class="el" href="a01055_source.html">PeoplemonMenu.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

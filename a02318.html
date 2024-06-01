@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::evo::SparkEmitter Class Reference</title>
+<title>Peoplemon: game::state::BattleWrapperState Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,64 +66,72 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a01117.html">evo</a></li><li class="navelem"><a class="el" href="a02318.html">SparkEmitter</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02318.html">BattleWrapperState</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02315.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::evo::SparkEmitter Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
+<div class="title">game::state::BattleWrapperState Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Spark emitter for the evolution sparks particle system.  
+<p>Wrapper state that manages battle intro transitions as well as post-battle evolutions.  
  <a href="a02318.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00515_source.html">Particles.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00512_source.html">BattleWrapperState.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::evo::SparkEmitter:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::BattleWrapperState:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02318.png" alt=""/>
- </div></div>
+  <img src="a02318.png" usemap="#game::state::BattleWrapperState_map" alt=""/>
+  <map id="game::state::BattleWrapperState_map" name="game::state::BattleWrapperState_map">
+<area href="a02398.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,188,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a56f9705ea9d4c88bd63caae8457a1522"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#a56f9705ea9d4c88bd63caae8457a1522">SparkEmitter</a> ()</td></tr>
-<tr class="separator:a56f9705ea9d4c88bd63caae8457a1522"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5df850cacab8e44410ff15db36d6bee"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#ab5df850cacab8e44410ff15db36d6bee">~SparkEmitter</a> ()=default</td></tr>
-<tr class="separator:ab5df850cacab8e44410ff15db36d6bee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed1b9c7f376373417b3c32eaa4ad59dd"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#aed1b9c7f376373417b3c32eaa4ad59dd">~BattleWrapperState</a> ()=default</td></tr>
+<tr class="memdesc:aed1b9c7f376373417b3c32eaa4ad59dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Battle Wrapper <a class="el" href="a02398.html" title="Parent to all game states. Provides some commonly required data like core game systems.">State</a> state.  <a href="a02318.html#aed1b9c7f376373417b3c32eaa4ad59dd">More...</a><br /></td></tr>
+<tr class="separator:aed1b9c7f376373417b3c32eaa4ad59dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a069f8ae5b55cc3b0af6d6dbacf9cac6a"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#a069f8ae5b55cc3b0af6d6dbacf9cac6a">name</a> () const override</td></tr>
+<tr class="memdesc:a069f8ae5b55cc3b0af6d6dbacf9cac6a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "BattleWrapperState".  <a href="a02318.html#a069f8ae5b55cc3b0af6d6dbacf9cac6a">More...</a><br /></td></tr>
+<tr class="separator:a069f8ae5b55cc3b0af6d6dbacf9cac6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a67162e4a37ebc80912c244f47f258aad"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#a67162e4a37ebc80912c244f47f258aad">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a67162e4a37ebc80912c244f47f258aad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the battle transition or evolution if applicable, otherwise pops this state.  <a href="a02318.html#a67162e4a37ebc80912c244f47f258aad">More...</a><br /></td></tr>
+<tr class="separator:a67162e4a37ebc80912c244f47f258aad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ee9f441d832df34c482d46e3069cacc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#a6ee9f441d832df34c482d46e3069cacc">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a6ee9f441d832df34c482d46e3069cacc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Does nothing.  <a href="a02318.html#a6ee9f441d832df34c482d46e3069cacc">More...</a><br /></td></tr>
+<tr class="separator:a6ee9f441d832df34c482d46e3069cacc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adcc44c8e13d32d7ee85afa8d168b75b2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#adcc44c8e13d32d7ee85afa8d168b75b2">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
+<tr class="memdesc:adcc44c8e13d32d7ee85afa8d168b75b2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the intro sequence.  <a href="a02318.html#adcc44c8e13d32d7ee85afa8d168b75b2">More...</a><br /></td></tr>
+<tr class="separator:adcc44c8e13d32d7ee85afa8d168b75b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a6cecd61bc346696253d9a21e24a16928"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02318.html#a6cecd61bc346696253d9a21e24a16928">create</a> (<a class="el" href="a02034.html">core::system::Systems</a> &amp;<a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, std::unique_ptr&lt; <a class="el" href="a01222.html">core::battle::Battle</a> &gt; &amp;&amp;battle)</td></tr>
+<tr class="memdesc:a6cecd61bc346696253d9a21e24a16928"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a02314.html" title="This game state does all battling. When the battle is complete it will pop itself from the engine sta...">BattleState</a>.  <a href="a02318.html#a6cecd61bc346696253d9a21e24a16928">More...</a><br /></td></tr>
+<tr class="separator:a6cecd61bc346696253d9a21e24a16928"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02034.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
+<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Spark emitter for the evolution sparks particle system. </p>
+<div class="textblock"><p>Wrapper state that manages battle intro transitions as well as post-battle evolutions. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00515_source.html#l00040">40</a> of file <a class="el" href="a00515_source.html">Particles.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00021">21</a> of file <a class="el" href="a00512_source.html">BattleWrapperState.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a56f9705ea9d4c88bd63caae8457a1522"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56f9705ea9d4c88bd63caae8457a1522">&#9670;&nbsp;</a></span>SparkEmitter()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">game::state::evo::SparkEmitter::SparkEmitter </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01025_source.html#l00020">20</a> of file <a class="el" href="a01025_source.html">Particles.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ab5df850cacab8e44410ff15db36d6bee"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5df850cacab8e44410ff15db36d6bee">&#9670;&nbsp;</a></span>~SparkEmitter()</h2>
+<a id="aed1b9c7f376373417b3c32eaa4ad59dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aed1b9c7f376373417b3c32eaa4ad59dd">&#9670;&nbsp;</a></span>~BattleWrapperState()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -132,7 +140,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::evo::SparkEmitter::~SparkEmitter </td>
+          <td class="memname">virtual game::state::BattleWrapperState::~BattleWrapperState </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -145,17 +153,255 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Destroy the Battle Wrapper <a class="el" href="a02398.html" title="Parent to all game states. Provides some commonly required data like core game systems.">State</a> state. </p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a67162e4a37ebc80912c244f47f258aad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67162e4a37ebc80912c244f47f258aad">&#9670;&nbsp;</a></span>activate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::BattleWrapperState::activate </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Initiates the battle transition or evolution if applicable, otherwise pops this state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02398.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00084">84</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6cecd61bc346696253d9a21e24a16928"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cecd61bc346696253d9a21e24a16928">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::State::Ptr game::state::BattleWrapperState::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02034.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a01222.html">core::battle::Battle</a> &gt; &amp;&amp;&#160;</td>
+          <td class="paramname"><em>battle</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="a02314.html" title="This game state does all battling. When the battle is complete it will pop itself from the engine sta...">BattleState</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
+    <tr><td class="paramname">battle</td><td>The battle to run. Must be fully initialized </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The new game state </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00062">62</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6ee9f441d832df34c482d46e3069cacc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ee9f441d832df34c482d46e3069cacc">&#9670;&nbsp;</a></span>deactivate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::BattleWrapperState::deactivate </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Does nothing. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02398.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00114">114</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a069f8ae5b55cc3b0af6d6dbacf9cac6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069f8ae5b55cc3b0af6d6dbacf9cac6a">&#9670;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * game::state::BattleWrapperState::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns "BattleWrapperState". </p>
+
+<p>Implements <a class="el" href="a02398.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00082">82</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+
+</div>
+</div>
+<a id="adcc44c8e13d32d7ee85afa8d168b75b2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adcc44c8e13d32d7ee85afa8d168b75b2">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::BattleWrapperState::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the intro sequence. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02398.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00118">118</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02034.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03242_source.html#l00066">66</a> of file <a class="el" href="a03242_source.html">State.hpp</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/Evolution/<a class="el" href="a00515_source.html">Particles.hpp</a></li>
-<li>src/Game/States/Evolution/<a class="el" href="a01025_source.html">Particles.cpp</a></li>
+<li>include/Game/States/<a class="el" href="a00512_source.html">BattleWrapperState.hpp</a></li>
+<li>src/Game/States/<a class="el" href="a01022_source.html">BattleWrapperState.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -83,18 +83,18 @@ $(function() {
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02122.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02122.html">LightPreview</a> : <span class="keyword">public</span> bl::gui::Image {</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02130.html">   16</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02130.html">LightPreview</a> : <span class="keyword">public</span> bl::gui::Image {</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">   18</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> = std::shared_ptr&lt;LightPreview&gt;;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02130.html#a5d870620ba189d41eb0ba3ef48197e97">   18</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02130.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> = std::shared_ptr&lt;LightPreview&gt;;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> <a class="code" href="a02122.html#ac98c9f916c79db3d55c18499e9eb1aa2">create</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02130.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> <a class="code" href="a02130.html#ac98c9f916c79db3d55c18499e9eb1aa2">create</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02122.html#a9e1ea9a56078e04e767ec87161f879dd">setLightLevel</a>(std::uint8_t level);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02130.html#a9e1ea9a56078e04e767ec87161f879dd">setLightLevel</a>(std::uint8_t level);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    sf::RectangleShape cover;</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02122.html">LightPreview</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <a class="code" href="a02130.html">LightPreview</a>(<span class="keyword">const</span> sf::Vector2f&amp; size);</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer&amp; renderer) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
@@ -103,15 +103,15 @@ $(function() {
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa01104_html"><div class="ttname"><a href="a01104.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02122_html"><div class="ttname"><a href="a02122.html">editor::component::LightPreview</a></div><div class="ttdoc">Helper component that displays an image with a light level overlaid on it.</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00016">LightPreview.hpp:16</a></div></div>
-<div class="ttc" id="aa02122_html_a5d870620ba189d41eb0ba3ef48197e97"><div class="ttname"><a href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; LightPreview &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00018">LightPreview.hpp:18</a></div></div>
-<div class="ttc" id="aa02122_html_a9e1ea9a56078e04e767ec87161f879dd"><div class="ttname"><a href="a02122.html#a9e1ea9a56078e04e767ec87161f879dd">editor::component::LightPreview::setLightLevel</a></div><div class="ttdeci">void setLightLevel(std::uint8_t level)</div><div class="ttdoc">Sets the light level to display.</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00030">LightPreview.cpp:30</a></div></div>
-<div class="ttc" id="aa02122_html_ac98c9f916c79db3d55c18499e9eb1aa2"><div class="ttname"><a href="a02122.html#ac98c9f916c79db3d55c18499e9eb1aa2">editor::component::LightPreview::create</a></div><div class="ttdeci">static Ptr create(const sf::Vector2f &amp;size)</div><div class="ttdoc">Create a new LightPreview component.</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00014">LightPreview.cpp:14</a></div></div>
+<div class="ttc" id="aa02130_html"><div class="ttname"><a href="a02130.html">editor::component::LightPreview</a></div><div class="ttdoc">Helper component that displays an image with a light level overlaid on it.</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00016">LightPreview.hpp:16</a></div></div>
+<div class="ttc" id="aa02130_html_a5d870620ba189d41eb0ba3ef48197e97"><div class="ttname"><a href="a02130.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; LightPreview &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00401_source.html#l00018">LightPreview.hpp:18</a></div></div>
+<div class="ttc" id="aa02130_html_a9e1ea9a56078e04e767ec87161f879dd"><div class="ttname"><a href="a02130.html#a9e1ea9a56078e04e767ec87161f879dd">editor::component::LightPreview::setLightLevel</a></div><div class="ttdeci">void setLightLevel(std::uint8_t level)</div><div class="ttdoc">Sets the light level to display.</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00030">LightPreview.cpp:30</a></div></div>
+<div class="ttc" id="aa02130_html_ac98c9f916c79db3d55c18499e9eb1aa2"><div class="ttname"><a href="a02130.html#ac98c9f916c79db3d55c18499e9eb1aa2">editor::component::LightPreview::create</a></div><div class="ttdeci">static Ptr create(const sf::Vector2f &amp;size)</div><div class="ttdoc">Create a new LightPreview component.</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00014">LightPreview.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

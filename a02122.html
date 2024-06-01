@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::LightPreview Class Reference</title>
+<title>Peoplemon: editor::component::ItemEditorWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,140 +66,151 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02122.html">LightPreview</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02122.html">ItemEditorWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a02119.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::LightPreview Class Reference</div>  </div>
+<div class="title">editor::component::ItemEditorWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Helper component that displays an image with a light level overlaid on it.  
+<p>Window for editing an individual item in the item database.  
  <a href="a02122.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00401_source.html">LightPreview.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::LightPreview:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02122.png" alt=""/>
- </div></div>
+<p><code>#include &lt;<a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a5d870620ba189d41eb0ba3ef48197e97"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02122.html">LightPreview</a> &gt;</td></tr>
-<tr class="separator:a5d870620ba189d41eb0ba3ef48197e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4011317978aa3bae46f0dcb75be14fe"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:ab4011317978aa3bae46f0dcb75be14fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature for when an item is modified.  <a href="a02122.html#ab4011317978aa3bae46f0dcb75be14fe">More...</a><br /></td></tr>
+<tr class="separator:ab4011317978aa3bae46f0dcb75be14fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9e1ea9a56078e04e767ec87161f879dd"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#a9e1ea9a56078e04e767ec87161f879dd">setLightLevel</a> (std::uint8_t level)</td></tr>
-<tr class="memdesc:a9e1ea9a56078e04e767ec87161f879dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the light level to display.  <a href="a02122.html#a9e1ea9a56078e04e767ec87161f879dd">More...</a><br /></td></tr>
-<tr class="separator:a9e1ea9a56078e04e767ec87161f879dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#ac98c9f916c79db3d55c18499e9eb1aa2">create</a> (const sf::Vector2f &amp;size)</td></tr>
-<tr class="memdesc:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new <a class="el" href="a02122.html" title="Helper component that displays an image with a light level overlaid on it.">LightPreview</a> component.  <a href="a02122.html#ac98c9f916c79db3d55c18499e9eb1aa2">More...</a><br /></td></tr>
-<tr class="separator:ac98c9f916c79db3d55c18499e9eb1aa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#ad94cce9159201a4f83c6e2d4371fa3bb">ItemEditorWindow</a> (<a class="el" href="a01622.html">core::file::ItemDB</a> &amp;db, const <a class="el" href="a02122.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> &amp;onChange)</td></tr>
+<tr class="memdesc:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Item Editor Window.  <a href="a02122.html#ad94cce9159201a4f83c6e2d4371fa3bb">More...</a><br /></td></tr>
+<tr class="separator:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02122.html#a8f3f207cd848eb3ec1a39f534033a3a8">open</a> (bl::gui::GUI *parent, <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item)</td></tr>
+<tr class="memdesc:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the editor window.  <a href="a02122.html#a8f3f207cd848eb3ec1a39f534033a3a8">More...</a><br /></td></tr>
+<tr class="separator:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Helper component that displays an image with a light level overlaid on it. </p>
+<div class="textblock"><p>Window for editing an individual item in the item database. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00016">16</a> of file <a class="el" href="a00401_source.html">LightPreview.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00019">19</a> of file <a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a5d870620ba189d41eb0ba3ef48197e97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d870620ba189d41eb0ba3ef48197e97">&#9670;&nbsp;</a></span>Ptr</h2>
+<a id="ab4011317978aa3bae46f0dcb75be14fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4011317978aa3bae46f0dcb75be14fe">&#9670;&nbsp;</a></span>OnChange</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02122.html">LightPreview</a>&gt;</td>
+          <td class="memname">using <a class="el" href="a02122.html#ab4011317978aa3bae46f0dcb75be14fe">editor::component::ItemEditorWindow::OnChange</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00401_source.html#l00018">18</a> of file <a class="el" href="a00401_source.html">LightPreview.hpp</a>.</p>
+<p>Callback signature for when an item is modified. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00022">22</a> of file <a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad94cce9159201a4f83c6e2d4371fa3bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad94cce9159201a4f83c6e2d4371fa3bb">&#9670;&nbsp;</a></span>ItemEditorWindow()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::component::ItemEditorWindow::ItemEditorWindow </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01622.html">core::file::ItemDB</a> &amp;&#160;</td>
+          <td class="paramname"><em>db</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a02122.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> &amp;&#160;</td>
+          <td class="paramname"><em>onChange</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Item Editor Window. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">db</td><td>The item database </td></tr>
+    <tr><td class="paramname">onChange</td><td>Callback for when an item is changed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00896_source.html#l00017">17</a> of file <a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac98c9f916c79db3d55c18499e9eb1aa2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac98c9f916c79db3d55c18499e9eb1aa2">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a8f3f207cd848eb3ec1a39f534033a3a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f3f207cd848eb3ec1a39f534033a3a8">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02122.html#a5d870620ba189d41eb0ba3ef48197e97">LightPreview::Ptr</a> editor::component::LightPreview::create </td>
+          <td class="memname">void editor::component::ItemEditorWindow::open </td>
           <td>(</td>
-          <td class="paramtype">const sf::Vector2f &amp;&#160;</td>
-          <td class="paramname"><em>size</em></td><td>)</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td>
+          <td class="paramname"><em>item</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Create a new <a class="el" href="a02122.html" title="Helper component that displays an image with a light level overlaid on it.">LightPreview</a> component. </p>
+<p>Open the editor window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">size</td><td>The preview size </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
+    <tr><td class="paramname">item</td><td>The item to populate for, or Unknown for a new item </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Ptr The new component </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a00902_source.html#l00014">14</a> of file <a class="el" href="a00902_source.html">LightPreview.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9e1ea9a56078e04e767ec87161f879dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9e1ea9a56078e04e767ec87161f879dd">&#9670;&nbsp;</a></span>setLightLevel()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::LightPreview::setLightLevel </td>
-          <td>(</td>
-          <td class="paramtype">std::uint8_t&#160;</td>
-          <td class="paramname"><em>level</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the light level to display. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00902_source.html#l00030">30</a> of file <a class="el" href="a00902_source.html">LightPreview.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00896_source.html#l00070">70</a> of file <a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00401_source.html">LightPreview.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00902_source.html">LightPreview.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

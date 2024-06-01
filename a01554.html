@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::GameSave Struct Reference</title>
+<title>Peoplemon: bl::serial::SerializableObject&lt; core::file::Conversation::Node &gt; Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,154 +66,74 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01094.html">file</a></li><li class="navelem"><a class="el" href="a01554.html">GameSave</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01096.html">bl</a></li><li class="navelem"><a class="el" href="a01097.html">serial</a></li><li class="navelem"><a class="el" href="a01554.html">SerializableObject&lt; core::file::Conversation::Node &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01551.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::GameSave Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01072.html">Files</a></div></div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; core::file::Conversation::Node &gt; Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Represents a game save and provides functionality to load and save.  
- <a href="a01554.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a03027_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03107_source.html">Conversation.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::file::Conversation::Node &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01554.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01574.html">ClockPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the date in game.  <a href="a01574.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01558.html">InteractDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01558.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01562.html">PlayerDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01562.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01570.html">ScriptDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01570.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01578.html">TrainerPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores defeated trainer information.  <a href="a01578.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01566.html">WorldDataPointers</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores pointers to the actual data to save/load from.  <a href="a01566.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a6e9a25b7a789225951a530c4e98a19b4"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a> = <a class="el" href="a01542.html">core::file::Conversation::Node</a></td></tr>
+<tr class="separator:a6e9a25b7a789225951a530c4e98a19b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a650a4eda74e1e7b2f273cf3e7175bc42"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a650a4eda74e1e7b2f273cf3e7175bc42">GameSave</a> ()</td></tr>
-<tr class="memdesc:a650a4eda74e1e7b2f273cf3e7175bc42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes all pointers to the local members.  <a href="a01554.html#a650a4eda74e1e7b2f273cf3e7175bc42">More...</a><br /></td></tr>
-<tr class="separator:a650a4eda74e1e7b2f273cf3e7175bc42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a86bccfa7236e4867421e5be62db0e6ed"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a86bccfa7236e4867421e5be62db0e6ed">load</a> ()</td></tr>
-<tr class="memdesc:a86bccfa7236e4867421e5be62db0e6ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the save represented by this object and fires an <a class="el" href="a01414.html" title="Fired when a game save is loaded. Fired after the load is complete.">event::GameSaveLoaded</a> event to allow systems to populate their data.  <a href="a01554.html#a86bccfa7236e4867421e5be62db0e6ed">More...</a><br /></td></tr>
-<tr class="separator:a86bccfa7236e4867421e5be62db0e6ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad88c22bf7557656bacde9efa3893e9bc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#ad88c22bf7557656bacde9efa3893e9bc">editorSave</a> ()</td></tr>
-<tr class="memdesc:ad88c22bf7557656bacde9efa3893e9bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the data back to the file it was loaded from.  <a href="a01554.html#ad88c22bf7557656bacde9efa3893e9bc">More...</a><br /></td></tr>
-<tr class="separator:ad88c22bf7557656bacde9efa3893e9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1e8e37d576c38af9f4ac984360d7c44"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#ac1e8e37d576c38af9f4ac984360d7c44">remove</a> () const</td></tr>
-<tr class="memdesc:ac1e8e37d576c38af9f4ac984360d7c44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deletes the game save.  <a href="a01554.html#ac1e8e37d576c38af9f4ac984360d7c44">More...</a><br /></td></tr>
-<tr class="separator:ac1e8e37d576c38af9f4ac984360d7c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1cc1a8095882f9f27d77adecbfa248db"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a1cc1a8095882f9f27d77adecbfa248db">operator&lt;</a> (const <a class="el" href="a01554.html">GameSave</a> &amp;rhs) const</td></tr>
-<tr class="memdesc:a1cc1a8095882f9f27d77adecbfa248db"><td class="mdescLeft">&#160;</td><td class="mdescRight">For sorting.  <a href="a01554.html#a1cc1a8095882f9f27d77adecbfa248db">More...</a><br /></td></tr>
-<tr class="separator:a1cc1a8095882f9f27d77adecbfa248db"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa570a3cbbe5c2c7eb4b4344f60af7211"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#aa570a3cbbe5c2c7eb4b4344f60af7211">useLocalData</a> ()</td></tr>
-<tr class="memdesc:aa570a3cbbe5c2c7eb4b4344f60af7211"><td class="mdescLeft">&#160;</td><td class="mdescRight">Instantiates the save data in this object and sets all the pointers to it. Useful for loading a save without populating the game systems.  <a href="a01554.html#aa570a3cbbe5c2c7eb4b4344f60af7211">More...</a><br /></td></tr>
-<tr class="separator:aa570a3cbbe5c2c7eb4b4344f60af7211"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:aaa9b54b3821265cfe148034189a22429"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#aaa9b54b3821265cfe148034189a22429">listSaves</a> (std::vector&lt; <a class="el" href="a01554.html">GameSave</a> &gt; &amp;result)</td></tr>
-<tr class="memdesc:aaa9b54b3821265cfe148034189a22429"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lists all saves in the save directory.  <a href="a01554.html#aaa9b54b3821265cfe148034189a22429">More...</a><br /></td></tr>
-<tr class="separator:aaa9b54b3821265cfe148034189a22429"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a92889a5c3fdcfcb18cc21fa530c909ea"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a92889a5c3fdcfcb18cc21fa530c909ea">saveGame</a> (const std::string &amp;name)</td></tr>
-<tr class="memdesc:a92889a5c3fdcfcb18cc21fa530c909ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Saves the game. Fires an <a class="el" href="a01410.html" title="Fired when the game is saving or loading. Allows systems to hook in their data.">event::GameSaveInitializing</a> event for systems to add their data to the save before it is written.  <a href="a01554.html#a92889a5c3fdcfcb18cc21fa530c909ea">More...</a><br /></td></tr>
-<tr class="separator:a92889a5c3fdcfcb18cc21fa530c909ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d75dce291625eb61668930d3e654efd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a3d75dce291625eb61668930d3e654efd">loadFromFile</a> (const std::string &amp;sourceFile)</td></tr>
-<tr class="memdesc:a3d75dce291625eb61668930d3e654efd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the game from the given save file.  <a href="a01554.html#a3d75dce291625eb61668930d3e654efd">More...</a><br /></td></tr>
-<tr class="separator:a3d75dce291625eb61668930d3e654efd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9631def7bae225382e126f7edeb90605"><td class="memItemLeft" align="right" valign="top">static std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a9631def7bae225382e126f7edeb90605">filename</a> (const std::string &amp;<a class="el" href="a01554.html#ad68c1f3d40204d7c30196eeaab189c01">saveName</a>)</td></tr>
-<tr class="memdesc:a9631def7bae225382e126f7edeb90605"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the filename for the given save name.  <a href="a01554.html#a9631def7bae225382e126f7edeb90605">More...</a><br /></td></tr>
-<tr class="separator:a9631def7bae225382e126f7edeb90605"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a118e83f40417f11575a7f99977824db5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a118e83f40417f11575a7f99977824db5">SerializableObject</a> ()</td></tr>
+<tr class="separator:a118e83f40417f11575a7f99977824db5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a792c1608752e257000414b249db94a3f"><td class="memItemLeft" align="right" valign="top">unsigned long long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a792c1608752e257000414b249db94a3f">saveTime</a></td></tr>
-<tr class="memdesc:a792c1608752e257000414b249db94a3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Local timestamp that the save was modified on.  <a href="a01554.html#a792c1608752e257000414b249db94a3f">More...</a><br /></td></tr>
-<tr class="separator:a792c1608752e257000414b249db94a3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad68c1f3d40204d7c30196eeaab189c01"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#ad68c1f3d40204d7c30196eeaab189c01">saveName</a></td></tr>
-<tr class="memdesc:ad68c1f3d40204d7c30196eeaab189c01"><td class="mdescLeft">&#160;</td><td class="mdescRight">Same as the player name but always valid.  <a href="a01554.html#ad68c1f3d40204d7c30196eeaab189c01">More...</a><br /></td></tr>
-<tr class="separator:ad68c1f3d40204d7c30196eeaab189c01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a650d95289b6ac8197efe402315b18eab"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01558.html">core::file::GameSave::InteractDataPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a650d95289b6ac8197efe402315b18eab">interaction</a></td></tr>
-<tr class="separator:a650d95289b6ac8197efe402315b18eab"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a402dcf883f48bdc8edf1a280d2871f1c"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01562.html">core::file::GameSave::PlayerDataPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a402dcf883f48bdc8edf1a280d2871f1c">player</a></td></tr>
-<tr class="separator:a402dcf883f48bdc8edf1a280d2871f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a38c47bf4ccf47a5713c4d77171d02367"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01566.html">core::file::GameSave::WorldDataPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a38c47bf4ccf47a5713c4d77171d02367">world</a></td></tr>
-<tr class="separator:a38c47bf4ccf47a5713c4d77171d02367"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2a52b8ce19485eeaa83134d3d8840fe8"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01570.html">core::file::GameSave::ScriptDataPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a2a52b8ce19485eeaa83134d3d8840fe8">scripts</a></td></tr>
-<tr class="separator:a2a52b8ce19485eeaa83134d3d8840fe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa4d12f556b56030839019d87e80e9fd"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01574.html">core::file::GameSave::ClockPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#afa4d12f556b56030839019d87e80e9fd">clock</a></td></tr>
-<tr class="separator:afa4d12f556b56030839019d87e80e9fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2fb72128552082a09bb4efb4d048a41a"><td class="memItemLeft" align="right" valign="top">struct <a class="el" href="a01578.html">core::file::GameSave::TrainerPointers</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a2fb72128552082a09bb4efb4d048a41a">trainers</a></td></tr>
-<tr class="separator:a2fb72128552082a09bb4efb4d048a41a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6037494893c7dc79362be0627d341610"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, <a class="el" href="a01542.html#af2fcaf16b4ce64411e9382567991f78e">Node::Type</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a6037494893c7dc79362be0627d341610">type</a></td></tr>
+<tr class="separator:a6037494893c7dc79362be0627d341610"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a439eb5225939e0a61fd6d41b399da9d4"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a439eb5225939e0a61fd6d41b399da9d4">prompt</a></td></tr>
+<tr class="separator:a439eb5225939e0a61fd6d41b399da9d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f79d631af156636f1e348c8d4661573"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 3, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, Node::TData &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#a2f79d631af156636f1e348c8d4661573">data</a></td></tr>
+<tr class="separator:a2f79d631af156636f1e348c8d4661573"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af134b0cea93c6a58b971ea3261f7931a"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 4, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, std::uint32_t[2]&gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01554.html#af134b0cea93c6a58b971ea3261f7931a">jumps</a></td></tr>
+<tr class="separator:af134b0cea93c6a58b971ea3261f7931a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Represents a game save and provides functionality to load and save. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03027_source.html#l00024">24</a> of file <a class="el" href="a03027_source.html">GameSave.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a650a4eda74e1e7b2f273cf3e7175bc42"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a650a4eda74e1e7b2f273cf3e7175bc42">&#9670;&nbsp;</a></span>GameSave()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::file::GameSave::GameSave </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes all pointers to the local members. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00152">152</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad88c22bf7557656bacde9efa3893e9bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad88c22bf7557656bacde9efa3893e9bc">&#9670;&nbsp;</a></span>editorSave()</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00371">371</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a6e9a25b7a789225951a530c4e98a19b4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6e9a25b7a789225951a530c4e98a19b4">&#9670;&nbsp;</a></span>Node</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::file::GameSave::editorSave </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::<a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a> =  <a class="el" href="a01542.html">core::file::Conversation::Node</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Saves the data back to the file it was loaded from. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00084">84</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00372">372</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a9631def7bae225382e126f7edeb90605"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9631def7bae225382e126f7edeb90605">&#9670;&nbsp;</a></span>filename()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a118e83f40417f11575a7f99977824db5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a118e83f40417f11575a7f99977824db5">&#9670;&nbsp;</a></span>SerializableObject()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -222,367 +142,96 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::file::GameSave::filename </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>saveName</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the filename for the given save name. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">saveName</td><td>The name of the player in the save </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The filename to load or save from </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00180">180</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aaa9b54b3821265cfe148034189a22429"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa9b54b3821265cfe148034189a22429">&#9670;&nbsp;</a></span>listSaves()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::file::GameSave::listSaves </td>
-          <td>(</td>
-          <td class="paramtype">std::vector&lt; <a class="el" href="a01554.html">GameSave</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>result</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Lists all saves in the save directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">result</td><td>Vector to populate with found saves </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00040">40</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a86bccfa7236e4867421e5be62db0e6ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86bccfa7236e4867421e5be62db0e6ed">&#9670;&nbsp;</a></span>load()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::load </td>
+          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::SerializableObject </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Loads the save represented by this object and fires an <a class="el" href="a01414.html" title="Fired when a game save is loaded. Fired after the load is complete.">event::GameSaveLoaded</a> event to allow systems to populate their data. </p>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00090">90</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3d75dce291625eb61668930d3e654efd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d75dce291625eb61668930d3e654efd">&#9670;&nbsp;</a></span>loadFromFile()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::loadFromFile </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>sourceFile</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Loads the game from the given save file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">sourceFile</td><td>The file to load from </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00078">78</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1cc1a8095882f9f27d77adecbfa248db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cc1a8095882f9f27d77adecbfa248db">&#9670;&nbsp;</a></span>operator&lt;()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::operator&lt; </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01554.html">GameSave</a> &amp;&#160;</td>
-          <td class="paramname"><em>rhs</em></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>For sorting. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">rhs</td><td>The save to compare to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if should come first, false if not </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00116">116</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac1e8e37d576c38af9f4ac984360d7c44"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1e8e37d576c38af9f4ac984360d7c44">&#9670;&nbsp;</a></span>remove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::remove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Deletes the game save. </p>
-<dl class="section return"><dt>Returns</dt><dd>True on success, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00114">114</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a92889a5c3fdcfcb18cc21fa530c909ea"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a92889a5c3fdcfcb18cc21fa530c909ea">&#9670;&nbsp;</a></span>saveGame()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::file::GameSave::saveGame </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Saves the game. Fires an <a class="el" href="a01410.html" title="Fired when the game is saving or loading. Allows systems to hook in their data.">event::GameSaveInitializing</a> event for systems to add their data to the save before it is written. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">name</td><td>The name of the player </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the game could be saved, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00062">62</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa570a3cbbe5c2c7eb4b4344f60af7211"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa570a3cbbe5c2c7eb4b4344f60af7211">&#9670;&nbsp;</a></span>useLocalData()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::file::GameSave::useLocalData </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Instantiates the save data in this object and sets all the pointers to it. Useful for loading a save without populating the game systems. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00659_source.html#l00121">121</a> of file <a class="el" href="a00659_source.html">GameSave.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00379">379</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="afa4d12f556b56030839019d87e80e9fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afa4d12f556b56030839019d87e80e9fd">&#9670;&nbsp;</a></span>clock</h2>
+<a id="a2f79d631af156636f1e348c8d4661573"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f79d631af156636f1e348c8d4661573">&#9670;&nbsp;</a></span>data</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="a01574.html">core::file::GameSave::ClockPointers</a> core::file::GameSave::clock</td>
+          <td class="memname">SerializableField&lt;3, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, Node::TData&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::data</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00376">376</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
+
 </div>
 </div>
-<a id="a650d95289b6ac8197efe402315b18eab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a650d95289b6ac8197efe402315b18eab">&#9670;&nbsp;</a></span>interaction</h2>
+<a id="af134b0cea93c6a58b971ea3261f7931a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af134b0cea93c6a58b971ea3261f7931a">&#9670;&nbsp;</a></span>jumps</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="a01558.html">core::file::GameSave::InteractDataPointers</a> core::file::GameSave::interaction</td>
+          <td class="memname">SerializableField&lt;4, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, std::uint32_t[2]&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::jumps</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00377">377</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
+
 </div>
 </div>
-<a id="a402dcf883f48bdc8edf1a280d2871f1c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a402dcf883f48bdc8edf1a280d2871f1c">&#9670;&nbsp;</a></span>player</h2>
+<a id="a439eb5225939e0a61fd6d41b399da9d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a439eb5225939e0a61fd6d41b399da9d4">&#9670;&nbsp;</a></span>prompt</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">struct <a class="el" href="a01562.html">core::file::GameSave::PlayerDataPointers</a> core::file::GameSave::player</td>
+          <td class="memname">SerializableField&lt;2, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, std::string&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::prompt</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00375">375</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
+
 </div>
 </div>
-<a id="ad68c1f3d40204d7c30196eeaab189c01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad68c1f3d40204d7c30196eeaab189c01">&#9670;&nbsp;</a></span>saveName</h2>
+<a id="a6037494893c7dc79362be0627d341610"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6037494893c7dc79362be0627d341610">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::file::GameSave::saveName</td>
+          <td class="memname">SerializableField&lt;1, <a class="el" href="a01554.html#a6e9a25b7a789225951a530c4e98a19b4">Node</a>, <a class="el" href="a01542.html#af2fcaf16b4ce64411e9382567991f78e">Node::Type</a>&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt;::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Same as the player name but always valid. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03027_source.html#l00029">29</a> of file <a class="el" href="a03027_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03107_source.html#l00374">374</a> of file <a class="el" href="a03107_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a792c1608752e257000414b249db94a3f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a792c1608752e257000414b249db94a3f">&#9670;&nbsp;</a></span>saveTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned long long core::file::GameSave::saveTime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Local timestamp that the save was modified on. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03027_source.html#l00026">26</a> of file <a class="el" href="a03027_source.html">GameSave.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2a52b8ce19485eeaa83134d3d8840fe8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2a52b8ce19485eeaa83134d3d8840fe8">&#9670;&nbsp;</a></span>scripts</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="a01570.html">core::file::GameSave::ScriptDataPointers</a> core::file::GameSave::scripts</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a2fb72128552082a09bb4efb4d048a41a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fb72128552082a09bb4efb4d048a41a">&#9670;&nbsp;</a></span>trainers</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="a01578.html">core::file::GameSave::TrainerPointers</a> core::file::GameSave::trainers</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a38c47bf4ccf47a5713c4d77171d02367"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a38c47bf4ccf47a5713c4d77171d02367">&#9670;&nbsp;</a></span>world</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">struct <a class="el" href="a01566.html">core::file::GameSave::WorldDataPointers</a> core::file::GameSave::world</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Files/<a class="el" href="a03027_source.html">GameSave.hpp</a></li>
-<li>src/Core/Files/<a class="el" href="a00659_source.html">GameSave.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Files/<a class="el" href="a03107_source.html">Conversation.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

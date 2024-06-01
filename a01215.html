@@ -66,32 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01089.html">battle</a></li><li class="navelem"><a class="el" href="a01218.html">Battle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01088.html">ai</a></li><li class="navelem"><a class="el" href="a01218.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::battle::Battle Member List</div>  </div>
+<div class="title">core::ai::Conversation Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01218.html">core::battle::Battle</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01218.html">core::ai::Conversation</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01218.html#abbf9168894b84acbfeef6361a9604cf8">controller</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01218.html#a4cc9e19f8773e6cdfa8076a7d227af34">create</a>(bl::engine::Engine &amp;engine, const std::string &amp;location, system::Player &amp;player, Type type)</td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01218.html#ac36d615395ec7105df2d9847506ccae8">location</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01218.html#a52fd5a85aa316c7f7dfeea4580f94932">player</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a5bb451ccc986623dd20b646bdfc3e327">result</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01218.html#a81f7fe40656a0b8345c755a5ca36b184">setController</a>(std::unique_ptr&lt; BattleController &gt; &amp;&amp;controller)</td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01218.html#aa8aa1e42dc212d8267258306f3dc343b">state</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01218.html#a5c4138656c418031327b3958cc6e8c62">Type</a> enum name</td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a20e2eb75c550dc1a4d04844b3c6321f0">type</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01218.html#a91d39a12a5b4e4c77033ad4bbd7d44e5">view</a></td><td class="entry"><a class="el" href="a01218.html">core::battle::Battle</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation</a>(system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#aca98664465772bfc586aac07028cf04a">currentNode</a>() const</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>() const</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a69aa2e5032d179d992770a787183e61d">notifyCheckFailed</a>()</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a8e0a2f9daee0c2320b63c86512e2dc49">notifyCheckPassed</a>()</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#a9dbb8b01be97b67152554105faa29a97">notifyChoiceMade</a>(const std::string &amp;choice)</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01218.html#a58a30139629398b7ac280c1d623febcf">notifyNext</a>()</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01218.html#afa9786aa974ff5bc082e5c371c1aec9a">setConversation</a>(const file::Conversation &amp;conversation, bl::ecs::Entity entity, bool talked)</td><td class="entry"><a class="el" href="a01218.html">core::ai::Conversation</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

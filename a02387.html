@@ -66,29 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02390.html">State</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02390.html">SaveGame</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">game::state::State Member List</div>  </div>
+<div class="title">game::state::SaveGame Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02390.html">game::state::State</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02390.html">game::state::SaveGame</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#a2245c2f3ab8cbd78e345b4b940ffa442">activate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02390.html#a63ff495c10ee7d986be1750173d24c6b">deactivate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#ae62840bb33e67ff1b1ea7b6c9431d249">name</a>() const override=0</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02390.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02390.html#aa294a09e38106bec03bde9a8bfcd3f3f">update</a>(bl::engine::Engine &amp;engine, float dt, float realDt) override=0</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02390.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02390.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02390.html#a6cea776f0ed2c0e19511a449d688d320">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02390.html#ae4b2f27695ec049e4af9574767343ad9">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02390.html#af40f2394e40db0d0063351e889e8ba86">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02390.html#a841f007cbe748753871c131b490c2917">name</a>() const override</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02398.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02390.html#adb68fae47a1866e022be07fc23a13521">update</a>(bl::engine::Engine &amp;engine, float dt, float) override</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02390.html#a5fa013556108d047a964a0aa64d883da">~SaveGame</a>()=default</td><td class="entry"><a class="el" href="a02390.html">game::state::SaveGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02398.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02398.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

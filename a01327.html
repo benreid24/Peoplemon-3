@@ -66,24 +66,27 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01092.html">component</a></li><li class="navelem"><a class="el" href="a01330.html">FixedPathBehavior</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01092.html">component</a></li><li class="navelem"><a class="el" href="a01330.html">Controllable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::component::FixedPathBehavior Member List</div>  </div>
+<div class="title">core::component::Controllable Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01330.html">core::component::FixedPathBehavior</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01330.html">core::component::Controllable</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01330.html#ab757ec001a55edb4dff46ee85efdae41">FixedPathBehavior</a>(const file::Behavior::Path &amp;path)</td><td class="entry"><a class="el" href="a01330.html">core::component::FixedPathBehavior</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01330.html#a318f25f55fbbca09333d66238d185917">update</a>(bl::tmap::Position &amp;position, Controllable &amp;controller)</td><td class="entry"><a class="el" href="a01330.html">core::component::FixedPathBehavior</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01330.html#ad5c69ad1bfc12501c4fd137687998202">Controllable</a>(system::Systems &amp;systems, bl::ecs::Entity owner)</td><td class="entry"><a class="el" href="a01330.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01330.html#acbfff4cda8b1e9a4a32efcb4f10e01e4">isLocked</a>() const</td><td class="entry"><a class="el" href="a01330.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01330.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(input::EntityControl command, bool sprint=false, bool overrideLock=false)</td><td class="entry"><a class="el" href="a01330.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01330.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a>()</td><td class="entry"><a class="el" href="a01330.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01330.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a>(bool lock, bool preserve=true)</td><td class="entry"><a class="el" href="a01330.html">core::component::Controllable</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

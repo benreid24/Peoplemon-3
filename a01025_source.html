@@ -93,7 +93,7 @@ $(function() {
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> sf::Color SparkColor(252, 230, 30);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02318.html#a56f9705ea9d4c88bd63caae8457a1522">   20</a></span>&#160;<a class="code" href="a02318.html#a56f9705ea9d4c88bd63caae8457a1522">SparkEmitter::SparkEmitter</a>()</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">   20</a></span>&#160;<a class="code" href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">SparkEmitter::SparkEmitter</a>()</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;: residual(0.f) {}</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> SparkEmitter::update(Emitter::Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
@@ -102,21 +102,21 @@ $(function() {
 <div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// TODO - cap spawn?</span></div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">while</span> (residual &gt;= 1.f) {</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        residual -= 1.f;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a02334.html">Evolution::Spark</a>&amp; sp = proxy.emit();</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a02342.html">Evolution::Spark</a>&amp; sp = proxy.emit();</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> a = bl::util::Random::get&lt;float&gt;(0.f, 360.f);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = bl::util::Random::get&lt;float&gt;(1.f, 40.f);</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> v = bl::util::Random::get&lt;float&gt;(150.f, 900.f);</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> c = bl::math::cos(a);</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = bl::math::sin(a);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        sp.<a class="code" href="a02334.html#ae6e8101eceb2d9854606cf39731a4150">position</a>   = glm::vec2(<a class="code" href="a01874.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                <a class="code" href="a01874.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f) +</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        sp.<a class="code" href="a02342.html#ae6e8101eceb2d9854606cf39731a4150">position</a>   = glm::vec2(<a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                <a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f) +</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                      glm::vec2(c, s) * d;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sp.<a class="code" href="a02334.html#a2a12345544b43062f44c2874be28af08">velocity</a>.x = v * c;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp.<a class="code" href="a02334.html#a2a12345544b43062f44c2874be28af08">velocity</a>.y = v * s;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sp.<a class="code" href="a02334.html#af89e515957aefb9827be4e793223de8e">time</a>       = 0.f;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        sp.<a class="code" href="a02334.html#afbe5c0b2a19faf159d42710b14e26261">lifetime</a>   = bl::util::Random::get&lt;float&gt;(0.75f, 1.4f);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sp.<a class="code" href="a02334.html#affca86902bebc4ab7a5b33a5709c7783">radius</a>     = bl::util::Random::get&lt;float&gt;(2.f, 7.f);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sp.<a class="code" href="a02342.html#a2a12345544b43062f44c2874be28af08">velocity</a>.x = v * c;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp.<a class="code" href="a02342.html#a2a12345544b43062f44c2874be28af08">velocity</a>.y = v * s;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sp.<a class="code" href="a02342.html#af89e515957aefb9827be4e793223de8e">time</a>       = 0.f;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        sp.<a class="code" href="a02342.html#afbe5c0b2a19faf159d42710b14e26261">lifetime</a>   = bl::util::Random::get&lt;float&gt;(0.75f, 1.4f);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sp.<a class="code" href="a02342.html#affca86902bebc4ab7a5b33a5709c7783">radius</a>     = bl::util::Random::get&lt;float&gt;(2.f, 7.f);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
@@ -137,19 +137,19 @@ $(function() {
 <div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
 <div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">Particles.hpp</a></div></div>
 <div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01874_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01874.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00262">Properties.cpp:262</a></div></div>
-<div class="ttc" id="aa02318_html_a56f9705ea9d4c88bd63caae8457a1522"><div class="ttname"><a href="a02318.html#a56f9705ea9d4c88bd63caae8457a1522">game::state::evo::SparkEmitter::SparkEmitter</a></div><div class="ttdeci">SparkEmitter()</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00020">Particles.cpp:20</a></div></div>
-<div class="ttc" id="aa02334_html"><div class="ttname"><a href="a02334.html">game::state::Evolution::Spark</a></div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00057">Evolution.hpp:57</a></div></div>
-<div class="ttc" id="aa02334_html_a2a12345544b43062f44c2874be28af08"><div class="ttname"><a href="a02334.html#a2a12345544b43062f44c2874be28af08">game::state::Evolution::Spark::velocity</a></div><div class="ttdeci">glm::vec2 velocity</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00059">Evolution.hpp:59</a></div></div>
-<div class="ttc" id="aa02334_html_ae6e8101eceb2d9854606cf39731a4150"><div class="ttname"><a href="a02334.html#ae6e8101eceb2d9854606cf39731a4150">game::state::Evolution::Spark::position</a></div><div class="ttdeci">glm::vec2 position</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00058">Evolution.hpp:58</a></div></div>
-<div class="ttc" id="aa02334_html_af89e515957aefb9827be4e793223de8e"><div class="ttname"><a href="a02334.html#af89e515957aefb9827be4e793223de8e">game::state::Evolution::Spark::time</a></div><div class="ttdeci">float time</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00061">Evolution.hpp:61</a></div></div>
-<div class="ttc" id="aa02334_html_afbe5c0b2a19faf159d42710b14e26261"><div class="ttname"><a href="a02334.html#afbe5c0b2a19faf159d42710b14e26261">game::state::Evolution::Spark::lifetime</a></div><div class="ttdeci">float lifetime</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00062">Evolution.hpp:62</a></div></div>
-<div class="ttc" id="aa02334_html_affca86902bebc4ab7a5b33a5709c7783"><div class="ttname"><a href="a02334.html#affca86902bebc4ab7a5b33a5709c7783">game::state::Evolution::Spark::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00060">Evolution.hpp:60</a></div></div>
+<div class="ttc" id="aa01882_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00262">Properties.cpp:262</a></div></div>
+<div class="ttc" id="aa02326_html_a56f9705ea9d4c88bd63caae8457a1522"><div class="ttname"><a href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">game::state::evo::SparkEmitter::SparkEmitter</a></div><div class="ttdeci">SparkEmitter()</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00020">Particles.cpp:20</a></div></div>
+<div class="ttc" id="aa02342_html"><div class="ttname"><a href="a02342.html">game::state::Evolution::Spark</a></div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00057">Evolution.hpp:57</a></div></div>
+<div class="ttc" id="aa02342_html_a2a12345544b43062f44c2874be28af08"><div class="ttname"><a href="a02342.html#a2a12345544b43062f44c2874be28af08">game::state::Evolution::Spark::velocity</a></div><div class="ttdeci">glm::vec2 velocity</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00059">Evolution.hpp:59</a></div></div>
+<div class="ttc" id="aa02342_html_ae6e8101eceb2d9854606cf39731a4150"><div class="ttname"><a href="a02342.html#ae6e8101eceb2d9854606cf39731a4150">game::state::Evolution::Spark::position</a></div><div class="ttdeci">glm::vec2 position</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00058">Evolution.hpp:58</a></div></div>
+<div class="ttc" id="aa02342_html_af89e515957aefb9827be4e793223de8e"><div class="ttname"><a href="a02342.html#af89e515957aefb9827be4e793223de8e">game::state::Evolution::Spark::time</a></div><div class="ttdeci">float time</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00061">Evolution.hpp:61</a></div></div>
+<div class="ttc" id="aa02342_html_afbe5c0b2a19faf159d42710b14e26261"><div class="ttname"><a href="a02342.html#afbe5c0b2a19faf159d42710b14e26261">game::state::Evolution::Spark::lifetime</a></div><div class="ttdeci">float lifetime</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00062">Evolution.hpp:62</a></div></div>
+<div class="ttc" id="aa02342_html_affca86902bebc4ab7a5b33a5709c7783"><div class="ttname"><a href="a02342.html#affca86902bebc4ab7a5b33a5709c7783">game::state::Evolution::Spark::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00060">Evolution.hpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

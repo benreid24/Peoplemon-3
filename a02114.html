@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::ItemEditorWindow Class Reference</title>
+<title>Peoplemon: editor::component::GameTestingWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02114.html">ItemEditorWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02114.html">GameTestingWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,111 +75,83 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02111.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::ItemEditorWindow Class Reference</div>  </div>
+<div class="title">editor::component::GameTestingWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Window for editing an individual item in the item database.  
- <a href="a02114.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00389_source.html">GameTestingWindow.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ab4011317978aa3bae46f0dcb75be14fe"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="memdesc:ab4011317978aa3bae46f0dcb75be14fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback signature for when an item is modified.  <a href="a02114.html#ab4011317978aa3bae46f0dcb75be14fe">More...</a><br /></td></tr>
-<tr class="separator:ab4011317978aa3bae46f0dcb75be14fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a66f91fd6a9da2c408bad276989452e1f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="separator:a66f91fd6a9da2c408bad276989452e1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#ad94cce9159201a4f83c6e2d4371fa3bb">ItemEditorWindow</a> (<a class="el" href="a01614.html">core::file::ItemDB</a> &amp;db, const <a class="el" href="a02114.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> &amp;onChange)</td></tr>
-<tr class="memdesc:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Item Editor Window.  <a href="a02114.html#ad94cce9159201a4f83c6e2d4371fa3bb">More...</a><br /></td></tr>
-<tr class="separator:ad94cce9159201a4f83c6e2d4371fa3bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#a8f3f207cd848eb3ec1a39f534033a3a8">open</a> (bl::gui::GUI *parent, <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item)</td></tr>
-<tr class="memdesc:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Open the editor window.  <a href="a02114.html#a8f3f207cd848eb3ec1a39f534033a3a8">More...</a><br /></td></tr>
-<tr class="separator:a8f3f207cd848eb3ec1a39f534033a3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2563afebfbd02e56066d8d81344d731e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#a2563afebfbd02e56066d8d81344d731e">GameTestingWindow</a> (const <a class="el" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> &amp;onSave)</td></tr>
+<tr class="separator:a2563afebfbd02e56066d8d81344d731e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa19a494e40fb0817e2593f73bc7dcd31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02114.html#aa19a494e40fb0817e2593f73bc7dcd31">open</a> (bl::gui::GUI *gui, <a class="el" href="a01562.html">core::file::GameSave</a> &amp;save)</td></tr>
+<tr class="separator:aa19a494e40fb0817e2593f73bc7dcd31"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Window for editing an individual item in the item database. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00019">19</a> of file <a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>.</p>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00013">13</a> of file <a class="el" href="a00389_source.html">GameTestingWindow.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="ab4011317978aa3bae46f0dcb75be14fe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab4011317978aa3bae46f0dcb75be14fe">&#9670;&nbsp;</a></span>OnChange</h2>
+<a id="a66f91fd6a9da2c408bad276989452e1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a66f91fd6a9da2c408bad276989452e1f">&#9670;&nbsp;</a></span>ActionCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02114.html#ab4011317978aa3bae46f0dcb75be14fe">editor::component::ItemEditorWindow::OnChange</a> =  std::function&lt;void()&gt;</td>
+          <td class="memname">using <a class="el" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">editor::component::GameTestingWindow::ActionCb</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback signature for when an item is modified. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00395_source.html#l00022">22</a> of file <a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00015">15</a> of file <a class="el" href="a00389_source.html">GameTestingWindow.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad94cce9159201a4f83c6e2d4371fa3bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad94cce9159201a4f83c6e2d4371fa3bb">&#9670;&nbsp;</a></span>ItemEditorWindow()</h2>
+<a id="a2563afebfbd02e56066d8d81344d731e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2563afebfbd02e56066d8d81344d731e">&#9670;&nbsp;</a></span>GameTestingWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::component::ItemEditorWindow::ItemEditorWindow </td>
+          <td class="memname">editor::component::GameTestingWindow::GameTestingWindow </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01614.html">core::file::ItemDB</a> &amp;&#160;</td>
-          <td class="paramname"><em>db</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSave</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a02114.html#ab4011317978aa3bae46f0dcb75be14fe">OnChange</a> &amp;&#160;</td>
-          <td class="paramname"><em>onChange</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Item Editor Window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">db</td><td>The item database </td></tr>
-    <tr><td class="paramname">onChange</td><td>Callback for when an item is changed </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00896_source.html#l00017">17</a> of file <a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00051">51</a> of file <a class="el" href="a00884_source.html">GameTestingWindow.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8f3f207cd848eb3ec1a39f534033a3a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f3f207cd848eb3ec1a39f534033a3a8">&#9670;&nbsp;</a></span>open()</h2>
+<a id="aa19a494e40fb0817e2593f73bc7dcd31"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa19a494e40fb0817e2593f73bc7dcd31">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::component::ItemEditorWindow::open </td>
+          <td class="memname">void editor::component::GameTestingWindow::open </td>
           <td>(</td>
           <td class="paramtype">bl::gui::GUI *&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
+          <td class="paramname"><em>gui</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a01562.html">core::file::GameSave</a> &amp;&#160;</td>
+          <td class="paramname"><em>save</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -189,28 +161,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Open the editor window. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
-    <tr><td class="paramname">item</td><td>The item to populate for, or Unknown for a new item </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00896_source.html#l00070">70</a> of file <a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00189">189</a> of file <a class="el" href="a00884_source.html">GameTestingWindow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00395_source.html">ItemEditorWindow.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00896_source.html">ItemEditorWindow.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00389_source.html">GameTestingWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00884_source.html">GameTestingWindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -66,26 +66,35 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01094.html">file</a></li><li class="navelem"><a class="el" href="a01530.html">Conversation</a></li><li class="navelem"><a class="el" href="a01534.html">Node</a></li><li class="navelem"><a class="el" href="a01538.html">Item</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01094.html">file</a></li><li class="navelem"><a class="el" href="a01538.html">Conversation</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::file::Conversation::Node::Item Member List</div>  </div>
+<div class="title">core::file::Conversation Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01538.html">core::file::Conversation::Node::Item</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01538.html">core::file::Conversation</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01538.html#a942790137a0357daee92c24a69bf5536">afterPrompt</a></td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01538.html#a985461a55f6c7f9fe1fb38b84e528c84">beforePrompt</a></td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01538.html#a4d4a3fd2573fe1ef6f5e9acb6a055350">id</a></td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation::Node::Item</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01538.html#ade19943b20180512c327fe5a64592441">Item</a>()</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation::Node::Item</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#addec79f31516d231332b99eeb0c44d57">appendNode</a>(const Node &amp;node)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a0a2be97cd74852690ca576b137f86c7e">bl::serial::SerializableObject&lt; Conversation &gt;</a></td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#af496c18644abeed581a2e936f438f08a">Conversation</a>()=default</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a66f845b272eb21ec8283529181234de6">deleteNode</a>(unsigned int i)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#a48621fdaafeaed405fa84149a4f3f8e5">getNextJumps</a>(const Node &amp;node, std::vector&lt; unsigned int &gt; &amp;jumps)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a58289112f105ce81d15f3bb8ff205ba6">load</a>(const std::string &amp;file)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#ab3d8460168dddead8711fca9d04640c2">loadDev</a>(std::istream &amp;input)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a8564fa4a8cd70499046af22e1015ff34">loadProd</a>(bl::serial::binary::InputStream &amp;input)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#adcb20abe541cd3e9058d390e7cf6462a">makeLoadError</a>(const std::string &amp;filename)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a966ec1403830724de5d2ce2dfc6631bc">nodes</a>() const</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#ad8bdca4cee63f78ace5d8912450060fd">save</a>(const std::string &amp;file) const</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01538.html#a1ca14520167b88853fcd1791145d404f">saveBundle</a>(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01538.html#a78b0703b2677db7f6dd1538d5bb55cd0">setNode</a>(unsigned int i, const Node &amp;node)</td><td class="entry"><a class="el" href="a01538.html">core::file::Conversation</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

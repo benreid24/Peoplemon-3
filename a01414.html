@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::GameSaveLoaded Struct Reference</title>
+<title>Peoplemon: core::event::GameSaveInitializing Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,36 +66,46 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01414.html">GameSaveLoaded</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01414.html">GameSaveInitializing</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01411.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::GameSaveLoaded Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::GameSaveInitializing Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a game save is loaded. Fired after the load is complete.  
+<p>Fired when the game is saving or loading. Allows systems to hook in their data.  
  <a href="a01414.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03024_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03164_source.html">GameSave.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a> (<a class="el" href="a01562.html">file::GameSave</a> &amp;sv, bool s)</td></tr>
+<tr class="memdesc:a89aee5a2ad64a2d11d46634ff300f72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Save Initializing object.  <a href="a01414.html#a89aee5a2ad64a2d11d46634ff300f72e">More...</a><br /></td></tr>
+<tr class="separator:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a52b3f58736c5393a403f34a000fb1c32"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html#a52b3f58736c5393a403f34a000fb1c32">failMessage</a></td></tr>
-<tr class="memdesc:a52b3f58736c5393a403f34a000fb1c32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Modules can set this if they encounter a failure that should fail the entire load.  <a href="a01414.html#a52b3f58736c5393a403f34a000fb1c32">More...</a><br /></td></tr>
-<tr class="separator:a52b3f58736c5393a403f34a000fb1c32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01562.html">file::GameSave</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a></td></tr>
+<tr class="memdesc:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game save being initialized.  <a href="a01414.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">More...</a><br /></td></tr>
+<tr class="separator:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f568dfb017538878fc182a74de877ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01414.html#a8f568dfb017538878fc182a74de877ae">saving</a></td></tr>
+<tr class="memdesc:a8f568dfb017538878fc182a74de877ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when saving, false when loading.  <a href="a01414.html#a8f568dfb017538878fc182a74de877ae">More...</a><br /></td></tr>
+<tr class="separator:a8f568dfb017538878fc182a74de877ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a game save is loaded. Fired after the load is complete. </p>
+<div class="textblock"><p>Fired when the game is saving or loading. Allows systems to hook in their data. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00046">46</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a52b3f58736c5393a403f34a000fb1c32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a52b3f58736c5393a403f34a000fb1c32">&#9670;&nbsp;</a></span>failMessage</h2>
+<p class="definition">Definition at line <a class="el" href="a03164_source.html#l00022">22</a> of file <a class="el" href="a03164_source.html">GameSave.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a89aee5a2ad64a2d11d46634ff300f72e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89aee5a2ad64a2d11d46634ff300f72e">&#9670;&nbsp;</a></span>GameSaveInitializing()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -104,30 +114,88 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::event::GameSaveLoaded::failMessage</td>
+          <td class="memname">core::event::GameSaveInitializing::GameSaveInitializing </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01562.html">file::GameSave</a> &amp;&#160;</td>
+          <td class="paramname"><em>sv</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>s</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">mutable</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Modules can set this if they encounter a failure that should fail the entire load. </p>
+<p>Construct a new Game Save Initializing object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sv</td><td>The game save to init </td></tr>
+    <tr><td class="paramname">s</td><td>True when saving, false when loading </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00048">48</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03164_source.html#l00035">35</a> of file <a class="el" href="a03164_source.html">GameSave.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ac6fbd08a5bcbfc66c3df65f5f33965a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">&#9670;&nbsp;</a></span>gameSave</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a01562.html">file::GameSave</a>&amp; core::event::GameSaveInitializing::gameSave</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Game save being initialized. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03164_source.html#l00024">24</a> of file <a class="el" href="a03164_source.html">GameSave.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8f568dfb017538878fc182a74de877ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f568dfb017538878fc182a74de877ae">&#9670;&nbsp;</a></span>saving</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::event::GameSaveInitializing::saving</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>True when saving, false when loading. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03164_source.html#l00027">27</a> of file <a class="el" href="a03164_source.html">GameSave.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a03024_source.html">GameSave.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a03164_source.html">GameSave.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

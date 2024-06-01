@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::MapEntered Struct Reference</title>
+<title>Peoplemon: core::event::MapSwitch Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01426.html">MapEntered</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01426.html">MapSwitch</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,34 +75,34 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01423.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::MapEntered Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::MapSwitch Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a map is entered.  
+<p>Fired right before a map is entered. Use this event for initializing data structures that depend on map size that need to be initialized before entities are spawned.  
  <a href="a01426.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="a00125_source.html">Maps.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html#a9b42f00fbdc65cd550ca1659bc4f4399">MapEntered</a> (const <a class="el" href="a01722.html">map::Map</a> &amp;<a class="el" href="a01426.html#ab24b8ba625ac228bf39a2d0170f83b27">map</a>)</td></tr>
-<tr class="memdesc:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Map Entered object.  <a href="a01426.html#a9b42f00fbdc65cd550ca1659bc4f4399">More...</a><br /></td></tr>
-<tr class="separator:a9b42f00fbdc65cd550ca1659bc4f4399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a523e5c5b903e672e08b9fda365be64bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html#a523e5c5b903e672e08b9fda365be64bc">MapSwitch</a> (const <a class="el" href="a01730.html">map::Map</a> &amp;<a class="el" href="a01426.html#aad55f26e8decefb28139ad792f768091">map</a>)</td></tr>
+<tr class="memdesc:a523e5c5b903e672e08b9fda365be64bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01426.html" title="Fired right before a map is entered. Use this event for initializing data structures that depend on m...">MapSwitch</a> event.  <a href="a01426.html#a523e5c5b903e672e08b9fda365be64bc">More...</a><br /></td></tr>
+<tr class="separator:a523e5c5b903e672e08b9fda365be64bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ab24b8ba625ac228bf39a2d0170f83b27"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01722.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html#ab24b8ba625ac228bf39a2d0170f83b27">map</a></td></tr>
-<tr class="memdesc:ab24b8ba625ac228bf39a2d0170f83b27"><td class="mdescLeft">&#160;</td><td class="mdescRight">A reference to the map that was just entered.  <a href="a01426.html#ab24b8ba625ac228bf39a2d0170f83b27">More...</a><br /></td></tr>
-<tr class="separator:ab24b8ba625ac228bf39a2d0170f83b27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad55f26e8decefb28139ad792f768091"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01730.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01426.html#aad55f26e8decefb28139ad792f768091">map</a></td></tr>
+<tr class="memdesc:aad55f26e8decefb28139ad792f768091"><td class="mdescLeft">&#160;</td><td class="mdescRight">The map that is going to be entered.  <a href="a01426.html#aad55f26e8decefb28139ad792f768091">More...</a><br /></td></tr>
+<tr class="separator:aad55f26e8decefb28139ad792f768091"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a map is entered. </p>
+<div class="textblock"><p>Fired right before a map is entered. Use this event for initializing data structures that depend on map size that need to be initialized before entities are spawned. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00041">41</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00022">22</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9b42f00fbdc65cd550ca1659bc4f4399"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b42f00fbdc65cd550ca1659bc4f4399">&#9670;&nbsp;</a></span>MapEntered()</h2>
+<a id="a523e5c5b903e672e08b9fda365be64bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a523e5c5b903e672e08b9fda365be64bc">&#9670;&nbsp;</a></span>MapSwitch()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -111,9 +111,9 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::MapEntered::MapEntered </td>
+          <td class="memname">core::event::MapSwitch::MapSwitch </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01722.html">map::Map</a> &amp;&#160;</td>
+          <td class="paramtype">const <a class="el" href="a01730.html">map::Map</a> &amp;&#160;</td>
           <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
@@ -125,34 +125,34 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new Map Entered object. </p>
+<p>Construct a new <a class="el" href="a01426.html" title="Fired right before a map is entered. Use this event for initializing data structures that depend on m...">MapSwitch</a> event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The map that was entered </td></tr>
+    <tr><td class="paramname">map</td><td>The map that is going to be entered </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00047">47</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00028">28</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab24b8ba625ac228bf39a2d0170f83b27"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab24b8ba625ac228bf39a2d0170f83b27">&#9670;&nbsp;</a></span>map</h2>
+<a id="aad55f26e8decefb28139ad792f768091"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aad55f26e8decefb28139ad792f768091">&#9670;&nbsp;</a></span>map</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01722.html">map::Map</a>&amp; core::event::MapEntered::map</td>
+          <td class="memname">const <a class="el" href="a01730.html">map::Map</a>&amp; core::event::MapSwitch::map</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>A reference to the map that was just entered. </p>
+<p>The map that is going to be entered. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00051">51</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00125_source.html#l00032">32</a> of file <a class="el" href="a00125_source.html">Maps.hpp</a>.</p>
 
 </div>
 </div>
@@ -163,7 +163,7 @@ Public Attributes</h2></td></tr>
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

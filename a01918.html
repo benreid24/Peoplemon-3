@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::script::MapChangeContext Class Reference</title>
+<title>Peoplemon: core::script::DebugScriptContext Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01108.html">script</a></li><li class="navelem"><a class="el" href="a01918.html">MapChangeContext</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01108.html">script</a></li><li class="navelem"><a class="el" href="a01918.html">DebugScriptContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,16 +75,16 @@ $(function() {
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01915.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::script::MapChangeContext Class Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01079.html">Scripts</a></div></div>  </div>
+<div class="title">core::script::DebugScriptContext Class Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01079.html">Scripts</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special context for map enter and exit scripts.  
+<p>Script context for debug scripts ran from the terminal.  
  <a href="a01918.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00308_source.html">MapChangeContext.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00302_source.html">DebugScriptContext.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::script::MapChangeContext:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::script::DebugScriptContext:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
@@ -94,76 +94,51 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1e3e2a36c3604b21d4fea9aedc24a6d3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01918.html#a1e3e2a36c3604b21d4fea9aedc24a6d3">MapChangeContext</a> (<a class="el" href="a02026.html">system::Systems</a> &amp;systems, const std::string &amp;prevMap, const std::string &amp;newMap, std::uint16_t spawn)</td></tr>
-<tr class="memdesc:a1e3e2a36c3604b21d4fea9aedc24a6d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Map ChangeContext.  <a href="a01918.html#a1e3e2a36c3604b21d4fea9aedc24a6d3">More...</a><br /></td></tr>
-<tr class="separator:a1e3e2a36c3604b21d4fea9aedc24a6d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abed200a4b5f28bb2668773f522d94c9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01918.html#abed200a4b5f28bb2668773f522d94c9f">DebugScriptContext</a> (<a class="el" href="a02034.html">system::Systems</a> &amp;systems)</td></tr>
+<tr class="memdesc:abed200a4b5f28bb2668773f522d94c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Debug Script Context.  <a href="a01918.html#abed200a4b5f28bb2668773f522d94c9f">More...</a><br /></td></tr>
+<tr class="separator:abed200a4b5f28bb2668773f522d94c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa1826745c8aec418c1c247260dcc0f9c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01918.html#aa1826745c8aec418c1c247260dcc0f9c">addCustomSymbols</a> (bl::script::SymbolTable &amp;table) const override</td></tr>
-<tr class="separator:aa1826745c8aec418c1c247260dcc0f9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad39ea9fa1d463137f018c559edc5b57c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01918.html#ad39ea9fa1d463137f018c559edc5b57c">addCustomSymbols</a> (bl::script::SymbolTable &amp;table) const override</td></tr>
+<tr class="separator:ad39ea9fa1d463137f018c559edc5b57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special context for map enter and exit scripts. </p>
+<div class="textblock"><p>Script context for debug scripts ran from the terminal. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00308_source.html#l00022">22</a> of file <a class="el" href="a00308_source.html">MapChangeContext.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00021">21</a> of file <a class="el" href="a00302_source.html">DebugScriptContext.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1e3e2a36c3604b21d4fea9aedc24a6d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1e3e2a36c3604b21d4fea9aedc24a6d3">&#9670;&nbsp;</a></span>MapChangeContext()</h2>
+<a id="abed200a4b5f28bb2668773f522d94c9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abed200a4b5f28bb2668773f522d94c9f">&#9670;&nbsp;</a></span>DebugScriptContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::script::MapChangeContext::MapChangeContext </td>
+          <td class="memname">core::script::DebugScriptContext::DebugScriptContext </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02026.html">system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a02034.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>prevMap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>newMap</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">std::uint16_t&#160;</td>
-          <td class="paramname"><em>spawn</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Map ChangeContext. </p>
+<p>Construct a new Debug Script Context. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
-    <tr><td class="paramname">prevMap</td><td>The name of the previous map </td></tr>
-    <tr><td class="paramname">newMap</td><td>The name of the new map </td></tr>
-    <tr><td class="paramname">spawn</td><td>The spawn id of the player spawn </td></tr>
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00803_source.html#l00032">32</a> of file <a class="el" href="a00803_source.html">MapChangeContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00010">10</a> of file <a class="el" href="a00800_source.html">DebugScriptContext.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aa1826745c8aec418c1c247260dcc0f9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa1826745c8aec418c1c247260dcc0f9c">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
+<a id="ad39ea9fa1d463137f018c559edc5b57c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad39ea9fa1d463137f018c559edc5b57c">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -172,7 +147,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::script::MapChangeContext::addCustomSymbols </td>
+          <td class="memname">void core::script::DebugScriptContext::addCustomSymbols </td>
           <td>(</td>
           <td class="paramtype">bl::script::SymbolTable &amp;&#160;</td>
           <td class="paramname"><em>table</em></td><td>)</td>
@@ -186,19 +161,19 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00803_source.html#l00039">39</a> of file <a class="el" href="a00803_source.html">MapChangeContext.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00800_source.html#l00013">13</a> of file <a class="el" href="a00800_source.html">DebugScriptContext.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Scripts/<a class="el" href="a00308_source.html">MapChangeContext.hpp</a></li>
-<li>src/Core/Scripts/<a class="el" href="a00803_source.html">MapChangeContext.cpp</a></li>
+<li>include/Core/Scripts/<a class="el" href="a00302_source.html">DebugScriptContext.hpp</a></li>
+<li>src/Core/Scripts/<a class="el" href="a00800_source.html">DebugScriptContext.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

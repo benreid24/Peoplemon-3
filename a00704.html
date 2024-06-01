@@ -71,17 +71,40 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#nested-classes">Classes</a> &#124;
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">Fog.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="a00707_source.html">Fog.hpp</a>&quot;</code><br />
+<code>#include &lt;BLIB/Cameras/2D/Camera2D.hpp&gt;</code><br />
 <code>#include &lt;BLIB/Util/Random.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00278_source.html">Core/Properties.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00704_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02422.html">core::map::weather::fog::Particle</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02426.html">core::map::weather::fog::GpuParticle</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02430.html">core::map::weather::fog::GlobalShaderInfo</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02434.html">bl::pcl::RenderConfigMap&lt; Particle &gt;</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02438.html">core::map::weather::fog::FogSink</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02442.html">core::map::weather::fog::FogUpdater</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02446.html">core::map::weather::fog::FogAffector</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02450.html">core::map::weather::fog::FogEmitter</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr class="memitem:a01086"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01086.html">core</a></td></tr>
@@ -93,12 +116,34 @@ Namespaces</h2></td></tr>
 <tr class="memitem:a01102"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01102.html">core::map::weather</a></td></tr>
 <tr class="memdesc:a01102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of different weather types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01133"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01133.html">core::map::weather::fog</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01096"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01096.html">bl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a01134"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01134.html">bl::pcl</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:a91b84bcc70c9b02f8837581d9537246f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01134.html#a91b84bcc70c9b02f8837581d9537246f">bl::pcl::Particle</a> = <a class="el" href="a02422.html">core::map::weather::fog::Particle</a></td></tr>
+<tr class="separator:a91b84bcc70c9b02f8837581d9537246f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01134.html#a58959b6f7eb0cfeddbb4932967f5d079">bl::pcl::GpuParticle</a> = <a class="el" href="a02426.html">core::map::weather::fog::GpuParticle</a></td></tr>
+<tr class="separator:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fe2649dda87e4a4cc500096513be57c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a> = <a class="el" href="a02430.html">core::map::weather::fog::GlobalShaderInfo</a></td></tr>
+<tr class="separator:a1fe2649dda87e4a4cc500096513be57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a6fbbb179ca76a0835ca228dad1f64248"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">core::map::weather::fog::wrapWidth</a> = 800.f</td></tr>
+<tr class="separator:a6fbbb179ca76a0835ca228dad1f64248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae53d937e4f8b3adcf2b7ea5c4193e40"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">core::map::weather::fog::wrapHeight</a> = 600.f</td></tr>
+<tr class="separator:aae53d937e4f8b3adcf2b7ea5c4193e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

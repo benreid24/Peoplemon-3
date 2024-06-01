@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::menu::MoveInfoRow Class Reference</title>
+<title>Peoplemon: editor::state::MainEditor Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,26 +66,25 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01114.html">menu</a></li><li class="navelem"><a class="el" href="a02278.html">MoveInfoRow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01112.html">state</a></li><li class="navelem"><a class="el" href="a02278.html">MainEditor</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02275.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::menu::MoveInfoRow Class Reference<div class="ingroups"><a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01084.html">Menus</a></div></div>  </div>
+<div class="title">editor::state::MainEditor Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Menu row item for moves on the peoplemon info screen.  
+<p>The primary state of the editor. Owns the GUI and all tabs.  
  <a href="a02278.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00494_source.html">MoveInfoRow.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00488_source.html">MainEditor.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::menu::MoveInfoRow:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::state::MainEditor:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
@@ -95,41 +94,35 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8c7958db980a291501c008ccff096839"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a> ()=default</td></tr>
-<tr class="memdesc:a8c7958db980a291501c008ccff096839"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Move Info Row object.  <a href="a02278.html#a8c7958db980a291501c008ccff096839">More...</a><br /></td></tr>
-<tr class="separator:a8c7958db980a291501c008ccff096839"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3deb75bced1a5211a4803d556188672a"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a3deb75bced1a5211a4803d556188672a">getSize</a> () const override</td></tr>
-<tr class="memdesc:a3deb75bced1a5211a4803d556188672a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the menu item.  <a href="a02278.html#a3deb75bced1a5211a4803d556188672a">More...</a><br /></td></tr>
-<tr class="separator:a3deb75bced1a5211a4803d556188672a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7884cbb08e36693db414877e7ebb094f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a7884cbb08e36693db414877e7ebb094f">~MainEditor</a> ()=default</td></tr>
+<tr class="memdesc:a7884cbb08e36693db414877e7ebb094f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Main Editor state.  <a href="a02278.html#a7884cbb08e36693db414877e7ebb094f">More...</a><br /></td></tr>
+<tr class="separator:a7884cbb08e36693db414877e7ebb094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a540f7f0e84c5ee24d8b82c89cfde80da">name</a> () const override</td></tr>
+<tr class="memdesc:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "MainEditor".  <a href="a02278.html#a540f7f0e84c5ee24d8b82c89cfde80da">More...</a><br /></td></tr>
+<tr class="separator:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a81c5d0df817cbe9780c4644fce9fd143"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a81c5d0df817cbe9780c4644fce9fd143">activate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:a81c5d0df817cbe9780c4644fce9fd143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the gui to window events.  <a href="a02278.html#a81c5d0df817cbe9780c4644fce9fd143">More...</a><br /></td></tr>
+<tr class="separator:a81c5d0df817cbe9780c4644fce9fd143"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a2cd7bfe17d6359081b91d672fa6b62a7">deactivate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the gui from window events.  <a href="a02278.html#a2cd7bfe17d6359081b91d672fa6b62a7">More...</a><br /></td></tr>
+<tr class="separator:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3eeced0202f69185f75c13db8c598475"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a3eeced0202f69185f75c13db8c598475">update</a> (bl::engine::Engine &amp;, float dt, float) override</td></tr>
+<tr class="memdesc:a3eeced0202f69185f75c13db8c598475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the gui and the current page.  <a href="a02278.html#a3eeced0202f69185f75c13db8c598475">More...</a><br /></td></tr>
+<tr class="separator:a3eeced0202f69185f75c13db8c598475"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a469493702ad12c5896a79632c62a34dc"><td class="memItemLeft" align="right" valign="top">static bl::menu::Item::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a469493702ad12c5896a79632c62a34dc">create</a> (<a class="el" href="a01076.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move)</td></tr>
-<tr class="memdesc:a469493702ad12c5896a79632c62a34dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new move row.  <a href="a02278.html#a469493702ad12c5896a79632c62a34dc">More...</a><br /></td></tr>
-<tr class="separator:a469493702ad12c5896a79632c62a34dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
-Protected Member Functions</h2></td></tr>
-<tr class="memitem:ad4a7c4788cc6adb6c0483451fc22e47b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#ad4a7c4788cc6adb6c0483451fc22e47b">doCreate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:ad4a7c4788cc6adb6c0483451fc22e47b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <a href="a02278.html#ad4a7c4788cc6adb6c0483451fc22e47b">More...</a><br /></td></tr>
-<tr class="separator:ad4a7c4788cc6adb6c0483451fc22e47b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4735848f470c2d0cc5d9800ac3e8d43"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#aa4735848f470c2d0cc5d9800ac3e8d43">doSceneAdd</a> (bl::rc::Overlay *overlay) override</td></tr>
-<tr class="memdesc:aa4735848f470c2d0cc5d9800ac3e8d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the overlay.  <a href="a02278.html#aa4735848f470c2d0cc5d9800ac3e8d43">More...</a><br /></td></tr>
-<tr class="separator:aa4735848f470c2d0cc5d9800ac3e8d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a27ee44767463846cb3dcd2aebded2701"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a> () override</td></tr>
-<tr class="memdesc:a27ee44767463846cb3dcd2aebded2701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the overlay.  <a href="a02278.html#a27ee44767463846cb3dcd2aebded2701">More...</a><br /></td></tr>
-<tr class="separator:a27ee44767463846cb3dcd2aebded2701"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fe3c39ecae3b00a6277c6b62e6646fb"><td class="memItemLeft" align="right" valign="top">virtual bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a> () const override</td></tr>
-<tr class="memdesc:a8fe3c39ecae3b00a6277c6b62e6646fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <a href="a02278.html#a8fe3c39ecae3b00a6277c6b62e6646fb">More...</a><br /></td></tr>
-<tr class="separator:a8fe3c39ecae3b00a6277c6b62e6646fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memItemLeft" align="right" valign="top">static Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02278.html#ae5c3888e51aae992b41fc4172f8efbfb">create</a> (<a class="el" href="a02034.html">core::system::Systems</a> &amp;systems)</td></tr>
+<tr class="memdesc:ae5c3888e51aae992b41fc4172f8efbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Main Editor state.  <a href="a02278.html#ae5c3888e51aae992b41fc4172f8efbfb">More...</a><br /></td></tr>
+<tr class="separator:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Menu row item for moves on the peoplemon info screen. </p>
+<div class="textblock"><p>The primary state of the editor. Owns the GUI and all tabs. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00494_source.html#l00017">17</a> of file <a class="el" href="a00494_source.html">MoveInfoRow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00488_source.html#l00035">35</a> of file <a class="el" href="a00488_source.html">MainEditor.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8c7958db980a291501c008ccff096839"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8c7958db980a291501c008ccff096839">&#9670;&nbsp;</a></span>~MoveInfoRow()</h2>
+<a id="a7884cbb08e36693db414877e7ebb094f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7884cbb08e36693db414877e7ebb094f">&#9670;&nbsp;</a></span>~MainEditor()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -138,7 +131,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::menu::MoveInfoRow::~MoveInfoRow </td>
+          <td class="memname">virtual editor::state::MainEditor::~MainEditor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -151,13 +144,13 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Move Info Row object. </p>
+<p>Destroy the Main Editor state. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a469493702ad12c5896a79632c62a34dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a469493702ad12c5896a79632c62a34dc">&#9670;&nbsp;</a></span>create()</h2>
+<a id="a81c5d0df817cbe9780c4644fce9fd143"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c5d0df817cbe9780c4644fce9fd143">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -166,10 +159,40 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::menu::Item::Ptr game::menu::MoveInfoRow::create </td>
+          <td class="memname">void editor::state::MainEditor::activate </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01076.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a>&#160;</td>
-          <td class="paramname"><em>move</em></td><td>)</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscribes the gui to window events. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00995_source.html#l00067">67</a> of file <a class="el" href="a00995_source.html">MainEditor.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae5c3888e51aae992b41fc4172f8efbfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5c3888e51aae992b41fc4172f8efbfb">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">MainEditor::Ptr editor::state::MainEditor::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02034.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -180,21 +203,20 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Create a new move row. </p>
+<p>Construct a new Main Editor state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">move</td><td>The move to represent </td></tr>
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bl::menu::Item::Ptr The new row </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00011">11</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00995_source.html#l00009">9</a> of file <a class="el" href="a00995_source.html">MainEditor.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad4a7c4788cc6adb6c0483451fc22e47b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad4a7c4788cc6adb6c0483451fc22e47b">&#9670;&nbsp;</a></span>doCreate()</h2>
+<a id="a2cd7bfe17d6359081b91d672fa6b62a7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2cd7bfe17d6359081b91d672fa6b62a7">&#9670;&nbsp;</a></span>deactivate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -203,99 +225,28 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::menu::MoveInfoRow::doCreate </td>
+          <td class="memname">void editor::state::MainEditor::deactivate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00023">23</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa4735848f470c2d0cc5d9800ac3e8d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4735848f470c2d0cc5d9800ac3e8d43">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::menu::MoveInfoRow::doSceneAdd </td>
-          <td>(</td>
-          <td class="paramtype">bl::rc::Overlay *&#160;</td>
-          <td class="paramname"><em>overlay</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Called when the item should be added to the overlay. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">overlay</td><td>The overlay to add to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00043">43</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a27ee44767463846cb3dcd2aebded2701"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a27ee44767463846cb3dcd2aebded2701">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::menu::MoveInfoRow::doSceneRemove </td>
-          <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Called when the item should be removed from the overlay. </p>
+<p>Unsubscribes the gui from window events. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00048">48</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00995_source.html#l00072">72</a> of file <a class="el" href="a00995_source.html">MainEditor.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a8fe3c39ecae3b00a6277c6b62e6646fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fe3c39ecae3b00a6277c6b62e6646fb">&#9670;&nbsp;</a></span>getEntity()</h2>
+<a id="a540f7f0e84c5ee24d8b82c89cfde80da"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540f7f0e84c5ee24d8b82c89cfde80da">&#9670;&nbsp;</a></span>name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -304,36 +255,7 @@ Protected Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::ecs::Entity game::menu::MoveInfoRow::getEntity </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the entity (or top level entity) of the item. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00050">50</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3deb75bced1a5211a4803d556188672a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3deb75bced1a5211a4803d556188672a">&#9670;&nbsp;</a></span>getSize()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">glm::vec2 game::menu::MoveInfoRow::getSize </td>
+          <td class="memname">const char * editor::state::MainEditor::name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -346,21 +268,73 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the size of the menu item. </p>
+<p>Returns "MainEditor". </p>
 
-<p class="definition">Definition at line <a class="el" href="a01001_source.html#l00021">21</a> of file <a class="el" href="a01001_source.html">MoveInfoRow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00995_source.html#l00065">65</a> of file <a class="el" href="a00995_source.html">MainEditor.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3eeced0202f69185f75c13db8c598475"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3eeced0202f69185f75c13db8c598475">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::state::MainEditor::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the gui and the current page. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00995_source.html#l00077">77</a> of file <a class="el" href="a00995_source.html">MainEditor.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/Menus/<a class="el" href="a00494_source.html">MoveInfoRow.hpp</a></li>
-<li>src/Game/Menus/<a class="el" href="a01001_source.html">MoveInfoRow.cpp</a></li>
+<li>include/Editor/States/<a class="el" href="a00488_source.html">MainEditor.hpp</a></li>
+<li>src/Editor/States/<a class="el" href="a00995_source.html">MainEditor.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

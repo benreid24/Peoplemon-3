@@ -66,34 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01087.html">system</a></li><li class="navelem"><a class="el" href="a01982.html">HUD</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01087.html">system</a></li><li class="navelem"><a class="el" href="a01109.html">hud</a></li><li class="navelem"><a class="el" href="a01982.html">QtyEntry</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::HUD Member List</div>  </div>
+<div class="title">core::system::hud::QtyEntry Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01982.html">core::system::HUD</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01982.html">core::system::hud::QtyEntry</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a> typedef</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#af51de855fd4b7c575f4bb817d402e888">dismissStickyMessage</a>(bool ignoreGhostWrite=true)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a000fc6be7abcfe3e038a150e62ce9612">displayEntryCard</a>(const std::string &amp;name)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(const std::string &amp;message, const Callback &amp;cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a8dcef55abad4de6f091926fb3b7b60ee">displayStickyMessage</a>(const std::string &amp;message, bool ghostWrite, const Callback &amp;cb=[](const std::string &amp;) {})</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#a915330b9d11ff6dabd5d65e473c0255b">getInputString</a>(const std::string &amp;prompt, unsigned int minLen, unsigned int maxLen, const Callback &amp;cb)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a3d17fd885fe2fd65a0b076ccc7146802">getQty</a>(const std::string &amp;prompt, int minQty, int maxQty, const QtyCallback &amp;cb)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#a0227b0661b12504a4a3969c0c904fe26">hideEntryCard</a>()</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#aa1052b3650984bc4bb29975e87ffcea9">HUD</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#a4861aaeecc1a3b97b0397b25437301f3">promptUser</a>(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, const Callback &amp;cb)</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a6469956f3d145c35c221c90ef008a57d">QtyCallback</a> typedef</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01982.html#a71982744ca5d10e2015b47e47609882c">~HUD</a>()=default</td><td class="entry"><a class="el" href="a01982.html">core::system::HUD</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a015e9af262756b1070f2c89fab35a9ea">configure</a>(int minQty, int maxQty, int qty)</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01982.html#aa76371cec91e35cb513d508ecc387176">curQty</a>() const</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a717f49a7212c5aafa9b97313d54acbf2">down</a>(int q, bool ignoreDebounce)</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01982.html#a9840ffb7a01b22bb0dbd7f393233475c">getSize</a>() const</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a9d446e27002b25b290cd65615a51b60d">hide</a>()</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01982.html#ad5804610bd2ee8ac868e848e81ad5551">QtyEntry</a>(bl::engine::Engine &amp;engine)</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01982.html#a28d989497274f72e2c18edf4ff91fc33">setPosition</a>(const sf::Vector2f &amp;position)</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01982.html#a4b8dad15ad9090a48a910a0d8284f93a">up</a>(int q, bool ignoreDebounce)</td><td class="entry"><a class="el" href="a01982.html">core::system::hud::QtyEntry</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::EntityMoved Struct Reference</title>
+<title>Peoplemon: core::event::BattleCompleted Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01398.html">EntityMoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01398.html">BattleCompleted</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,43 +75,37 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01395.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::EntityMoved Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::BattleCompleted Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired after an entity begins moving from one position to another.  
+<p>Fired when a battle finishes.  
  <a href="a01398.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00119_source.html">EntityMoved.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03113_source.html">Battle.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#a676b6f5aba893b3b05a9fdd7d3d821cb">EntityMoved</a> (bl::ecs::Entity <a class="el" href="a01398.html#a6bc4cf3380f910db6882963c753d9737">entity</a>, const bl::tmap::Position &amp;oldPos, const bl::tmap::Position &amp;pos, bool <a class="el" href="a01398.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a>=false)</td></tr>
-<tr class="memdesc:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01398.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event.  <a href="a01398.html#a676b6f5aba893b3b05a9fdd7d3d821cb">More...</a><br /></td></tr>
-<tr class="separator:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa8737c9ee156f6d7460fb423693573f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#aa8737c9ee156f6d7460fb423693573f7">BattleCompleted</a> (<a class="el" href="a01222.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> <a class="el" href="a01398.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>, <a class="el" href="a01294.html">battle::Result</a> &amp;&amp;<a class="el" href="a01398.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>)</td></tr>
+<tr class="memdesc:aa8737c9ee156f6d7460fb423693573f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Battle Completed event.  <a href="a01398.html#aa8737c9ee156f6d7460fb423693573f7">More...</a><br /></td></tr>
+<tr class="separator:aa8737c9ee156f6d7460fb423693573f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a6bc4cf3380f910db6882963c753d9737"><td class="memItemLeft" align="right" valign="top">const bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#a6bc4cf3380f910db6882963c753d9737">entity</a></td></tr>
-<tr class="memdesc:a6bc4cf3380f910db6882963c753d9737"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="a01398.html#a6bc4cf3380f910db6882963c753d9737">More...</a><br /></td></tr>
-<tr class="separator:a6bc4cf3380f910db6882963c753d9737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210093d307dd7fec324edbbee4be76c8"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#a210093d307dd7fec324edbbee4be76c8">previousPosition</a></td></tr>
-<tr class="memdesc:a210093d307dd7fec324edbbee4be76c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous position of the entity.  <a href="a01398.html#a210093d307dd7fec324edbbee4be76c8">More...</a><br /></td></tr>
-<tr class="separator:a210093d307dd7fec324edbbee4be76c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4812816633bea3298a323a69b2c53327"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#a4812816633bea3298a323a69b2c53327">position</a></td></tr>
-<tr class="memdesc:a4812816633bea3298a323a69b2c53327"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="a01398.html#a4812816633bea3298a323a69b2c53327">More...</a><br /></td></tr>
-<tr class="separator:a4812816633bea3298a323a69b2c53327"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a></td></tr>
-<tr class="memdesc:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the entity is running.  <a href="a01398.html#ab7d6aa90c92e672054f09cf32b1dcdb3">More...</a><br /></td></tr>
-<tr class="separator:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aab63742f1a9bebdc5bb01ab43aa31198"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01222.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a></td></tr>
+<tr class="memdesc:aab63742f1a9bebdc5bb01ab43aa31198"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of battle that was completed.  <a href="a01398.html#aab63742f1a9bebdc5bb01ab43aa31198">More...</a><br /></td></tr>
+<tr class="separator:aab63742f1a9bebdc5bb01ab43aa31198"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01294.html">battle::Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01398.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a></td></tr>
+<tr class="memdesc:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the battle.  <a href="a01398.html#ae44f51c4e36f0fe2c7b7d167da6cb154">More...</a><br /></td></tr>
+<tr class="separator:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired after an entity begins moving from one position to another. </p>
+<div class="textblock"><p>Fired when a battle finishes. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00018">18</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03113_source.html#l00036">36</a> of file <a class="el" href="a03113_source.html">Battle.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a676b6f5aba893b3b05a9fdd7d3d821cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a676b6f5aba893b3b05a9fdd7d3d821cb">&#9670;&nbsp;</a></span>EntityMoved()</h2>
+<a id="aa8737c9ee156f6d7460fb423693573f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa8737c9ee156f6d7460fb423693573f7">&#9670;&nbsp;</a></span>BattleCompleted()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -120,28 +114,16 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::EntityMoved::EntityMoved </td>
+          <td class="memname">core::event::BattleCompleted::BattleCompleted </td>
           <td>(</td>
-          <td class="paramtype">bl::ecs::Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
+          <td class="paramtype"><a class="el" href="a01222.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
-          <td class="paramname"><em>oldPos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>running</em> = <code>false</code>&#160;</td>
+          <td class="paramtype"><a class="el" href="a01294.html">battle::Result</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>result</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -156,101 +138,64 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01398.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event. </p>
+<p>Construct a new Battle Completed event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity that moved </td></tr>
-    <tr><td class="paramname">oldPos</td><td>The old position </td></tr>
-    <tr><td class="paramname">pos</td><td>The current position </td></tr>
+    <tr><td class="paramname">type</td><td>The type of battle that was completed </td></tr>
+    <tr><td class="paramname">result</td><td>The result of the battle </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00038">38</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03113_source.html#l00043">43</a> of file <a class="el" href="a03113_source.html">Battle.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6bc4cf3380f910db6882963c753d9737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bc4cf3380f910db6882963c753d9737">&#9670;&nbsp;</a></span>entity</h2>
+<a id="ae44f51c4e36f0fe2c7b7d167da6cb154"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44f51c4e36f0fe2c7b7d167da6cb154">&#9670;&nbsp;</a></span>result</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const bl::ecs::Entity core::event::EntityMoved::entity</td>
+          <td class="memname">const <a class="el" href="a01294.html">battle::Result</a> core::event::BattleCompleted::result</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The entity that moved. </p>
+<p>The result of the battle. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00020">20</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03113_source.html#l00051">51</a> of file <a class="el" href="a03113_source.html">Battle.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4812816633bea3298a323a69b2c53327"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4812816633bea3298a323a69b2c53327">&#9670;&nbsp;</a></span>position</h2>
+<a id="aab63742f1a9bebdc5bb01ab43aa31198"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab63742f1a9bebdc5bb01ab43aa31198">&#9670;&nbsp;</a></span>type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const bl::tmap::Position&amp; core::event::EntityMoved::position</td>
+          <td class="memname">const <a class="el" href="a01222.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> core::event::BattleCompleted::type</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The current position of the entity. </p>
+<p>The type of battle that was completed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00026">26</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a210093d307dd7fec324edbbee4be76c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a210093d307dd7fec324edbbee4be76c8">&#9670;&nbsp;</a></span>previousPosition</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const bl::tmap::Position core::event::EntityMoved::previousPosition</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The previous position of the entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00023">23</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab7d6aa90c92e672054f09cf32b1dcdb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7d6aa90c92e672054f09cf32b1dcdb3">&#9670;&nbsp;</a></span>running</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const bool core::event::EntityMoved::running</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Whether or not the entity is running. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00029">29</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03113_source.html#l00048">48</a> of file <a class="el" href="a03113_source.html">Battle.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00119_source.html">EntityMoved.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a03113_source.html">Battle.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -66,23 +66,34 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01107.html">res</a></li><li class="navelem"><a class="el" href="a01878.html">PeoplemonBundleHandler</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01106.html">player</a></li><li class="navelem"><a class="el" href="a01878.html">StorageSystem</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::res::PeoplemonBundleHandler&lt; T &gt; Member List</div>  </div>
+<div class="title">core::player::StorageSystem Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01878.html">core::res::PeoplemonBundleHandler&lt; T &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01878.html">core::player::StorageSystem</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01878.html#aecd68887e0e4f7ce9a453976d9cf9b45">processFile</a>(const std::string &amp;path, std::ostream &amp;output, bl::resource::bundle::FileHandlerContext &amp;context) override</td><td class="entry"><a class="el" href="a01878.html">core::res::PeoplemonBundleHandler&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#ae276554987675c10dde6dafc55cc5afa">add</a>(const pplmn::OwnedPeoplemon &amp;ppl)</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#a15bde5cb56810903702ef1cbe786c212">add</a>(unsigned int box, const sf::Vector2i &amp;pos, const pplmn::OwnedPeoplemon &amp;ppl)</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#a01ca9d42557e26db37ef4113d2302ca8">BoxCount</a></td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#a28fac98e0b52f386357152fce0c455c5">BoxHeight</a></td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#a5763cb544169e00f853acdd729ea0046">BoxWidth</a></td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#a0294447d301816af106648c4c8f7495b">get</a>(unsigned int box, const sf::Vector2i &amp;pos)</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#aae4a1c0475a4b8638d0e734b46891e88">getBox</a>(unsigned int box) const</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#a619013584337ec04530977078d080364">move</a>(pplmn::StoredPeoplemon &amp;ppl, unsigned int newBox, const sf::Vector2i &amp;newPos)</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#aa8eaf3526d2b0e04725c7f9fafa5c895">remove</a>(unsigned int box, const sf::Vector2i &amp;position)</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#afaf30d9b0459c40d4ea3de2a96017cd7">spaceFree</a>(int box, int x, int y) const</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01878.html#a7bd273925df9ba2cdb12b7e491b1f057">StorageSystem</a>()</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01878.html#afe4fe45f7f9dae6210296c39230d710a">system::Player</a> class</td><td class="entry"><a class="el" href="a01878.html">core::player::StorageSystem</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

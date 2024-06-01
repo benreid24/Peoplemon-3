@@ -66,33 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01087.html">system</a></li><li class="navelem"><a class="el" href="a01930.html">Clock</a></li><li class="navelem"><a class="el" href="a01934.html">Time</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01087.html">system</a></li><li class="navelem"><a class="el" href="a01934.html">AI</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::Clock::Time Member List</div>  </div>
+<div class="title">core::system::AI Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01934.html">core::system::Clock::Time</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01934.html">core::system::AI</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a6b43df7a9de86d0b242209a531a92055">addHours</a>(unsigned int hours)</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01934.html#acb6aa99294897af8d1874adb9927387c">addMinutes</a>(unsigned int minutes)</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a></td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01934.html#a789f50e27085ce572ee9bcb6850b834b">hour</a></td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a232574606b98573f432b2ea332670b7d">minute</a></td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01934.html#a53624d9149ef672f6d2f47ddfce90030">operator&lt;</a>(const Time &amp;right) const</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a73b813712c239aa2edc3c4575fafcb40">operator&lt;&lt;</a>(std::ostream &amp;stream, const Time &amp;time)</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01934.html#aec51da110e08724aad9f153307f02a6a">operator==</a>(const Time &amp;right) const</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a82cd5121756fd17d10a7562b2cd3f0bb">operator&gt;</a>(const Time &amp;right) const</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01934.html#a39287d2e33949272f8f941dea8f3e32d">Time</a>()</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01934.html#ae396842cd58bc4cfe8583f35a8705a0d">Time</a>(unsigned int hour, unsigned int minute, unsigned int day=0)</td><td class="entry"><a class="el" href="a01934.html">core::system::Clock::Time</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01934.html#ab18c59753224295a92d6b4c2aa4569f3">addBehavior</a>(bl::ecs::Entity entity, const file::Behavior &amp;behavior)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01934.html#a6cfa6e6029611935d58e614c7fd841ec">AI</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01934.html#aecfcc9b237d20a7e7f7bfe91b381ceed">makeFollowPath</a>(bl::ecs::Entity entity, const file::Behavior::Path &amp;path)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01934.html#a7ee0cb800ee7509fc644db0bf719458f">makeSpinning</a>(bl::ecs::Entity entity, file::Behavior::Spinning::Direction dir)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01934.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">makeStanding</a>(bl::ecs::Entity entity, bl::tmap::Direction dir)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01934.html#af24a059ed46ebd8201a09a3102dca54c">makeWander</a>(bl::ecs::Entity entity, unsigned int radius)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01934.html#ae37405fd7ef1b3956e4c1c7dd073abdd">moveToPosition</a>(bl::ecs::Entity entity, const bl::tmap::Position &amp;dest)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01934.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(bl::ecs::Entity ent)</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01934.html#a2f662e230b15fb27a8e549f6525aad3c">~AI</a>()=default</td><td class="entry"><a class="el" href="a01934.html">core::system::AI</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

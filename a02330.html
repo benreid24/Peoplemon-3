@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::Evolution Class Reference</title>
+<title>Peoplemon: game::state::evo::SparkSink Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,77 +66,43 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a02330.html">Evolution</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a01117.html">evo</a></li><li class="navelem"><a class="el" href="a02330.html">SparkSink</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02327.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::Evolution Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
+<div class="title">game::state::evo::SparkSink Class Reference<div class="ingroups"><a class="el" href="a01068.html">Editor</a> &#124; <a class="el" href="a01069.html">Game</a> &raquo; <a class="el" href="a01083.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Game state for when a Peoplemon evolves into another one.  
+<p>Spark sink for the evolution sparks particle system.  
  <a href="a02330.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00518_source.html">Evolution.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00515_source.html">Particles.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::Evolution:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::evo::SparkSink:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02330.png" usemap="#game::state::Evolution_map" alt=""/>
-  <map id="game::state::Evolution_map" name="game::state::Evolution_map">
-<area href="a02390.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,132,80"/>
-  </map>
-</div></div>
+  <img src="a02330.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02334.html">Spark</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab81f535f606c708a208a1a851d1eadda"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#ab81f535f606c708a208a1a851d1eadda">~Evolution</a> ()=default</td></tr>
-<tr class="memdesc:ab81f535f606c708a208a1a851d1eadda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02330.html" title="Game state for when a Peoplemon evolves into another one.">Evolution</a> state.  <a href="a02330.html#ab81f535f606c708a208a1a851d1eadda">More...</a><br /></td></tr>
-<tr class="separator:ab81f535f606c708a208a1a851d1eadda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b53331d6d6c9a920746b4be59c4b438"><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#a5b53331d6d6c9a920746b4be59c4b438">name</a> () const override</td></tr>
-<tr class="memdesc:a5b53331d6d6c9a920746b4be59c4b438"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "Evolution".  <a href="a02330.html#a5b53331d6d6c9a920746b4be59c4b438">More...</a><br /></td></tr>
-<tr class="separator:a5b53331d6d6c9a920746b4be59c4b438"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a09750c9c391f6b396adb9362f983ca38"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#a09750c9c391f6b396adb9362f983ca38">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:a09750c9c391f6b396adb9362f983ca38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to player input.  <a href="a02330.html#a09750c9c391f6b396adb9362f983ca38">More...</a><br /></td></tr>
-<tr class="separator:a09750c9c391f6b396adb9362f983ca38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adad7ea0ac714dd9fa732b469b827c82d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#adad7ea0ac714dd9fa732b469b827c82d">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:adad7ea0ac714dd9fa732b469b827c82d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes from player input.  <a href="a02330.html#adad7ea0ac714dd9fa732b469b827c82d">More...</a><br /></td></tr>
-<tr class="separator:adad7ea0ac714dd9fa732b469b827c82d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad1b96a0c7373f9f1583611654e32172c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#ad1b96a0c7373f9f1583611654e32172c">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
-<tr class="memdesc:ad1b96a0c7373f9f1583611654e32172c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the evolution process.  <a href="a02330.html#ad1b96a0c7373f9f1583611654e32172c">More...</a><br /></td></tr>
-<tr class="separator:ad1b96a0c7373f9f1583611654e32172c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a1acb77ef7eafdfc997ed2fa89e147063"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#a1acb77ef7eafdfc997ed2fa89e147063">create</a> (<a class="el" href="a02026.html">core::system::Systems</a> &amp;<a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <a class="el" href="a01802.html">core::pplmn::OwnedPeoplemon</a> &amp;ppl)</td></tr>
-<tr class="separator:a1acb77ef7eafdfc997ed2fa89e147063"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02390.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
-<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8cf5360ce93f29c23a4880e18f6c9b21"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02330.html#a8cf5360ce93f29c23a4880e18f6c9b21">~SparkSink</a> ()=default</td></tr>
+<tr class="separator:a8cf5360ce93f29c23a4880e18f6c9b21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Game state for when a Peoplemon evolves into another one. </p>
+<div class="textblock"><p>Spark sink for the evolution sparks particle system. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00018">18</a> of file <a class="el" href="a00518_source.html">Evolution.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00515_source.html#l00056">56</a> of file <a class="el" href="a00515_source.html">Particles.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ab81f535f606c708a208a1a851d1eadda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab81f535f606c708a208a1a851d1eadda">&#9670;&nbsp;</a></span>~Evolution()</h2>
+<a id="a8cf5360ce93f29c23a4880e18f6c9b21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8cf5360ce93f29c23a4880e18f6c9b21">&#9670;&nbsp;</a></span>~SparkSink()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +111,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::Evolution::~Evolution </td>
+          <td class="memname">virtual game::state::evo::SparkSink::~SparkSink </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -158,277 +124,17 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the <a class="el" href="a02330.html" title="Game state for when a Peoplemon evolves into another one.">Evolution</a> state. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a09750c9c391f6b396adb9362f983ca38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09750c9c391f6b396adb9362f983ca38">&#9670;&nbsp;</a></span>activate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::Evolution::activate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Subscribes to player input. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02390.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00106">106</a> of file <a class="el" href="a01028_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1acb77ef7eafdfc997ed2fa89e147063"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1acb77ef7eafdfc997ed2fa89e147063">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::engine::State::Ptr game::state::Evolution::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02026.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a01802.html">core::pplmn::OwnedPeoplemon</a> &amp;&#160;</td>
-          <td class="paramname"><em>ppl</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00068">68</a> of file <a class="el" href="a01028_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adad7ea0ac714dd9fa732b469b827c82d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adad7ea0ac714dd9fa732b469b827c82d">&#9670;&nbsp;</a></span>deactivate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::Evolution::deactivate </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Unsubscribes from player input. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02390.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00132">132</a> of file <a class="el" href="a01028_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5b53331d6d6c9a920746b4be59c4b438"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b53331d6d6c9a920746b4be59c4b438">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char * game::state::Evolution::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns "Evolution". </p>
-
-<p>Implements <a class="el" href="a02390.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00104">104</a> of file <a class="el" href="a01028_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad1b96a0c7373f9f1583611654e32172c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1b96a0c7373f9f1583611654e32172c">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::Evolution::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the evolution process. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02390.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00138">138</a> of file <a class="el" href="a01028_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a60fe5c29a716a33d7cb1b617ca014878"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60fe5c29a716a33d7cb1b617ca014878">&#9670;&nbsp;</a></span>fadeColor</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float game::state::Evolution::fadeColor</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00089">89</a> of file <a class="el" href="a00518_source.html">Evolution.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a987325dc69a44702b874a24829c6c30c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a987325dc69a44702b874a24829c6c30c">&#9670;&nbsp;</a></span>oscillateTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">float game::state::Evolution::oscillateTime</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00518_source.html#l00090">90</a> of file <a class="el" href="a00518_source.html">Evolution.hpp</a>.</p>
-
-</div>
-</div>
-<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02026.html">core::system::Systems</a>&amp; game::state::State::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03102_source.html#l00066">66</a> of file <a class="el" href="a03102_source.html">State.hpp</a>.</p>
-
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a00518_source.html">Evolution.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a01028_source.html">Evolution.cpp</a></li>
+<li>include/Game/States/Evolution/<a class="el" href="a00515_source.html">Particles.hpp</a></li>
+<li>src/Game/States/Evolution/<a class="el" href="a01025_source.html">Particles.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

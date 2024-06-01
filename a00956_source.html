@@ -80,13 +80,13 @@ $(function() {
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>page</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02186.html#a85042c5b49936e520b39da93e06b330d">    7</a></span>&#160;<a class="code" href="a02186.html#a85042c5b49936e520b39da93e06b330d">Credits::Credits</a>(<a class="code" href="a02026.html">core::system::Systems</a>&amp; s)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: <a class="code" href="a02202.html">Page</a>(s) {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a02202.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a> = bl::gui::Box::create(bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical));</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02202.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a>-&gt;pack(bl::gui::Label::create(<span class="stringliteral">&quot;Credits editor will go here&quot;</span>));</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02194.html#a85042c5b49936e520b39da93e06b330d">    7</a></span>&#160;<a class="code" href="a02194.html#a85042c5b49936e520b39da93e06b330d">Credits::Credits</a>(<a class="code" href="a02034.html">core::system::Systems</a>&amp; s)</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: <a class="code" href="a02210.html">Page</a>(s) {</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    <a class="code" href="a02210.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a> = bl::gui::Box::create(bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical));</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <a class="code" href="a02210.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a>-&gt;pack(bl::gui::Label::create(<span class="stringliteral">&quot;Credits editor will go here&quot;</span>));</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;}</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02186.html#a1572097f9a6f71dd033f6d3d480c9abf">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02186.html#a1572097f9a6f71dd033f6d3d480c9abf">Credits::update</a>(<span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02194.html#a1572097f9a6f71dd033f6d3d480c9abf">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02194.html#a1572097f9a6f71dd033f6d3d480c9abf">Credits::update</a>(<span class="keywordtype">float</span>) {</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="comment">// TODO</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
@@ -94,16 +94,16 @@ $(function() {
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace editor</span></div>
 <div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">Credits.hpp</a></div></div>
 <div class="ttc" id="aa01104_html"><div class="ttname"><a href="a01104.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02186_html_a1572097f9a6f71dd033f6d3d480c9abf"><div class="ttname"><a href="a02186.html#a1572097f9a6f71dd033f6d3d480c9abf">editor::page::Credits::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00013">Credits.cpp:13</a></div></div>
-<div class="ttc" id="aa02186_html_a85042c5b49936e520b39da93e06b330d"><div class="ttname"><a href="a02186.html#a85042c5b49936e520b39da93e06b330d">editor::page::Credits::Credits</a></div><div class="ttdeci">Credits(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Credits page.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00007">Credits.cpp:7</a></div></div>
-<div class="ttc" id="aa02202_html"><div class="ttname"><a href="a02202.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00458_source.html#l00032">Page.hpp:32</a></div></div>
-<div class="ttc" id="aa02202_html_a70ad60a18f3e0b6f066be1fd5b25213b"><div class="ttname"><a href="a02202.html#a70ad60a18f3e0b6f066be1fd5b25213b">editor::page::Page::content</a></div><div class="ttdeci">bl::gui::Box::Ptr content</div><div class="ttdef"><b>Definition:</b> <a href="a00458_source.html#l00069">Page.hpp:69</a></div></div>
+<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02194_html_a1572097f9a6f71dd033f6d3d480c9abf"><div class="ttname"><a href="a02194.html#a1572097f9a6f71dd033f6d3d480c9abf">editor::page::Credits::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00013">Credits.cpp:13</a></div></div>
+<div class="ttc" id="aa02194_html_a85042c5b49936e520b39da93e06b330d"><div class="ttname"><a href="a02194.html#a85042c5b49936e520b39da93e06b330d">editor::page::Credits::Credits</a></div><div class="ttdeci">Credits(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Credits page.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00007">Credits.cpp:7</a></div></div>
+<div class="ttc" id="aa02210_html"><div class="ttname"><a href="a02210.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00458_source.html#l00032">Page.hpp:32</a></div></div>
+<div class="ttc" id="aa02210_html_a70ad60a18f3e0b6f066be1fd5b25213b"><div class="ttname"><a href="a02210.html#a70ad60a18f3e0b6f066be1fd5b25213b">editor::page::Page::content</a></div><div class="ttdeci">bl::gui::Box::Ptr content</div><div class="ttdef"><b>Definition:</b> <a href="a00458_source.html#l00069">Page.hpp:69</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:12 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

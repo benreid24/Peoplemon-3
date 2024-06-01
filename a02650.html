@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::intros::WildSequence Class Reference</title>
+<title>Peoplemon: editor::component::EditMap::RemoveLayerAction Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,69 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01113.html">game</a></li><li class="navelem"><a class="el" href="a01115.html">state</a></li><li class="navelem"><a class="el" href="a01116.html">intros</a></li><li class="navelem"><a class="el" href="a02650.html">WildSequence</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02098.html">EditMap</a></li><li class="navelem"><a class="el" href="a02650.html">RemoveLayerAction</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a02647.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::intros::WildSequence Class Reference</div>  </div>
+<div class="title">editor::component::EditMap::RemoveLayerAction Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::intros::WildSequence:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02650.png" usemap="#game::state::intros::WildSequence_map" alt=""/>
-  <map id="game::state::intros::WildSequence_map" name="game::state::intros::WildSequence_map">
-<area href="a02642.html" alt="game::state::intros::SequenceBase" shape="rect" coords="0,0,201,24"/>
-  </map>
-</div></div>
+
+<p><code>#include &lt;<a class="el" href="a00911_source.html">MapActions.hpp</a>&gt;</code></p>
+
+<p>Inherits editor::component::EditMap::Action.</p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a76cacf740775240b7342ece7cb663a59"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><b>Ptr</b> = std::shared_ptr&lt; Action &gt;</td></tr>
+<tr class="separator:a76cacf740775240b7342ece7cb663a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9908fe35530bd656855b9b459970c2f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a9908fe35530bd656855b9b459970c2f6">WildSequence</a> ()</td></tr>
-<tr class="separator:a9908fe35530bd656855b9b459970c2f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18cc08e17a21d399b61ba714f68de2c2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a18cc08e17a21d399b61ba714f68de2c2">~WildSequence</a> ()=default</td></tr>
-<tr class="separator:a18cc08e17a21d399b61ba714f68de2c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d3365441e32c58269bf586e854c8f12"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a0d3365441e32c58269bf586e854c8f12">start</a> () override</td></tr>
-<tr class="separator:a0d3365441e32c58269bf586e854c8f12"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5324119b802f303a3e9aa474b409c28"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#ab5324119b802f303a3e9aa474b409c28">update</a> (float dt) override</td></tr>
-<tr class="separator:ab5324119b802f303a3e9aa474b409c28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa4ad3ef8c956054ed2efbec4375e4b34"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#aa4ad3ef8c956054ed2efbec4375e4b34">render</a> (sf::RenderTarget &amp;target, float lag) override</td></tr>
-<tr class="separator:aa4ad3ef8c956054ed2efbec4375e4b34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af2937866fb444c4cd68967a3b11f8549"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#af2937866fb444c4cd68967a3b11f8549">finished</a> () const override</td></tr>
-<tr class="separator:af2937866fb444c4cd68967a3b11f8549"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a500c1c9eedcf26f4d9abe059b078775f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a500c1c9eedcf26f4d9abe059b078775f">~RemoveLayerAction</a> ()=default</td></tr>
+<tr class="separator:a500c1c9eedcf26f4d9abe059b078775f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e49c29172204bdf17c31915a8d58204"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a5e49c29172204bdf17c31915a8d58204">apply</a> (<a class="el" href="a02098.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:a5e49c29172204bdf17c31915a8d58204"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39a698b5f5577e5c242de1598c394603"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a39a698b5f5577e5c242de1598c394603">undo</a> (<a class="el" href="a02098.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:a39a698b5f5577e5c242de1598c394603"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a25e7bb392782bb9eeda9a3b68758bcaf"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#a25e7bb392782bb9eeda9a3b68758bcaf">description</a> () const override</td></tr>
+<tr class="separator:a25e7bb392782bb9eeda9a3b68758bcaf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:acf5f1cf1c57b6a598523be32f8fea453"><td class="memItemLeft" align="right" valign="top">static EditMap::Action::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02650.html#acf5f1cf1c57b6a598523be32f8fea453">create</a> (unsigned int level, unsigned int layer, const <a class="el" href="a02098.html">EditMap</a> &amp;map)</td></tr>
+<tr class="separator:acf5f1cf1c57b6a598523be32f8fea453"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00043">43</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9908fe35530bd656855b9b459970c2f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9908fe35530bd656855b9b459970c2f6">&#9670;&nbsp;</a></span>WildSequence()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">game::state::intros::WildSequence::WildSequence </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00201">201</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a18cc08e17a21d399b61ba714f68de2c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18cc08e17a21d399b61ba714f68de2c2">&#9670;&nbsp;</a></span>~WildSequence()</h2>
+<p class="definition">Definition at line <a class="el" href="a00911_source.html#l00279">279</a> of file <a class="el" href="a00911_source.html">MapActions.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a76cacf740775240b7342ece7cb663a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76cacf740775240b7342ece7cb663a59">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +119,32 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::intros::WildSequence::~WildSequence </td>
+          <td class="memname">using editor::component::EditMap::Action::Ptr =  std::shared_ptr&lt;Action&gt;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00383_source.html#l00649">649</a> of file <a class="el" href="a00383_source.html">EditMap.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a500c1c9eedcf26f4d9abe059b078775f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a500c1c9eedcf26f4d9abe059b078775f">&#9670;&nbsp;</a></span>~RemoveLayerAction()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual editor::component::EditMap::RemoveLayerAction::~RemoveLayerAction </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -153,8 +160,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af2937866fb444c4cd68967a3b11f8549"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af2937866fb444c4cd68967a3b11f8549">&#9670;&nbsp;</a></span>finished()</h2>
+<a id="a5e49c29172204bdf17c31915a8d58204"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e49c29172204bdf17c31915a8d58204">&#9670;&nbsp;</a></span>apply()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -163,7 +170,79 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool game::state::intros::WildSequence::finished </td>
+          <td class="memname">bool editor::component::EditMap::RemoveLayerAction::apply </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02098.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00742">742</a> of file <a class="el" href="a00908_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<a id="acf5f1cf1c57b6a598523be32f8fea453"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf5f1cf1c57b6a598523be32f8fea453">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">EditMap::Action::Ptr editor::component::EditMap::RemoveLayerAction::create </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>layer</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a02098.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00719">719</a> of file <a class="el" href="a00908_source.html">MapActions.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a25e7bb392782bb9eeda9a3b68758bcaf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25e7bb392782bb9eeda9a3b68758bcaf">&#9670;&nbsp;</a></span>description()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * editor::component::EditMap::RemoveLayerAction::description </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -176,14 +255,12 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="a02642.html#ad1bc976eb226b712c44de5522dd7b066">game::state::intros::SequenceBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00257">257</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00780">780</a> of file <a class="el" href="a00908_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa4ad3ef8c956054ed2efbec4375e4b34"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa4ad3ef8c956054ed2efbec4375e4b34">&#9670;&nbsp;</a></span>render()</h2>
+<a id="a39a698b5f5577e5c242de1598c394603"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39a698b5f5577e5c242de1598c394603">&#9670;&nbsp;</a></span>undo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -192,49 +269,10 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::intros::WildSequence::render </td>
+          <td class="memname">bool editor::component::EditMap::RemoveLayerAction::undo </td>
           <td>(</td>
-          <td class="paramtype">sf::RenderTarget &amp;&#160;</td>
-          <td class="paramname"><em>target</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>lag</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="a02642.html#a85df80cafc087eccb836245d44440716">game::state::intros::SequenceBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00233">233</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a0d3365441e32c58269bf586e854c8f12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0d3365441e32c58269bf586e854c8f12">&#9670;&nbsp;</a></span>start()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::intros::WildSequence::start </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02098.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -245,50 +283,19 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implements <a class="el" href="a02642.html#ac1b0665eab3df7c5f39f5bfc4c156281">game::state::intros::SequenceBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00215">215</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00908_source.html#l00761">761</a> of file <a class="el" href="a00908_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab5324119b802f303a3e9aa474b409c28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5324119b802f303a3e9aa474b409c28">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::intros::WildSequence::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Implements <a class="el" href="a02642.html#a6ddf4fd0daf58ccc3a7783f8b4d8f74e">game::state::intros::SequenceBase</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01022_source.html#l00222">222</a> of file <a class="el" href="a01022_source.html">BattleWrapperState.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/Game/States/<a class="el" href="a01022_source.html">BattleWrapperState.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/Editor/Components/<a class="el" href="a00911_source.html">MapActions.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00908_source.html">MapActions.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

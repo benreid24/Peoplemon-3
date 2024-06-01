@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::GameSaveInitializing Struct Reference</title>
+<title>Peoplemon: core::event::EntityRotated Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01410.html">GameSaveInitializing</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01410.html">EntityRotated</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,37 +75,40 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01407.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::GameSaveInitializing Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::EntityRotated Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when the game is saving or loading. Allows systems to hook in their data.  
+<p>Fired when an entity rotates without moving.  
  <a href="a01410.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03024_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00119_source.html">EntityMoved.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a> (<a class="el" href="a01554.html">file::GameSave</a> &amp;sv, bool s)</td></tr>
-<tr class="memdesc:a89aee5a2ad64a2d11d46634ff300f72e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Save Initializing object.  <a href="a01410.html#a89aee5a2ad64a2d11d46634ff300f72e">More...</a><br /></td></tr>
-<tr class="separator:a89aee5a2ad64a2d11d46634ff300f72e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96c869eed7d6257bdde788da43cfbce9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#a96c869eed7d6257bdde788da43cfbce9">EntityRotated</a> (bl::ecs::Entity e, bl::tmap::Direction dir, bl::tmap::Direction og)</td></tr>
+<tr class="memdesc:a96c869eed7d6257bdde788da43cfbce9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Entity Rotated event.  <a href="a01410.html#a96c869eed7d6257bdde788da43cfbce9">More...</a><br /></td></tr>
+<tr class="separator:a96c869eed7d6257bdde788da43cfbce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01554.html">file::GameSave</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a></td></tr>
-<tr class="memdesc:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Game save being initialized.  <a href="a01410.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">More...</a><br /></td></tr>
-<tr class="separator:ac6fbd08a5bcbfc66c3df65f5f33965a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8f568dfb017538878fc182a74de877ae"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#a8f568dfb017538878fc182a74de877ae">saving</a></td></tr>
-<tr class="memdesc:a8f568dfb017538878fc182a74de877ae"><td class="mdescLeft">&#160;</td><td class="mdescRight">True when saving, false when loading.  <a href="a01410.html#a8f568dfb017538878fc182a74de877ae">More...</a><br /></td></tr>
-<tr class="separator:a8f568dfb017538878fc182a74de877ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8760b06116d720ab650012298e0e713"><td class="memItemLeft" align="right" valign="top">const bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#ad8760b06116d720ab650012298e0e713">entity</a></td></tr>
+<tr class="memdesc:ad8760b06116d720ab650012298e0e713"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that rotated.  <a href="a01410.html#ad8760b06116d720ab650012298e0e713">More...</a><br /></td></tr>
+<tr class="separator:ad8760b06116d720ab650012298e0e713"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaa3cec2f659f7cb75770e478325bb99d"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#aaa3cec2f659f7cb75770e478325bb99d">faceDir</a></td></tr>
+<tr class="memdesc:aaa3cec2f659f7cb75770e478325bb99d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The direction the entity is now facing.  <a href="a01410.html#aaa3cec2f659f7cb75770e478325bb99d">More...</a><br /></td></tr>
+<tr class="separator:aaa3cec2f659f7cb75770e478325bb99d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a946d20a0a79f4a437710a82e59ddcecd"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Direction&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01410.html#a946d20a0a79f4a437710a82e59ddcecd">origDir</a></td></tr>
+<tr class="memdesc:a946d20a0a79f4a437710a82e59ddcecd"><td class="mdescLeft">&#160;</td><td class="mdescRight">The direction the entity was facing.  <a href="a01410.html#a946d20a0a79f4a437710a82e59ddcecd">More...</a><br /></td></tr>
+<tr class="separator:a946d20a0a79f4a437710a82e59ddcecd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when the game is saving or loading. Allows systems to hook in their data. </p>
+<div class="textblock"><p>Fired when an entity rotates without moving. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00022">22</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00076">76</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a89aee5a2ad64a2d11d46634ff300f72e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a89aee5a2ad64a2d11d46634ff300f72e">&#9670;&nbsp;</a></span>GameSaveInitializing()</h2>
+<a id="a96c869eed7d6257bdde788da43cfbce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96c869eed7d6257bdde788da43cfbce9">&#9670;&nbsp;</a></span>EntityRotated()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,16 +117,22 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::GameSaveInitializing::GameSaveInitializing </td>
+          <td class="memname">core::event::EntityRotated::EntityRotated </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01554.html">file::GameSave</a> &amp;&#160;</td>
-          <td class="paramname"><em>sv</em>, </td>
+          <td class="paramtype">bl::ecs::Entity&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>s</em>&#160;</td>
+          <td class="paramtype">bl::tmap::Direction&#160;</td>
+          <td class="paramname"><em>dir</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::tmap::Direction&#160;</td>
+          <td class="paramname"><em>og</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -138,64 +147,83 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new Game Save Initializing object. </p>
+<p>Construct a new Entity Rotated event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">sv</td><td>The game save to init </td></tr>
-    <tr><td class="paramname">s</td><td>True when saving, false when loading </td></tr>
+    <tr><td class="paramname">e</td><td>The entity that rotated </td></tr>
+    <tr><td class="paramname">dir</td><td>The direction it is now facing </td></tr>
+    <tr><td class="paramname">og</td><td>The original direction it was facing </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00035">35</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00093">93</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ac6fbd08a5bcbfc66c3df65f5f33965a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6fbd08a5bcbfc66c3df65f5f33965a8">&#9670;&nbsp;</a></span>gameSave</h2>
+<a id="ad8760b06116d720ab650012298e0e713"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8760b06116d720ab650012298e0e713">&#9670;&nbsp;</a></span>entity</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01554.html">file::GameSave</a>&amp; core::event::GameSaveInitializing::gameSave</td>
+          <td class="memname">const bl::ecs::Entity core::event::EntityRotated::entity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Game save being initialized. </p>
+<p>The entity that rotated. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00024">24</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00078">78</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a8f568dfb017538878fc182a74de877ae"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f568dfb017538878fc182a74de877ae">&#9670;&nbsp;</a></span>saving</h2>
+<a id="aaa3cec2f659f7cb75770e478325bb99d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaa3cec2f659f7cb75770e478325bb99d">&#9670;&nbsp;</a></span>faceDir</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::event::GameSaveInitializing::saving</td>
+          <td class="memname">const bl::tmap::Direction core::event::EntityRotated::faceDir</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>True when saving, false when loading. </p>
+<p>The direction the entity is now facing. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03024_source.html#l00027">27</a> of file <a class="el" href="a03024_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00081">81</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a946d20a0a79f4a437710a82e59ddcecd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a946d20a0a79f4a437710a82e59ddcecd">&#9670;&nbsp;</a></span>origDir</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bl::tmap::Direction core::event::EntityRotated::origDir</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The direction the entity was facing. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00084">84</a> of file <a class="el" href="a00119_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a03024_source.html">GameSave.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a00119_source.html">EntityMoved.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

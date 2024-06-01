@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::StoreOpened Struct Reference</title>
+<title>Peoplemon: core::event::StorageSystemClosed Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,130 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01458.html">StoreOpened</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01093.html">event</a></li><li class="navelem"><a class="el" href="a01458.html">StorageSystemClosed</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
-<a href="a01455.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::StoreOpened Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
+<div class="title">core::event::StorageSystemClosed Struct Reference<div class="ingroups"><a class="el" href="a01067.html">Core</a> &raquo; <a class="el" href="a01071.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Event that is fired by the Core module to signal to the game to open a store.  
+<p>Fired when the storage system is closed.  
  <a href="a01458.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00140_source.html">Store.hpp</a>&gt;</code></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:ae6e57a89732bade3b7bb63c1ee6bd0a8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01458.html#ae6e57a89732bade3b7bb63c1ee6bd0a8">StoreOpened</a> (const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt;&gt; &amp;<a class="el" href="a01458.html#a2fed50ab0535c242069e2c203379769e">items</a>, const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt;&gt; &amp;<a class="el" href="a01458.html#a8a61e7f5e2b83ff330a4b4f428131bc4">sellPrices</a>)</td></tr>
-<tr class="memdesc:ae6e57a89732bade3b7bb63c1ee6bd0a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Store Opened event.  <a href="a01458.html#ae6e57a89732bade3b7bb63c1ee6bd0a8">More...</a><br /></td></tr>
-<tr class="separator:ae6e57a89732bade3b7bb63c1ee6bd0a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a2fed50ab0535c242069e2c203379769e"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01458.html#a2fed50ab0535c242069e2c203379769e">items</a></td></tr>
-<tr class="separator:a2fed50ab0535c242069e2c203379769e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a61e7f5e2b83ff330a4b4f428131bc4"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt; &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01458.html#a8a61e7f5e2b83ff330a4b4f428131bc4">sellPrices</a></td></tr>
-<tr class="separator:a8a61e7f5e2b83ff330a4b4f428131bc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
+<p><code>#include &lt;<a class="el" href="a03176_source.html">StorageSystem.hpp</a>&gt;</code></p>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Event that is fired by the Core module to signal to the game to open a store. </p>
+<div class="textblock"><p>Fired when the storage system is closed. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00140_source.html#l00017">17</a> of file <a class="el" href="a00140_source.html">Store.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ae6e57a89732bade3b7bb63c1ee6bd0a8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae6e57a89732bade3b7bb63c1ee6bd0a8">&#9670;&nbsp;</a></span>StoreOpened()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::event::StoreOpened::StoreOpened </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>items</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::vector&lt; std::pair&lt; <a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int &gt;&gt; &amp;&#160;</td>
-          <td class="paramname"><em>sellPrices</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new Store Opened event. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">items</td><td>The items to sell </td></tr>
-    <tr><td class="paramname">sellPrices</td><td>Optional overrides of the prices a player gets for selling certain items </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00140_source.html#l00024">24</a> of file <a class="el" href="a00140_source.html">Store.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2fed50ab0535c242069e2c203379769e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2fed50ab0535c242069e2c203379769e">&#9670;&nbsp;</a></span>items</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;std::pair&lt;<a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int&gt; &gt;&amp; core::event::StoreOpened::items</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00140_source.html#l00029">29</a> of file <a class="el" href="a00140_source.html">Store.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8a61e7f5e2b83ff330a4b4f428131bc4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a61e7f5e2b83ff330a4b4f428131bc4">&#9670;&nbsp;</a></span>sellPrices</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::vector&lt;std::pair&lt;<a class="el" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>, int&gt; &gt;&amp; core::event::StoreOpened::sellPrices</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00140_source.html#l00030">30</a> of file <a class="el" href="a00140_source.html">Store.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00140_source.html">Store.hpp</a></li>
+<p class="definition">Definition at line <a class="el" href="a03176_source.html#l00022">22</a> of file <a class="el" href="a03176_source.html">StorageSystem.hpp</a>.</p>
+</div><hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Events/<a class="el" href="a03176_source.html">StorageSystem.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Apr 30 2024 23:25:13 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
