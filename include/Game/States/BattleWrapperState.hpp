@@ -9,14 +9,19 @@ namespace state
 {
 namespace intros
 {
-class SequenceBase;
-}
+class SequenceBase {
+public:
+    virtual ~SequenceBase()                        = default;
+    virtual void start(bl::engine::Engine& engine) = 0;
+    virtual void update(float dt)                  = 0;
+    virtual bool finished() const                  = 0;
+};
+} // namespace intros
 
 /**
  * @brief Wrapper state that manages battle intro transitions as well as post-battle evolutions
  *
  * @ingroup States
- *
  */
 class BattleWrapperState
 : public State
@@ -33,14 +38,12 @@ public:
                                          std::unique_ptr<core::battle::Battle>&& battle);
 
     /**
-     * @brief Destroy the Battle Wrapper State state
-     *
+     * @brief Destroy the Battle Wrapper State
      */
     virtual ~BattleWrapperState() = default;
 
     /**
      * @brief Returns "BattleWrapperState"
-     *
      */
     const char* name() const override;
 
@@ -67,14 +70,11 @@ public:
     virtual void update(bl::engine::Engine& engine, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update battle rendering
-
     enum struct Substate { BattleIntro, Battling, Evolving };
 
     Substate state;
     std::unique_ptr<core::battle::Battle> battle;
     std::unique_ptr<intros::SequenceBase> sequence;
-    sf::View sequenceView;
     unsigned int evolveIndex;
 
     BattleWrapperState(core::system::Systems& systems,

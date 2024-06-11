@@ -138,6 +138,7 @@ public:
     static constexpr std::uint32_t FogPipelineId            = 203;
     static constexpr std::uint32_t SandstormSandPipelineId  = 204;
     static constexpr std::uint32_t SandstormSwirlPipelineId = 205;
+    static constexpr std::uint32_t TrainerIntroPipelineId   = 206;
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

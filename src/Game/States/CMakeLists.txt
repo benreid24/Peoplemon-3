@@ -20,4 +20,5 @@ target_sources(Peoplemon PRIVATE
     StoreMenu.cpp
 )
 
+add_subdirectory(Battle)
 add_subdirectory(Evolution)

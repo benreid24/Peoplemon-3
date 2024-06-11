@@ -151,6 +151,7 @@ void MainGame::observe(const sf::Event& event) {
             for (const auto& town : towns) { visited.emplace(town.name); }
             core::debug::DebugBanner::display("All towns visited");
         }
+        else if (event.key.code == sf::Keyboard::F7) { systems.wildPeoplemon().startDebugBattle(); }
     }
 #else
     (void)event;
