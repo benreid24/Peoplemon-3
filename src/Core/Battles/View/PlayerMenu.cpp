@@ -27,52 +27,53 @@ PlayerMenu::PlayerMenu(bool canRun)
 , moves(nullptr) {
     using namespace bl::menu;
 
-    fightItem = TextItem::create("Fight", Properties::MenuFont(), sf::Color::Black, 30);
-    fightItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::fightChosen, this));
-    bagItem = TextItem::create("Bag", Properties::MenuFont(), sf::Color::Black, 30);
-    bagItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::itemChosen, this));
-    switchItem = TextItem::create("Switch", Properties::MenuFont(), sf::Color::Black, 30);
-    switchItem->getSignal(Item::Activated)
-        .willAlwaysCall(std::bind(&PlayerMenu::switchChosen, this));
-    runItem = TextItem::create("Run", Properties::MenuFont(), sf::Color::Black, 30);
-    runItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::runChosen, this));
+    // TODO - move to later init method or get engine from params
+    // fightItem = TextItem::create("Fight", Properties::MenuFont(), sf::Color::Black, 30);
+    // fightItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::fightChosen,
+    // this)); bagItem = TextItem::create("Bag", Properties::MenuFont(), sf::Color::Black, 30);
+    // bagItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::itemChosen, this));
+    // switchItem = TextItem::create("Switch", Properties::MenuFont(), sf::Color::Black, 30);
+    // switchItem->getSignal(Item::Activated)
+    //    .willAlwaysCall(std::bind(&PlayerMenu::switchChosen, this));
+    // runItem = TextItem::create("Run", Properties::MenuFont(), sf::Color::Black, 30);
+    // runItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::runChosen, this));
 
-    actionMenu.setRootItem(fightItem);
-    actionMenu.addItem(bagItem, fightItem.get(), Item::Right);
-    actionMenu.addItem(switchItem, fightItem.get(), Item::Bottom);
-    if (canRun) {
-        actionMenu.addItem(runItem, bagItem.get(), Item::Bottom);
-        actionMenu.attachExisting(runItem.get(), switchItem.get(), Item::Right);
-    }
-    else {
-        actionMenu.attachExisting(switchItem.get(), bagItem.get(), Item::Bottom, false);
-        actionMenu.attachExisting(bagItem.get(), switchItem.get(), Item::Right, false);
-    }
-    actionMenu.setPosition({513.f, 476.f});
-    actionMenu.setPadding({40.f, 17.f});
+    // actionMenu.setRootItem(fightItem);
+    // actionMenu.addItem(bagItem, fightItem.get(), Item::Right);
+    // actionMenu.addItem(switchItem, fightItem.get(), Item::Bottom);
+    // if (canRun) {
+    //     actionMenu.addItem(runItem, bagItem.get(), Item::Bottom);
+    //     actionMenu.attachExisting(runItem.get(), switchItem.get(), Item::Right);
+    // }
+    // else {
+    //     actionMenu.attachExisting(switchItem.get(), bagItem.get(), Item::Bottom, false);
+    //     actionMenu.attachExisting(bagItem.get(), switchItem.get(), Item::Right, false);
+    // }
+    // actionMenu.setPosition({513.f, 476.f});
+    // actionMenu.setPadding({40.f, 17.f});
 
-    moveMenu.setPosition({16.f, 477.f});
-    moveMenu.setPadding({25.f, 20.f});
+    // moveMenu.setPosition({16.f, 477.f});
+    // moveMenu.setPadding({25.f, 20.f});
 
-    moveTxtr = TextureManager::load(
-        bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"));
-    moveBox.setTexture(*moveTxtr, true);
-    moveBox.setPosition(MoveBoxPos);
+    // moveTxtr = TextureManager::load(
+    //     bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"));
+    // moveBox.setTexture(*moveTxtr, true);
+    // moveBox.setPosition(MoveBoxPos);
 
-    movePwr.setFillColor(sf::Color::Black);
-    // movePwr.setFont(Properties::MenuFont());
-    movePwr.setCharacterSize(25);
-    movePwr.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
+    // movePwr.setFillColor(sf::Color::Black);
+    //// movePwr.setFont(Properties::MenuFont());
+    // movePwr.setCharacterSize(25);
+    // movePwr.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
 
-    moveAcc.setFillColor(sf::Color::Black);
-    // moveAcc.setFont(Properties::MenuFont());
-    moveAcc.setCharacterSize(25);
-    moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 53.f));
+    // moveAcc.setFillColor(sf::Color::Black);
+    //// moveAcc.setFont(Properties::MenuFont());
+    // moveAcc.setCharacterSize(25);
+    // moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 53.f));
 
-    movePP.setFillColor(sf::Color::Black);
-    // movePP.setFont(Properties::MenuFont());
-    movePP.setCharacterSize(25);
-    movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 87.f));
+    // movePP.setFillColor(sf::Color::Black);
+    //// movePP.setFont(Properties::MenuFont());
+    // movePP.setCharacterSize(25);
+    // movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 87.f));
 }
 
 void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {

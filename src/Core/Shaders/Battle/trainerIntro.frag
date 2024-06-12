@@ -17,7 +17,8 @@ void main() {
 
     float radius = barHeight / 2.0;
     float localY = gl_FragCoord.y - barHeight * barF;
-    float circleOffset = sqrt(radius * radius - localY * localY);
+    float triangleY = localY - radius;
+    float circleOffset = sqrt(radius * radius - triangleY * triangleY);
     float barWidth = state.windowSize.x * state.progress;
 
     if (bar % 2 == 0) {

@@ -19,8 +19,7 @@ struct FragmentUniform {
 };
 
 using Bindings = bl::rc::ds::Bindings<bl::rc::ds::GlobalUniformBuffer<FragmentUniform>>;
-using Factory =
-    bl::rc::ds::GenericDescriptorSetFactory<Bindings, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT>;
+using Factory  = bl::rc::ds::GenericDescriptorSetFactory<Bindings, VK_SHADER_STAGE_FRAGMENT_BIT>;
 using Instance = bl::rc::ds::GenericDescriptorSetInstance<Bindings>;
 
 } // namespace
