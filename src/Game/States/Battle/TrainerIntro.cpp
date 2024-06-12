@@ -12,6 +12,7 @@ namespace intros
 namespace
 {
 constexpr float IntroLength = 1.6f;
+bool pipelineCreated        = false;
 
 struct FragmentUniform {
     glm::vec2 windowSize;
@@ -28,7 +29,6 @@ TrainerSequence::TrainerSequence()
 : time(0.f) {}
 
 void TrainerSequence::start(bl::engine::Engine& engine) {
-    static bool pipelineCreated = false;
     if (!pipelineCreated) {
         pipelineCreated = true;
 

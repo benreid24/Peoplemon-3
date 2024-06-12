@@ -5,6 +5,7 @@ compile_shaders(
     
     SHADERS
     Battle/trainerIntro.frag
+    Battle/wildIntro.frag
 	Particles/evolution_spark.vert
     Particles/evolution_spark.frag
     Particles/raindrop.vert
