@@ -132,14 +132,15 @@ public:
     static const std::string& TrainerExclaimImage();
     static const std::string& TrainerExclaimSound();
 
-    static constexpr std::uint32_t EvolutionSparkPipelineId = 200;
-    static constexpr std::uint32_t RaindropPipelineId       = 201;
-    static constexpr std::uint32_t SnowflakePipelineId      = 202;
-    static constexpr std::uint32_t FogPipelineId            = 203;
-    static constexpr std::uint32_t SandstormSandPipelineId  = 204;
-    static constexpr std::uint32_t SandstormSwirlPipelineId = 205;
-    static constexpr std::uint32_t TrainerIntroPipelineId   = 206;
-    static constexpr std::uint32_t WildIntroPipelineId      = 207;
+    static constexpr std::uint32_t EvolutionSparkPipelineId       = 200;
+    static constexpr std::uint32_t RaindropPipelineId             = 201;
+    static constexpr std::uint32_t SnowflakePipelineId            = 202;
+    static constexpr std::uint32_t FogPipelineId                  = 203;
+    static constexpr std::uint32_t SandstormSandPipelineId        = 204;
+    static constexpr std::uint32_t SandstormSwirlPipelineId       = 205;
+    static constexpr std::uint32_t TrainerIntroPipelineId         = 206;
+    static constexpr std::uint32_t WildIntroPipelineId            = 207;
+    static constexpr std::uint32_t BattlePeoplemonSparkPipelineId = 208;
 
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any

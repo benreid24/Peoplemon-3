@@ -9,75 +9,109 @@ namespace battle
 {
 namespace view
 {
-MoveAnimation::MoveAnimation() {
-    /* foreground.setIsLoop(false);
-    background.setIsLoop(false);
-    background.setPosition({0.f, 0.f});
-    foreground.setPosition({0.f, 0.f});*/
+namespace
+{
+std::string getMoveForeground(MoveAnimation::User user, pplmn::MoveId mid) {
+    return user == MoveAnimation::User::Player ? pplmn::Move::playerAnimationForeground(mid) :
+                                                 pplmn::Move::opponentAnimationForeground(mid);
 }
+
+std::string getMoveBackground(MoveAnimation::User user, pplmn::MoveId mid) {
+    return user == MoveAnimation::User::Player ? pplmn::Move::playerAnimationBackground(mid) :
+                                                 pplmn::Move::opponentAnimationBackground(mid);
+}
+} // namespace
+
+MoveAnimation::MoveAnimation(bl::engine::Engine& engine)
+: engine(engine)
+, scene(nullptr) {}
+
+void MoveAnimation::init(bl::rc::scene::CodeScene* s) { scene = s; }
 
 void MoveAnimation::ensureLoaded(const pplmn::BattlePeoplemon& lp,
                                  const pplmn::BattlePeoplemon& op) {
     for (int i = 0; i < 4; ++i) {
-        if (lp.base().knownMoves()[i].id != pplmn::MoveId::Unknown) {
-            AnimationManager::load(
-                pplmn::Move::playerAnimationBackground(lp.base().knownMoves()[i].id));
-            AnimationManager::load(
-                pplmn::Move::playerAnimationForeground(lp.base().knownMoves()[i].id));
+        const auto mid = lp.base().knownMoves()[i].id;
+        if (mid != pplmn::MoveId::Unknown && mid != playerAnims[i].move) {
+            playerAnims[i].init(engine, scene, User::Player, mid);
         }
     }
 
     for (int i = 0; i < 4; ++i) {
-        if (op.base().knownMoves()[i].id != pplmn::MoveId::Unknown) {
-            AnimationManager::load(
-                pplmn::Move::opponentAnimationBackground(op.base().knownMoves()[i].id));
-            AnimationManager::load(
-                pplmn::Move::opponentAnimationForeground(op.base().knownMoves()[i].id));
+        const auto mid = op.base().knownMoves()[i].id;
+        if (mid != pplmn::MoveId::Unknown && mid != opponentAnims->move) {
+            opponentAnims[i].init(engine, scene, User::Opponent, mid);
         }
     }
 }
 
 void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
-    const auto fg = user == User::Player ? pplmn::Move::playerAnimationForeground :
-                                           pplmn::Move::opponentAnimationForeground;
-    const auto bg = user == User::Player ? pplmn::Move::playerAnimationBackground :
-                                           pplmn::Move::opponentAnimationBackground;
-    /*
-    fgSrc         = AnimationManager::load(fg(move));
-    bgSrc         = AnimationManager::load(bg(move));
-    if (fgSrc && bgSrc) {
-        foreground.setData(*fgSrc);
-        background.setData(*bgSrc);
-        foreground.play(true);
-        background.play(true);
+    playing        = nullptr;
+    auto& toSearch = user == User::Player ? playerAnims : opponentAnims;
+    for (unsigned int i = 0; i < 4; ++i) {
+        if (toSearch[i].move == move && toSearch[i].valid) {
+            playing = &toSearch[i];
+            break;
+        }
     }
-    else {
-        BL_LOG_ERROR << "Missing animation for move " << move;
-        foreground.stop();
-        background.stop();
+    if (!playing) {
+        if (extraMove.init(engine, scene, user, move)) { playing = &extraMove; }
+        else {
+            BL_LOG_ERROR << "Missing animation for move " << move;
+            return;
+        }
     }
-    */
+
+    playing->play();
 }
 
-bool MoveAnimation::completed() const {
-    // TODO - BLIB_UPGRADE - battle rendering
-    // return background.finished() && foreground.finished();
+bool MoveAnimation::completed() const { return playing && playing->finished(); }
+
+void MoveAnimation::renderBackground(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    if (playing) {
+        if (playing->background.getPlayer().isPlaying) { playing->background.draw(ctx); }
+    }
+}
+
+void MoveAnimation::renderForeground(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    if (playing) {
+        if (playing->foreground.getPlayer().isPlaying) { playing->foreground.draw(ctx); }
+    }
+}
+
+MoveAnimation::Anim::Anim()
+: move(pplmn::MoveId::Unknown)
+, valid(false) {}
+
+bool MoveAnimation::Anim::init(bl::engine::Engine& engine, bl::rc::scene::CodeScene* scene,
+                               User user, pplmn::MoveId mid) {
+    move = mid;
+
+    auto bgSrc = AnimationManager::load(getMoveBackground(user, mid));
+    auto fgSrc = AnimationManager::load(getMoveForeground(user, mid));
+    if (!bgSrc || !fgSrc) {
+        valid = false;
+        return false;
+    }
+
+    background.createWithUniquePlayer(engine, bgSrc);
+    foreground.createWithUniquePlayer(engine, fgSrc);
+    background.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    foreground.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    valid = true;
     return true;
 }
 
-void MoveAnimation::update(float dt) {
-    // background.update(dt);
-    // foreground.update(dt);
+void MoveAnimation::Anim::play() {
+    if (valid) {
+        background.getPlayer().play(true);
+        foreground.getPlayer().play(true);
+    }
 }
 
-void MoveAnimation::renderBackground(sf::RenderTarget& target, float lag) const {
-    // bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(background);
-    // if (!anim.finished()) anim.render(target, lag);
-}
-
-void MoveAnimation::renderForeground(sf::RenderTarget& target, float lag) const {
-    // bl::gfx::Animation& anim = const_cast<bl::gfx::Animation&>(foreground);
-    // if (!anim.finished()) anim.render(target, lag);
+bool MoveAnimation::Anim::finished() const {
+    return !valid || (!background.getPlayer().isPlaying && !foreground.getPlayer().isPlaying);
 }
 
 } // namespace view

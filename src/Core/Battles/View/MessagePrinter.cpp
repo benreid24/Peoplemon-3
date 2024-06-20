@@ -56,7 +56,7 @@ MessagePrinter::MessagePrinter(bl::engine::Engine& engine)
 , state(State::Hidden)
 , keyboard(engine, std::bind(&MessagePrinter::nameEntered, this)) {}
 
-void MessagePrinter::init() {
+void MessagePrinter::init(bl::rc::scene::CodeScene* scene) {
     menu.create(engine,
                 engine.renderer().getObserver(),
                 bl::menu::ArrowSelector::create(8.f, sf::Color::Black));
@@ -66,6 +66,7 @@ void MessagePrinter::init() {
     triangle.getTransform().setDepth(-100.f);
     triangle.setFillColor(bl::sfcol(sf::Color(242, 186, 17)));
     triangle.flash(TriangleFlashOn, TriangleFlashOff);
+    triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
     text.create(engine, Properties::MenuFont(), "", 18, {0.f, 0.f, 0.f, 1.f});
     text.getTransform().setPosition(TextPos);
@@ -85,10 +86,9 @@ void MessagePrinter::init() {
         .willAlwaysCall(std::bind(&MessagePrinter::makeChoice, this, false));
     keyboard.setPosition({TextPos.x, TextPos.y - keyboard.getSize().y - 12.f});
 
-    bl::rc::Overlay* overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();
-    menu.addToOverlay();
-    triangle.addToScene(overlay, bl::rc::UpdateSpeed::Static);
-    text.addToScene(overlay, bl::rc::UpdateSpeed::Static);
+    menu.addToScene(scene);
+    triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    text.addToScene(scene, bl::rc::UpdateSpeed::Static);
 }
 
 void MessagePrinter::setMessage(BattleState& state, const Message& msg) {
@@ -1096,8 +1096,21 @@ void MessagePrinter::update(float dt) {
     }
 }
 
-void MessagePrinter::render(sf::RenderTarget& target) const {
-    // TODO - BLIB_UPGRADE - update battle rendering
+void MessagePrinter::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    if (state != State::Hidden) {
+        text.draw(ctx);
+
+        switch (state) {
+        case State::ShowingNotAcked:
+            triangle.draw(ctx);
+            break;
+        case State::WaitingYesNoChoice:
+            menu.draw(ctx);
+            break;
+        default:
+            break;
+        }
+    }
 }
 
 void MessagePrinter::makeChoice(bool f) {
@@ -1114,27 +1127,11 @@ void MessagePrinter::nameEntered() { setState(State::Hidden); }
 const std::string& MessagePrinter::chosenNickname() const { return keyboard.value(); }
 
 void MessagePrinter::setState(State ns) {
+    if (state == State::WaitingNameEntry) { keyboard.stop(); }
+
     state = ns;
 
-    menu.setHidden(true);
-    text.setHidden(false);
-    triangle.setHidden(true);
-    // TODO - BLIB_UPGRADE - hide keyboard
-
-    switch (state) {
-    case State::Hidden:
-        menu.setHidden(true);
-        text.setHidden(true);
-        triangle.setHidden(true);
-        break;
-
-    case State::WaitingNameEntry:
-        // TODO - BLIB_UPGRADE - show keyboard
-        break;
-
-    case State::WaitingYesNoChoice:
-        menu.setHidden(false);
-    }
+    if (ns == State::WaitingNameEntry) { keyboard.start(0, 32); }
 }
 
 } // namespace view

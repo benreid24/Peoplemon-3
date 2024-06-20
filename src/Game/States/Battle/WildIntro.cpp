@@ -92,30 +92,6 @@ void WildSequence::update(float dt) {
     }
 }
 
-// void WildSequence::render(sf::RenderTarget& target, float lag) {
-//     // compute progress and positions
-//     const float t              = time + lag;
-//     const float progress       = t / IntroLength;
-//     const sf::View& view       = target.getView();
-//     const sf::Vector2f scorner = view.getCenter() - view.getSize() * 0.5f;
-//     const sf::Vector2f ecorner = scorner + view.getSize();
-//
-//     // render bars
-//     const float bw = view.getSize().x * 0.5f * progress;
-//     unsigned int i = si;
-//     for (float y = scorner.y + barCircle.getRadius(); y <= ecorner.y - barCircle.getRadius();
-//          y += barCircle.getRadius() * 2.f) {
-//         i = i < barColors.size() - 1 ? i + 1 : 0;
-//         barCircle.setFillColor(barColors[i]);
-//         for (float x = 0.f; x <= bw; x += 1.f) {
-//             barCircle.setPosition(scorner.x + x, y);
-//             target.draw(barCircle);
-//             barCircle.setPosition(ecorner.x - x, y);
-//             target.draw(barCircle);
-//         }
-//     }
-// }
-
 bool WildSequence::finished() const { return time >= 2.5f; }
 
 } // namespace intros

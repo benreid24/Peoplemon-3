@@ -34,7 +34,7 @@ void main() {
     vec4 worldPos = particleTransform * vec4(inPosition, 1.0);
 	gl_Position = camera.viewProj * worldPos;
     
-    fragCenter = vec2(worldPos.x, worldPos.y);
+    fragCenter = worldPos.xy;
     fragAlpha = particles.particles[gl_InstanceIndex].alpha;
     fragRadius = particles.particles[gl_InstanceIndex].radius;
     gl_PointSize = fragRadius * globalInfo.cameraToWindowScale;

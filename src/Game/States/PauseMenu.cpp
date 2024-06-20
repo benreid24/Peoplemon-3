@@ -106,7 +106,7 @@ void PauseMenu::activate(bl::engine::Engine& engine) {
 }
 
 void PauseMenu::deactivate(bl::engine::Engine&) {
-    menu.removeFromOverlay();
+    menu.removeFromScene();
     systems.engine().inputSystem().getActor().removeListener(*this);
     inputDriver.drive(nullptr);
     unpause = false;

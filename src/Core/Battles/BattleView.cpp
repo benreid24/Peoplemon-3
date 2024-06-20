@@ -9,31 +9,34 @@ namespace core
 namespace battle
 {
 BattleView::BattleView(bl::engine::Engine& engine, BattleState& s, bool canRun)
-: battleState(s)
-, playerMenu(canRun)
+: engine(engine)
+, battleState(s)
+, playerMenu(engine, canRun)
+, statBoxes(engine)
 , printer(engine)
-, localPeoplemon(view::PeoplemonAnimation::Player)
-, opponentPeoplemon(view::PeoplemonAnimation::Opponent)
-, inited(false) {
-    bgndTxtr = TextureManager::load(
+, localPeoplemon(engine, view::PeoplemonAnimation::Player)
+, opponentPeoplemon(engine, view::PeoplemonAnimation::Opponent)
+, moveAnimation(engine) {}
+
+void BattleView::init(bl::rc::scene::CodeScene* scene) {
+    bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/battleBgnd.png"));
-    background.setTexture(*bgndTxtr, true);
-}
+    background.create(engine, bgndTxtr);
+    background.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-void BattleView::configureView(const sf::View& pv) {
-    // first time init of view components
-    if (!inited) {
-        inited = true;
-        localPeoplemon.configureView(pv);
-        opponentPeoplemon.configureView(pv);
+    printer.init(scene);
+    statBoxes.init(scene);
+    moveAnimation.init(scene);
+    playerMenu.init(scene);
+    localPeoplemon.init(scene);
+    opponentPeoplemon.init(scene);
 
-        playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
-                                battleState.localPlayer().activePeoplemon());
-        localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
-        opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
-        moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
-                                   battleState.enemy().activePeoplemon());
-    }
+    playerMenu.setPeoplemon(battleState.localPlayer().outNowIndex(),
+                            battleState.localPlayer().activePeoplemon());
+    localPeoplemon.setPeoplemon(battleState.localPlayer().activePeoplemon().base().id());
+    opponentPeoplemon.setPeoplemon(battleState.enemy().activePeoplemon().base().id());
+    moveAnimation.ensureLoaded(battleState.localPlayer().activePeoplemon(),
+                               battleState.enemy().activePeoplemon());
 }
 
 bool BattleView::actionsCompleted() const {
@@ -117,25 +120,23 @@ void BattleView::update(float dt) {
     printer.update(dt);
     localPeoplemon.update(dt);
     opponentPeoplemon.update(dt);
-    moveAnimation.update(dt);
     playerMenu.refresh();
 }
 
-void BattleView::render(sf::RenderTarget& target, float lag) const {
-    target.clear();
+void BattleView::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    background.draw(ctx);
 
-    target.draw(background);
-    statBoxes.render(target);
-    moveAnimation.renderBackground(target, lag);
-    localPeoplemon.render(target, lag);
-    opponentPeoplemon.render(target, lag);
-    moveAnimation.renderForeground(target, lag);
+    statBoxes.render(ctx);
+    moveAnimation.renderBackground(ctx);
+    localPeoplemon.render(ctx);
+    opponentPeoplemon.render(ctx);
+    moveAnimation.renderForeground(ctx);
     if ((battleState.currentStage() == BattleState::Stage::WaitingChoices ||
          battleState.currentStage() == BattleState::Stage::WaitingForgetMoveChoice) &&
         !playerMenu.ready()) {
-        playerMenu.render(target);
+        playerMenu.render(ctx);
     }
-    printer.render(target);
+    printer.render(ctx);
 }
 
 bool BattleView::observe(const bl::input::Actor&, unsigned int ctrl, bl::input::DispatchType,

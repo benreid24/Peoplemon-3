@@ -306,7 +306,7 @@ void HUD::setState(State ns) {
         displayText.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
         promptTriangle.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);
     }
-    if (state == WaitingPrompt && ns != WaitingPrompt) { choiceMenu.removeFromOverlay(); }
+    if (state == WaitingPrompt && ns != WaitingPrompt) { choiceMenu.removeFromScene(); }
 
     state = ns;
     switch (state) {
@@ -315,7 +315,7 @@ void HUD::setState(State ns) {
         textbox.removeFromScene();
         displayText.removeFromScene();
         promptTriangle.removeFromScene();
-        choiceMenu.removeFromOverlay();
+        choiceMenu.removeFromScene();
         currentOverlay = nullptr;
         break;
     case WaitingContinue:

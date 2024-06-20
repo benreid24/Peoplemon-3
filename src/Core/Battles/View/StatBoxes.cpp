@@ -13,16 +13,16 @@ namespace
 {
 constexpr float SlideSpeed = 400.f;
 constexpr float BarRate    = 0.45f; // 45% of total width per second
-const sf::Vector2f BarSize(96.f, 6.f);
+constexpr glm::vec2 BarSize(96.f, 6.f);
 
-const sf::Vector2f XpBarPos(52.f, 88.f);
-const sf::Vector2f XpBarSize(192.f, 4.f);
+constexpr glm::vec2 XpBarPos(52.f, 88.f);
+constexpr glm::vec2 XpBarSize(192.f, 4.f);
 
-const sf::Vector2f OpBoxPos(0.f, 0.f);
-const sf::Vector2f OpBarPos(100.f, 50.f);
+constexpr glm::vec2 OpBoxPos(0.f, 0.f);
+constexpr glm::vec2 OpBarPos(100.f, 50.f);
 
-const sf::Vector2f LpBoxPos(540.f, 357.f);
-const sf::Vector2f LpBarPos(148.f, 54.f);
+constexpr glm::vec2 LpBoxPos(540.f, 357.f);
+constexpr glm::vec2 LpBarPos(148.f, 54.f);
 
 constexpr float NameSize  = 18.f;
 constexpr float LevelSize = 15.f;
@@ -36,88 +36,127 @@ std::string makeHpStr(unsigned int cur, unsigned int max) {
 
 } // namespace
 
-StatBoxes::StatBoxes()
-: localPlayer(nullptr)
+StatBoxes::StatBoxes(bl::engine::Engine& engine)
+: engine(engine)
+, localPlayer(nullptr)
 , opponent(nullptr)
 , pState(State::Hidden)
 , oState(State::Hidden)
 , opHpBarTarget(0.f)
 , lpHpBarTarget(0.f)
-, lpXpBarTarget(0.f) {
+, lpXpBarTarget(0.f) {}
+
+void StatBoxes::init(bl::rc::scene::CodeScene* scene) {
     constexpr auto join        = bl::util::FileUtil::joinPath;
     const std::string& ImgPath = Properties::ImagePath();
 
-    opBoxTxtr = TextureManager::load(join(ImgPath, "Battle/opBox.png"));
-    opBox.setTexture(*opBoxTxtr, true);
-    opBox.setPosition(-opBox.getGlobalBounds().width, OpBoxPos.y);
+    opBoxTxtr = engine.renderer().texturePool().getOrLoadTexture(join(ImgPath, "Battle/opBox.png"));
+    opBox.create(engine, opBoxTxtr);
+    opBox.getTransform().setPosition(-opBoxTxtr->size().x, OpBoxPos.y);
+    opBox.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-    lpBoxTxtr = TextureManager::load(join(ImgPath, "Battle/pBox.png"));
-    lpBox.setTexture(*lpBoxTxtr, true);
-    lpBox.setPosition(Properties::WindowWidth() + lpBox.getGlobalBounds().width, LpBoxPos.y);
+    lpBoxTxtr = engine.renderer().texturePool().getOrLoadTexture(join(ImgPath, "Battle/pBox.png"));
+    lpBox.create(engine, lpBoxTxtr);
+    lpBox.getTransform().setPosition(Properties::WindowWidth() + lpBoxTxtr->size().x, LpBoxPos.y);
+    lpBox.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpXpBar.create(engine, {100.f, 100.f});
     lpXpBar.setFillColor(sf::Color::Blue);
+    lpXpBar.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
 
-    // opName.setFont(Properties::MenuFont());
-    opName.setFillColor(sf::Color::Black);
-    opName.setCharacterSize(NameSize);
-    opName.setStyle(sf::Text::Bold);
-    // opLevel.setFont(Properties::MenuFont());
-    opLevel.setFillColor(LevelColor);
-    opLevel.setCharacterSize(LevelSize);
-    opLevel.setStyle(sf::Text::Bold);
+    opName.create(engine, Properties::MenuFont(), "", NameSize, sf::Color::Black, sf::Text::Bold);
+    opName.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-    // lpName.setFont(Properties::MenuFont());
-    lpName.setFillColor(sf::Color::Black);
-    lpName.setCharacterSize(NameSize);
-    lpName.setStyle(sf::Text::Bold);
-    // lpLevel.setFont(Properties::MenuFont());
-    lpLevel.setFillColor(LevelColor);
-    lpLevel.setCharacterSize(LevelSize);
-    lpLevel.setStyle(sf::Text::Bold);
-    // lpHp.setFont(Properties::MenuFont());
-    lpHp.setCharacterSize(14.f);
-    lpHp.setFillColor(sf::Color::Black);
+    opLevel.create(engine, Properties::MenuFont(), "", LevelSize, LevelColor, sf::Text::Bold);
+    opLevel.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpName.create(engine, Properties::MenuFont(), "", NameSize, sf::Color::Black, sf::Text::Bold);
+    lpName.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpLevel.create(engine, Properties::MenuFont(), "", LevelSize, LevelColor, sf::Text::Bold);
+    lpLevel.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpHp.create(engine, Properties::MenuFont(), "", 14, sf::Color::Black);
+    lpHp.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpHpBar.create(engine, {100.f, 100.f});
+    lpHpBar.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+
+    opHpBar.create(engine, {100.f, 100.f});
+    opHpBar.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
+
+    opAil.create(engine, engine.renderer().texturePool().getBlankTexture());
+    opAil.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    lpAil.create(engine, engine.renderer().texturePool().getBlankTexture());
+    lpAil.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    // opponent positions + parenting
+    opHpBar.getTransform().setPosition(OpBarPos);
+    opHpBar.setParent(opBox);
+    opAil.getTransform().setPosition(glm::vec2(10.f, 46.f));
+    opAil.setParent(opBox);
+    opName.getTransform().setPosition(glm::vec2(5.f, 18.f));
+    opName.setParent(opBox);
+    opLevel.getTransform().setPosition(glm::vec2(168.f, 21.f));
+    opLevel.setParent(opBox);
+
+    // player positions + parenting
+    lpAil.getTransform().setPosition(glm::vec2(33.f, 61.f));
+    lpAil.setParent(lpBox);
+    lpName.getTransform().setPosition(glm::vec2(41.f, 22.f));
+    lpName.setParent(lpBox);
+    lpLevel.getTransform().setPosition(glm::vec2(218.f, 24.f));
+    lpLevel.setParent(lpBox);
+    lpHp.getTransform().setPosition(glm::vec2(131.f, 66.f));
+    lpHp.setParent(lpBox);
+    lpHpBar.getTransform().setPosition(LpBarPos);
+    lpHpBar.setParent(lpBox);
+    lpXpBar.getTransform().setPosition(XpBarPos);
+    lpXpBar.setParent(lpBox);
 }
 
 void StatBoxes::setOpponent(pplmn::BattlePeoplemon* ppl) {
     opponent = ppl;
-    opHpBar.setSize({0.f, BarSize.y});
+    opHpBar.scaleToSize({0.f, BarSize.y});
     if (oState == State::Hidden) { oState = State::Sliding; }
     sync(false);
 }
 
 void StatBoxes::setPlayer(pplmn::BattlePeoplemon* ppl) {
     localPlayer = ppl;
-    lpHpBar.setSize({0.f, BarSize.y});
-    lpXpBar.setSize({0.f, XpBarSize.y});
+    lpHpBar.scaleToSize({0.f, BarSize.y});
+    lpXpBar.scaleToSize({0.f, XpBarSize.y});
     if (pState == State::Hidden) { pState = State::Sliding; }
     sync(true);
 }
 
 void StatBoxes::sync(bool fromSwitch) {
     if (localPlayer) {
-        lpName.setString(localPlayer->base().name());
-        lpLevel.setString(std::to_string(localPlayer->base().currentLevel()));
-        lpHp.setString(makeHpStr(localPlayer->base().currentHp(), localPlayer->currentStats().hp));
-        lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()), true);
+        lpName.getSection().setString(localPlayer->base().name());
+        lpLevel.getSection().setString(std::to_string(localPlayer->base().currentLevel()));
+        lpHp.getSection().setString(
+            makeHpStr(localPlayer->base().currentHp(), localPlayer->currentStats().hp));
+        lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()));
         lpHpBarTarget = (static_cast<float>(localPlayer->base().currentHp()) /
                          static_cast<float>(localPlayer->currentStats().hp)) *
                         BarSize.x;
         lpXpBarTarget = (static_cast<float>(localPlayer->base().currentXP()) /
                          static_cast<float>(localPlayer->base().nextLevelXP())) *
                         XpBarSize.x;
-        if (fromSwitch) { lpXpBar.setSize({lpXpBarTarget, XpBarSize.y}); }
+        if (fromSwitch) { lpXpBar.scaleToSize({lpXpBarTarget, XpBarSize.y}); }
     }
     else {
         BL_LOG_WARN << "sync() called with null player peoplemon";
         lpHpBarTarget = 0.f;
         lpXpBarTarget = 0.f;
-        lpName.setString("");
+        lpName.getSection().setString("");
     }
 
     if (opponent) {
-        opName.setString(opponent->base().name());
-        opLevel.setString(std::to_string(opponent->base().currentLevel()));
-        opAil.setTexture(ailmentTexture(opponent->base().currentAilment()), true);
+        opName.getSection().setString(opponent->base().name());
+        opLevel.getSection().setString(std::to_string(opponent->base().currentLevel()));
+        opAil.setTexture(ailmentTexture(opponent->base().currentAilment()));
         opHpBarTarget = (static_cast<float>(opponent->base().currentHp()) /
                          static_cast<float>(opponent->currentStats().hp)) *
                         BarSize.x;
@@ -125,7 +164,7 @@ void StatBoxes::sync(bool fromSwitch) {
     else {
         BL_LOG_WARN << "sync() called with null opponent peoplemon";
         opHpBarTarget = 0.f;
-        opName.setString("");
+        opName.getSection().setString("");
     }
 }
 
@@ -135,25 +174,21 @@ void StatBoxes::update(float dt) {
     // opponent box slide
     if (oState == State::Sliding) {
         const float dx = SlideSpeed * dt;
-        opBox.move(dx, 0.f);
-        if (opBox.getPosition().x > OpBoxPos.x) {
-            opBox.setPosition(OpBoxPos);
+        opBox.getTransform().move({dx, 0.f});
+        if (opBox.getTransform().getLocalPosition().x > OpBoxPos.x) {
+            opBox.getTransform().setPosition(OpBoxPos);
             oState = State::Showing;
         }
-        opHpBar.setPosition(opBox.getPosition() + OpBarPos);
-        opAil.setPosition(opBox.getPosition() + sf::Vector2f(10.f, 46.f));
-        opName.setPosition(opBox.getPosition() + sf::Vector2f(5.f, 18.f));
-        opLevel.setPosition(opBox.getPosition() + sf::Vector2f(168.f, 21.f));
     }
     else if (oState == State::Showing) {
         // opponent bar size
-        if (opHpBar.getSize().x < opHpBarTarget) {
-            const float nw = std::min(opHpBarTarget, opHpBar.getSize().x + change);
-            opHpBar.setSize({nw, BarSize.y});
+        if (opHpBar.getGlobalSize().x < opHpBarTarget) {
+            const float nw = std::min(opHpBarTarget, opHpBar.getGlobalSize().x + change);
+            opHpBar.scaleToSize({nw, BarSize.y});
         }
-        else if (opHpBar.getSize().x > opHpBarTarget) {
-            const float nw = std::max(opHpBarTarget, opHpBar.getSize().x - change);
-            opHpBar.setSize({nw, BarSize.y});
+        else if (opHpBar.getGlobalSize().x > opHpBarTarget) {
+            const float nw = std::max(opHpBarTarget, opHpBar.getGlobalSize().x - change);
+            opHpBar.scaleToSize({nw, BarSize.y});
         }
 
         // opponent bar color
@@ -164,75 +199,70 @@ void StatBoxes::update(float dt) {
     // player box slide
     if (pState == State::Sliding) {
         const float dx = SlideSpeed * dt;
-        lpBox.move(-dx, 0.f);
-        if (lpBox.getPosition().x < LpBoxPos.x) {
-            lpBox.setPosition(LpBoxPos);
+        lpBox.getTransform().move({-dx, 0.f});
+        if (lpBox.getTransform().getLocalPosition().x < LpBoxPos.x) {
+            lpBox.getTransform().setPosition(LpBoxPos);
             pState = State::Showing;
         }
-        lpAil.setPosition(lpBox.getPosition() + sf::Vector2f(33.f, 61.f));
-        lpName.setPosition(lpBox.getPosition() + sf::Vector2f(41.f, 22.f));
-        lpLevel.setPosition(lpBox.getPosition() + sf::Vector2f(218.f, 24.f));
-        lpHp.setPosition(lpBox.getPosition() + sf::Vector2f(131.f, 66.f));
-        lpHpBar.setPosition(lpBox.getPosition() + LpBarPos);
-        lpXpBar.setPosition(lpBox.getPosition() + XpBarPos);
     }
     else if (pState == State::Showing) {
         // player bar size
-        if (lpHpBar.getSize().x < lpHpBarTarget) {
-            const float nw = std::min(lpHpBarTarget, lpHpBar.getSize().x + change);
-            lpHpBar.setSize({nw, BarSize.y});
+        if (lpHpBar.getGlobalSize().x < lpHpBarTarget) {
+            const float nw = std::min(lpHpBarTarget, lpHpBar.getGlobalSize().x + change);
+            lpHpBar.scaleToSize({nw, BarSize.y});
         }
-        else if (lpHpBar.getSize().x > lpHpBarTarget) {
-            const float nw = std::max(lpHpBarTarget, lpHpBar.getSize().x - change);
-            lpHpBar.setSize({nw, BarSize.y});
+        else if (lpHpBar.getGlobalSize().x > lpHpBarTarget) {
+            const float nw = std::max(lpHpBarTarget, lpHpBar.getGlobalSize().x - change);
+            lpHpBar.scaleToSize({nw, BarSize.y});
         }
 
         // player bar color
-        const float lphp = lpHpBar.getSize().x / BarSize.x;
+        const float lphp = lpHpBar.getGlobalSize().x / BarSize.x;
         lpHpBar.setFillColor(Properties::HPBarColor(lphp));
 
         // xp bar size
         const float xpChange = dt * BarRate * XpBarSize.x;
-        if (lpXpBar.getSize().x < lpXpBarTarget) {
-            const float nw = std::min(lpXpBarTarget, lpXpBar.getSize().x + xpChange);
-            lpXpBar.setSize({nw, XpBarSize.y});
+        if (lpXpBar.getGlobalSize().x < lpXpBarTarget) {
+            const float nw = std::min(lpXpBarTarget, lpXpBar.getGlobalSize().x + xpChange);
+            lpXpBar.scaleToSize({nw, XpBarSize.y});
         }
-        else if (lpXpBar.getSize().x > lpXpBarTarget) {
+        else if (lpXpBar.getGlobalSize().x > lpXpBarTarget) {
             // no transition down
-            lpXpBar.setSize({lpXpBarTarget, XpBarSize.y});
+            lpXpBar.scaleToSize({lpXpBarTarget, XpBarSize.y});
         }
     }
 }
 
 bool StatBoxes::synced() const {
-    return opHpBar.getSize().x == opHpBarTarget && lpHpBar.getSize().x == lpHpBarTarget &&
-           lpXpBar.getSize().x == lpXpBarTarget;
+    return opHpBar.getGlobalSize().x == opHpBarTarget &&
+           lpHpBar.getGlobalSize().x == lpHpBarTarget && lpXpBar.getGlobalSize().x == lpXpBarTarget;
 }
 
-void StatBoxes::render(sf::RenderTarget& target) const {
+void StatBoxes::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (oState != State::Hidden) {
-        target.draw(opHpBar);
-        target.draw(opBox);
-        target.draw(opName);
-        target.draw(opLevel);
-        target.draw(opAil);
+        opHpBar.draw(ctx);
+        opHpBar.draw(ctx);
+        opBox.draw(ctx);
+        opName.draw(ctx);
+        opLevel.draw(ctx);
+        opAil.draw(ctx);
     }
 
     if (pState != State::Hidden) {
-        target.draw(lpHpBar);
-        target.draw(lpXpBar);
-        target.draw(lpBox);
-        target.draw(lpName);
-        target.draw(lpHp);
-        target.draw(lpLevel);
-        target.draw(lpAil);
+        lpHpBar.draw(ctx);
+        lpXpBar.draw(ctx);
+        lpBox.draw(ctx);
+        lpName.draw(ctx);
+        lpHp.draw(ctx);
+        lpLevel.draw(ctx);
+        lpAil.draw(ctx);
     }
 }
 
-const sf::Texture& StatBoxes::ailmentTexture(pplmn::Ailment ail) {
-    /*ailTxtr = Properties::AilmentTexture(ail);
-    return ailTxtr ? *ailTxtr : blank;*/
-    return blank;
+bl::rc::res::TextureRef StatBoxes::ailmentTexture(pplmn::Ailment ail) {
+    const auto src = Properties::AilmentTexture(ail);
+    return src.empty() ? engine.renderer().texturePool().getBlankTexture() :
+                         engine.renderer().texturePool().getOrLoadTexture(src);
 }
 
 } // namespace view

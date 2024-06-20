@@ -138,7 +138,7 @@ void PeoplemonButton::doCreate(bl::engine::Engine& engine) {
     face.getTransform().setPosition(71.f, 76.f);
 }
 
-void PeoplemonButton::doSceneAdd(bl::rc::Overlay* o) {
+void PeoplemonButton::doSceneAdd(bl::rc::Scene* o) {
     overlay = o;
 
     image.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -151,6 +151,17 @@ void PeoplemonButton::doSceneAdd(bl::rc::Overlay* o) {
     if (ailment.entity() != bl::ecs::InvalidEntity) {
         ailment.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     }
+}
+
+void PeoplemonButton::draw(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    image.draw(ctx);
+    face.draw(ctx);
+    hpBar.draw(ctx);
+    name.draw(ctx);
+    level.draw(ctx);
+    item.draw(ctx);
+    hpText.draw(ctx);
+    if (ailment.entity() != bl::ecs::InvalidEntity) { ailment.draw(ctx); }
 }
 
 void PeoplemonButton::doSceneRemove() { image.removeFromScene(); }

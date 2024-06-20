@@ -66,7 +66,7 @@ void StoreItemRow::doCreate(bl::engine::Engine& engine) {
     priceText.setParent(dummy);
 }
 
-void StoreItemRow::doSceneAdd(bl::rc::Overlay* overlay) {
+void StoreItemRow::doSceneAdd(bl::rc::Scene* overlay) {
     nameText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     priceText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     qtyText.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -79,6 +79,12 @@ void StoreItemRow::doSceneRemove() {
 }
 
 bl::ecs::Entity StoreItemRow::getEntity() const { return dummy.entity(); }
+
+void StoreItemRow::draw(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    nameText.draw(ctx);
+    priceText.draw(ctx);
+    qtyText.draw(ctx);
+}
 
 } // namespace menu
 } // namespace game

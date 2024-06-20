@@ -13,4 +13,6 @@ compile_shaders(
     Particles/fog.vert
     Particles/sand.vert
     Particles/sandSwirl.vert
+    Particles/battleSpark.vert
+    Particles/battleSpark.frag
 )

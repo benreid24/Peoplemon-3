@@ -50,16 +50,15 @@ BattleState::BattleState(core::system::Systems& systems,
 const char* BattleState::name() const { return "BattleState"; }
 
 void BattleState::activate(bl::engine::Engine& engine) {
-    /*engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
-        {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
-    engine.renderSystem().cameras().configureView(engine.window());
-    battle->view.configureView(engine.window().getView());*/
+    auto scene = engine.renderer().getObserver().pushScene<bl::rc::scene::CodeScene>(
+        std::bind(&core::battle::BattleView::render, &battle->view, std::placeholders::_1));
+    battle->view.init(static_cast<bl::rc::scene::CodeScene*>(scene.get()));
     systems.engine().inputSystem().getActor().addListener(battle->view);
     bl::event::Dispatcher::subscribe(this);
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
     systems.engine().inputSystem().getActor().removeListener(battle->view);
     bl::event::Dispatcher::unsubscribe(this);
     bl::audio::AudioSystem::popPlaylist();

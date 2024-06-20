@@ -15,14 +15,14 @@ namespace view
 {
 namespace
 {
-constexpr float PlayerPosX   = 88.f;
-constexpr float PlayerPosY   = 265.f;
-constexpr float OpponentPosX = 508.f;
-constexpr float OpponentPosY = 25.f;
-constexpr float SquareSize   = 200.f;
-const sf::Vector2f PlayerPos(PlayerPosX, PlayerPosY);
-const sf::Vector2f OpponentPos(OpponentPosX, OpponentPosY);
-const sf::Vector2f ViewSize(SquareSize, SquareSize);
+constexpr float PlayerPosX        = 88.f;
+constexpr float PlayerPosY        = 265.f;
+constexpr float OpponentPosX      = 508.f;
+constexpr float OpponentPosY      = 25.f;
+static constexpr float SquareSize = 200.f;
+const glm::vec2 PlayerPos(PlayerPosX, PlayerPosY);
+const glm::vec2 OpponentPos(OpponentPosX, OpponentPosY);
+const glm::vec2 ViewSize(SquareSize, SquareSize);
 constexpr float SlideRate               = 285.f;
 constexpr float ShakesPerSecond         = 18.f;
 constexpr float ShakeOffMultiple        = ShakesPerSecond * 360.f;
@@ -36,22 +36,21 @@ constexpr float ArrowOscillations       = 4.f;
 constexpr float ArrowShowTime           = 2.5f;
 constexpr float ArrowShakeAmount        = 10.f;
 constexpr std::uint8_t ScreenFlashAlpha = 100;
-const sf::Color FlashColor(252, 230, 30);
-constexpr float ThrowStartX          = -25.f;
-constexpr float ThrowStartY          = PlayerPosY + SquareSize * 0.5f;
-constexpr float ThrowEndX            = OpponentPosX + SquareSize * 0.5f;
-constexpr float ThrowEndY            = OpponentPosY;
-constexpr float ThrowTime            = 1.f;
-constexpr float ThrowXVel            = (ThrowEndX - ThrowStartX) / ThrowTime;
-constexpr float ThrowMiddle          = ThrowStartX + (ThrowEndX - ThrowStartX) * 0.75f;
-constexpr float ThrowSecondHalfWidth = ThrowEndX - ThrowMiddle;
-constexpr float ThrowTop             = 10.f;
+constexpr float ThrowStartX             = -25.f;
+constexpr float ThrowStartY             = PlayerPosY + SquareSize * 0.5f;
+constexpr float ThrowEndX               = OpponentPosX + SquareSize * 0.5f;
+constexpr float ThrowEndY               = OpponentPosY;
+constexpr float ThrowTime               = 1.f;
+constexpr float ThrowXVel               = (ThrowEndX - ThrowStartX) / ThrowTime;
+constexpr float ThrowMiddle             = ThrowStartX + (ThrowEndX - ThrowStartX) * 0.75f;
+constexpr float ThrowSecondHalfWidth    = ThrowEndX - ThrowMiddle;
+constexpr float ThrowTop                = 10.f;
 constexpr float ThrowA     = (ThrowEndY - ThrowTop) / (ThrowSecondHalfWidth * ThrowSecondHalfWidth);
 constexpr float ThrowSpins = 3.f;
 constexpr float ThrowSpinRate    = ThrowSpins / ThrowTime * 360.f;
 constexpr float BallBounceHeight = ThrowEndY + SquareSize * 0.75f - OpponentPosY - 20.f;
 constexpr float BallBounceTime   = 1.4f;
-const sf::Vector2f BallFinalPos(ThrowEndX, OpponentPosY + BallBounceHeight);
+const glm::vec2 BallFinalPos(ThrowEndX, OpponentPosY + BallBounceHeight);
 constexpr float BallShakeTime = 0.5f;
 constexpr float ShakeRestTime = 0.65f;
 constexpr float ShakeXAmount  = 10.f;
@@ -59,42 +58,39 @@ constexpr float ShakeYAmount  = 2.f;
 constexpr float ShakeCount    = 6.f;
 constexpr float ShakeSpeed    = 360.f * ShakeCount;
 constexpr float GreenRate     = 255.f / 0.5f;
+constexpr glm::vec3 FlashColor(252.f / 256.f, 230.f / 256.f, 30.f / 256.f);
 
 constexpr float PeoplemonFlashOn  = 0.08f;
 constexpr float PeoplemonFlashOff = 0.05f;
 
-sf::Color makeColor(float alpha) {
-    return sf::Color(FlashColor.r, FlashColor.g, FlashColor.b, static_cast<std::uint8_t>(alpha));
-}
-
 using Animation = cmd::Animation;
+
+glm::vec4 makeColor(float alpha) { return glm::vec4(FlashColor, alpha / 256.f); }
 } // namespace
 
-PeoplemonAnimation::PeoplemonAnimation(Position pos)
-: position(pos)
+PeoplemonAnimation::PeoplemonAnimation(bl::engine::Engine& engine, Position pos)
+: engine(engine)
+, position(pos)
 , ballFlash(100.f)
-, sparks(std::bind(&PeoplemonAnimation::spawnSpark, this, std::placeholders::_1), 0, 0.f)
-, implosion(std::bind(&PeoplemonAnimation::spawnImplodeSpark, this, std::placeholders::_1), 0, 0.f)
-, spark(4.f)
-, renderBall(false) {
+, renderBall(false) {}
+
+void PeoplemonAnimation::init(bl::rc::scene::CodeScene* scene) {
     const auto join = bl::util::FileUtil::joinPath;
 
-    peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
-
-    // TODO - BLIB_UPGRADE - update battle rendering
+    // peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
 
     /* ballOpenTxtr =
-        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_open.png"));
+        engine.renderer().texturePool().getOrLoadTexture(join(Properties::ImagePath(),
+    "Battle/Balls/peopleball_open.png"));
     // TODO - consider using multiple graphics based on what ball it was caught in
-    ballTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball.png"));
-    setBallTexture(*ballTxtr);
-    ball.setPosition(ViewSize.x * 0.5f, ViewSize.y * 0.75f);
-    ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
+    ballTxtr = engine.renderer().texturePool().getOrLoadTexture(join(Properties::ImagePath(),
+    "Battle/Balls/peopleball.png")); setBallTexture(*ballTxtr); ball.setPosition(ViewSize.x * 0.5f,
+    ViewSize.y * 0.75f); ballFlash.setPosition(ball.getPosition().x, ball.getPosition().y + 15.f);
     spark.setOuterColor(sf::Color::Transparent);
     ballFlash.setOuterColor(sf::Color::Transparent);
 
-    statTxtr = TextureManager::load(join(Properties::ImagePath(), "Battle/statArrow.png"));
-    statArrow.setTexture(*statTxtr, true);
+    statTxtr = engine.renderer().texturePool().getOrLoadTexture(join(Properties::ImagePath(),
+    "Battle/statArrow.png")); statArrow.setTexture(*statTxtr, true);
     statArrow.setOrigin(statArrow.getGlobalBounds().width * 0.5f,
                         statArrow.getGlobalBounds().height * 0.5f);
     statArrow.setPosition(ViewSize.x, ViewSize.y * 0.5f);
@@ -121,14 +117,10 @@ PeoplemonAnimation::PeoplemonAnimation(Position pos)
     ailmentAnim.setData(*trappedSrc);
 
     throwBallTxtr =
-        TextureManager::load(join(Properties::ImagePath(), "Battle/Balls/peopleball_centered.png"));
-    setThrowBallTxtr(*throwBallTxtr);*/
-}
+        engine.renderer().texturePool().getOrLoadTexture(join(Properties::ImagePath(),
+    "Battle/Balls/peopleball_centered.png")); setThrowBallTxtr(*throwBallTxtr);*/
 
-void PeoplemonAnimation::configureView(const sf::View& pv) {
-    // TODO - BLIB_UPGRADE - update battle rendering
-
-    /* const sf::Vector2f& pos = position == Position::Player ? PlayerPos : OpponentPos;
+    /* const glm::vec2& pos = position == Position::Player ? PlayerPos : OpponentPos;
     view = bl::interface::ViewUtil::computeSubView(sf::FloatRect(pos, ViewSize), pv);
     view.setCenter(ViewSize * 0.5f);
     screenFlash.setSize(pv.getSize());
@@ -136,20 +128,22 @@ void PeoplemonAnimation::configureView(const sf::View& pv) {
     screenFlash.setOrigin(screenFlash.getSize() * 0.5f);
     offset = pos;
     */
+
+    // TODO - create all
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
     const auto path = position == Position::Player ? pplmn::Peoplemon::playerImage :
                                                      pplmn::Peoplemon::opponentImage;
-    txtr            = TextureManager::load(path(ppl));
+    txtr            = engine.renderer().texturePool().getOrLoadTexture(path(ppl));
 
-    const sf::Vector2f ts(txtr->getSize());
-    peoplemon.setTexture(*txtr, true);
-    peoplemon.setOrigin(ts.x * 0.5f, ts.y);
+    const glm::vec2 ts(txtr->size());
+    peoplemon.setTexture(txtr);
+    peoplemon.getTransform().setOrigin(ts.x * 0.5f, ts.y);
     peoplemon.setColor(sf::Color::White);
     scale.x = ViewSize.x / ts.x;
     scale.y = ViewSize.y / ts.y;
-    peoplemon.setScale(scale);
+    peoplemon.getTransform().setScale(scale);
     state = State::Hidden;
 }
 
@@ -160,26 +154,23 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
     switch (anim) {
     case Animation::Type::ComeBack:
         alpha = 255.f;
-        implosion.setTargetCount(50);
-        implosion.setCreateRate(200.f);
-        setBallTexture(*ballOpenTxtr);
+        sparkImplosianEmitter->setEnabled(true, ViewSize * 0.5f);
+        setBallTexture(ballOpenTxtr);
         ball.setColor(sf::Color::White);
-        implodeOrigin = ViewSize * 0.5f;
         break;
 
     case Animation::Type::SendOut:
         ballTime = 0.f;
         peoplemon.setColor(sf::Color(255, 255, 255, 0));
         ball.setColor(sf::Color::White);
-        setBallTexture(*ballTxtr);
+        setBallTexture(ballTxtr);
         screenFlash.setFillColor(sf::Color::Transparent);
         renderBall = false;
         break;
 
     case Animation::Type::ShakeAndFlash:
         shakeTime = 0.f;
-        // TODO - BLIB_UPGRADE - update battle rendering
-        // flasher.reset();
+        peoplemon.flash(0.08f, 0.05f);
         break;
 
     case Animation::Type::SlideDown:
@@ -196,7 +187,7 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     case Animation::Type::StatDecrease:
         arrowTime = 0.f;
-        statArrow.setScale(1.f, 1.f);
+        statArrow.getTransform().setScale(1.f, 1.f);
         break;
 
     case Animation::Type::MultipleStateIncrease:
@@ -205,13 +196,12 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
 
     case Animation::Type::StatIncrease:
         arrowTime = 0.f;
-        statArrow.setScale(1.f, -1.f);
+        statArrow.getTransform().setScale(1.f, -1.f);
         break;
 
     case Animation::Type::Ailment:
     case Animation::Type::PassiveAilment:
-        // TODO - BLIB_UPGRADE - update battle rendering
-        // ailmentAnim.play(true);
+        ailmentAnim.getPlayer().play(true);
         break;
 
     case Animation::Type::MakeWildVisible:
@@ -222,14 +212,15 @@ void PeoplemonAnimation::triggerAnimation(Animation::Type anim) {
     case Animation::Type::ThrowPeopleball:
         throwX     = ThrowStartX;
         throwState = BallThrowState::Arcing;
-        setThrowBallTxtr(*throwBallTxtr);
-        throwBall.setPosition(ThrowStartX, ThrowStartY);
-        throwBall.setRotation(0.f);
+        setThrowBallTxtr(throwBallTxtr);
+        throwBall.getTransform().setPosition(ThrowStartX, ThrowStartY);
+        throwBall.getTransform().setRotation(0.f);
         throwBall.setColor(sf::Color::White);
         renderBall = true;
         toEat      = &peoplemon;
         if (anim == Animation::Type::ThrowCloneBall) {
-            clone = peoplemon;
+            // TODO - clone??
+            // clone = peoplemon;
             toEat = &clone;
         }
         break;
@@ -297,31 +288,21 @@ bool PeoplemonAnimation::completed() const { return state != State::Playing; }
 
 void PeoplemonAnimation::update(float dt) {
     if (state == State::Playing) {
-        const auto updateSpark = [dt](Spark& sp) {
-            sp.time += dt;
-            sp.position += sp.velocity * dt;
-            return sp.time < sp.lifetime;
-        };
-
         switch (type) {
         case Animation::Type::ComeBack: {
             // open ball state
-            if (ball.getTexture() == ballOpenTxtr.get()) {
+            if (ball.getTexture().id() == ballOpenTxtr.id()) {
                 alpha -= ContractRate * dt;
-                implosion.update(updateSpark, dt);
                 if (alpha <= 0.f) {
                     ballTime = 0.f;
-                    setBallTexture(*ballTxtr);
+                    setBallTexture(ballTxtr);
                 }
-                else if (alpha <= 140.f) {
-                    implosion.setTargetCount(0);
-                    implosion.setCreateRate(0.f);
-                }
+                else if (alpha <= 140.f) { sparkImplosianEmitter->setEnabled(false); }
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                 const float p        = alpha / 255.f;
                 const float ps       = std::sqrt(p);
                 peoplemon.setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
-                peoplemon.setScale(ps * scale.x, ps * scale.y);
+                peoplemon.getTransform().setScale(ps * scale.x, ps * scale.y);
                 if (a <= ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, a));
                 }
@@ -339,42 +320,35 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::SendOut:
             // closed ball state
-            if (ball.getTexture() == ballTxtr.get()) {
+            if (ball.getTexture().id() == ballTxtr.id()) {
                 ballTime += dt;
                 if (ballTime >= 0.75f) {
-                    setBallTexture(*ballOpenTxtr);
+                    setBallTexture(ballOpenTxtr);
                     ballFlash.setRadius(1.f);
-                    // TODO - BLIB_UPGRADE - update battle rendering
-                    // ballFlash.setCenterColor(makeColor(255.f));
+                    ballFlash.setColorGradient(makeColor(255.f), {0.f, 0.f, 0.f, 0.f});
                     alpha = 0.f;
-                    sparks.setTargetCount(50);
-                    sparks.setCreateRate(200.f);
+                    sparkExplosionEmitter->setEnabled(true);
                 }
             }
             // ball open and expanding ppl state
             else {
-                sparks.update(updateSpark, dt);
                 alpha += ExpandRate * dt;
-                if (alpha > 180.f) {
-                    sparks.setTargetCount(0);
-                    sparks.setCreateRate(0.f);
-                }
+                if (alpha > 180.f) { sparkExplosionEmitter->setEnabled(false); }
                 if (alpha >= 255.f) {
                     alpha = 255.f;
-                    if (sparks.particleCount() == 0) { state = State::Static; }
+                    if (sparks->getParticleCountLocked() == 0) { state = State::Static; }
                 }
                 const float p        = alpha / 255.f;
                 const float ps       = std::sqrt(p);
                 const float pss      = std::sqrt(ps);
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
-                // TODO - BLIB_UPGRADE - update battle rendering
-                // ballFlash.setCenterColor(makeColor(255.f - 255.f * p));
+                ballFlash.setColorGradient(makeColor(255.f - 255.f * p), {0.f, 0.f, 0.f, 0.f});
                 ballFlash.setRadius(BallFlashRadius * pss);
                 if (a < 255) {
                     peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
                 }
                 else { peoplemon.setColor(sf::Color::White); }
-                peoplemon.setScale(ps * scale.x, ps * scale.y);
+                peoplemon.getTransform().setScale(ps * scale.x, ps * scale.y);
                 ball.setColor(sf::Color(255, 255, 255, 255 - a));
                 if (a <= ScreenFlashAlpha) {
                     screenFlash.setFillColor(sf::Color(255, 255, 255, a));
@@ -388,14 +362,12 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::ShakeAndFlash:
             shakeTime += dt;
-            // TODO - BLIB_UPGRADE - update battle rendering
-            // flasher.update(dt);
             if (shakeTime >= ShakeTime) { state = State::Static; }
             break;
 
         case Animation::Type::SlideOut:
             slideAmount += SlideRate * dt;
-            if (slideAmount >= peoplemon.getGlobalBounds().width) {
+            if (slideAmount >= peoplemon.getGlobalSize().x) {
                 state = State::Static;
                 peoplemon.setColor(sf::Color(255, 255, 255, 0)); // prevent showing
             }
@@ -403,7 +375,7 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::SlideDown:
             slideAmount += SlideRate * dt;
-            if (slideAmount >= peoplemon.getGlobalBounds().height) {
+            if (slideAmount >= peoplemon.getGlobalSize().y) {
                 state = State::Static;
                 peoplemon.setColor(sf::Color(255, 255, 255, 0)); // prevent showing
             }
@@ -424,9 +396,7 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::Ailment:
         case Animation::Type::PassiveAilment:
-            // TODO - BLIB_UPGRADE - update battle rendering
-            // ailmentAnim.update(dt);
-            // if (ailmentAnim.finished()) { state = State::Static; }
+            if (!ailmentAnim.getPlayer().isPlaying) { state = State::Static; }
             break;
 
         case Animation::Type::ThrowCloneBall:
@@ -435,46 +405,41 @@ void PeoplemonAnimation::update(float dt) {
             case BallThrowState::Arcing: {
                 throwX += ThrowXVel * dt;
                 const float xp = throwX - ThrowMiddle;
-                throwBall.setPosition(throwX, ThrowA * xp * xp + ThrowTop);
-                throwBall.rotate(ThrowSpinRate * dt);
+                throwBall.getTransform().setPosition(throwX, ThrowA * xp * xp + ThrowTop);
+                throwBall.getTransform().rotate(ThrowSpinRate * dt);
                 if (throwX >= ThrowEndX) {
                     alpha = 255.f;
-                    throwBall.setPosition(ThrowEndX, ThrowEndY);
-                    setThrowBallTxtr(*ballOpenTxtr);
+                    throwBall.getTransform().setPosition(ThrowEndX, ThrowEndY);
+                    setThrowBallTxtr(ballOpenTxtr);
                     throwState = BallThrowState::Eating;
-                    implosion.setTargetCount(50);
-                    implosion.setCreateRate(200.f);
-                    implodeOrigin = {ThrowEndX, ThrowEndY};
+                    sparkImplosianEmitter->setEnabled(true, {ThrowEndX, ThrowEndY});
                     // move to global for render
                     if (type == Animation::Type::ThrowCloneBall) {
-                        peoplemon.setPosition(OpponentPosX + SquareSize * 0.5f,
-                                              OpponentPosY + SquareSize);
+                        peoplemon.getTransform().setPosition(OpponentPosX + SquareSize * 0.5f,
+                                                             OpponentPosY + SquareSize);
                         peoplemon.setColor(sf::Color(255, 255, 255, 128));
                     }
                 }
             } break;
 
             case BallThrowState::Eating:
-                if (throwBall.getTexture() == ballOpenTxtr.get()) {
+                if (throwBall.getTexture().id() == ballOpenTxtr.id()) {
                     alpha -= ContractRate * dt;
-                    implosion.update(updateSpark, dt);
                     if (alpha <= 0.f) {
                         ballTime = 0.f;
-                        setThrowBallTxtr(*ballTxtr);
+                        setThrowBallTxtr(ballTxtr);
                     }
-                    else if (alpha <= 140.f) {
-                        implosion.setTargetCount(0);
-                        implosion.setCreateRate(0.f);
-                    }
+                    else if (alpha <= 140.f) { sparkImplosianEmitter->setEnabled(false); }
                     const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                     const float p        = alpha / 255.f;
                     const float ps       = std::sqrt(p);
-                    toEat->setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
+                    // TODO - clone??
+                    /*toEat->setColor(sf::Color(255, 255, 255, static_cast<std::uint8_t>(alpha)));
                     toEat->setScale(ps * scale.x, p * scale.y);
                     toEat->setPosition(OpponentPosX + SquareSize * 0.5f,
                                        OpponentPosY -
                                            (BallBounceHeight + 35.f) * (255.f - alpha) / 255.f +
-                                           SquareSize);
+                                           SquareSize);*/
                     if (a <= ScreenFlashAlpha) {
                         screenFlash.setFillColor(sf::Color(255, 255, 255, a));
                     }
@@ -486,7 +451,7 @@ void PeoplemonAnimation::update(float dt) {
                 else {
                     ballTime += dt;
                     if (ballTime >= 0.5f) {
-                        peoplemon.setPosition(ViewSize.x * 0.5f, ViewSize.y);
+                        peoplemon.getTransform().setPosition(ViewSize.x * 0.5f, ViewSize.y);
                         if (type == Animation::Type::ThrowCloneBall) {
                             throwState = BallThrowState::CloneFading;
                             alpha      = 255.f;
@@ -502,13 +467,14 @@ void PeoplemonAnimation::update(float dt) {
 
             case BallThrowState::Bouncing:
                 bounceTime = std::min(BallBounceTime, bounceTime + dt);
-                throwBall.setPosition(throwBall.getPosition().x,
-                                      OpponentPosY + BallBounceHeight -
-                                          std::abs(bl::math::cos(bl::math::radiansToDegrees(
-                                              3.5f * bl::math::Pi / BallBounceTime * bounceTime))) /
-                                              std::max(4.f * bounceTime, 1.f) * BallBounceHeight);
+                throwBall.getTransform().setPosition(
+                    throwBall.getTransform().getLocalPosition().x,
+                    OpponentPosY + BallBounceHeight -
+                        std::abs(bl::math::cos(bl::math::radiansToDegrees(
+                            3.5f * bl::math::Pi / BallBounceTime * bounceTime))) /
+                            std::max(4.f * bounceTime, 1.f) * BallBounceHeight);
                 if (bounceTime >= BallBounceTime) {
-                    throwBall.setPosition(BallFinalPos);
+                    throwBall.getTransform().setPosition(BallFinalPos);
                     state = State::Static;
                 }
                 break;
@@ -527,13 +493,13 @@ void PeoplemonAnimation::update(float dt) {
         case Animation::Type::PeopleballShake:
             shakeTime += dt;
             if (shakeTime <= BallShakeTime) {
-                throwBall.setPosition(
+                throwBall.getTransform().setPosition(
                     BallFinalPos +
-                    sf::Vector2f(ShakeXAmount * bl::math::cos(ShakeSpeed * shakeTime * 2.f),
-                                 ShakeYAmount * bl::math::cos(ShakeSpeed * shakeTime)));
+                    glm::vec2(ShakeXAmount * bl::math::cos(ShakeSpeed * shakeTime * 2.f),
+                              ShakeYAmount * bl::math::cos(ShakeSpeed * shakeTime)));
             }
             else {
-                throwBall.setPosition(BallFinalPos);
+                throwBall.getTransform().setPosition(BallFinalPos);
                 if (shakeTime >= BallShakeTime + ShakeRestTime) { state = State::Static; }
             }
             break;
@@ -556,7 +522,7 @@ void PeoplemonAnimation::update(float dt) {
     }
 }
 
-void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
+void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
     // TODO - BLIB_UPGRADE - update battle rendering
 
     /*
@@ -695,44 +661,14 @@ void PeoplemonAnimation::render(sf::RenderTarget& target, float lag) const {
     */
 }
 
-void PeoplemonAnimation::spawnSpark(Spark* sp) {
-    const float a  = bl::util::Random::get<float>(0.f, 360.f);
-    const float d  = bl::util::Random::get<float>(1.f, 3.f);
-    const float v  = bl::util::Random::get<float>(150.f, 900.f);
-    const float c  = bl::math::cos(a);
-    const float s  = bl::math::sin(a);
-    sp->position.x = ViewSize.x * 0.5f + d * c;
-    sp->position.y = ViewSize.y * 0.5f + d * s;
-    sp->velocity.x = v * c;
-    sp->velocity.y = v * s;
-    sp->time       = 0.f;
-    sp->lifetime   = bl::util::Random::get<float>(0.6f, 1.1f);
-    sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
+void PeoplemonAnimation::setBallTexture(bl::rc::res::TextureRef& t) {
+    ball.setTexture(t);
+    ball.getTransform().setOrigin(t->size().x / 2.f, t->size().y);
 }
 
-void PeoplemonAnimation::spawnImplodeSpark(Spark* sp) {
-    const float a  = bl::util::Random::get<float>(0.f, 360.f);
-    const float d  = bl::util::Random::get<float>(190.f, 210.f);
-    const float v  = bl::util::Random::get<float>(450.f, 900.f);
-    const float c  = bl::math::cos(a);
-    const float s  = bl::math::sin(a);
-    sp->position.x = implodeOrigin.x + d * c;
-    sp->position.y = implodeOrigin.y + d * s;
-    sp->velocity.x = v * -c;
-    sp->velocity.y = v * -s;
-    sp->time       = 0.f;
-    sp->lifetime   = d / v;
-    sp->radius     = bl::util::Random::get<float>(2.f, 12.f);
-}
-
-void PeoplemonAnimation::setBallTexture(sf::Texture& t) {
-    ball.setTexture(t, true);
-    ball.setOrigin(t.getSize().x / 2, t.getSize().y);
-}
-
-void PeoplemonAnimation::setThrowBallTxtr(sf::Texture& t) {
-    throwBall.setTexture(t, true);
-    throwBall.setOrigin(t.getSize().x / 2, t.getSize().y / 2);
+void PeoplemonAnimation::setThrowBallTxtr(bl::rc::res::TextureRef& t) {
+    throwBall.setTexture(t);
+    throwBall.getTransform().setOrigin(t->size() * 0.5f);
 }
 
 void PeoplemonAnimation::updateAilmentAnimation(pplmn::Ailment ail) {

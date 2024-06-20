@@ -40,7 +40,7 @@ void MoveInfoRow::doCreate(bl::engine::Engine& engine) {
     name.setParent(background);
 }
 
-void MoveInfoRow::doSceneAdd(bl::rc::Overlay* overlay) {
+void MoveInfoRow::doSceneAdd(bl::rc::Scene* overlay) {
     background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     name.addToScene(overlay, bl::rc::UpdateSpeed::Static);
 }
@@ -52,6 +52,11 @@ bl::ecs::Entity MoveInfoRow::getEntity() const { return background.entity(); }
 void MoveInfoRow::makeActive() { background.setTexture(activeBgndTxtr); }
 
 void MoveInfoRow::makeInactive() { background.setTexture(bgndTxtr); }
+
+void MoveInfoRow::draw(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    background.draw(ctx);
+    name.draw(ctx);
+}
 
 } // namespace menu
 } // namespace game
