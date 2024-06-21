@@ -110,7 +110,7 @@ private:
     bl::pcl::ParticleManager<PeoplemonSpark>* sparks;
     SparkExplosionEmitter* sparkExplosionEmitter;
     bl::pcl::ParticleManager<PeoplemonSpark>* implosion;
-    SparkImplosionEmitter* sparkImplosianEmitter;
+    SparkImplosionEmitter* sparkImplosionEmitter;
     bl::gfx::Rectangle screenFlash;
 
     bl::rc::res::TextureRef statTxtr;
