@@ -137,7 +137,7 @@ void StatBoxes::sync(bool fromSwitch) {
         lpLevel.getSection().setString(std::to_string(localPlayer->base().currentLevel()));
         lpHp.getSection().setString(
             makeHpStr(localPlayer->base().currentHp(), localPlayer->currentStats().hp));
-        lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()));
+        lpAil.setTexture(ailmentTexture(localPlayer->base().currentAilment()), true);
         lpHpBarTarget = (static_cast<float>(localPlayer->base().currentHp()) /
                          static_cast<float>(localPlayer->currentStats().hp)) *
                         BarSize.x;
@@ -156,7 +156,7 @@ void StatBoxes::sync(bool fromSwitch) {
     if (opponent) {
         opName.getSection().setString(opponent->base().name());
         opLevel.getSection().setString(std::to_string(opponent->base().currentLevel()));
-        opAil.setTexture(ailmentTexture(opponent->base().currentAilment()));
+        opAil.setTexture(ailmentTexture(opponent->base().currentAilment()), true);
         opHpBarTarget = (static_cast<float>(opponent->base().currentHp()) /
                          static_cast<float>(opponent->currentStats().hp)) *
                         BarSize.x;

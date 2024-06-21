@@ -152,7 +152,7 @@ void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
     txtr            = engine.renderer().texturePool().getOrLoadTexture(path(ppl));
 
     const glm::vec2 ts(txtr->size());
-    peoplemon.setTexture(txtr);
+    peoplemon.setTexture(txtr, true);
     peoplemon.getTransform().setOrigin(ts.x * 0.5f, ts.y);
     peoplemon.setColor(sf::Color::White);
     scale.x = ViewSize.x / ts.x;
@@ -670,12 +670,12 @@ void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
 }
 
 void PeoplemonAnimation::setBallTexture(bl::rc::res::TextureRef& t) {
-    ball.setTexture(t);
+    ball.setTexture(t, true);
     ball.getTransform().setOrigin(t->size().x / 2.f, t->size().y);
 }
 
 void PeoplemonAnimation::setThrowBallTxtr(bl::rc::res::TextureRef& t) {
-    throwBall.setTexture(t);
+    throwBall.setTexture(t, true);
     throwBall.getTransform().setOrigin(t->size() * 0.5f);
 }
 
