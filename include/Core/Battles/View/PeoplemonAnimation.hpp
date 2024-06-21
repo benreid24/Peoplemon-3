@@ -86,8 +86,9 @@ private:
     enum struct State { Hidden, Static, Playing };
 
     bl::engine::Engine& engine;
+    bl::rc::scene::CodeScene* scene;
     const Position position;
-    glm::vec2 offset;
+    const VkViewport viewport;
     State state;
     cmd::Animation::Type type;
     union {
@@ -138,6 +139,7 @@ private:
 
     void updateAilmentAnimation(pplmn::Ailment ail);
     void updateAilmentAnimation(pplmn::PassiveAilment ail);
+    void recreateAilmentAnimation(bl::resource::Ref<bl::gfx::a2d::AnimationData>& src);
 
     bl::rc::res::TextureRef txtr;
     bl::gfx::Sprite peoplemon;
