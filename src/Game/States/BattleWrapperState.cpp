@@ -71,9 +71,7 @@ void BattleWrapperState::update(bl::engine::Engine& engine, float dt, float) {
     sequence->update(dt);
     if (sequence->finished()) {
         state = Substate::Battling;
-        engine.popState();
-        // TODO - uncomment when done with intros
-        // engine.pushState(BattleState::create(systems, std::move(battle)));
+        engine.pushState(BattleState::create(systems, std::move(battle)));
     }
 }
 

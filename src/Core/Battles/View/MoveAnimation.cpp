@@ -24,7 +24,8 @@ std::string getMoveBackground(MoveAnimation::User user, pplmn::MoveId mid) {
 
 MoveAnimation::MoveAnimation(bl::engine::Engine& engine)
 : engine(engine)
-, scene(nullptr) {}
+, scene(nullptr)
+, playing(nullptr) {}
 
 void MoveAnimation::init(bl::rc::scene::CodeScene* s) { scene = s; }
 

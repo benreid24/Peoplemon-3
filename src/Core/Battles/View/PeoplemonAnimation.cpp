@@ -155,13 +155,13 @@ void PeoplemonAnimation::init(bl::rc::scene::CodeScene* s) {
     sparks->addAffector<SparkAffector>();
     sparks->addSink<SparkSink>();
     sparkExplosionEmitter = sparks->addEmitter<SparkExplosionEmitter>();
-    sparks->getRenderer().addToScene(scene);
+    sparks->addToScene(scene);
 
     implosion = &engine.particleSystem().addRepeatedSystem<PeoplemonSpark>();
     implosion->addAffector<SparkAffector>();
     implosion->addSink<SparkSink>();
     sparkImplosionEmitter = implosion->addEmitter<SparkImplosionEmitter>();
-    implosion->getRenderer().addToScene(scene);
+    implosion->addToScene(scene);
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
