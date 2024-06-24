@@ -1,9 +1,10 @@
 #ifndef CORE_BATTLES_VIEW_STATBOXES_HPP
 #define CORE_BATTLES_VIEW_STATBOXES_HPP
 
+#include <BLIB/Graphics.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Peoplemon/BattlePeoplemon.hpp>
-#include <SFML/Graphics.hpp>
 
 namespace core
 {
@@ -16,15 +17,22 @@ namespace view
  * @brief Renders both the player and opponent stat boxes
  *
  * @ingroup Battles
- *
  */
 class StatBoxes {
 public:
     /**
      * @brief Construct a new Stat Boxes component
      *
+     * @param engine The game engine instance
      */
-    StatBoxes();
+    StatBoxes(bl::engine::Engine& engine);
+
+    /**
+     * @brief Creates entities and adds them to the scene
+     *
+     * @param scene The scene to add to
+     */
+    void init(bl::rc::scene::CodeScene* scene);
 
     /**
      * @brief Sets the opponent's peoplemon. Syncs right away
@@ -44,7 +52,6 @@ public:
      * @brief Updates the UI to reflect the current peoplemon state
      *
      * @param fromSwitch True to sync from switch, false for regular sync
-     *
      */
     void sync(bool fromSwitch = false);
 
@@ -57,51 +64,47 @@ public:
 
     /**
      * @brief Returns true if the view is in sync, false if an animation is in progress
-     *
      */
     bool synced() const;
 
     /**
-     * @brief Renders the boxes to the target
+     * @brief Renders the boxes
      *
-     * @param target The target to render to
+     * @param ctx The render context
      */
-    void render(sf::RenderTarget& target) const;
+    void render(bl::rc::scene::CodeScene::RenderContext& ctx);
 
 private:
-    // TODO - BLIB_UPGRADE - update battle stat box rendering
-
     enum struct State { Hidden, Sliding, Showing };
+
+    bl::engine::Engine& engine;
 
     pplmn::BattlePeoplemon* localPlayer;
     pplmn::BattlePeoplemon* opponent;
     State pState;
     State oState;
 
-    bl::resource::Ref<sf::Texture> ailTxtr;
-    sf::Texture blank;
+    bl::rc::res::TextureRef opBoxTxtr;
+    bl::rc::res::TextureRef lpBoxTxtr;
+    bl::gfx::Sprite opBox;
+    bl::gfx::Sprite lpBox;
 
-    bl::resource::Ref<sf::Texture> opBoxTxtr;
-    bl::resource::Ref<sf::Texture> lpBoxTxtr;
-    sf::Sprite opBox;
-    sf::Sprite lpBox;
-
-    sf::RectangleShape opHpBar;
+    bl::gfx::Rectangle opHpBar;
     float opHpBarTarget;
-    sf::Text opName;
-    sf::Text opLevel;
-    sf::Sprite opAil;
+    bl::gfx::Text opName;
+    bl::gfx::Text opLevel;
+    bl::gfx::Sprite opAil;
 
-    sf::RectangleShape lpHpBar;
+    bl::gfx::Rectangle lpHpBar;
     float lpHpBarTarget;
-    sf::RectangleShape lpXpBar;
+    bl::gfx::Rectangle lpXpBar;
     float lpXpBarTarget;
-    sf::Text lpName;
-    sf::Text lpHp;
-    sf::Text lpLevel;
-    sf::Sprite lpAil;
+    bl::gfx::Text lpName;
+    bl::gfx::Text lpHp;
+    bl::gfx::Text lpLevel;
+    bl::gfx::Sprite lpAil;
 
-    const sf::Texture& ailmentTexture(pplmn::Ailment ailment);
+    bl::rc::res::TextureRef ailmentTexture(pplmn::Ailment ailment);
 };
 
 } // namespace view

@@ -15,17 +15,31 @@ namespace view
 {
 namespace
 {
-const sf::Vector2f MoveBoxPos(499.f, 463.f);
+constexpr glm::vec2 MoveBoxPos(499.f, 463.f);
 }
 
-PlayerMenu::PlayerMenu(bool canRun)
-: state(State::Hidden)
+PlayerMenu::PlayerMenu(bl::engine::Engine& engine, bool canRun)
+: engine(engine)
+, canRun(canRun)
+, state(State::Hidden)
 , stateLoopGuard(false)
 , currentPeoplemon(0)
-//, actionMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
-//, moveMenu(bl::menu::ArrowSelector::create(12.f, sf::Color::Black))
-, moves(nullptr) {
+, actionMenu(0.f)
+, moveMenu(0.f)
+, moves(nullptr) {}
+
+void PlayerMenu::init(bl::rc::scene::CodeScene* scene) {
     using namespace bl::menu;
+
+    actionMenu.create(engine,
+                      engine.renderer().getObserver(),
+                      bl::menu::ArrowSelector::create(12.f, sf::Color::Black));
+    actionMenu.addToScene(scene);
+
+    moveMenu.create(engine,
+                    engine.renderer().getObserver(),
+                    bl::menu::ArrowSelector::create(12.f, sf::Color::Black));
+    moveMenu.addToScene(scene);
 
     fightItem = TextItem::create("Fight", Properties::MenuFont(), sf::Color::Black, 30);
     fightItem->getSignal(Item::Activated).willAlwaysCall(std::bind(&PlayerMenu::fightChosen, this));
@@ -54,25 +68,26 @@ PlayerMenu::PlayerMenu(bool canRun)
     moveMenu.setPosition({16.f, 477.f});
     moveMenu.setPadding({25.f, 20.f});
 
-    moveTxtr = TextureManager::load(
+    moveTxtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(Properties::ImagePath(), "Battle/movebox.png"));
-    moveBox.setTexture(*moveTxtr, true);
-    moveBox.setPosition(MoveBoxPos);
+    moveBox.create(engine, moveTxtr);
+    moveBox.getTransform().setPosition(MoveBoxPos);
+    moveBox.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-    movePwr.setFillColor(sf::Color::Black);
-    // movePwr.setFont(Properties::MenuFont());
-    movePwr.setCharacterSize(25);
-    movePwr.setPosition(MoveBoxPos + sf::Vector2f(77.f, 20.f));
+    movePwr.create(engine, Properties::MenuFont(), "", 25, sf::Color::Black);
+    movePwr.getTransform().setPosition(77.f, 20.f);
+    movePwr.setParent(moveBox);
+    movePwr.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-    moveAcc.setFillColor(sf::Color::Black);
-    // moveAcc.setFont(Properties::MenuFont());
-    moveAcc.setCharacterSize(25);
-    moveAcc.setPosition(MoveBoxPos + sf::Vector2f(77.f, 53.f));
+    moveAcc.create(engine, Properties::MenuFont(), "", 25, sf::Color::Black);
+    moveAcc.getTransform().setPosition(77.f, 53.f);
+    moveAcc.setParent(moveBox);
+    moveAcc.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
-    movePP.setFillColor(sf::Color::Black);
-    // movePP.setFont(Properties::MenuFont());
-    movePP.setCharacterSize(25);
-    movePP.setPosition(MoveBoxPos + sf::Vector2f(77.f, 87.f));
+    movePP.create(engine, Properties::MenuFont(), "", 25, sf::Color::Black);
+    movePP.getTransform().setPosition(77.f, 87.f);
+    movePP.setParent(moveBox);
+    movePP.addToScene(scene, bl::rc::UpdateSpeed::Static);
 }
 
 void PlayerMenu::setPeoplemon(int i, const pplmn::BattlePeoplemon& ppl) {
@@ -195,15 +210,15 @@ void PlayerMenu::handleInput(input::EntityControl cmd, bool fromEvent) {
     }
 }
 
-void PlayerMenu::render(sf::RenderTarget& target) const {
-    /* if (state == State::PickingAction) { actionMenu.render(target); }
-     else if (state == State::PickingMove || state == State::ChoosingMoveToForget) {
-         moveMenu.render(target);
-         target.draw(moveBox);
-         target.draw(movePP);
-         target.draw(movePwr);
-         target.draw(moveAcc);
-     }*/
+void PlayerMenu::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    if (state == State::PickingAction) { actionMenu.draw(ctx); }
+    else if (state == State::PickingMove || state == State::ChoosingMoveToForget) {
+        moveMenu.draw(ctx);
+        moveBox.draw(ctx);
+        movePP.draw(ctx);
+        movePwr.draw(ctx);
+        moveAcc.draw(ctx);
+    }
 }
 
 void PlayerMenu::fightChosen() {
@@ -265,9 +280,10 @@ void PlayerMenu::moveChosen(int i) {
 }
 
 void PlayerMenu::syncMove(int i) {
-    movePP.setString(std::to_string(moves[i].curPP) + "/" + std::to_string(moves[i].maxPP));
-    movePwr.setString(std::to_string(pplmn::Move::damage(moves[i].id)));
-    moveAcc.setString(std::to_string(pplmn::Move::accuracy(moves[i].id)));
+    movePP.getSection().setString(std::to_string(moves[i].curPP) + "/" +
+                                  std::to_string(moves[i].maxPP));
+    movePwr.getSection().setString(std::to_string(pplmn::Move::damage(moves[i].id)));
+    moveAcc.getSection().setString(std::to_string(pplmn::Move::accuracy(moves[i].id)));
 }
 
 } // namespace view

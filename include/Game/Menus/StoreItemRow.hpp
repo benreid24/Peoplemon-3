@@ -81,7 +81,7 @@ protected:
      *
      * @param overlay The overlay to add to
      */
-    virtual void doSceneAdd(bl::rc::Overlay* overlay) override;
+    virtual void doSceneAdd(bl::rc::Scene* overlay) override;
 
     /**
      * @brief Called when the item should be removed from the overlay
@@ -92,6 +92,13 @@ protected:
      * @brief Returns the entity (or top level entity) of the item
      */
     virtual bl::ecs::Entity getEntity() const override;
+
+    /**
+     * @brief Renders the item
+     *
+     * @param ctx The render context
+     */
+    virtual void draw(bl::rc::scene::CodeScene::RenderContext& ctx) override;
 
 private:
     const core::item::Id item;

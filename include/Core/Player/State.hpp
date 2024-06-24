@@ -17,26 +17,27 @@ namespace player
  * @brief Stores all player state
  *
  * @ingroup Player
- *
  */
 struct State {
     /**
      * @brief Initializes to default values
-     *
      */
     State();
 
     /**
      * @brief Restores HP and removes all ailments
-     *
      */
     void healPeoplemon();
 
     /**
      * @brief Returns whether or not any peoplemon have a pending evolution
-     *
      */
     bool evolutionPending() const;
+
+    /**
+     * @brief Returns whether or not the player has any living peoplemon
+     */
+    bool hasLivingPeoplemon() const;
 
     std::string name;
     player::Gender sex;

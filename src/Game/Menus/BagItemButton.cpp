@@ -67,7 +67,7 @@ void BagItemButton::doCreate(bl::engine::Engine& engine) {
     update(item);
 }
 
-void BagItemButton::doSceneAdd(bl::rc::Overlay* overlay) {
+void BagItemButton::doSceneAdd(bl::rc::Scene* overlay) {
     background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     label.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     qty.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -84,6 +84,12 @@ void BagItemButton::onSelect() { background.setColor(sf::Color(40, 230, 140)); }
 void BagItemButton::onDeselect() {
     background.setColor(item.id != core::item::Id::None ? sf::Color::White :
                                                           sf::Color(240, 40, 40));
+}
+
+void BagItemButton::draw(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    background.draw(ctx);
+    label.draw(ctx);
+    qty.draw(ctx);
 }
 
 } // namespace menu

@@ -1,13 +1,13 @@
 #ifndef CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 #define CORE_BATTLES_VIEW_PEOPLEMONANIMATION_HPP
 
-#include <BLIB/Graphics/Animation2D.hpp>
-#include <BLIB/Graphics/Circle.hpp>
+#include <BLIB/Graphics.hpp>
 #include <BLIB/Particles/System.hpp>
+#include <BLIB/Render/Scenes/CodeScene.hpp>
 #include <BLIB/Resources.hpp>
 #include <Core/Battles/Commands/Animation.hpp>
+#include <Core/Battles/View/PeoplemonSpark.hpp>
 #include <Core/Peoplemon/Peoplemon.hpp>
-#include <SFML/Graphics.hpp>
 
 namespace core
 {
@@ -19,29 +19,33 @@ namespace view
  * @brief Helper for rendering peoplemon in battle and animating them
  *
  * @ingroup Battles
- *
  */
 class PeoplemonAnimation {
 public:
     /**
      * @brief Which position the peoplemon is in
-     *
      */
     enum Position { Player, Opponent };
 
     /**
      * @brief Construct a new Peoplemon Animation utility
      *
+     * @param engine The game engine instance
      * @param position Which position and orientation for the peoplemon
      */
-    PeoplemonAnimation(Position position);
+    PeoplemonAnimation(bl::engine::Engine& engine, Position position);
 
     /**
-     * @brief Sets up the subviews from the view used during battle
-     *
-     * @param parentView The view to be used
+     * @brief Frees resources
      */
-    void configureView(const sf::View& parentView);
+    ~PeoplemonAnimation();
+
+    /**
+     * @brief Initializes rendering resources
+     *
+     * @param scene The scene to use
+     */
+    void init(bl::rc::scene::CodeScene* scene);
 
     /**
      * @brief Sets the specific peoplemon graphic and resets to hidden state
@@ -66,7 +70,6 @@ public:
 
     /**
      * @brief Returns true if the animation has completed, false if in progress
-     *
      */
     bool completed() const;
 
@@ -80,27 +83,18 @@ public:
     /**
      * @brief Renders the peoplemon animation
      *
-     * @param target The target to render to
-     * @param lag Time elapsed not accounted for in update
+     * @param ctx The render context
      */
-    void render(sf::RenderTarget& target, float lag) const;
+    void render(bl::rc::scene::CodeScene::RenderContext& ctx);
 
 private:
     enum struct State { Hidden, Static, Playing };
 
-    struct Spark {
-        sf::Vector2f position;
-        sf::Vector2f velocity;
-        float radius;
-        float time;
-        float lifetime;
-    };
-
-    // TODO - BLIB_UPGRADE - update battle rendering
-
+    bl::engine::Engine& engine;
+    bl::rc::scene::CodeScene* scene;
     const Position position;
-    sf::Vector2f offset;
-    sf::View view;
+    const VkViewport viewport;
+    const VkRect2D scissor;
     State state;
     cmd::Animation::Type type;
     union {
@@ -112,32 +106,32 @@ private:
         float throwX;
         float bounceTime;
     };
-    sf::Vector2f shakeOff;
+    glm::vec2 shakeOff;
 
-    bl::resource::Ref<sf::Texture> ballTxtr;
-    bl::resource::Ref<sf::Texture> ballOpenTxtr;
-    sf::Sprite ball;
+    bl::rc::res::TextureRef ballTxtr;
+    bl::rc::res::TextureRef ballOpenTxtr;
+    bl::gfx::Sprite ball;
     bl::gfx::Circle ballFlash;
-    bl::particle::System<Spark> sparks;
-    bl::particle::System<Spark> implosion;
-    mutable bl::gfx::Circle spark;
-    sf::RectangleShape screenFlash;
-    bl::resource::Ref<sf::Texture> statTxtr;
-    sf::Sprite statArrow;
+
+    bl::pcl::ParticleManager<PeoplemonSpark>* sparks;
+    SparkExplosionEmitter* sparkExplosionEmitter;
+    bl::pcl::ParticleManager<PeoplemonSpark>* implosion;
+    SparkImplosionEmitter* sparkImplosionEmitter;
+    bl::gfx::Rectangle screenFlash;
+
+    bl::rc::res::TextureRef statTxtr;
+    bl::gfx::Sprite statArrow;
     float arrowOffset;
-    sf::Vector2f implodeOrigin;
     bool renderBall;
 
     enum struct BallThrowState { Arcing, Eating, Bouncing, CloneFading } throwState;
-    bl::resource::Ref<sf::Texture> throwBallTxtr;
-    sf::Sprite throwBall;
-    sf::Sprite clone;
-    sf::Sprite* toEat;
+    bl::rc::res::TextureRef throwBallTxtr;
+    bl::gfx::Sprite throwBall;
+    bl::gfx::Sprite clone;
+    bl::gfx::Sprite* toEat;
 
-    void setBallTexture(sf::Texture& t);
-    void spawnSpark(Spark* obj);
-    void spawnImplodeSpark(Spark* obj);
-    void setThrowBallTxtr(sf::Texture& t);
+    void setBallTexture(bl::rc::res::TextureRef& t);
+    void setThrowBallTxtr(bl::rc::res::TextureRef& t);
 
     bl::resource::Ref<bl::gfx::a2d::AnimationData> annoySrc;
     bl::resource::Ref<bl::gfx::a2d::AnimationData> confuseSrc;
@@ -151,10 +145,11 @@ private:
 
     void updateAilmentAnimation(pplmn::Ailment ail);
     void updateAilmentAnimation(pplmn::PassiveAilment ail);
+    void recreateAilmentAnimation(bl::resource::Ref<bl::gfx::a2d::AnimationData>& src);
 
-    bl::resource::Ref<sf::Texture> txtr;
-    mutable sf::Sprite peoplemon;
-    sf::Vector2f scale;
+    bl::rc::res::TextureRef txtr;
+    bl::gfx::Sprite peoplemon;
+    glm::vec2 scale;
 };
 
 } // namespace view

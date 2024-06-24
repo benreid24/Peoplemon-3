@@ -16,7 +16,6 @@ namespace state
  *        engine state stack, returning the game to its previous state.
  *
  * @ingroup States
- *
  */
 class BattleState
 : public State
@@ -34,25 +33,21 @@ public:
 
     /**
      * @brief Destroy the Battle State object
-     *
      */
     virtual ~BattleState() = default;
 
     /**
      * @brief Returns "BattleState"
-     *
      */
     virtual const char* name() const override;
 
     /**
      * @brief Does nothing
-     *
      */
     virtual void activate(bl::engine::Engine&) override;
 
     /**
      * @brief Does nothing
-     *
      */
     virtual void deactivate(bl::engine::Engine&) override;
 
@@ -64,8 +59,8 @@ public:
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
 private:
-    // TODO - BLIB_UPGRADE - update battle rendering
     std::unique_ptr<core::battle::Battle> battle;
+    bl::rc::SceneRef scene;
 
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
 

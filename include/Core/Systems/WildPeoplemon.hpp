@@ -32,11 +32,17 @@ public:
      */
     void init();
 
+    /**
+     * @brief Starts a wild Peoplemon battle for debugging
+     */
+    void startDebugBattle();
+
 private:
     Systems& owner;
     pplmn::OwnedPeoplemon currentWild;
 
     virtual void observe(const event::EntityMoveFinished& event) override;
+    void startBattle();
 };
 
 } // namespace system

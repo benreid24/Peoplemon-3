@@ -31,9 +31,11 @@ public:
     MessagePrinter(bl::engine::Engine& engine);
 
     /**
-     * @brief Initializes the UI components. Call after the overlay is created
+     * @brief Initializes the UI components and adds to scene
+     *
+     * @param scene The scene to add to
      */
-    void init();
+    void init(bl::rc::scene::CodeScene* scene);
 
     /**
      * @brief Set the message to be printed
@@ -84,11 +86,11 @@ public:
     void update(float dt);
 
     /**
-     * @brief Renders the message to the given target
+     * @brief Renders the message
      *
-     * @param target The target to render to
+     * @param ctx The render context
      */
-    void render(sf::RenderTarget& target) const;
+    void render(bl::rc::scene::CodeScene::RenderContext& ctx);
 
 private:
     enum struct State {

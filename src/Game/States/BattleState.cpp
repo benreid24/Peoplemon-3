@@ -50,16 +50,18 @@ BattleState::BattleState(core::system::Systems& systems,
 const char* BattleState::name() const { return "BattleState"; }
 
 void BattleState::activate(bl::engine::Engine& engine) {
-    /*engine.renderSystem().cameras().pushCamera(bl::render::camera::StaticCamera::create(
-        {sf::Vector2f{0.f, 0.f}, core::Properties::WindowSize()}));
-    engine.renderSystem().cameras().configureView(engine.window());
-    battle->view.configureView(engine.window().getView());*/
+    if (!scene) {
+        scene = engine.renderer().getObserver().pushScene<bl::rc::scene::CodeScene>(
+            std::bind(&core::battle::BattleView::render, &battle->view, std::placeholders::_1));
+        battle->view.init(static_cast<bl::rc::scene::CodeScene*>(scene.get()));
+    }
+    else { engine.renderer().getObserver().pushScene(scene); }
     systems.engine().inputSystem().getActor().addListener(battle->view);
     bl::event::Dispatcher::subscribe(this);
 }
 
 void BattleState::deactivate(bl::engine::Engine& engine) {
-    // engine.renderSystem().cameras().popCamera();
+    engine.renderer().getObserver().popScene();
     systems.engine().inputSystem().getActor().removeListener(battle->view);
     bl::event::Dispatcher::unsubscribe(this);
     bl::audio::AudioSystem::popPlaylist();
@@ -76,7 +78,7 @@ void BattleState::update(bl::engine::Engine& engine, float dt, float) {
             systems.player().state().healPeoplemon();
         }
         else {
-            if (!battle->result.localPlayerWon) { systems.player().whiteout(); }
+            if (!systems.player().state().hasLivingPeoplemon()) { systems.player().whiteout(); }
         }
 
         bl::event::Dispatcher::dispatch<core::event::BattleCompleted>(

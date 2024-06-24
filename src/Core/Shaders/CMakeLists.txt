@@ -4,6 +4,8 @@ compile_shaders(
     SHADER_MODULE game_shaders
     
     SHADERS
+    Battle/trainerIntro.frag
+    Battle/wildIntro.frag
 	Particles/evolution_spark.vert
     Particles/evolution_spark.frag
     Particles/raindrop.vert
@@ -11,4 +13,6 @@ compile_shaders(
     Particles/fog.vert
     Particles/sand.vert
     Particles/sandSwirl.vert
+    Particles/battleSpark.vert
+    Particles/battleSpark.frag
 )

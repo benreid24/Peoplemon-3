@@ -72,7 +72,7 @@ void PeopledexRow::doCreate(bl::engine::Engine& engine) {
     name.setParent(background);
 }
 
-void PeopledexRow::doSceneAdd(bl::rc::Overlay* overlay) {
+void PeopledexRow::doSceneAdd(bl::rc::Scene* overlay) {
     background.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     id.addToScene(overlay, bl::rc::UpdateSpeed::Static);
     name.addToScene(overlay, bl::rc::UpdateSpeed::Static);
@@ -88,6 +88,13 @@ bl::ecs::Entity PeopledexRow::getEntity() const { return background.entity(); }
 void PeopledexRow::makeActive() { background.setTexture(activeBgndTxtr); }
 
 void PeopledexRow::makeInactive() { background.setTexture(bgndTxtr); }
+
+void PeopledexRow::draw(bl::rc::scene::CodeScene::RenderContext& ctx) {
+    background.draw(ctx);
+    id.draw(ctx);
+    name.draw(ctx);
+    if (ball.entity() != bl::ecs::InvalidEntity) { ball.draw(ctx); }
+}
 
 } // namespace menu
 } // namespace game
