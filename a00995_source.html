@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/States/MainEditor.cpp Source File</title>
+<title>Peoplemon: src/Editor/Pages/VariousEditors.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,137 +66,88 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_114410b7be17b2cfba8b014f3240741a.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_cb88133ef9b61a004a5ddb3e6b99b47e.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MainEditor.cpp</div>  </div>
+<div class="title">VariousEditors.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00995.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00488.html">Editor/States/MainEditor.hpp</a>&gt;</span></div>
+<a href="a00995.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00488.html">Editor/Pages/VariousEditors.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01104.html">editor</a></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>page</div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a02278.html#ae5c3888e51aae992b41fc4172f8efbfb">    9</a></span>&#160;MainEditor::Ptr <a class="code" href="a02278.html#ae5c3888e51aae992b41fc4172f8efbfb">MainEditor::create</a>(<a class="code" href="a02034.html">core::system::Systems</a>&amp; s) { <span class="keywordflow">return</span> Ptr(<span class="keyword">new</span> <a class="code" href="a02278.html">MainEditor</a>(s)); }</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;MainEditor::MainEditor(<a class="code" href="a02034.html">core::system::Systems</a>&amp; s)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: State(<a class="code" href="a01096.html">bl</a>::engine::StateMask::Paused)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, systems(s)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, mapPage(s)</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, variousEditorsPage(s)</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, scriptPage(s)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, peoplemonPage(s)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, movesPage(s)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, itemsPage(s)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, creditsPage(s)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, currentPage(&amp;mapPage) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    gui = bl::gui::GUI::create(</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        s.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(),</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        s.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver(),</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        {0.f,</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;         0.f,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;         static_cast&lt;float&gt;(core::Properties::WindowWidth()) + 350.f,</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;         static_cast&lt;float&gt;(core::Properties::WindowHeight()) + 200.f});</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// TODO - BLIB_UPGRADE - add custom gui components for rendering</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">using namespace </span>bl::gui;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keywordtype">void</span> ignore() {}</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02325.html#ac11498856ab7be2deef9f27fd9df8bda">   14</a></span>&#160;<a class="code" href="a02325.html#ac11498856ab7be2deef9f27fd9df8bda">VariousEditors::VariousEditors</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; s)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: <a class="code" href="a02261.html">Page</a>(s)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, conversationEditor(std::bind(&amp;ignore), std::bind(&amp;ignore))</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, npcEditor(std::bind(&amp;ignore), std::bind(&amp;ignore))</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, trainerEditor(std::bind(&amp;ignore), std::bind(&amp;ignore))</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, playlistEditor(std::bind(&amp;ignore), std::bind(&amp;ignore)) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <a class="code" href="a02261.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a> = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    Box::Ptr row     = Box::create(LinePacker::create(LinePacker::Horizontal, 6.f));</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    Button::Ptr open = Button::create(<span class="stringliteral">&quot;Conversation Editor&quot;</span>);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    open-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        .willAlwaysCall(std::bind(&amp;VariousEditors::openConvEditor, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    row-&gt;pack(open, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    open = Button::create(<span class="stringliteral">&quot;NPC Editor&quot;</span>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    open-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        .willAlwaysCall(std::bind(&amp;VariousEditors::openNpcEditor, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    row-&gt;pack(open, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    mapPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    variousEditorsPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    scriptPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    peoplemonPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    movesPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    itemsPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    creditsPage.<a class="code" href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a>(gui.get());</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    mapPage.<a class="code" href="a02202.html#a85bc1e7f0df4e6da0f1cc3aa0ae5059c">syncGui</a>();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    open = Button::create(<span class="stringliteral">&quot;Trainer Editor&quot;</span>);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    open-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        .willAlwaysCall(std::bind(&amp;VariousEditors::openTrainerEditor, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    row-&gt;pack(open, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    open = Button::create(<span class="stringliteral">&quot;Playlist Editor&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    open-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        .willAlwaysCall(std::bind(&amp;VariousEditors::openPlaylistEditor, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    row-&gt;pack(open, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    notebook = bl::gui::Notebook::create();</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    notebook-&gt;setOutlineThickness(0.f);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a02261.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a>-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    notebook-&gt;addPage(<span class="stringliteral">&quot;maps&quot;</span>, <span class="stringliteral">&quot;Maps&quot;</span>, mapPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() { currentPage = &amp;mapPage; });</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    notebook-&gt;addPage(<span class="stringliteral">&quot;editors&quot;</span>, <span class="stringliteral">&quot;Various Editors&quot;</span>, variousEditorsPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        currentPage = &amp;variousEditorsPage;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    });</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    notebook-&gt;addPage(</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="stringliteral">&quot;script&quot;</span>, <span class="stringliteral">&quot;Scripts&quot;</span>, scriptPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() { currentPage = &amp;scriptPage; });</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    notebook-&gt;addPage(<span class="stringliteral">&quot;peoplemon&quot;</span>, <span class="stringliteral">&quot;Peoplemon DB&quot;</span>, peoplemonPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        currentPage = &amp;peoplemonPage;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    });</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    notebook-&gt;addPage(</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="stringliteral">&quot;moves&quot;</span>, <span class="stringliteral">&quot;Move DB&quot;</span>, movesPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() { currentPage = &amp;movesPage; });</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    notebook-&gt;addPage(</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        <span class="stringliteral">&quot;items&quot;</span>, <span class="stringliteral">&quot;Item DB&quot;</span>, itemsPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() { currentPage = &amp;itemsPage; });</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    notebook-&gt;addPage(</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="stringliteral">&quot;credits&quot;</span>, <span class="stringliteral">&quot;Credits&quot;</span>, creditsPage.<a class="code" href="a02210.html#a6ca56d8d39860251755e5800924e57ea">getContent</a>(), [<span class="keyword">this</span>]() { currentPage = &amp;creditsPage; });</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    gui-&gt;pack(notebook, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;}</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a02278.html#a540f7f0e84c5ee24d8b82c89cfde80da">   65</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02278.html#a540f7f0e84c5ee24d8b82c89cfde80da">MainEditor::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;MainEditor&quot;</span>; }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02278.html#a81c5d0df817cbe9780c4644fce9fd143">   67</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02278.html#a81c5d0df817cbe9780c4644fce9fd143">MainEditor::activate</a>(bl::engine::Engine&amp;) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="comment">// gui-&gt;subscribe();</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    bl::event::Dispatcher::subscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02278.html#a2cd7bfe17d6359081b91d672fa6b62a7">   72</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02278.html#a2cd7bfe17d6359081b91d672fa6b62a7">MainEditor::deactivate</a>(bl::engine::Engine&amp;) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    bl::event::Dispatcher::unsubscribe(gui.get());</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    bl::event::Dispatcher::unsubscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a02278.html#a3eeced0202f69185f75c13db8c598475">   77</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02278.html#a3eeced0202f69185f75c13db8c598475">MainEditor::update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    gui-&gt;update(dt);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    currentPage-&gt;<a class="code" href="a02210.html#a2b795b1243ceabcf90c0cb492ae7f903">update</a>(dt);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;}</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// void MainEditor::render(bl::engine::Engine&amp; engine, float) {</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">//     engine.window().clear();</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">//     engine.window().draw(*gui);</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">//     engine.window().display();</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// }</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> MainEditor::observe(<span class="keyword">const</span> sf::Event&amp; event) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (event.type == sf::Event::Resized) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        <span class="comment">/*systems.engine().window().setView(sf::View({0.f,</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">                                                    0.f,</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">                                                    static_cast&lt;float&gt;(event.size.width),</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">                                                    static_cast&lt;float&gt;(event.size.height)}));*/</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        gui-&gt;setRegion({0.f,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                        0.f,</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<span class="keyword">event</span>.size.width),</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(event.size.height)});</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    }</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">MainEditor.hpp</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
-<div class="ttc" id="aa01104_html"><div class="ttname"><a href="a01104.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02034_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00035">Systems.cpp:35</a></div></div>
-<div class="ttc" id="aa02202_html_a85bc1e7f0df4e6da0f1cc3aa0ae5059c"><div class="ttname"><a href="a02202.html#a85bc1e7f0df4e6da0f1cc3aa0ae5059c">editor::page::Map::syncGui</a></div><div class="ttdeci">void syncGui()</div><div class="ttdoc">Updates the GUI elements to sync with the data.</div><div class="ttdef"><b>Definition:</b> <a href="a03302_source.html#l00867">Map.cpp:867</a></div></div>
-<div class="ttc" id="aa02210_html_a2b795b1243ceabcf90c0cb492ae7f903"><div class="ttname"><a href="a02210.html#a2b795b1243ceabcf90c0cb492ae7f903">editor::page::Page::update</a></div><div class="ttdeci">virtual void update(float dt)=0</div><div class="ttdoc">Any custom page update logic outside of event callbacks goes here.</div></div>
-<div class="ttc" id="aa02210_html_a6ca56d8d39860251755e5800924e57ea"><div class="ttname"><a href="a02210.html#a6ca56d8d39860251755e5800924e57ea">editor::page::Page::getContent</a></div><div class="ttdeci">bl::gui::Box::Ptr getContent()</div><div class="ttdoc">Returns the content to put in the editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00011">Page.cpp:11</a></div></div>
-<div class="ttc" id="aa02210_html_ad50b571e79e7c949f5097ba17ad4aa03"><div class="ttname"><a href="a02210.html#ad50b571e79e7c949f5097ba17ad4aa03">editor::page::Page::registerGui</a></div><div class="ttdeci">void registerGui(bl::gui::GUI *parent)</div><div class="ttdoc">Registers the parent GUI.</div><div class="ttdef"><b>Definition:</b> <a href="a00965_source.html#l00013">Page.cpp:13</a></div></div>
-<div class="ttc" id="aa02278_html"><div class="ttname"><a href="a02278.html">editor::state::MainEditor</a></div><div class="ttdoc">The primary state of the editor. Owns the GUI and all tabs.</div><div class="ttdef"><b>Definition:</b> <a href="a00488_source.html#l00035">MainEditor.hpp:37</a></div></div>
-<div class="ttc" id="aa02278_html_a2cd7bfe17d6359081b91d672fa6b62a7"><div class="ttname"><a href="a02278.html#a2cd7bfe17d6359081b91d672fa6b62a7">editor::state::MainEditor::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Unsubscribes the gui from window events.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00072">MainEditor.cpp:72</a></div></div>
-<div class="ttc" id="aa02278_html_a3eeced0202f69185f75c13db8c598475"><div class="ttname"><a href="a02278.html#a3eeced0202f69185f75c13db8c598475">editor::state::MainEditor::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;, float dt, float) override</div><div class="ttdoc">Updates the gui and the current page.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00077">MainEditor.cpp:77</a></div></div>
-<div class="ttc" id="aa02278_html_a540f7f0e84c5ee24d8b82c89cfde80da"><div class="ttname"><a href="a02278.html#a540f7f0e84c5ee24d8b82c89cfde80da">editor::state::MainEditor::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;MainEditor&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00065">MainEditor.cpp:65</a></div></div>
-<div class="ttc" id="aa02278_html_a81c5d0df817cbe9780c4644fce9fd143"><div class="ttname"><a href="a02278.html#a81c5d0df817cbe9780c4644fce9fd143">editor::state::MainEditor::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Subscribes the gui to window events.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00067">MainEditor.cpp:67</a></div></div>
-<div class="ttc" id="aa02278_html_ae5c3888e51aae992b41fc4172f8efbfb"><div class="ttname"><a href="a02278.html#ae5c3888e51aae992b41fc4172f8efbfb">editor::state::MainEditor::create</a></div><div class="ttdeci">static Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Main Editor state.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00009">MainEditor.cpp:9</a></div></div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02325.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">   46</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02325.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">VariousEditors::update</a>(<span class="keywordtype">float</span>) {}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keywordtype">void</span> VariousEditors::openConvEditor() { conversationEditor.<a class="code" href="a02145.html#af7d33e5764714cac9b3fcbe351f5c046">open</a>(<a class="code" href="a02261.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, <span class="stringliteral">&quot;&quot;</span>); }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">void</span> VariousEditors::openNpcEditor() { npcEditor.<a class="code" href="a02201.html#af605fe5fc9bbb3dc3e5f67c67d9b1604">show</a>(<a class="code" href="a02261.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, <span class="stringliteral">&quot;&quot;</span>); }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="keywordtype">void</span> VariousEditors::openTrainerEditor() { trainerEditor.<a class="code" href="a02233.html#a0a27ef04995022dbaaa43a8f09185fd1">show</a>(<a class="code" href="a02261.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, <span class="stringliteral">&quot;&quot;</span>); }</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> VariousEditors::openPlaylistEditor() { playlistEditor.<a class="code" href="a02217.html#aa54d92e153e792667f21e69ef6c66292">open</a>(<a class="code" href="a02261.html#a7ece0b91553c68d952d61903d417d51b">parent</a>, <span class="stringliteral">&quot;&quot;</span>); }</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;} <span class="comment">// namespace page</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="ttc" id="aa00488_html"><div class="ttname"><a href="a00488.html">VariousEditors.hpp</a></div></div>
+<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02145_html_af7d33e5764714cac9b3fcbe351f5c046"><div class="ttname"><a href="a02145.html#af7d33e5764714cac9b3fcbe351f5c046">editor::component::ConversationWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, const std::string &amp;current)</div><div class="ttdoc">Actually opens the window and initializes with a conversation.</div><div class="ttdef"><b>Definition:</b> <a href="a00878_source.html#l00217">ConversationWindow.cpp:217</a></div></div>
+<div class="ttc" id="aa02201_html_af605fe5fc9bbb3dc3e5f67c67d9b1604"><div class="ttname"><a href="a02201.html#af605fe5fc9bbb3dc3e5f67c67d9b1604">editor::component::NpcEditorWindow::show</a></div><div class="ttdeci">void show(bl::gui::GUI *parent, const std::string &amp;file)</div><div class="ttdoc">Opens the NPC editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00926_source.html#l00150">NPCEditorWindow.cpp:150</a></div></div>
+<div class="ttc" id="aa02217_html_aa54d92e153e792667f21e69ef6c66292"><div class="ttname"><a href="a02217.html#aa54d92e153e792667f21e69ef6c66292">editor::component::PlaylistEditorWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *gui, const std::string &amp;plist)</div><div class="ttdoc">Opens the window with an optional file to load.</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00088">PlaylistEditorWindow.cpp:88</a></div></div>
+<div class="ttc" id="aa02233_html_a0a27ef04995022dbaaa43a8f09185fd1"><div class="ttname"><a href="a02233.html#a0a27ef04995022dbaaa43a8f09185fd1">editor::component::TrainerEditorWindow::show</a></div><div class="ttdeci">void show(bl::gui::GUI *parent, const std::string &amp;file)</div><div class="ttdoc">Opens the trainer editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00950_source.html#l00308">TrainerEditorWindow.cpp:308</a></div></div>
+<div class="ttc" id="aa02261_html"><div class="ttname"><a href="a02261.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00461_source.html#l00032">Page.hpp:32</a></div></div>
+<div class="ttc" id="aa02261_html_a70ad60a18f3e0b6f066be1fd5b25213b"><div class="ttname"><a href="a02261.html#a70ad60a18f3e0b6f066be1fd5b25213b">editor::page::Page::content</a></div><div class="ttdeci">bl::gui::Box::Ptr content</div><div class="ttdef"><b>Definition:</b> <a href="a00461_source.html#l00069">Page.hpp:69</a></div></div>
+<div class="ttc" id="aa02261_html_a7ece0b91553c68d952d61903d417d51b"><div class="ttname"><a href="a02261.html#a7ece0b91553c68d952d61903d417d51b">editor::page::Page::parent</a></div><div class="ttdeci">bl::gui::GUI * parent</div><div class="ttdef"><b>Definition:</b> <a href="a00461_source.html#l00070">Page.hpp:70</a></div></div>
+<div class="ttc" id="aa02325_html_a955aae06b1bd2c8e6e7a1f2ad9c9917a"><div class="ttname"><a href="a02325.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">editor::page::VariousEditors::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00046">VariousEditors.cpp:46</a></div></div>
+<div class="ttc" id="aa02325_html_ac11498856ab7be2deef9f27fd9df8bda"><div class="ttname"><a href="a02325.html#ac11498856ab7be2deef9f27fd9df8bda">editor::page::VariousEditors::VariousEditors</a></div><div class="ttdeci">VariousEditors(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new VariousEditors tab.</div><div class="ttdef"><b>Definition:</b> <a href="a00995_source.html#l00014">VariousEditors.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/Evolution/Particles.cpp Source File</title>
+<title>Peoplemon: src/Game/States/Battle/TrainerIntro.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,90 +66,119 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li><li class="navelem"><a class="el" href="dir_8fba243f7867c86be42674cf36ff6b69.html">Evolution</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li><li class="navelem"><a class="el" href="dir_ab80aba2c35c17b703a902db6ecb3f93.html">Battle</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Particles.cpp</div>  </div>
+<div class="title">TrainerIntro.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01025.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00515.html">Game/States/Evolution/Particles.hpp</a>&gt;</span></div>
+<a href="a01025.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a01028.html">TrainerIntro.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01113.html">game</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>evo</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> SparkCount = 400;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> SparkSpawnRate    = 1600.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> sf::Color SparkColor(252, 230, 30);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">   20</a></span>&#160;<a class="code" href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">SparkEmitter::SparkEmitter</a>()</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;: residual(0.f) {}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> SparkEmitter::update(Emitter::Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    residual += SparkSpawnRate * dt;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Render.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>intros</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> IntroLength = 1.6f;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">bool</span> pipelineCreated        = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span>FragmentUniform {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01025.html#addc6a4226266f49bc01301c67163d5b8">   18</a></span>&#160;    glm::vec2 <a class="code" href="a01025.html#addc6a4226266f49bc01301c67163d5b8">windowSize</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01025.html#ac7abb4766cd3f65c31f56279d7decff8">   19</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01025.html#ac7abb4766cd3f65c31f56279d7decff8">progress</a>; <span class="comment">// [0, 1]</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">using</span> Bindings = bl::rc::ds::Bindings&lt;bl::rc::ds::GlobalUniformBuffer&lt;FragmentUniform&gt;&gt;;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> Factory  = bl::rc::ds::GenericDescriptorSetFactory&lt;Bindings, VK_SHADER_STAGE_FRAGMENT_BIT&gt;;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">using</span> Instance = bl::rc::ds::GenericDescriptorSetInstance&lt;Bindings&gt;;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// TODO - cap spawn?</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">while</span> (residual &gt;= 1.f) {</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        residual -= 1.f;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a02342.html">Evolution::Spark</a>&amp; sp = proxy.emit();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02833.html#a5719f58932f083739cdcb78e235ebfc6">   28</a></span>&#160;<a class="code" href="a02833.html#a5719f58932f083739cdcb78e235ebfc6">TrainerSequence::TrainerSequence</a>()</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;: time(0.f) {}</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> a = bl::util::Random::get&lt;float&gt;(0.f, 360.f);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = bl::util::Random::get&lt;float&gt;(1.f, 40.f);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> v = bl::util::Random::get&lt;float&gt;(150.f, 900.f);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> c = bl::math::cos(a);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = bl::math::sin(a);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        sp.<a class="code" href="a02342.html#ae6e8101eceb2d9854606cf39731a4150">position</a>   = glm::vec2(<a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                <a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f) +</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                      glm::vec2(c, s) * d;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sp.<a class="code" href="a02342.html#a2a12345544b43062f44c2874be28af08">velocity</a>.x = v * c;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp.<a class="code" href="a02342.html#a2a12345544b43062f44c2874be28af08">velocity</a>.y = v * s;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sp.<a class="code" href="a02342.html#af89e515957aefb9827be4e793223de8e">time</a>       = 0.f;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        sp.<a class="code" href="a02342.html#afbe5c0b2a19faf159d42710b14e26261">lifetime</a>   = bl::util::Random::get&lt;float&gt;(0.75f, 1.4f);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sp.<a class="code" href="a02342.html#affca86902bebc4ab7a5b33a5709c7783">radius</a>     = bl::util::Random::get&lt;float&gt;(2.f, 7.f);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02833.html#afba621d41ffde5cd9659be453511ac49">   31</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02833.html#afba621d41ffde5cd9659be453511ac49">TrainerSequence::start</a>(bl::engine::Engine&amp; engine) {</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!pipelineCreated) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        pipelineCreated = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        bl::rc::vk::PipelineParameters params;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        params.withSimpleDepthStencil(<span class="keyword">false</span>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;            .addDescriptorSet&lt;bl::rc::ds::Scene2DFactory&gt;()</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            .addDescriptorSet&lt;bl::rc::ds::Object2DFactory&gt;()</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;            .addDescriptorSet&lt;Factory&gt;()</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            .withShaders(bl::rc::Config::ShaderIds::Vertex2D,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                         <span class="stringliteral">&quot;Resources/Shaders/Battle/trainerIntro.frag.spv&quot;</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        engine.renderer().pipelineCache().createPipline(<a class="code" href="a01933.html#aaaa81b86e7da632aec7e682bcb1fadae">core::Properties::TrainerIntroPipelineId</a>,</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;                                                        params.build());</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> SparkSink::update(Proxy&amp; proxy, std::span&lt;Evolution::Spark&gt; particles, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; spark : particles) {</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        spark.lifetime += dt;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (spark.time &gt;= spark.lifetime) { proxy.destroy(spark); }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="comment">// TODO - play sound and start music</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">auto</span> overlay                    = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    e                               = &amp;engine;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    time                            = 0.f;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> sf::Vector2f screenCenter = <a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>() * 0.5f;</div>
 <div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> SparkAffector::update(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; spark : proxy.particles()) { spark.position += spark.velocity * dt; }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace evo</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">Particles.hpp</a></div></div>
-<div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01882_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00262">Properties.cpp:262</a></div></div>
-<div class="ttc" id="aa02326_html_a56f9705ea9d4c88bd63caae8457a1522"><div class="ttname"><a href="a02326.html#a56f9705ea9d4c88bd63caae8457a1522">game::state::evo::SparkEmitter::SparkEmitter</a></div><div class="ttdeci">SparkEmitter()</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00020">Particles.cpp:20</a></div></div>
-<div class="ttc" id="aa02342_html"><div class="ttname"><a href="a02342.html">game::state::Evolution::Spark</a></div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00057">Evolution.hpp:57</a></div></div>
-<div class="ttc" id="aa02342_html_a2a12345544b43062f44c2874be28af08"><div class="ttname"><a href="a02342.html#a2a12345544b43062f44c2874be28af08">game::state::Evolution::Spark::velocity</a></div><div class="ttdeci">glm::vec2 velocity</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00059">Evolution.hpp:59</a></div></div>
-<div class="ttc" id="aa02342_html_ae6e8101eceb2d9854606cf39731a4150"><div class="ttname"><a href="a02342.html#ae6e8101eceb2d9854606cf39731a4150">game::state::Evolution::Spark::position</a></div><div class="ttdeci">glm::vec2 position</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00058">Evolution.hpp:58</a></div></div>
-<div class="ttc" id="aa02342_html_af89e515957aefb9827be4e793223de8e"><div class="ttname"><a href="a02342.html#af89e515957aefb9827be4e793223de8e">game::state::Evolution::Spark::time</a></div><div class="ttdeci">float time</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00061">Evolution.hpp:61</a></div></div>
-<div class="ttc" id="aa02342_html_afbe5c0b2a19faf159d42710b14e26261"><div class="ttname"><a href="a02342.html#afbe5c0b2a19faf159d42710b14e26261">game::state::Evolution::Spark::lifetime</a></div><div class="ttdeci">float lifetime</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00062">Evolution.hpp:62</a></div></div>
-<div class="ttc" id="aa02342_html_affca86902bebc4ab7a5b33a5709c7783"><div class="ttname"><a href="a02342.html#affca86902bebc4ab7a5b33a5709c7783">game::state::Evolution::Spark::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00060">Evolution.hpp:60</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    background.create(engine, {<a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x, <a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y});</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    background.setFillColor(sf::Color::Black);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    background.addToSceneWithCustomPipeline(</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        overlay, bl::rc::UpdateSpeed::Static, <a class="code" href="a01933.html#aaaa81b86e7da632aec7e682bcb1fadae">core::Properties::TrainerIntroPipelineId</a>);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    ballTxtr = engine.renderer().texturePool().getOrLoadTexture(</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        bl::util::FileUtil::joinPath(<a class="code" href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a>(), <span class="stringliteral">&quot;Battle/battleBall.png&quot;</span>));</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    ball.create(engine, ballTxtr);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    ball.getTransform().setOrigin(ballTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    ball.getTransform().setPosition({screenCenter.x, screenCenter.y});</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    ball.getTransform().setScale(0.f, 0.f);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    ball.setParent(background);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    ball.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    Instance&amp; set = overlay-&gt;getDescriptorSet&lt;Instance&gt;();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    uniform       = &amp;set.getBindingPayload&lt;FragmentUniform&gt;();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;}</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
+<div class="line"><a name="l00072"></a><span class="lineno"><a class="line" href="a02833.html#a66e41a6d25b57a4ab873df32cfb4e008">   72</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02833.html#a66e41a6d25b57a4ab873df32cfb4e008">TrainerSequence::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    time += dt;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    FragmentUniform* u    = <span class="keyword">static_cast&lt;</span>FragmentUniform*<span class="keyword">&gt;</span>(uniform);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> sf::Vector2u ws = e-&gt;window().getSfWindow().getSize();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    u-&gt;progress           = time / IntroLength;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    u-&gt;windowSize.x       = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(ws.x);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    u-&gt;windowSize.y       = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(ws.y);</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    ball.getTransform().setScale(u-&gt;progress);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02833.html#ac7efbb2f00dd475a3d3567ad806a462b">   84</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02833.html#ac7efbb2f00dd475a3d3567ad806a462b">TrainerSequence::finished</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> time &gt;= IntroLength; }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;} <span class="comment">// namespace intros</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa01025_html_ac7abb4766cd3f65c31f56279d7decff8"><div class="ttname"><a href="a01025.html#ac7abb4766cd3f65c31f56279d7decff8">progress</a></div><div class="ttdeci">float progress</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00019">TrainerIntro.cpp:19</a></div></div>
+<div class="ttc" id="aa01025_html_addc6a4226266f49bc01301c67163d5b8"><div class="ttname"><a href="a01025.html#addc6a4226266f49bc01301c67163d5b8">windowSize</a></div><div class="ttdeci">glm::vec2 windowSize</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00018">TrainerIntro.cpp:18</a></div></div>
+<div class="ttc" id="aa01028_html"><div class="ttname"><a href="a01028.html">TrainerIntro.hpp</a></div></div>
+<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01933_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00262">Properties.cpp:262</a></div></div>
+<div class="ttc" id="aa01933_html_aaaa81b86e7da632aec7e682bcb1fadae"><div class="ttname"><a href="a01933.html#aaaa81b86e7da632aec7e682bcb1fadae">core::Properties::TrainerIntroPipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t TrainerIntroPipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00141">Properties.hpp:141</a></div></div>
+<div class="ttc" id="aa01933_html_ad00a636ee72ff65264fc176b8c91d144"><div class="ttname"><a href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a></div><div class="ttdeci">static const std::string &amp; ImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00333">Properties.cpp:333</a></div></div>
+<div class="ttc" id="aa02833_html_a5719f58932f083739cdcb78e235ebfc6"><div class="ttname"><a href="a02833.html#a5719f58932f083739cdcb78e235ebfc6">game::state::intros::TrainerSequence::TrainerSequence</a></div><div class="ttdeci">TrainerSequence()</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00028">TrainerIntro.cpp:28</a></div></div>
+<div class="ttc" id="aa02833_html_a66e41a6d25b57a4ab873df32cfb4e008"><div class="ttname"><a href="a02833.html#a66e41a6d25b57a4ab873df32cfb4e008">game::state::intros::TrainerSequence::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00072">TrainerIntro.cpp:72</a></div></div>
+<div class="ttc" id="aa02833_html_ac7efbb2f00dd475a3d3567ad806a462b"><div class="ttname"><a href="a02833.html#ac7efbb2f00dd475a3d3567ad806a462b">game::state::intros::TrainerSequence::finished</a></div><div class="ttdeci">virtual bool finished() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00084">TrainerIntro.cpp:84</a></div></div>
+<div class="ttc" id="aa02833_html_afba621d41ffde5cd9659be453511ac49"><div class="ttname"><a href="a02833.html#afba621d41ffde5cd9659be453511ac49">game::state::intros::TrainerSequence::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine) override</div><div class="ttdef"><b>Definition:</b> <a href="a01025_source.html#l00031">TrainerIntro.cpp:31</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::res::RunWalkAnimations Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,166 +66,27 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01086.html">core</a></li><li class="navelem"><a class="el" href="a01107.html">res</a></li><li class="navelem"><a class="el" href="a01894.html">RunWalkAnimations</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01119.html">pplmn</a></li><li class="navelem"><a class="el" href="a01897.html">WildPeoplemon</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="a01891.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::res::RunWalkAnimations Class Reference</div>  </div>
+<div class="title">core::pplmn::WildPeoplemon Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Extension of animation data that loads and combines the animations for each movement direction into a single animation with different states.  
- <a href="a01894.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00287_source.html">RunWalkAnimations.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::res::RunWalkAnimations:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01894.png" alt=""/>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a387f6a16896b0b61074f3bf396528bc6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01894.html#a387f6a16896b0b61074f3bf396528bc6">loadFromDirectory</a> (const std::string &amp;path)</td></tr>
-<tr class="memdesc:a387f6a16896b0b61074f3bf396528bc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the walking animations from the given directory.  <a href="a01894.html#a387f6a16896b0b61074f3bf396528bc6">More...</a><br /></td></tr>
-<tr class="separator:a387f6a16896b0b61074f3bf396528bc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac4ee3646057ebff58ef52620e4984904"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01894.html#ac4ee3646057ebff58ef52620e4984904">getMaxStateLength</a> () const</td></tr>
-<tr class="memdesc:ac4ee3646057ebff58ef52620e4984904"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the maximum length of any substate animation in seconds.  <a href="a01894.html#ac4ee3646057ebff58ef52620e4984904">More...</a><br /></td></tr>
-<tr class="separator:ac4ee3646057ebff58ef52620e4984904"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a372ae57ab53e93452c0ded9600251df3"><td class="memItemLeft" align="right" valign="top">static std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01894.html#a372ae57ab53e93452c0ded9600251df3">getStateFromDirection</a> (bl::tmap::Direction dir, bool running)</td></tr>
-<tr class="memdesc:a372ae57ab53e93452c0ded9600251df3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maps the movement direction to the state index.  <a href="a01894.html#a372ae57ab53e93452c0ded9600251df3">More...</a><br /></td></tr>
-<tr class="separator:a372ae57ab53e93452c0ded9600251df3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Extension of animation data that loads and combines the animations for each movement direction into a single animation with different states. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00018">18</a> of file <a class="el" href="a00287_source.html">RunWalkAnimations.hpp</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ac4ee3646057ebff58ef52620e4984904"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac4ee3646057ebff58ef52620e4984904">&#9670;&nbsp;</a></span>getMaxStateLength()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">float core::res::RunWalkAnimations::getMaxStateLength </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the maximum length of any substate animation in seconds. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00040">40</a> of file <a class="el" href="a00287_source.html">RunWalkAnimations.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a372ae57ab53e93452c0ded9600251df3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a372ae57ab53e93452c0ded9600251df3">&#9670;&nbsp;</a></span>getStateFromDirection()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">static std::size_t core::res::RunWalkAnimations::getStateFromDirection </td>
-          <td>(</td>
-          <td class="paramtype">bl::tmap::Direction&#160;</td>
-          <td class="paramname"><em>dir</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>running</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Maps the movement direction to the state index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dir</td><td>The direction to map to </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The state index to use for the given walking direction </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00287_source.html#l00034">34</a> of file <a class="el" href="a00287_source.html">RunWalkAnimations.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a387f6a16896b0b61074f3bf396528bc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a387f6a16896b0b61074f3bf396528bc6">&#9670;&nbsp;</a></span>loadFromDirectory()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::res::RunWalkAnimations::loadFromDirectory </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Loads the walking animations from the given directory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">path</td><td>The full path to the directory to load from </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the animations were all loaded successfully, false on error </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00785_source.html#l00009">9</a> of file <a class="el" href="a00785_source.html">RunWalkAnimations.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Resources/<a class="el" href="a00287_source.html">RunWalkAnimations.hpp</a></li>
-<li>src/Core/Resources/<a class="el" href="a00785_source.html">RunWalkAnimations.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a01897.html#a5242a47f9f124e031cdcdddb5b96421c">frequency</a></td><td class="entry"><a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01897.html#afd7f616a2fc43c614e1e58054167a8e5">generate</a>() const</td><td class="entry"><a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01897.html#a11bb70fa5cfd71306283bb8a09d21d42">id</a></td><td class="entry"><a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01897.html#a4455c1e1512329c24872cbda32895f17">maxLevel</a></td><td class="entry"><a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01897.html#a3bd0467c151fec11b848f119b4e0db17">minLevel</a></td><td class="entry"><a class="el" href="a01897.html">core::pplmn::WildPeoplemon</a></td><td class="entry"></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/CatchRegion.cpp Source File</title>
+<title>Peoplemon: src/Core/Input/Control.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,67 +66,84 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_c63dcb5b4cedcea86ba79ffba16467b4.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CatchRegion.cpp</div>  </div>
+<div class="title">Control.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00674.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00176.html">Core/Maps/CatchRegion.hpp</a>&gt;</span></div>
+<a href="a00674.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Input/Control.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03221.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;constexpr std::uint16_t FreqRange = std::numeric_limits&lt;std::uint16_t&gt;::max() - 1;</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">static</span> <span class="keyword">const</span> pplmn::WildPeoplemon <a class="code" href="a01076.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a092f2ba9f39fbc2876e64d12cd662f72">Ben</a>{<a class="code" href="a01076.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5e155acb2cb01e8c6cca4a216b2c8665">pplmn::Id::BenToo</a>, 100, 100, 100};</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01666.html#a0e7234051c55ff066a0b08f65019ab97">   16</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01846.html">pplmn::WildPeoplemon</a>&amp; <a class="code" href="a01666.html#a0e7234051c55ff066a0b08f65019ab97">CatchRegion::selectWild</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01666.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.empty()) {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Empty catch region, spawning your punishment&quot;</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> Ben;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>input</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01114.html#a293f677406b187f5aab5509859935f33">    7</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01114.html#a293f677406b187f5aab5509859935f33">configureInputSystem</a>(bl::input::InputSystem&amp; system) {</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;    <span class="comment">// register controls</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    system.setControlCount(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">Control::Count</a>);</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>);</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Control::Sprint</a>);</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Control::Pause</a>);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    system.configureTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Control::Back</a>);</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="comment">// creator the actor. Peoplemon is only 1 player locally</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    bl::input::Actor&amp; user = system.addActor();</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">const</span> std::uint16_t f = bl::util::Random::get&lt;std::uint16_t&gt;(0, FreqRange);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::uint16_t count   = 0;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="a01846.html">pplmn::WildPeoplemon</a>&amp; ppl : <a class="code" href="a01666.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">if</span> (f &lt; count + ppl.frequency) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Selected wild &quot;</span> &lt;&lt; <a class="code" href="a01818.html#ab9b9c3a216937bd06a0726667dd981b2">pplmn::Peoplemon::name</a>(ppl.id) &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; ppl.id</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                        &lt;&lt; <span class="stringliteral">&quot;)&quot;</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;            <span class="keywordflow">return</span> ppl;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        count += ppl.frequency;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    BL_LOG_ERROR</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        &lt;&lt; <span class="stringliteral">&quot;Sum of wild peoplemon frequencies was less than 100% | Spawning your punishment&quot;</span>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> Ben;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00176_html"><div class="ttname"><a href="a00176.html">CatchRegion.hpp</a></div></div>
-<div class="ttc" id="aa01076_html_ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a092f2ba9f39fbc2876e64d12cd662f72"><div class="ttname"><a href="a01076.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a092f2ba9f39fbc2876e64d12cd662f72">core::pplmn::Id::Ben</a></div><div class="ttdeci">@ Ben</div></div>
-<div class="ttc" id="aa01076_html_ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5e155acb2cb01e8c6cca4a216b2c8665"><div class="ttname"><a href="a01076.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a5e155acb2cb01e8c6cca4a216b2c8665">core::pplmn::Id::BenToo</a></div><div class="ttdeci">@ BenToo</div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01666_html_a0e7234051c55ff066a0b08f65019ab97"><div class="ttname"><a href="a01666.html#a0e7234051c55ff066a0b08f65019ab97">core::map::CatchRegion::selectWild</a></div><div class="ttdeci">const pplmn::WildPeoplemon &amp; selectWild() const</div><div class="ttdoc">Selects a wild peoplemon from the set based on frequency, or returns a level 100 Ben if the set is em...</div><div class="ttdef"><b>Definition:</b> <a href="a00674_source.html#l00016">CatchRegion.cpp:16</a></div></div>
-<div class="ttc" id="aa01666_html_ad13a93a6da9f31784cf5c3afbea6033d"><div class="ttname"><a href="a01666.html#ad13a93a6da9f31784cf5c3afbea6033d">core::map::CatchRegion::wilds</a></div><div class="ttdeci">std::vector&lt; pplmn::WildPeoplemon &gt; wilds</div><div class="ttdef"><b>Definition:</b> <a href="a00176_source.html#l00020">CatchRegion.hpp:20</a></div></div>
-<div class="ttc" id="aa01818_html_ab9b9c3a216937bd06a0726667dd981b2"><div class="ttname"><a href="a01818.html#ab9b9c3a216937bd06a0726667dd981b2">core::pplmn::Peoplemon::name</a></div><div class="ttdeci">static const std::string &amp; name(Id id)</div><div class="ttdoc">Returns the name of the given Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03311_source.html#l00126">Peoplemon.cpp:126</a></div></div>
-<div class="ttc" id="aa01846_html"><div class="ttname"><a href="a01846.html">core::pplmn::WildPeoplemon</a></div><div class="ttdoc">Template struct to generate OwnedPeoplemon for random encounters.</div><div class="ttdef"><b>Definition:</b> <a href="a03227_source.html#l00018">WildPeoplemon.hpp:18</a></div></div>
-<div class="ttc" id="aa03221_html"><div class="ttname"><a href="a03221.html">Peoplemon.hpp</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="comment">// set keyboard and mouse defaults. no defaults for controller</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>).triggerOnKey(sf::Keyboard::W);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>).triggerOnKey(sf::Keyboard::D);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>).triggerOnKey(sf::Keyboard::S);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>).triggerOnKey(sf::Keyboard::A);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">Control::Sprint</a>).triggerOnKey(sf::Keyboard::LShift);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>).triggerOnKey(sf::Keyboard::Space);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">Control::Pause</a>).triggerOnKey(sf::Keyboard::Enter);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    user.getKBMTriggerControl(<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">Control::Back</a>).triggerOnKey(sf::Keyboard::LControl);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="comment">// load user preferences from config</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    system.loadFromConfig();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">   36</a></span>&#160;<a class="code" href="a01114.html#a362a94172d86c7b7662228aeab1b7516">EntityControl</a> <a class="code" href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">fromDirection</a>(bl::tmap::Direction dir) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">case</span> bl::tmap::Direction::Up:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">case</span> bl::tmap::Direction::Right:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keywordflow">case</span> bl::tmap::Direction::Down:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">case</span> bl::tmap::Direction::Left:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;} <span class="comment">// namespace input</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Control.hpp</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a></div><div class="ttdeci">@ MoveDown</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00031">Control.hpp:31</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a></div><div class="ttdeci">@ Back</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00036">Control.hpp:36</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a49a69734c9eaf47436751b36372b85d7">core::input::Control::Pause</a></div><div class="ttdeci">@ Pause</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00035">Control.hpp:35</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a></div><div class="ttdeci">@ Interact</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00034">Control.hpp:34</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a9b882d2a24b5eb81f6582255ed43db8c">core::input::Control::Sprint</a></div><div class="ttdeci">@ Sprint</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00033">Control.hpp:33</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a></div><div class="ttdeci">@ MoveLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00032">Control.hpp:32</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a></div><div class="ttdeci">@ MoveRight</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00030">Control.hpp:30</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ae1b03a6443bb04e423b2b5afba52dd5c">core::input::Control::Count</a></div><div class="ttdeci">@ Count</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00037">Control.hpp:37</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a></div><div class="ttdeci">@ MoveUp</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00029">Control.hpp:29</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01114_html_a293f677406b187f5aab5509859935f33"><div class="ttname"><a href="a01114.html#a293f677406b187f5aab5509859935f33">core::input::configureInputSystem</a></div><div class="ttdeci">void configureInputSystem(bl::input::InputSystem &amp;system)</div><div class="ttdoc">Configures the input system for the set of peoplemon inputs.</div><div class="ttdef"><b>Definition:</b> <a href="a00674_source.html#l00007">Control.cpp:7</a></div></div>
+<div class="ttc" id="aa01114_html_a362a94172d86c7b7662228aeab1b7516"><div class="ttname"><a href="a01114.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a></div><div class="ttdeci">std::underlying_type_t&lt; Control::EntityControl &gt; EntityControl</div><div class="ttdoc">Helper typedef to avoid too much casting boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00044">Control.hpp:44</a></div></div>
+<div class="ttc" id="aa01114_html_a66470cbe2abc6af3d0728f8f430ef2ed"><div class="ttname"><a href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">core::input::fromDirection</a></div><div class="ttdeci">EntityControl fromDirection(bl::tmap::Direction direction)</div><div class="ttdoc">Helper method to convert a move direction to a control.</div><div class="ttdef"><b>Definition:</b> <a href="a00674_source.html#l00036">Control.cpp:36</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

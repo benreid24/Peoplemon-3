@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/States/StoreMenu.hpp Source File</title>
+<title>Peoplemon: include/Game/States/SettingsMenu.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,141 +71,126 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StoreMenu.hpp</div>  </div>
+<div class="title">SettingsMenu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00551.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_STOREMENU_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_STOREMENU_HPP</span></div>
+<a href="a00551.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_SETTINGSMENU_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_SETTINGSMENU_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00140.html">Core/Events/Store.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Input/MenuDriver.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00326.html">Core/Systems/HUD/QtyEntry.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00509.html">Game/Menus/StoreItemRow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03242.html">Game/States/State.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01113.html">game</a></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="a02406.html">   23</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02406.html">StoreMenu</a></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02398.html">State</a></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, <span class="keyword">public</span> bl::input::Listener {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02406.html#ae849b6c1ce801fc83fbe06492ec961c1">create</a>(<a class="code" href="a02034.html">core::system::Systems</a>&amp; <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                         <span class="keyword">const</span> <a class="code" href="a01462.html">core::event::StoreOpened</a>&amp; data);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="a02406.html#a5e4ae33ff0aaf9dd1cc39def9fc594e1">   40</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02406.html#a5e4ae33ff0aaf9dd1cc39def9fc594e1">~StoreMenu</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02406.html#acbff250d52aaf205195426de546578f0">name</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02406.html#a989f8c47356ae78036178bde533ef2c9">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02406.html#aa89dc68a70344ae89d4ab3730bed81de">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">Core/Input/MenuDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03304.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02449.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02449.html">SettingsMenu</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02453.html">State</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, <span class="keyword">public</span> bl::input::Listener {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02449.html#a1e42ff838ef88ec840c935bfe35e9308">create</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02449.html#a526e11ed36c235e6a4146b0fc22a00f3">   28</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02449.html#a526e11ed36c235e6a4146b0fc22a00f3">~SettingsMenu</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02449.html#a64452c6a49f58de995ecaaabd7d90337">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02449.html#a9d8d69ea9226527e0475406d6667782e">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02449.html#ad7c99b77867c35f6281134570309f43e">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02449.html#abab198d0171b8d72eb7dae1cc3fe0d96">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">enum struct</span> MenuState {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        TopMenu,</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02406.html#ab23e573b2b4a9ef938c5dea3b0a031f9">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">struct </span>Item {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">const</span> <a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> price;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        Item(<a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item, <span class="keywordtype">int</span> price);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    };</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">enum struct</span> MenuState {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        ImpulseBuyMessage,</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        GetAction,</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        BuyMenu,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        BuyQty,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        BuyDing,</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        SellMenu,</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        SellQty,</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        SellDing,</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        TooPoorDing</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    };</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        VideoMenu,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        VideoSelectMode,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        AudioMenu,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        AudioSelectVolume,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ControlsTopMenu,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        ControlsKBMMenu,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        ControlsPadMenu,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        ControlsBindingControl</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    };</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    MenuState state;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    bl::rc::res::TextureRef bgndTexture;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    bl::gfx::Text hint;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <a class="code" href="a01088.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> inputDriver;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    bl::menu::Menu topMenu;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    bl::menu::Menu videoMenu;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    bl::menu::TextItem::Ptr windowModeTextItem;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::menu::SubmenuItem::Ptr windowModeDropdownItem;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::menu::TextItem::Ptr fullscreenItem;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    bl::menu::TextItem::Ptr windowedItem;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    bl::menu::ToggleTextItem::Ptr vsyncItem;</div>
 <div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    MenuState menuState;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    std::vector&lt;Item&gt; items;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    std::unordered_map&lt;core::item::Id, int&gt; sellPrices;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    bl::audio::AudioSystem::Handle dingSound;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a01073.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> inputDriver;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> buyingItemIndex;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02306.html">menu::StoreItemRow</a>* sellingItem;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">float</span> dingTime;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> curCat;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    bl::gfx::Sprite background;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    bl::menu::Menu* renderMenu;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    bl::menu::Menu actionMenu;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    bl::menu::Menu buyMenu;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    bl::menu::Menu sellMenus[3];</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="a01982.html">core::system::hud::QtyEntry</a> qtyEntry;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    bl::gfx::Text actionText;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    bl::gfx::Text boxText;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    bl::gfx::Text moneyText;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    bl::gfx::Text catText;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    bl::gfx::Triangle leftArrow;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    bl::gfx::Triangle rightArrow;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    bl::menu::Menu audioMenu;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    bl::menu::ToggleTextItem::Ptr muteItem;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    bl::menu::TextItem::Ptr volumeItem;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="a02033.html">core::system::hud::QtyEntry</a> volumeEntry;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    bl::menu::Menu controlsTopMenu;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    bl::input::Configurator ctrlConfigurator;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> bindingCtrl;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">bool</span> bindingKbm;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    bl::menu::TextItem* ctrlItem;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    bl::menu::Menu controlsKbmMenu;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    bl::menu::Menu controlsPadMenu;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="a02449.html">SettingsMenu</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> enterState(MenuState state);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordtype">void</span> setHint(<span class="keyword">const</span> std::string&amp; message);</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordtype">void</span> onWindowModeOpen();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">bool</span> isFullscreen() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    std::string windowModeString() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> onWindowModeChange(<span class="keywordtype">bool</span> fullscreen);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">void</span> onVsyncUpdate();</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    StoreMenu(<a class="code" href="a02034.html">core::system::Systems</a>&amp; <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <span class="keyword">const</span> <a class="code" href="a01462.html">core::event::StoreOpened</a>&amp; data);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> enterState(MenuState state);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> setBoxText(<span class="keyword">const</span> std::string&amp; text);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> setMoneyText();</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">int</span> getSellPrice(<a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordtype">void</span> closeMenu();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    <span class="keywordtype">void</span> selectBuyItem(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordtype">void</span> selectSellItem(<a class="code" href="a02306.html">menu::StoreItemRow</a>* row);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">void</span> catRight();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    <span class="keywordtype">void</span> catLeft();</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">void</span> catSync();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordtype">void</span> close();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl,</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;                         bl::input::DispatchType, <span class="keywordtype">bool</span> eventTriggered) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    bl::menu::Item::Ptr makeItemRow(<a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item, <span class="keywordtype">int</span> price, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    bl::menu::Item::Ptr makeSellItemRow(<a class="code" href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item, <span class="keywordtype">int</span> qty);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    bl::menu::Item::Ptr makeCloseItem();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;};</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00140_html"><div class="ttname"><a href="a00140.html">Store.hpp</a></div></div>
-<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">MenuDriver.hpp</a></div></div>
-<div class="ttc" id="aa00326_html"><div class="ttname"><a href="a00326.html">QtyEntry.hpp</a></div></div>
-<div class="ttc" id="aa00509_html"><div class="ttname"><a href="a00509.html">StoreItemRow.hpp</a></div></div>
-<div class="ttc" id="aa01073_html_ga4177a2fb4c67d583c7ea3ab587db8791"><div class="ttname"><a href="a01073.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a></div><div class="ttdeci">bl::menu::TriggerDriver&lt; Control::MoveUp, Control::MoveRight, Control::MoveDown, Control::MoveLeft, Control::Interact &gt; MenuDriver</div><div class="ttdoc">Helper typedef for Peoplemon specific menu driving.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00017">MenuDriver.hpp:18</a></div></div>
-<div class="ttc" id="aa01074_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01074.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03191_source.html#l00024">Id.hpp:24</a></div></div>
-<div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01462_html"><div class="ttname"><a href="a01462.html">core::event::StoreOpened</a></div><div class="ttdoc">Event that is fired by the Core module to signal to the game to open a store.</div><div class="ttdef"><b>Definition:</b> <a href="a00140_source.html#l00017">Store.hpp:17</a></div></div>
-<div class="ttc" id="aa01982_html"><div class="ttname"><a href="a01982.html">core::system::hud::QtyEntry</a></div><div class="ttdoc">Helper class to render a number selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00326_source.html#l00018">QtyEntry.hpp:18</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02306_html"><div class="ttname"><a href="a02306.html">game::menu::StoreItemRow</a></div><div class="ttdoc">Menu item for an item in the store. Does both sellable and for-sale items.</div><div class="ttdef"><b>Definition:</b> <a href="a00509_source.html#l00018">StoreItemRow.hpp:18</a></div></div>
-<div class="ttc" id="aa02398_html"><div class="ttname"><a href="a02398.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03242_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02398_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03242_source.html#l00066">State.hpp:66</a></div></div>
-<div class="ttc" id="aa02406_html"><div class="ttname"><a href="a02406.html">game::state::StoreMenu</a></div><div class="ttdoc">State that renders and implements a store menu to buy and sell items.</div><div class="ttdef"><b>Definition:</b> <a href="a00551_source.html#l00023">StoreMenu.hpp:25</a></div></div>
-<div class="ttc" id="aa02406_html_a5e4ae33ff0aaf9dd1cc39def9fc594e1"><div class="ttname"><a href="a02406.html#a5e4ae33ff0aaf9dd1cc39def9fc594e1">game::state::StoreMenu::~StoreMenu</a></div><div class="ttdeci">virtual ~StoreMenu()=default</div><div class="ttdoc">Destroy the Store State object.</div></div>
-<div class="ttc" id="aa02406_html_a989f8c47356ae78036178bde533ef2c9"><div class="ttname"><a href="a02406.html#a989f8c47356ae78036178bde533ef2c9">game::state::StoreMenu::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Subscribes to event buses.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00124">StoreMenu.cpp:124</a></div></div>
-<div class="ttc" id="aa02406_html_aa89dc68a70344ae89d4ab3730bed81de"><div class="ttname"><a href="a02406.html#aa89dc68a70344ae89d4ab3730bed81de">game::state::StoreMenu::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Unsubscribes from event buses.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00208">StoreMenu.cpp:208</a></div></div>
-<div class="ttc" id="aa02406_html_ab23e573b2b4a9ef938c5dea3b0a031f9"><div class="ttname"><a href="a02406.html#ab23e573b2b4a9ef938c5dea3b0a031f9">game::state::StoreMenu::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the store menu.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00214">StoreMenu.cpp:214</a></div></div>
-<div class="ttc" id="aa02406_html_acbff250d52aaf205195426de546578f0"><div class="ttname"><a href="a02406.html#acbff250d52aaf205195426de546578f0">game::state::StoreMenu::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;StoreMenu&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00122">StoreMenu.cpp:122</a></div></div>
-<div class="ttc" id="aa02406_html_ae849b6c1ce801fc83fbe06492ec961c1"><div class="ttname"><a href="a02406.html#ae849b6c1ce801fc83fbe06492ec961c1">game::state::StoreMenu::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, const core::event::StoreOpened &amp;data)</div><div class="ttdoc">Create a new StoreMenu.</div><div class="ttdef"><b>Definition:</b> <a href="a01064_source.html#l00027">StoreMenu.cpp:27</a></div></div>
-<div class="ttc" id="aa03242_html"><div class="ttname"><a href="a03242.html">State.hpp</a></div></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> startBindControl(<span class="keywordtype">bool</span> kbm, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    std::string ctrlString(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, <span class="keywordtype">bool</span> kbm) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160; </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> back();</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> close();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                         bl::input::DispatchType, <span class="keywordtype">bool</span> eventTriggered) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">MenuDriver.hpp</a></div></div>
+<div class="ttc" id="aa01088_html_ga4177a2fb4c67d583c7ea3ab587db8791"><div class="ttname"><a href="a01088.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a></div><div class="ttdeci">bl::menu::TriggerDriver&lt; Control::MoveUp, Control::MoveRight, Control::MoveDown, Control::MoveLeft, Control::Interact &gt; MenuDriver</div><div class="ttdoc">Helper typedef for Peoplemon specific menu driving.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00017">MenuDriver.hpp:18</a></div></div>
+<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa02033_html"><div class="ttname"><a href="a02033.html">core::system::hud::QtyEntry</a></div><div class="ttdoc">Helper class to render a number selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00329_source.html#l00018">QtyEntry.hpp:18</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02449_html"><div class="ttname"><a href="a02449.html">game::state::SettingsMenu</a></div><div class="ttdef"><b>Definition:</b> <a href="a00551_source.html#l00012">SettingsMenu.hpp:14</a></div></div>
+<div class="ttc" id="aa02449_html_a1e42ff838ef88ec840c935bfe35e9308"><div class="ttname"><a href="a02449.html#a1e42ff838ef88ec840c935bfe35e9308">game::state::SettingsMenu::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates the settings menu state.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00057">SettingsMenu.cpp:57</a></div></div>
+<div class="ttc" id="aa02449_html_a526e11ed36c235e6a4146b0fc22a00f3"><div class="ttname"><a href="a02449.html#a526e11ed36c235e6a4146b0fc22a00f3">game::state::SettingsMenu::~SettingsMenu</a></div><div class="ttdeci">virtual ~SettingsMenu()=default</div><div class="ttdoc">Destroy the Settings Menu state.</div></div>
+<div class="ttc" id="aa02449_html_a64452c6a49f58de995ecaaabd7d90337"><div class="ttname"><a href="a02449.html#a64452c6a49f58de995ecaaabd7d90337">game::state::SettingsMenu::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;SettingsMenu&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00066">SettingsMenu.cpp:66</a></div></div>
+<div class="ttc" id="aa02449_html_a9d8d69ea9226527e0475406d6667782e"><div class="ttname"><a href="a02449.html#a9d8d69ea9226527e0475406d6667782e">game::state::SettingsMenu::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00068">SettingsMenu.cpp:68</a></div></div>
+<div class="ttc" id="aa02449_html_abab198d0171b8d72eb7dae1cc3fe0d96"><div class="ttname"><a href="a02449.html#abab198d0171b8d72eb7dae1cc3fe0d96">game::state::SettingsMenu::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the state and menus and whatnot.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00332">SettingsMenu.cpp:332</a></div></div>
+<div class="ttc" id="aa02449_html_ad7c99b77867c35f6281134570309f43e"><div class="ttname"><a href="a02449.html#ad7c99b77867c35f6281134570309f43e">game::state::SettingsMenu::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Deactivates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01076_source.html#l00324">SettingsMenu.cpp:324</a></div></div>
+<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02453_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa03304_html"><div class="ttname"><a href="a03304.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

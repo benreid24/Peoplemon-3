@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Components/StandingBehavior.cpp Source File</title>
+<title>Peoplemon: src/Core/Components/SpinBehavior.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,36 +71,72 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">StandingBehavior.cpp</div>  </div>
+<div class="title">SpinBehavior.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00641.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00101.html">Core/Components/StandingBehavior.hpp</a>&gt;</span></div>
+<a href="a00641.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00101.html">Core/Components/SpinBehavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01370.html#af20f253324e31132042fc1ed9d870978">    7</a></span>&#160;<a class="code" href="a01370.html#af20f253324e31132042fc1ed9d870978">StandingBehavior::StandingBehavior</a>(bl::tmap::Direction faceDir)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: dir(faceDir) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01370.html#adc49de8d738661448e3676974c49e777">   10</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01370.html#adc49de8d738661448e3676974c49e777">StandingBehavior::update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01330.html">Controllable</a>&amp; controller) {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keywordflow">if</span> (position.direction != dir) { controller.<a class="code" href="a01330.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(<a class="code" href="a01098.html#a66470cbe2abc6af3d0728f8f430ef2ed">input::fromDirection</a>(dir)); }</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01417.html#a3278a050aad68a38f0340159e9af40df">   10</a></span>&#160;<a class="code" href="a01417.html#a3278a050aad68a38f0340159e9af40df">SpinBehavior::SpinBehavior</a>(<a class="code" href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a> dir)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: dir(dir)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, standTime(0.f) {}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">StandingBehavior.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01098_html_a66470cbe2abc6af3d0728f8f430ef2ed"><div class="ttname"><a href="a01098.html#a66470cbe2abc6af3d0728f8f430ef2ed">core::input::fromDirection</a></div><div class="ttdeci">EntityControl fromDirection(bl::tmap::Direction direction)</div><div class="ttdoc">Helper method to convert a move direction to a control.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00036">Control.cpp:36</a></div></div>
-<div class="ttc" id="aa01330_html"><div class="ttname"><a href="a01330.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03128_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01330_html_aac5a104c992db0ec180408c2c84ef240"><div class="ttname"><a href="a01330.html#aac5a104c992db0ec180408c2c84ef240">core::component::Controllable::processControl</a></div><div class="ttdeci">bool processControl(input::EntityControl command, bool sprint=false, bool overrideLock=false)</div><div class="ttdoc">Processes the given command and manipulates the entity accordingly.</div><div class="ttdef"><b>Definition:</b> <a href="a03272_source.html#l00016">Controllable.cpp:16</a></div></div>
-<div class="ttc" id="aa01370_html_adc49de8d738661448e3676974c49e777"><div class="ttname"><a href="a01370.html#adc49de8d738661448e3676974c49e777">core::component::StandingBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller)</div><div class="ttdoc">Ensures the managed entity is facing the required position.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00010">StandingBehavior.cpp:10</a></div></div>
-<div class="ttc" id="aa01370_html_af20f253324e31132042fc1ed9d870978"><div class="ttname"><a href="a01370.html#af20f253324e31132042fc1ed9d870978">core::component::StandingBehavior::StandingBehavior</a></div><div class="ttdeci">StandingBehavior(bl::tmap::Direction faceDir)</div><div class="ttdoc">Construct a new Standing Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00007">StandingBehavior.cpp:7</a></div></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01417.html#ae855e237c1ae665573ecc95a1115796f">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01417.html#ae855e237c1ae665573ecc95a1115796f">SpinBehavior::update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01381.html">Controllable</a>&amp; controller, <span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    standTime += dt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">if</span> (standTime &gt;= <a class="code" href="a01933.html#a46f36fbf5ef338a3e20ff2c95d140fdf">Properties::CharacterSpinPeriod</a>()) {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        standTime -= <a class="code" href="a01933.html#a46f36fbf5ef338a3e20ff2c95d140fdf">Properties::CharacterSpinPeriod</a>();</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aafefb9a68f9c6796eb45d509c20bad31c">file::Behavior::Spinning::Clockwise</a>: {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;            controller.<a class="code" href="a01381.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                <a class="code" href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">input::fromDirection</a>(nextClockwiseDirection(position.direction)));</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aae8f30f315ebf96638f8ac1eebc387c8c">file::Behavior::Spinning::Counterclockwise</a>: {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;            controller.<a class="code" href="a01381.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;                <a class="code" href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">input::fromDirection</a>(nextCounterClockwiseDirection(position.direction)));</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aa4358ce42007c221c7a9e84ad67098099">file::Behavior::Spinning::Random</a>: {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;            bl::tmap::Direction ndir =</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                <span class="keyword">static_cast&lt;</span>bl::tmap::Direction<span class="keyword">&gt;</span>(bl::util::Random::get&lt;int&gt;(0, 3));</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;            <span class="keywordflow">while</span> (ndir == position.direction) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                ndir = <span class="keyword">static_cast&lt;</span>bl::tmap::Direction<span class="keyword">&gt;</span>(bl::util::Random::get&lt;int&gt;(0, 3));</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;            }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            controller.<a class="code" href="a01381.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(<a class="code" href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">input::fromDirection</a>(ndir));</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">SpinBehavior.hpp</a></div></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01114_html_a66470cbe2abc6af3d0728f8f430ef2ed"><div class="ttname"><a href="a01114.html#a66470cbe2abc6af3d0728f8f430ef2ed">core::input::fromDirection</a></div><div class="ttdeci">EntityControl fromDirection(bl::tmap::Direction direction)</div><div class="ttdoc">Helper method to convert a move direction to a control.</div><div class="ttdef"><b>Definition:</b> <a href="a00674_source.html#l00036">Control.cpp:36</a></div></div>
+<div class="ttc" id="aa01381_html"><div class="ttname"><a href="a01381.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03190_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01381_html_aac5a104c992db0ec180408c2c84ef240"><div class="ttname"><a href="a01381.html#aac5a104c992db0ec180408c2c84ef240">core::component::Controllable::processControl</a></div><div class="ttdeci">bool processControl(input::EntityControl command, bool sprint=false, bool overrideLock=false)</div><div class="ttdoc">Processes the given command and manipulates the entity accordingly.</div><div class="ttdef"><b>Definition:</b> <a href="a03334_source.html#l00016">Controllable.cpp:16</a></div></div>
+<div class="ttc" id="aa01417_html_a3278a050aad68a38f0340159e9af40df"><div class="ttname"><a href="a01417.html#a3278a050aad68a38f0340159e9af40df">core::component::SpinBehavior::SpinBehavior</a></div><div class="ttdeci">SpinBehavior(file::Behavior::Spinning::Direction dir)</div><div class="ttdoc">Construct a new Spin Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00010">SpinBehavior.cpp:10</a></div></div>
+<div class="ttc" id="aa01417_html_ae855e237c1ae665573ecc95a1115796f"><div class="ttname"><a href="a01417.html#ae855e237c1ae665573ecc95a1115796f">core::component::SpinBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller, float dt)</div><div class="ttdoc">Updates the behavior.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00014">SpinBehavior.cpp:14</a></div></div>
+<div class="ttc" id="aa01549_html_a848d9fe437bc10ef7fea6a9bb9d8655a"><div class="ttname"><a href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655a">core::file::Behavior::Spinning::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">The direction to spin.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00051">Behavior.hpp:51</a></div></div>
+<div class="ttc" id="aa01549_html_a848d9fe437bc10ef7fea6a9bb9d8655aa4358ce42007c221c7a9e84ad67098099"><div class="ttname"><a href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aa4358ce42007c221c7a9e84ad67098099">core::file::Behavior::Spinning::Random</a></div><div class="ttdeci">@ Random</div><div class="ttdoc">The character spins randomly.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00060">Behavior.hpp:59</a></div></div>
+<div class="ttc" id="aa01549_html_a848d9fe437bc10ef7fea6a9bb9d8655aae8f30f315ebf96638f8ac1eebc387c8c"><div class="ttname"><a href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aae8f30f315ebf96638f8ac1eebc387c8c">core::file::Behavior::Spinning::Counterclockwise</a></div><div class="ttdeci">@ Counterclockwise</div><div class="ttdoc">The character spins counterclockwise.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00056">Behavior.hpp:56</a></div></div>
+<div class="ttc" id="aa01549_html_a848d9fe437bc10ef7fea6a9bb9d8655aafefb9a68f9c6796eb45d509c20bad31c"><div class="ttname"><a href="a01549.html#a848d9fe437bc10ef7fea6a9bb9d8655aafefb9a68f9c6796eb45d509c20bad31c">core::file::Behavior::Spinning::Clockwise</a></div><div class="ttdeci">@ Clockwise</div><div class="ttdoc">The character spins clockwise.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00053">Behavior.hpp:53</a></div></div>
+<div class="ttc" id="aa01933_html_a46f36fbf5ef338a3e20ff2c95d140fdf"><div class="ttname"><a href="a01933.html#a46f36fbf5ef338a3e20ff2c95d140fdf">core::Properties::CharacterSpinPeriod</a></div><div class="ttdeci">static float CharacterSpinPeriod()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00585">Properties.cpp:585</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

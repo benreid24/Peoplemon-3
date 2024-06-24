@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Items/Category.hpp Source File</title>
+<title>Peoplemon: include/Core/Input/MenuDriver.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,51 +66,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_d0817f30fd8c8c383703ce347219b18e.html">Items</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_5a360ce72f845b04181dbb6c528142b3.html">Input</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Category.hpp</div>  </div>
+<div class="title">MenuDriver.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00167.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_ITEMS_CATEGORY_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_ITEMS_CATEGORY_HPP</span></div>
+<a href="a00167.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_INPUT_MENUDRIVER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_INPUT_MENUDRIVER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01100.html">    8</a></span>&#160;<span class="keyword">namespace </span>item</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01074.html#gac5b9981750f250d2d6aa8682b2a10b71">   16</a></span>&#160;<span class="keyword">enum struct</span> <a class="code" href="a01074.html#gac5b9981750f250d2d6aa8682b2a10b71">Category</a> : std::uint8_t {</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <a class="code" href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">Unknown</a>,</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Input/Control.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>input</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01088.html#ga4177a2fb4c67d583c7ea3ab587db8791">   17</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a01088.html#ga4177a2fb4c67d583c7ea3ab587db8791">MenuDriver</a> = bl::menu::TriggerDriver&lt;<a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">Control::MoveUp</a>, <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">Control::MoveRight</a>, <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">Control::MoveDown</a>,</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;                                           <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">Control::MoveLeft</a>, <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">Control::Interact</a>&gt;;</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <a class="code" href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">Regular</a>,</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;} <span class="comment">// namespace input</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">Key</a>,</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">TM</a>,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a82f60caea0455676d244117d3ef104e4">Peopleball</a></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace item</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01074_html_gac5b9981750f250d2d6aa8682b2a10b71"><div class="ttname"><a href="a01074.html#gac5b9981750f250d2d6aa8682b2a10b71">core::item::Category</a></div><div class="ttdeci">Category</div><div class="ttdoc">Represents a category that an item can belong to. Used for bag sorting.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00016">Category.hpp:16</a></div></div>
-<div class="ttc" id="aa01074_html_ggac5b9981750f250d2d6aa8682b2a10b71a82f60caea0455676d244117d3ef104e4"><div class="ttname"><a href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a82f60caea0455676d244117d3ef104e4">core::item::Category::Peopleball</a></div><div class="ttdeci">@ Peopleball</div><div class="ttdoc">Peopleballs.</div></div>
-<div class="ttc" id="aa01074_html_ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a88183b946cc5f0e8c96b2e66e1c74a7e">core::item::Category::Unknown</a></div><div class="ttdeci">@ Unknown</div><div class="ttdoc">Unknown item category.</div></div>
-<div class="ttc" id="aa01074_html_ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba"><div class="ttname"><a href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71a897356954c2cd3d41b221e3f24f99bba">core::item::Category::Key</a></div><div class="ttdeci">@ Key</div><div class="ttdoc">Key items. Covers ids [101, 200].</div></div>
-<div class="ttc" id="aa01074_html_ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c"><div class="ttname"><a href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71aac7a4fbd0d788d94f43454817e1c208c">core::item::Category::TM</a></div><div class="ttdeci">@ TM</div><div class="ttdoc">TM's. Covers ids [201, 499].</div></div>
-<div class="ttc" id="aa01074_html_ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345"><div class="ttname"><a href="a01074.html#ggac5b9981750f250d2d6aa8682b2a10b71ad2203cb1237cb6460cbad94564e39345">core::item::Category::Regular</a></div><div class="ttdeci">@ Regular</div><div class="ttdoc">Regular items. Covers ids [1, 100].</div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Control.hpp</a></div></div>
+<div class="ttc" id="aa01088_html_ga4177a2fb4c67d583c7ea3ab587db8791"><div class="ttname"><a href="a01088.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a></div><div class="ttdeci">bl::menu::TriggerDriver&lt; Control::MoveUp, Control::MoveRight, Control::MoveDown, Control::MoveLeft, Control::Interact &gt; MenuDriver</div><div class="ttdoc">Helper typedef for Peoplemon specific menu driving.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00017">MenuDriver.hpp:18</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a></div><div class="ttdeci">@ MoveDown</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00031">Control.hpp:31</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a></div><div class="ttdeci">@ Interact</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00034">Control.hpp:34</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a></div><div class="ttdeci">@ MoveLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00032">Control.hpp:32</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a></div><div class="ttdeci">@ MoveRight</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00030">Control.hpp:30</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a></div><div class="ttdeci">@ MoveUp</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00029">Control.hpp:29</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

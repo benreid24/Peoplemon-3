@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Fog.cpp Source File</title>
+<title>Peoplemon: src/Core/Maps/Weather/Base.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,367 +71,60 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Fog.cpp</div>  </div>
+<div class="title">Base.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00704.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00707.html">Fog.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Cameras/2D/Camera2D.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> AlphaRate = 0.1f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">const</span> glm::vec2 FogVelocity(64.f, 25.f);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">float</span> computeAlpha(<span class="keywordtype">float</span> current, <span class="keywordtype">float</span> target, <span class="keywordtype">float</span> step) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> rate = target &gt; current ? AlphaRate : -AlphaRate;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> na   = current + rate * step;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (na &lt; 0.f) <span class="keywordflow">return</span> 0.f;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> (na &gt; 1.f) <span class="keywordflow">return</span> 1.f;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">if</span> (current &lt; target &amp;&amp; na &gt; target) <span class="keywordflow">return</span> target;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> na;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01133.html">   29</a></span>&#160;<span class="keyword">namespace </span>fog</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;{</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02422.html">   31</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02422.html">Particle</a> {</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02422.html#af20fa232072927025e5984ea68c127f9">   32</a></span>&#160;    glm::vec2 <a class="code" href="a02422.html#af20fa232072927025e5984ea68c127f9">pos</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02422.html#a6b9f47a106ef1f39602bbedecacc401a">   33</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02422.html#a6b9f47a106ef1f39602bbedecacc401a">rotation</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02422.html#a4b2b3803092c7a77216c35fd678752a3">   34</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02422.html#a4b2b3803092c7a77216c35fd678752a3">angularVelocity</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02422.html#a22137e1649668a58bbca60f0f67cacf3">   35</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02422.html#a22137e1649668a58bbca60f0f67cacf3">scale</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02422.html#a56b8ca38b5f68b3c7daf049f991aee11">   37</a></span>&#160;    <a class="code" href="a02422.html#a56b8ca38b5f68b3c7daf049f991aee11">Particle</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02422.html#aa3db5f313fa860e84d005a7a5269c885">   39</a></span>&#160;    <a class="code" href="a02422.html#aa3db5f313fa860e84d005a7a5269c885">Particle</a>(<span class="keyword">const</span> glm::vec2&amp; <a class="code" href="a02422.html#af20fa232072927025e5984ea68c127f9">pos</a>)</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    : <a class="code" href="a02422.html#af20fa232072927025e5984ea68c127f9">pos</a>(<a class="code" href="a02422.html#af20fa232072927025e5984ea68c127f9">pos</a>)</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    , <a class="code" href="a02422.html#a6b9f47a106ef1f39602bbedecacc401a">rotation</a>(<a class="code" href="a01096.html">bl</a>::util::Random::get&lt;float&gt;(0.f, 2.f * <a class="code" href="a01096.html">bl</a>::math::Pi))</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    , <a class="code" href="a02422.html#a4b2b3803092c7a77216c35fd678752a3">angularVelocity</a>(<a class="code" href="a01096.html">bl</a>::util::Random::get&lt;float&gt;(-<a class="code" href="a01096.html">bl</a>::math::Pi, <a class="code" href="a01096.html">bl</a>::math::Pi))</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    , <a class="code" href="a02422.html#a22137e1649668a58bbca60f0f67cacf3">scale</a>(<a class="code" href="a01096.html">bl</a>::util::Random::get&lt;float&gt;(0.8f, 1.8f)) {}</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02426.html">   46</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02426.html">GpuParticle</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02426.html#a5c855b79b722eae5449089bfcecfcd2f">   47</a></span>&#160;    glm::vec2 <a class="code" href="a02426.html#a5c855b79b722eae5449089bfcecfcd2f">pos</a>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02426.html#a46bdc73d65b34d63f74ecec3db5a1014">   48</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02426.html#a46bdc73d65b34d63f74ecec3db5a1014">rotation</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02426.html#a30d18ad4c6d30a5600969188a040f111">   49</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02426.html#a30d18ad4c6d30a5600969188a040f111">scale</a>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02426.html#a4f17952892a852f0a139031fa050506e">   51</a></span>&#160;    <a class="code" href="a02426.html#a4f17952892a852f0a139031fa050506e">GpuParticle</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02426.html#a142a269fdce2439c40e8e3c2ac8db065">   53</a></span>&#160;    <a class="code" href="a02426.html">GpuParticle</a>&amp; <a class="code" href="a02426.html#a142a269fdce2439c40e8e3c2ac8db065">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02422.html">Particle</a>&amp; p) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="a02426.html#a5c855b79b722eae5449089bfcecfcd2f">pos</a>      = p.<a class="code" href="a02422.html#af20fa232072927025e5984ea68c127f9">pos</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a02426.html#a46bdc73d65b34d63f74ecec3db5a1014">rotation</a> = p.<a class="code" href="a02422.html#a6b9f47a106ef1f39602bbedecacc401a">rotation</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <a class="code" href="a02426.html#a30d18ad4c6d30a5600969188a040f111">scale</a>    = p.<a class="code" href="a02422.html#a22137e1649668a58bbca60f0f67cacf3">scale</a>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;};</div>
+<a href="a00704.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_BASE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_BASE_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/Engine.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03250.html">Core/Maps/Weather.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span><a class="code" href="a01089.html#ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c">Map</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02473.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02473.html">Base</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02473.html#af408f0694287fd7c7c2060de024b20d7">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02473.html#af408f0694287fd7c7c2060de024b20d7">type</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(<span class="keywordtype">float</span> dt) = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">   54</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">start</a>(bl::engine::Engine&amp; engine, <a class="code" href="a01781.html">Map</a>&amp; map) = 0;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno"><a class="line" href="a02473.html#adea1271d369903e717e122178f312034">   59</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02473.html#adea1271d369903e717e122178f312034">stop</a>() = 0;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02430.html">   61</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02430.html">GlobalShaderInfo</a> {</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02430.html#aa2cd733fbb970dff876fb09d99e8c686">   62</a></span>&#160;    std::uint32_t <a class="code" href="a02430.html#aa2cd733fbb970dff876fb09d99e8c686">textureId</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02430.html#a11e00960e3a96d6c6ba9b15e4b6d42c5">   63</a></span>&#160;    glm::vec2 <a class="code" href="a02430.html#a11e00960e3a96d6c6ba9b15e4b6d42c5">textureCenter</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02430.html#aa2e31a6fdebcbcd89ef27933600195f7">   64</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02430.html#aa2e31a6fdebcbcd89ef27933600195f7">alpha</a>;</div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="a02430.html#a8d20bbb42f901abacd2b12d58bb84af4">   65</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02430.html#a8d20bbb42f901abacd2b12d58bb84af4">radius</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace fog</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno"><a class="line" href="a02473.html#a322285a2f2aedb30791f826f4e45278b">   66</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02473.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;};</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace weather</span></div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;} <span class="comment">// namespace map</span></div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace core</span></div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01096.html">bl</a></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;{</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01134.html">   75</a></span>&#160;<span class="keyword">namespace </span>pcl</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{</div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a01134.html#a91b84bcc70c9b02f8837581d9537246f">   77</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02422.html">Particle</a>         = <a class="code" href="a01134.html#a91b84bcc70c9b02f8837581d9537246f">core::map::weather::fog::Particle</a>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a01134.html#a58959b6f7eb0cfeddbb4932967f5d079">   78</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02426.html">GpuParticle</a>      = <a class="code" href="a01134.html#a58959b6f7eb0cfeddbb4932967f5d079">core::map::weather::fog::GpuParticle</a>;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">   79</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderInfo</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">core::map::weather::fog::GlobalShaderInfo</a>;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00082"></a><span class="lineno"><a class="line" href="a02434.html">   82</a></span>&#160;<span class="keyword">struct </span>RenderConfigMap&lt;<a class="code" href="a02422.html">Particle</a>&gt; {</div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02434.html#ac74181fddcdcb54cf8a557b1cdf2b247">   83</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t PipelineId  = <a class="code" href="a01882.html#a9391683e0afe66e513b1709c48c4ef76">core::Properties::FogPipelineId</a>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02434.html#a9b4f798a282876ef1b428ffdd9feb936">   84</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> ContainsTransparency = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02434.html#a33a79f873b1ce0f5d2e3dee26c193247">   86</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> CreateRenderPipeline = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02434.html#a1c90f9c2fa295fa591e5e5825eaba47a">   88</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; RenderPassIds =</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;        bl::pcl::RenderConfigDefaults&lt;Particle&gt;::RenderPassIds;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a02434.html#ac5079906009127ba25263305cc9856dc">   91</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderPayload</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02434.html#af2a376518ce41c7ac87c908376a93ba7">   92</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02434.html#af2a376518ce41c7ac87c908376a93ba7">DescriptorSets</a> =</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        bl::pcl::RenderConfigDescriptorList&lt;bl::rc::ds::TexturePoolFactory,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                                            bl::rc::ds::Scene2DFactory,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                                            bl::pcl::DescriptorSetFactory&lt;Particle, GpuParticle&gt;&gt;;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a02434.html#a2562bee68a3ea780ddb5e0a94f0b394d">   97</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> EnableDepthTesting      = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02434.html#aff3a0e282e4cb7bdcbef43784218213a">   98</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02434.html#ac44c2ebcb5577ff6f00035cf721fa023">   99</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* VertexShader     = <span class="stringliteral">&quot;Resources/Shaders/Particles/fog.vert.spv&quot;</span>;</div>
-<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a02434.html#ae66416f69931920631f08d40616dda07">  100</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* FragmentShader =</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;{</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;{</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">namespace </span>fog</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;{</div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a02438.html">  114</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02438.html">FogSink</a> : <span class="keyword">public</span> bl::pcl::Sink&lt;fog::Particle&gt; {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a02438.html#a991d5f70f233b9fe17ca746a4525e888">  116</a></span>&#160;    <a class="code" href="a02438.html#a991d5f70f233b9fe17ca746a4525e888">FogSink</a>()</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    : clear(false) {}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a02438.html#a913c1d635e398b9b642547f203480067">  119</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02438.html#a913c1d635e398b9b642547f203480067">~FogSink</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a02438.html#a39996c18c69f12cbb55c853049c93f8d">  121</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02438.html#a39996c18c69f12cbb55c853049c93f8d">update</a>(Proxy&amp; proxy, std::span&lt;Particle&gt; particles, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span> (clear) {</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            clear = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            <span class="keywordflow">for</span> (<a class="code" href="a02422.html">Particle</a>&amp; p : particles) { proxy.destroy(p); }</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a02438.html#a98ac46a92df45bb0c2c124ca98addf9a">  128</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02438.html#a98ac46a92df45bb0c2c124ca98addf9a">clearAll</a>() { clear = <span class="keyword">true</span>; }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">bool</span> clear;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;};</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="a02442.html">  134</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02442.html">FogUpdater</a> : <span class="keyword">public</span> bl::pcl::MetaUpdater&lt;fog::Particle&gt; {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a02442.html#a53a72c6a34d1a06073494c72b75d1f55">  136</a></span>&#160;    <a class="code" href="a02442.html#a53a72c6a34d1a06073494c72b75d1f55">FogUpdater</a>(bl::rc::Observer&amp; observer, <a class="code" href="a02438.html">FogSink</a>&amp; sink)</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    : observer(observer)</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    , sink(sink)</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    , prevArea(1.f, 1.f, 1.f, 1.f) {}</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno"><a class="line" href="a02442.html#abebaf3f45325057de72759941b6545ec">  141</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02442.html#abebaf3f45325057de72759941b6545ec">~FogUpdater</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a02442.html#aadf473641093e2b49f85182d53c80ade">  143</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02442.html#aadf473641093e2b49f85182d53c80ade">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;        bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        <span class="keywordflow">if</span> (proxy.getManager().getParticleCount() &gt; 0) {</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> dx = area.width / prevArea.width;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> dy = area.height / prevArea.height;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            <span class="keywordflow">if</span> (dx &gt;= 1.25f || dy &gt;= 1.25f) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                sink.<a class="code" href="a02438.html#a98ac46a92df45bb0c2c124ca98addf9a">clearAll</a>();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                prevArea = area;</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">else</span> { prevArea = area; }</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    bl::rc::Observer&amp; observer;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <a class="code" href="a02438.html">FogSink</a>&amp; sink;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    sf::FloatRect prevArea;</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;};</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">  165</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a>  = 800.f;</div>
-<div class="line"><a name="l00166"></a><span class="lineno"><a class="line" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">  166</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a> = 600.f;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno"><a class="line" href="a02446.html">  168</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02446.html">FogAffector</a> : <span class="keyword">public</span> bl::pcl::Affector&lt;fog::Particle&gt; {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a02446.html#a24ee5b93a13ec64758e6a8a79b883ead">  170</a></span>&#160;    <a class="code" href="a02446.html#a24ee5b93a13ec64758e6a8a79b883ead">FogAffector</a>(bl::rc::Observer&amp; observer)</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    : observer(observer) {}</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
-<div class="line"><a name="l00173"></a><span class="lineno"><a class="line" href="a02446.html#a257b512b0a68c49483d3ca4e13938033">  173</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02446.html#a257b512b0a68c49483d3ca4e13938033">~FogAffector</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
-<div class="line"><a name="l00175"></a><span class="lineno"><a class="line" href="a02446.html#aee70e58db6a8bac5328fa004d193eab9">  175</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02446.html#aee70e58db6a8bac5328fa004d193eab9">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> leftBound    = area.left + area.width * 0.5f - <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a> * 0.5f;</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> rightBound   = leftBound + <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a>;</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> topBound     = area.top + area.height * 0.5f - <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a> * 0.5f;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> bottomBound  = topBound + <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a>;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02422.html">Particle</a>&amp; p : proxy.particles()) {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            p.pos += FogVelocity * dt;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;            p.rotation += p.angularVelocity * dt;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            <span class="keywordflow">if</span> (p.pos.x &lt; leftBound) { p.pos.x += <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a>; }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (p.pos.x &gt; rightBound) { p.pos.x -= <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a>; }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;            <span class="keywordflow">if</span> (p.pos.y &lt; topBound) { p.pos.y += <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a>; }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            <span class="keywordflow">else</span> <span class="keywordflow">if</span> (p.pos.y &gt; bottomBound) { p.pos.y -= <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a>; }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        }</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    bl::rc::Observer&amp; observer;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;};</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
-<div class="line"><a name="l00199"></a><span class="lineno"><a class="line" href="a02450.html">  199</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02450.html">FogEmitter</a> : <span class="keyword">public</span> bl::pcl::Emitter&lt;fog::Particle&gt; {</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00201"></a><span class="lineno"><a class="line" href="a02450.html#a3fa4ee26f4a68f0d577cf72763744d80">  201</a></span>&#160;    <a class="code" href="a02450.html#a3fa4ee26f4a68f0d577cf72763744d80">FogEmitter</a>(bl::rc::Observer&amp; observer, glm::vec2 txtrSize)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    : observer(observer)</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    , txtrHalfSize(txtrSize * 0.4f) {}</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="a02450.html#a5478eed15e4a906cc191b6e35ef10547">  205</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02450.html#a5478eed15e4a906cc191b6e35ef10547">~FogEmitter</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00207"></a><span class="lineno"><a class="line" href="a02450.html#af242bc317fcb4ac2a1c5c8b37f8af6e0">  207</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02450.html#af242bc317fcb4ac2a1c5c8b37f8af6e0">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span> (proxy.getManager().getParticleCount() == 0) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;            <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> width  = std::ceil(area.width * 2.f / txtrHalfSize.x);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> height = std::ceil(area.height * 2.f / txtrHalfSize.y);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;            <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a>  = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(width) * txtrHalfSize.x;</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(height) * txtrHalfSize.y;</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            <span class="keyword">const</span> glm::vec2 corner(area.left + area.width * 0.5f - <a class="code" href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">wrapWidth</a> * 0.5f,</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;                                   area.top + area.height * 0.5f - <a class="code" href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">wrapHeight</a> * 0.5f);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;                <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> y = 0; y &lt; height; ++y) {</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;                    <span class="keyword">const</span> glm::vec2 pos{<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(x), <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(y)};</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;                    proxy.emit(pos * txtrHalfSize + corner);</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                }</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;            }</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        }</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    }</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    bl::rc::Observer&amp; observer;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;    <span class="keyword">const</span> glm::vec2 txtrHalfSize;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;};</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160; </div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;} <span class="comment">// namespace fog</span></div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160; </div>
-<div class="line"><a name="l00237"></a><span class="lineno"><a class="line" href="a02454.html#a363198746b5701dbe3c60af35fdd3172">  237</a></span>&#160;<a class="code" href="a02454.html#a363198746b5701dbe3c60af35fdd3172">Fog::Fog</a>(<span class="keywordtype">bool</span> thick)</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;: engine(nullptr)</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;, maxOpacity(static_cast&lt;float&gt;(thick ? <a class="code" href="a01882.html">Properties</a>::ThickFogAlpha() : <a class="code" href="a01882.html">Properties</a>::ThinFogAlpha()) /</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;             255.f)</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;, targetOpacity(0.f)</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;, particles(nullptr) {}</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="a02454.html#acfd7cf5482027d01b6c5118c62c0d8b4">  244</a></span>&#160;<a class="code" href="a02454.html#acfd7cf5482027d01b6c5118c62c0d8b4">Fog::~Fog</a>() {</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">if</span> (engine) { engine-&gt;particleSystem().removeUniqueSystem&lt;<a class="code" href="a02422.html">fog::Particle</a>&gt;(); }</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno"><a class="line" href="a02454.html#a34546f007d7e10480e6fd5c6c5a0feca">  248</a></span>&#160;<a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02454.html#a34546f007d7e10480e6fd5c6c5a0feca">Fog::type</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keywordflow">return</span> maxOpacity == <a class="code" href="a01882.html#ad6ef630f692337b55c5ef75ae8dc0420">Properties::ThickFogAlpha</a>() ? <a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2">Weather::ThickFog</a> : <a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c">Weather::ThinFog</a>;</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;}</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno"><a class="line" href="a02454.html#a5f50096b8fd595387e7369f79e0eefc6">  252</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a5f50096b8fd595387e7369f79e0eefc6">Fog::start</a>(bl::engine::Engine&amp; e, <a class="code" href="a01730.html">Map</a>&amp; map) {</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    engine        = &amp;e;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    targetOpacity = maxOpacity;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    fogTxtr = e.renderer().texturePool().getOrLoadTexture(<a class="code" href="a01882.html#a81a625764e044a6cd81b2173650c80d9">Properties::FogFile</a>(), sampler);</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    particles          = &amp;e.particleSystem().getUniqueSystem&lt;<a class="code" href="a02422.html">fog::Particle</a>&gt;();</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="a02438.html">fog::FogSink</a>* sink = particles-&gt;addSink&lt;<a class="code" href="a02438.html">fog::FogSink</a>&gt;();</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    particles-&gt;addUpdater&lt;<a class="code" href="a02442.html">fog::FogUpdater</a>&gt;(std::ref(e.renderer().getObserver()), std::ref(*sink));</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    particles-&gt;addAffector&lt;<a class="code" href="a02446.html">fog::FogAffector</a>&gt;(e.renderer().getObserver());</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    particles-&gt;addEmitter&lt;<a class="code" href="a02450.html">fog::FogEmitter</a>&gt;(e.renderer().getObserver(), fogTxtr-&gt;size());</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160; </div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    particles-&gt;getRenderer().getGlobals().alpha = 0.f;</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    particles-&gt;getRenderer().getGlobals().textureCenter =</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;        fogTxtr-&gt;normalizeAndConvertCoord(fogTxtr-&gt;size() * 0.5f);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    particles-&gt;getRenderer().getGlobals().textureId = fogTxtr.id();</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    particles-&gt;getRenderer().getGlobals().radius    = glm::length(fogTxtr-&gt;size()) * 0.5f;</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160; </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    particles-&gt;addToScene(e.renderer().getObserver().getCurrentScene());</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    particles-&gt;getRenderer().getComponent()-&gt;vertexBuffer.vertices()[0].pos.z = map.<a class="code" href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">getMinDepth</a>();</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;}</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno"><a class="line" href="a02454.html#a006dd0233fbf667a52ac42f5b133a90c">  275</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a006dd0233fbf667a52ac42f5b133a90c">Fog::stop</a>() { targetOpacity = 0.f; }</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160; </div>
-<div class="line"><a name="l00277"></a><span class="lineno"><a class="line" href="a02454.html#aae75145834c972195d18ed804a929540">  277</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02454.html#aae75145834c972195d18ed804a929540">Fog::stopped</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="keywordflow">return</span> particles &amp;&amp; particles-&gt;getRenderer().getGlobals().alpha &lt;= 0.01f;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;}</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="a02454.html#a3dc1077da6f77b13781e3969a04f6868">  281</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02454.html#a3dc1077da6f77b13781e3969a04f6868">Fog::update</a>(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="keywordflow">if</span> (particles) {</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">if</span> (particles-&gt;getRenderer().getGlobals().alpha != targetOpacity) {</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;            particles-&gt;getRenderer().getGlobals().alpha =</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;                computeAlpha(particles-&gt;getRenderer().getGlobals().alpha, targetOpacity, dt);</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        }</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;}</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160; </div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00707_html"><div class="ttname"><a href="a00707.html">Fog.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
-<div class="ttc" id="aa01133_html_a6fbbb179ca76a0835ca228dad1f64248"><div class="ttname"><a href="a01133.html#a6fbbb179ca76a0835ca228dad1f64248">core::map::weather::fog::wrapWidth</a></div><div class="ttdeci">float wrapWidth</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00165">Fog.cpp:165</a></div></div>
-<div class="ttc" id="aa01133_html_aae53d937e4f8b3adcf2b7ea5c4193e40"><div class="ttname"><a href="a01133.html#aae53d937e4f8b3adcf2b7ea5c4193e40">core::map::weather::fog::wrapHeight</a></div><div class="ttdeci">float wrapHeight</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00166">Fog.cpp:166</a></div></div>
-<div class="ttc" id="aa01134_html_a1fe2649dda87e4a4cc500096513be57c"><div class="ttname"><a href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a></div><div class="ttdeci">core::map::weather::fog::GlobalShaderInfo GlobalShaderInfo</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00079">Fog.cpp:79</a></div></div>
-<div class="ttc" id="aa01134_html_a58959b6f7eb0cfeddbb4932967f5d079"><div class="ttname"><a href="a01134.html#a58959b6f7eb0cfeddbb4932967f5d079">bl::pcl::GpuParticle</a></div><div class="ttdeci">core::map::weather::fog::GpuParticle GpuParticle</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00078">Fog.cpp:78</a></div></div>
-<div class="ttc" id="aa01134_html_a91b84bcc70c9b02f8837581d9537246f"><div class="ttname"><a href="a01134.html#a91b84bcc70c9b02f8837581d9537246f">bl::pcl::Particle</a></div><div class="ttdeci">core::map::weather::fog::Particle Particle</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00077">Fog.cpp:77</a></div></div>
-<div class="ttc" id="aa01730_html"><div class="ttname"><a href="a01730.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03203_source.html#l00049">Map.hpp:49</a></div></div>
-<div class="ttc" id="aa01730_html_a01b804ccb6fd078385d99426ee3fee4c"><div class="ttname"><a href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">core::map::Map::getMinDepth</a></div><div class="ttdeci">float getMinDepth() const</div><div class="ttdoc">Returns the maximum depth possible for this map. Maximum is always 0.f. Minimum is negative,...</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00765">Map.cpp:765</a></div></div>
-<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00038">Weather.hpp:38</a></div></div>
-<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c">core::map::Weather::ThinFog</a></div><div class="ttdeci">@ ThinFog</div><div class="ttdoc">Thin fog covers the area.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00070">Weather.hpp:70</a></div></div>
-<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2">core::map::Weather::ThickFog</a></div><div class="ttdeci">@ ThickFog</div><div class="ttdoc">Thick fog obscures everything.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00073">Weather.hpp:73</a></div></div>
-<div class="ttc" id="aa01882_html"><div class="ttname"><a href="a01882.html">core::Properties</a></div><div class="ttdoc">Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be...</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00028">Properties.hpp:28</a></div></div>
-<div class="ttc" id="aa01882_html_a81a625764e044a6cd81b2173650c80d9"><div class="ttname"><a href="a01882.html#a81a625764e044a6cd81b2173650c80d9">core::Properties::FogFile</a></div><div class="ttdeci">static const std::string &amp; FogFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00407">Properties.cpp:407</a></div></div>
-<div class="ttc" id="aa01882_html_a9391683e0afe66e513b1709c48c4ef76"><div class="ttname"><a href="a01882.html#a9391683e0afe66e513b1709c48c4ef76">core::Properties::FogPipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t FogPipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00138">Properties.hpp:138</a></div></div>
-<div class="ttc" id="aa01882_html_ad6ef630f692337b55c5ef75ae8dc0420"><div class="ttname"><a href="a01882.html#ad6ef630f692337b55c5ef75ae8dc0420">core::Properties::ThickFogAlpha</a></div><div class="ttdeci">static unsigned int ThickFogAlpha()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00465">Properties.cpp:465</a></div></div>
-<div class="ttc" id="aa02422_html"><div class="ttname"><a href="a02422.html">core::map::weather::fog::Particle</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00031">Fog.cpp:31</a></div></div>
-<div class="ttc" id="aa02422_html_a22137e1649668a58bbca60f0f67cacf3"><div class="ttname"><a href="a02422.html#a22137e1649668a58bbca60f0f67cacf3">core::map::weather::fog::Particle::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00035">Fog.cpp:35</a></div></div>
-<div class="ttc" id="aa02422_html_a4b2b3803092c7a77216c35fd678752a3"><div class="ttname"><a href="a02422.html#a4b2b3803092c7a77216c35fd678752a3">core::map::weather::fog::Particle::angularVelocity</a></div><div class="ttdeci">float angularVelocity</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00034">Fog.cpp:34</a></div></div>
-<div class="ttc" id="aa02422_html_a56b8ca38b5f68b3c7daf049f991aee11"><div class="ttname"><a href="a02422.html#a56b8ca38b5f68b3c7daf049f991aee11">core::map::weather::fog::Particle::Particle</a></div><div class="ttdeci">Particle()=default</div></div>
-<div class="ttc" id="aa02422_html_a6b9f47a106ef1f39602bbedecacc401a"><div class="ttname"><a href="a02422.html#a6b9f47a106ef1f39602bbedecacc401a">core::map::weather::fog::Particle::rotation</a></div><div class="ttdeci">float rotation</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00033">Fog.cpp:33</a></div></div>
-<div class="ttc" id="aa02422_html_aa3db5f313fa860e84d005a7a5269c885"><div class="ttname"><a href="a02422.html#aa3db5f313fa860e84d005a7a5269c885">core::map::weather::fog::Particle::Particle</a></div><div class="ttdeci">Particle(const glm::vec2 &amp;pos)</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00039">Fog.cpp:39</a></div></div>
-<div class="ttc" id="aa02422_html_af20fa232072927025e5984ea68c127f9"><div class="ttname"><a href="a02422.html#af20fa232072927025e5984ea68c127f9">core::map::weather::fog::Particle::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00032">Fog.cpp:32</a></div></div>
-<div class="ttc" id="aa02426_html"><div class="ttname"><a href="a02426.html">core::map::weather::fog::GpuParticle</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00046">Fog.cpp:46</a></div></div>
-<div class="ttc" id="aa02426_html_a142a269fdce2439c40e8e3c2ac8db065"><div class="ttname"><a href="a02426.html#a142a269fdce2439c40e8e3c2ac8db065">core::map::weather::fog::GpuParticle::operator=</a></div><div class="ttdeci">GpuParticle &amp; operator=(const Particle &amp;p)</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00053">Fog.cpp:53</a></div></div>
-<div class="ttc" id="aa02426_html_a30d18ad4c6d30a5600969188a040f111"><div class="ttname"><a href="a02426.html#a30d18ad4c6d30a5600969188a040f111">core::map::weather::fog::GpuParticle::scale</a></div><div class="ttdeci">float scale</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00049">Fog.cpp:49</a></div></div>
-<div class="ttc" id="aa02426_html_a46bdc73d65b34d63f74ecec3db5a1014"><div class="ttname"><a href="a02426.html#a46bdc73d65b34d63f74ecec3db5a1014">core::map::weather::fog::GpuParticle::rotation</a></div><div class="ttdeci">float rotation</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00048">Fog.cpp:48</a></div></div>
-<div class="ttc" id="aa02426_html_a4f17952892a852f0a139031fa050506e"><div class="ttname"><a href="a02426.html#a4f17952892a852f0a139031fa050506e">core::map::weather::fog::GpuParticle::GpuParticle</a></div><div class="ttdeci">GpuParticle()=default</div></div>
-<div class="ttc" id="aa02426_html_a5c855b79b722eae5449089bfcecfcd2f"><div class="ttname"><a href="a02426.html#a5c855b79b722eae5449089bfcecfcd2f">core::map::weather::fog::GpuParticle::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00047">Fog.cpp:47</a></div></div>
-<div class="ttc" id="aa02430_html"><div class="ttname"><a href="a02430.html">core::map::weather::fog::GlobalShaderInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00061">Fog.cpp:61</a></div></div>
-<div class="ttc" id="aa02430_html_a11e00960e3a96d6c6ba9b15e4b6d42c5"><div class="ttname"><a href="a02430.html#a11e00960e3a96d6c6ba9b15e4b6d42c5">core::map::weather::fog::GlobalShaderInfo::textureCenter</a></div><div class="ttdeci">glm::vec2 textureCenter</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00063">Fog.cpp:63</a></div></div>
-<div class="ttc" id="aa02430_html_a8d20bbb42f901abacd2b12d58bb84af4"><div class="ttname"><a href="a02430.html#a8d20bbb42f901abacd2b12d58bb84af4">core::map::weather::fog::GlobalShaderInfo::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00065">Fog.cpp:65</a></div></div>
-<div class="ttc" id="aa02430_html_aa2cd733fbb970dff876fb09d99e8c686"><div class="ttname"><a href="a02430.html#aa2cd733fbb970dff876fb09d99e8c686">core::map::weather::fog::GlobalShaderInfo::textureId</a></div><div class="ttdeci">std::uint32_t textureId</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00062">Fog.cpp:62</a></div></div>
-<div class="ttc" id="aa02430_html_aa2e31a6fdebcbcd89ef27933600195f7"><div class="ttname"><a href="a02430.html#aa2e31a6fdebcbcd89ef27933600195f7">core::map::weather::fog::GlobalShaderInfo::alpha</a></div><div class="ttdeci">float alpha</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00064">Fog.cpp:64</a></div></div>
-<div class="ttc" id="aa02434_html_af2a376518ce41c7ac87c908376a93ba7"><div class="ttname"><a href="a02434.html#af2a376518ce41c7ac87c908376a93ba7">bl::pcl::RenderConfigMap&lt; Particle &gt;::DescriptorSets</a></div><div class="ttdeci">bl::pcl::RenderConfigDescriptorList&lt; bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt; Particle, GpuParticle &gt; &gt; DescriptorSets</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00092">Fog.cpp:95</a></div></div>
-<div class="ttc" id="aa02438_html"><div class="ttname"><a href="a02438.html">core::map::weather::fog::FogSink</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00114">Fog.cpp:114</a></div></div>
-<div class="ttc" id="aa02438_html_a39996c18c69f12cbb55c853049c93f8d"><div class="ttname"><a href="a02438.html#a39996c18c69f12cbb55c853049c93f8d">core::map::weather::fog::FogSink::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, std::span&lt; Particle &gt; particles, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00121">Fog.cpp:121</a></div></div>
-<div class="ttc" id="aa02438_html_a913c1d635e398b9b642547f203480067"><div class="ttname"><a href="a02438.html#a913c1d635e398b9b642547f203480067">core::map::weather::fog::FogSink::~FogSink</a></div><div class="ttdeci">virtual ~FogSink()=default</div></div>
-<div class="ttc" id="aa02438_html_a98ac46a92df45bb0c2c124ca98addf9a"><div class="ttname"><a href="a02438.html#a98ac46a92df45bb0c2c124ca98addf9a">core::map::weather::fog::FogSink::clearAll</a></div><div class="ttdeci">void clearAll()</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00128">Fog.cpp:128</a></div></div>
-<div class="ttc" id="aa02438_html_a991d5f70f233b9fe17ca746a4525e888"><div class="ttname"><a href="a02438.html#a991d5f70f233b9fe17ca746a4525e888">core::map::weather::fog::FogSink::FogSink</a></div><div class="ttdeci">FogSink()</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00116">Fog.cpp:116</a></div></div>
-<div class="ttc" id="aa02442_html"><div class="ttname"><a href="a02442.html">core::map::weather::fog::FogUpdater</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00134">Fog.cpp:134</a></div></div>
-<div class="ttc" id="aa02442_html_a53a72c6a34d1a06073494c72b75d1f55"><div class="ttname"><a href="a02442.html#a53a72c6a34d1a06073494c72b75d1f55">core::map::weather::fog::FogUpdater::FogUpdater</a></div><div class="ttdeci">FogUpdater(bl::rc::Observer &amp;observer, FogSink &amp;sink)</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00136">Fog.cpp:136</a></div></div>
-<div class="ttc" id="aa02442_html_aadf473641093e2b49f85182d53c80ade"><div class="ttname"><a href="a02442.html#aadf473641093e2b49f85182d53c80ade">core::map::weather::fog::FogUpdater::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00143">Fog.cpp:143</a></div></div>
-<div class="ttc" id="aa02442_html_abebaf3f45325057de72759941b6545ec"><div class="ttname"><a href="a02442.html#abebaf3f45325057de72759941b6545ec">core::map::weather::fog::FogUpdater::~FogUpdater</a></div><div class="ttdeci">virtual ~FogUpdater()=default</div></div>
-<div class="ttc" id="aa02446_html"><div class="ttname"><a href="a02446.html">core::map::weather::fog::FogAffector</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00168">Fog.cpp:168</a></div></div>
-<div class="ttc" id="aa02446_html_a24ee5b93a13ec64758e6a8a79b883ead"><div class="ttname"><a href="a02446.html#a24ee5b93a13ec64758e6a8a79b883ead">core::map::weather::fog::FogAffector::FogAffector</a></div><div class="ttdeci">FogAffector(bl::rc::Observer &amp;observer)</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00170">Fog.cpp:170</a></div></div>
-<div class="ttc" id="aa02446_html_a257b512b0a68c49483d3ca4e13938033"><div class="ttname"><a href="a02446.html#a257b512b0a68c49483d3ca4e13938033">core::map::weather::fog::FogAffector::~FogAffector</a></div><div class="ttdeci">virtual ~FogAffector()=default</div></div>
-<div class="ttc" id="aa02446_html_aee70e58db6a8bac5328fa004d193eab9"><div class="ttname"><a href="a02446.html#aee70e58db6a8bac5328fa004d193eab9">core::map::weather::fog::FogAffector::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00175">Fog.cpp:175</a></div></div>
-<div class="ttc" id="aa02450_html"><div class="ttname"><a href="a02450.html">core::map::weather::fog::FogEmitter</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00199">Fog.cpp:199</a></div></div>
-<div class="ttc" id="aa02450_html_a3fa4ee26f4a68f0d577cf72763744d80"><div class="ttname"><a href="a02450.html#a3fa4ee26f4a68f0d577cf72763744d80">core::map::weather::fog::FogEmitter::FogEmitter</a></div><div class="ttdeci">FogEmitter(bl::rc::Observer &amp;observer, glm::vec2 txtrSize)</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00201">Fog.cpp:201</a></div></div>
-<div class="ttc" id="aa02450_html_a5478eed15e4a906cc191b6e35ef10547"><div class="ttname"><a href="a02450.html#a5478eed15e4a906cc191b6e35ef10547">core::map::weather::fog::FogEmitter::~FogEmitter</a></div><div class="ttdeci">virtual ~FogEmitter()=default</div></div>
-<div class="ttc" id="aa02450_html_af242bc317fcb4ac2a1c5c8b37f8af6e0"><div class="ttname"><a href="a02450.html#af242bc317fcb4ac2a1c5c8b37f8af6e0">core::map::weather::fog::FogEmitter::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00207">Fog.cpp:207</a></div></div>
-<div class="ttc" id="aa02454_html_a006dd0233fbf667a52ac42f5b133a90c"><div class="ttname"><a href="a02454.html#a006dd0233fbf667a52ac42f5b133a90c">core::map::weather::Fog::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00275">Fog.cpp:275</a></div></div>
-<div class="ttc" id="aa02454_html_a34546f007d7e10480e6fd5c6c5a0feca"><div class="ttname"><a href="a02454.html#a34546f007d7e10480e6fd5c6c5a0feca">core::map::weather::Fog::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns ThinFog or ThickFog.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00248">Fog.cpp:248</a></div></div>
-<div class="ttc" id="aa02454_html_a363198746b5701dbe3c60af35fdd3172"><div class="ttname"><a href="a02454.html#a363198746b5701dbe3c60af35fdd3172">core::map::weather::Fog::Fog</a></div><div class="ttdeci">Fog(bool thick)</div><div class="ttdoc">Creates foggy weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00237">Fog.cpp:237</a></div></div>
-<div class="ttc" id="aa02454_html_a3dc1077da6f77b13781e3969a04f6868"><div class="ttname"><a href="a02454.html#a3dc1077da6f77b13781e3969a04f6868">core::map::weather::Fog::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00281">Fog.cpp:281</a></div></div>
-<div class="ttc" id="aa02454_html_a5f50096b8fd595387e7369f79e0eefc6"><div class="ttname"><a href="a02454.html#a5f50096b8fd595387e7369f79e0eefc6">core::map::weather::Fog::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Starts the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00252">Fog.cpp:252</a></div></div>
-<div class="ttc" id="aa02454_html_aae75145834c972195d18ed804a929540"><div class="ttname"><a href="a02454.html#aae75145834c972195d18ed804a929540">core::map::weather::Fog::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when the fog is fully dissipated, false if not.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00277">Fog.cpp:277</a></div></div>
-<div class="ttc" id="aa02454_html_acfd7cf5482027d01b6c5118c62c0d8b4"><div class="ttname"><a href="a02454.html#acfd7cf5482027d01b6c5118c62c0d8b4">core::map::weather::Fog::~Fog</a></div><div class="ttdeci">virtual ~Fog()</div><div class="ttdoc">No more fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00244">Fog.cpp:244</a></div></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01089_html_ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c"><div class="ttname"><a href="a01089.html#ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c">core::item::Id::Map</a></div><div class="ttdeci">@ Map</div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03265_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00038">Weather.hpp:38</a></div></div>
+<div class="ttc" id="aa02473_html"><div class="ttname"><a href="a02473.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00028">Base.hpp:28</a></div></div>
+<div class="ttc" id="aa02473_html_a0778a39a5195b07fa3a57c90f55c6762"><div class="ttname"><a href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">core::map::weather::Base::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map)=0</div><div class="ttdoc">Start the weather using the initial area.</div></div>
+<div class="ttc" id="aa02473_html_a1a8feb776aebad8e099e8b56d9a9b2b5"><div class="ttname"><a href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">core::map::weather::Base::~Base</a></div><div class="ttdeci">virtual ~Base()=default</div><div class="ttdoc">Destroy the Base object.</div></div>
+<div class="ttc" id="aa02473_html_a322285a2f2aedb30791f826f4e45278b"><div class="ttname"><a href="a02473.html#a322285a2f2aedb30791f826f4e45278b">core::map::weather::Base::stopped</a></div><div class="ttdeci">virtual bool stopped() const =0</div><div class="ttdoc">Returns true when the weather has completed stopping.</div></div>
+<div class="ttc" id="aa02473_html_a60aa031cb8b915c59cda8bc809af1d31"><div class="ttname"><a href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">core::map::weather::Base::update</a></div><div class="ttdeci">virtual void update(float dt)=0</div><div class="ttdoc">Update the weather.</div></div>
+<div class="ttc" id="aa02473_html_adea1271d369903e717e122178f312034"><div class="ttname"><a href="a02473.html#adea1271d369903e717e122178f312034">core::map::weather::Base::stop</a></div><div class="ttdeci">virtual void stop()=0</div><div class="ttdoc">Stop the weather.</div></div>
+<div class="ttc" id="aa02473_html_af408f0694287fd7c7c2060de024b20d7"><div class="ttname"><a href="a02473.html#af408f0694287fd7c7c2060de024b20d7">core::map::weather::Base::type</a></div><div class="ttdeci">virtual Weather::Type type() const =0</div><div class="ttdoc">Returns the type of weather this is.</div></div>
+<div class="ttc" id="aa03250_html"><div class="ttname"><a href="a03250.html">Weather.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/AI.hpp Source File</title>
+<title>Peoplemon: include/Core/Scripts/MapEventContext.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,115 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_cdcd8c60c7240d84e0c0149062c9e6fd.html">Scripts</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">AI.hpp</div>  </div>
+<div class="title">MapEventContext.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00314.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_AI_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_AI_HPP</span></div>
+<a href="a00314.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SCRIPTS_MAPEVENTCONTEXT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SCRIPTS_MAPEVENTCONTEXT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/System.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00077.html">Core/Components/FixedPathBehavior.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00089.html">Core/Components/PathFinder.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00098.html">Core/Components/SpinBehavior.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00101.html">Core/Components/StandingBehavior.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00107.html">Core/Components/WanderBehavior.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00149.html">Core/Files/Behavior.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01934.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01934.html">AI</a> : <span class="keyword">public</span> bl::engine::System {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a01934.html#a6cfa6e6029611935d58e614c7fd841ec">AI</a>(<a class="code" href="a02034.html">Systems</a>&amp; owner);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01934.html#a2f662e230b15fb27a8e549f6525aad3c">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01934.html#a2f662e230b15fb27a8e549f6525aad3c">~AI</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#ab18c59753224295a92d6b4c2aa4569f3">addBehavior</a>(bl::ecs::Entity entity, <span class="keyword">const</span> <a class="code" href="a01490.html">file::Behavior</a>&amp; behavior);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">makeStanding</a>(bl::ecs::Entity entity, bl::tmap::Direction dir);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#a7ee0cb800ee7509fc644db0bf719458f">makeSpinning</a>(bl::ecs::Entity entity, <a class="code" href="a01498.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a> dir);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#aecfcc9b237d20a7e7f7bfe91b381ceed">makeFollowPath</a>(bl::ecs::Entity entity, <span class="keyword">const</span> <a class="code" href="a01502.html">file::Behavior::Path</a>&amp; path);</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#af24a059ed46ebd8201a09a3102dca54c">makeWander</a>(bl::ecs::Entity entity, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01934.html#ae37405fd7ef1b3956e4c1c7dd073abdd">moveToPosition</a>(bl::ecs::Entity entity, <span class="keyword">const</span> bl::tmap::Position&amp; dest);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01934.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(bl::ecs::Entity ent);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="comment">// type helpers</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keyword">using</span> StandingTypes =</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        bl::ecs::Require&lt;component::StandingBehavior, bl::tmap::Position, component::Controllable&gt;;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">using</span> SpinTypes =</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        bl::ecs::Require&lt;component::SpinBehavior, bl::tmap::Position, component::Controllable&gt;;</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keyword">using</span> FixedPathTypes =</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        bl::ecs::Require&lt;component::FixedPathBehavior, bl::tmap::Position, component::Controllable&gt;;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keyword">using</span> WanderTypes =</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        bl::ecs::Require&lt;component::WanderBehavior, bl::tmap::Position, component::Controllable&gt;;</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keyword">using</span> StandingView  = bl::ecs::View&lt;StandingTypes&gt;*;</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keyword">using</span> StandingRow   = bl::ecs::ComponentSet&lt;StandingTypes&gt;;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keyword">using</span> SpinView      = bl::ecs::View&lt;SpinTypes&gt;*;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">using</span> SpinRow       = bl::ecs::ComponentSet&lt;SpinTypes&gt;;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">using</span> FixedPathView = bl::ecs::View&lt;FixedPathTypes&gt;*;</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keyword">using</span> FixedPathRow  = bl::ecs::ComponentSet&lt;FixedPathTypes&gt;;</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">using</span> WanderView    = bl::ecs::View&lt;WanderTypes&gt;*;</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keyword">using</span> WanderRow     = bl::ecs::ComponentSet&lt;WanderTypes&gt;;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <a class="code" href="a02034.html">Systems</a>&amp; owner;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    StandingView standing;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    SpinView spinning;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    FixedPathView paths;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    WanderView wandering;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordtype">bool</span> findPath(bl::ecs::Entity ent, <a class="code" href="a01350.html">component::PathFinder</a>&amp; path);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;};</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00077_html"><div class="ttname"><a href="a00077.html">FixedPathBehavior.hpp</a></div></div>
-<div class="ttc" id="aa00089_html"><div class="ttname"><a href="a00089.html">PathFinder.hpp</a></div></div>
-<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">SpinBehavior.hpp</a></div></div>
-<div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">StandingBehavior.hpp</a></div></div>
-<div class="ttc" id="aa00107_html"><div class="ttname"><a href="a00107.html">WanderBehavior.hpp</a></div></div>
-<div class="ttc" id="aa00149_html"><div class="ttname"><a href="a00149.html">Behavior.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01350_html"><div class="ttname"><a href="a01350.html">core::component::PathFinder</a></div><div class="ttdoc">Component that dynamically navigates an entity to a specific tile. The entities Controllable componen...</div><div class="ttdef"><b>Definition:</b> <a href="a00089_source.html#l00018">PathFinder.hpp:18</a></div></div>
-<div class="ttc" id="aa01490_html"><div class="ttname"><a href="a01490.html">core::file::Behavior</a></div><div class="ttdoc">Set of behaviors for NPCs and trainers.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00019">Behavior.hpp:19</a></div></div>
-<div class="ttc" id="aa01498_html_a848d9fe437bc10ef7fea6a9bb9d8655a"><div class="ttname"><a href="a01498.html#a848d9fe437bc10ef7fea6a9bb9d8655a">core::file::Behavior::Spinning::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">The direction to spin.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00051">Behavior.hpp:51</a></div></div>
-<div class="ttc" id="aa01502_html"><div class="ttname"><a href="a01502.html">core::file::Behavior::Path</a></div><div class="ttdoc">Contains data for when the behavior type is following a path.</div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00070">Behavior.hpp:70</a></div></div>
-<div class="ttc" id="aa01934_html"><div class="ttname"><a href="a01934.html">core::system::AI</a></div><div class="ttdoc">Manages NPC's and trainers and their behaviors.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00025">AI.hpp:25</a></div></div>
-<div class="ttc" id="aa01934_html_a2f662e230b15fb27a8e549f6525aad3c"><div class="ttname"><a href="a01934.html#a2f662e230b15fb27a8e549f6525aad3c">core::system::AI::~AI</a></div><div class="ttdeci">virtual ~AI()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa01934_html_a6cfa6e6029611935d58e614c7fd841ec"><div class="ttname"><a href="a01934.html#a6cfa6e6029611935d58e614c7fd841ec">core::system::AI::AI</a></div><div class="ttdeci">AI(Systems &amp;owner)</div><div class="ttdoc">Construct a new AI system.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00026">AI.cpp:26</a></div></div>
-<div class="ttc" id="aa01934_html_a73cd3a7b19fb9c10d6c85299956ab0ca"><div class="ttname"><a href="a01934.html#a73cd3a7b19fb9c10d6c85299956ab0ca">core::system::AI::removeAi</a></div><div class="ttdeci">void removeAi(bl::ecs::Entity ent)</div><div class="ttdoc">Removes any ai behavior from the given entity. Does not affect path finding.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00178">AI.cpp:178</a></div></div>
-<div class="ttc" id="aa01934_html_a7ee0cb800ee7509fc644db0bf719458f"><div class="ttname"><a href="a01934.html#a7ee0cb800ee7509fc644db0bf719458f">core::system::AI::makeSpinning</a></div><div class="ttdeci">bool makeSpinning(bl::ecs::Entity entity, file::Behavior::Spinning::Direction dir)</div><div class="ttdoc">Makes the given entity spin in place. Replaces any existing behavior.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00126">AI.cpp:126</a></div></div>
-<div class="ttc" id="aa01934_html_ab18c59753224295a92d6b4c2aa4569f3"><div class="ttname"><a href="a01934.html#ab18c59753224295a92d6b4c2aa4569f3">core::system::AI::addBehavior</a></div><div class="ttdeci">bool addBehavior(bl::ecs::Entity entity, const file::Behavior &amp;behavior)</div><div class="ttdoc">Helper function for adding the given behavior to the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00100">AI.cpp:100</a></div></div>
-<div class="ttc" id="aa01934_html_ae04faf4dd4d3c18d1ed4f7498dc09f68"><div class="ttname"><a href="a01934.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">core::system::AI::makeStanding</a></div><div class="ttdeci">bool makeStanding(bl::ecs::Entity entity, bl::tmap::Direction dir)</div><div class="ttdoc">Makes the given entity stand in place. Replaces any existing behavior on the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00115">AI.cpp:115</a></div></div>
-<div class="ttc" id="aa01934_html_ae37405fd7ef1b3956e4c1c7dd073abdd"><div class="ttname"><a href="a01934.html#ae37405fd7ef1b3956e4c1c7dd073abdd">core::system::AI::moveToPosition</a></div><div class="ttdeci">bool moveToPosition(bl::ecs::Entity entity, const bl::tmap::Position &amp;dest)</div><div class="ttdoc">Uses a pathfinder to navigate the entity to the given position and end up facing the given direction....</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00164">AI.cpp:164</a></div></div>
-<div class="ttc" id="aa01934_html_aecfcc9b237d20a7e7f7bfe91b381ceed"><div class="ttname"><a href="a01934.html#aecfcc9b237d20a7e7f7bfe91b381ceed">core::system::AI::makeFollowPath</a></div><div class="ttdeci">bool makeFollowPath(bl::ecs::Entity entity, const file::Behavior::Path &amp;path)</div><div class="ttdoc">Make the entity follow a fixed path. Replaces existing behavior.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00136">AI.cpp:136</a></div></div>
-<div class="ttc" id="aa01934_html_af24a059ed46ebd8201a09a3102dca54c"><div class="ttname"><a href="a01934.html#af24a059ed46ebd8201a09a3102dca54c">core::system::AI::makeWander</a></div><div class="ttdeci">bool makeWander(bl::ecs::Entity entity, unsigned int radius)</div><div class="ttdoc">Makes the given entity wander around within the given radius. Replaces any existing behavior the enti...</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00146">AI.cpp:146</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Position.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00185.html">Core/Maps/Event.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>script</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01981.html">   24</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01981.html">MapEventContext</a> : <span class="keyword">public</span> bl::script::Context {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="a01981.html#a4f26fc83431f5051c9cc8aaf2e66aee2">MapEventContext</a>(<a class="code" href="a02085.html">system::Systems</a>&amp; systems, bl::ecs::Entity entity, <span class="keyword">const</span> <a class="code" href="a01733.html">map::Event</a>&amp; event,</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                    <span class="keyword">const</span> bl::tmap::Position&amp; tile);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01981.html#ac4af70357380241154cc05e934b8fcf4">addCustomSymbols</a>(bl::script::SymbolTable&amp; table) <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02085.html">system::Systems</a>&amp; systems;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> bl::ecs::Entity entity;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01733.html">map::Event</a> event;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> bl::tmap::Position tile;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;};</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace script</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00185_html"><div class="ttname"><a href="a00185.html">Event.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01733_html"><div class="ttname"><a href="a01733.html">core::map::Event</a></div><div class="ttdoc">Represents an event in a Map. A script that is run on a trigger within a given region.</div><div class="ttdef"><b>Definition:</b> <a href="a00185_source.html#l00019">Event.hpp:19</a></div></div>
+<div class="ttc" id="aa01981_html"><div class="ttname"><a href="a01981.html">core::script::MapEventContext</a></div><div class="ttdoc">Special script context for map events. Adds default built-ins and the map event built-ins.</div><div class="ttdef"><b>Definition:</b> <a href="a00314_source.html#l00024">MapEventContext.hpp:24</a></div></div>
+<div class="ttc" id="aa01981_html_a4f26fc83431f5051c9cc8aaf2e66aee2"><div class="ttname"><a href="a01981.html#a4f26fc83431f5051c9cc8aaf2e66aee2">core::script::MapEventContext::MapEventContext</a></div><div class="ttdeci">MapEventContext(system::Systems &amp;systems, bl::ecs::Entity entity, const map::Event &amp;event, const bl::tmap::Position &amp;tile)</div><div class="ttdoc">Construct a new MapEventContext.</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00040">MapEventContext.cpp:40</a></div></div>
+<div class="ttc" id="aa01981_html_ac4af70357380241154cc05e934b8fcf4"><div class="ttname"><a href="a01981.html#ac4af70357380241154cc05e934b8fcf4">core::script::MapEventContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00809_source.html#l00047">MapEventContext.cpp:47</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

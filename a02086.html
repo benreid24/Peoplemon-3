@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::ConversationTree Class Reference</title>
+<title>Peoplemon: Member List</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,198 +66,28 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01104.html">editor</a></li><li class="navelem"><a class="el" href="a01105.html">component</a></li><li class="navelem"><a class="el" href="a02086.html">ConversationTree</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01102.html">system</a></li><li class="navelem"><a class="el" href="a02089.html">Trainers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
-  <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="a02083.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::ConversationTree Class Reference</div>  </div>
+<div class="title">core::system::Trainers Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Special component that renders a clickable tree view of a conversation.  
- <a href="a02086.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00377_source.html">ConversationTree.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::ConversationTree:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a02086.png" alt=""/>
- </div></div>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ad20c24ad19ae5ba1fba3d6766c9ab60e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02086.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02086.html">ConversationTree</a> &gt;</td></tr>
-<tr class="separator:ad20c24ad19ae5ba1fba3d6766c9ab60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a769013b69c1f54d742da45121f1e0432"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02086.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> = std::function&lt; void(unsigned int)&gt;</td></tr>
-<tr class="memdesc:a769013b69c1f54d742da45121f1e0432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a node is clicked.  <a href="a02086.html#a769013b69c1f54d742da45121f1e0432">More...</a><br /></td></tr>
-<tr class="separator:a769013b69c1f54d742da45121f1e0432"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02086.html#a8d870f9e3fef109c8e81d453a0eb6d1f">update</a> (const std::vector&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt; &amp;nodes)</td></tr>
-<tr class="memdesc:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the rendered tree with the new nodes.  <a href="a02086.html#a8d870f9e3fef109c8e81d453a0eb6d1f">More...</a><br /></td></tr>
-<tr class="separator:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03345c04e790970f8b48069fb8612056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02086.html#a03345c04e790970f8b48069fb8612056">setSelected</a> (unsigned int i)</td></tr>
-<tr class="memdesc:a03345c04e790970f8b48069fb8612056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the selected node index.  <a href="a02086.html#a03345c04e790970f8b48069fb8612056">More...</a><br /></td></tr>
-<tr class="separator:a03345c04e790970f8b48069fb8612056"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad1c9963639fbb50756aa04f2dae75d22"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02086.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02086.html#ad1c9963639fbb50756aa04f2dae75d22">create</a> (const <a class="el" href="a02086.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> &amp;clickCb)</td></tr>
-<tr class="memdesc:ad1c9963639fbb50756aa04f2dae75d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Conversation Tree component.  <a href="a02086.html#ad1c9963639fbb50756aa04f2dae75d22">More...</a><br /></td></tr>
-<tr class="separator:ad1c9963639fbb50756aa04f2dae75d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Special component that renders a clickable tree view of a conversation. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00018">18</a> of file <a class="el" href="a00377_source.html">ConversationTree.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a769013b69c1f54d742da45121f1e0432"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a769013b69c1f54d742da45121f1e0432">&#9670;&nbsp;</a></span>ClickCb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02086.html#a769013b69c1f54d742da45121f1e0432">editor::component::ConversationTree::ClickCb</a> =  std::function&lt;void(unsigned int)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Called when a node is clicked. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00023">23</a> of file <a class="el" href="a00377_source.html">ConversationTree.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad20c24ad19ae5ba1fba3d6766c9ab60e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad20c24ad19ae5ba1fba3d6766c9ab60e">&#9670;&nbsp;</a></span>Ptr</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02086.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">editor::component::ConversationTree::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02086.html">ConversationTree</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00377_source.html#l00020">20</a> of file <a class="el" href="a00377_source.html">ConversationTree.hpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="ad1c9963639fbb50756aa04f2dae75d22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1c9963639fbb50756aa04f2dae75d22">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02086.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">ConversationTree::Ptr</a> editor::component::ConversationTree::create </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02086.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>clickCb</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Construct a new Conversation Tree component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">clickCb</td><td>Callback for when a node is clicked </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00872_source.html#l00110">110</a> of file <a class="el" href="a00872_source.html">ConversationTree.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a03345c04e790970f8b48069fb8612056"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03345c04e790970f8b48069fb8612056">&#9670;&nbsp;</a></span>setSelected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::ConversationTree::setSelected </td>
-          <td>(</td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Set the selected node index. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>Index of the selected node </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00872_source.html#l00165">165</a> of file <a class="el" href="a00872_source.html">ConversationTree.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a8d870f9e3fef109c8e81d453a0eb6d1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d870f9e3fef109c8e81d453a0eb6d1f">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::component::ConversationTree::update </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a01542.html">core::file::Conversation::Node</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>nodes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the rendered tree with the new nodes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">nodes</td><td>The new tree to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00872_source.html#l00200">200</a> of file <a class="el" href="a00872_source.html">ConversationTree.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00377_source.html">ConversationTree.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00872_source.html">ConversationTree.cpp</a></li>
-</ul>
-</div><!-- contents -->
+<p>This is the complete list of members for <a class="el" href="a02089.html">core::system::Trainers</a>, including all inherited members.</p>
+<table class="directory">
+  <tr class="even"><td class="entry"><a class="el" href="a02089.html#a832b730851fe1796601412a04ef80b06">approachingTrainer</a>() const</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02089.html#a640c1b9dffa13ec5c676c923d0b7b862">resetDefeated</a>()</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02089.html#ac076fc57965f4d38efe246360017aaa3">setDefeated</a>(component::Trainer &amp;trainer)</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02089.html#aa663463a29057045e7d45437ea9baf1f">trainerDefeated</a>(const component::Trainer &amp;trainer) const</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02089.html#acc08fe54b119cd087630adfc53d4d091">Trainers</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02089.html#a576e954cd058812b9dc8fc99fd1b268a">~Trainers</a>()=default</td><td class="entry"><a class="el" href="a02089.html">core::system::Trainers</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+</table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:49 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

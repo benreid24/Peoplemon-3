@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Snow.cpp Source File</title>
+<title>Peoplemon: src/Core/Maps/Weather/Sandstorm.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,328 +71,83 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Snow.cpp</div>  </div>
+<div class="title">Sandstorm.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00725.html">Snow.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Cameras/2D/Camera2D.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>map</div>
+<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_SANDSTORM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_SANDSTORM_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00704.html">Base.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Particles.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>map</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>weather</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> SpawnRate       = 450.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> FastFallSpeed   = -340.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr <span class="keywordtype">float</span> SlowFallSpeed   = -100.f;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr <span class="keywordtype">float</span> GroundTime      = -2.f;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr <span class="keywordtype">float</span> HorizontalAccel = 128.f;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr <span class="keywordtype">float</span> HorizontalVel   = 64.f;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;constexpr <span class="keywordtype">float</span> StopTime        = 4.f;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;constexpr <span class="keywordtype">float</span> StopSpeed       = 1.f / StopTime;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;constexpr <span class="keywordtype">float</span> RespawnDelay    = 2.f;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;std::size_t deadCount = 0;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01140.html">   28</a></span>&#160;<span class="keyword">namespace </span>snow</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02546.html">   30</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02546.html">Snowflake</a> {</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02546.html#a743758dc25fa01a6612205ff4036adfe">   31</a></span>&#160;    glm::vec2 <a class="code" href="a02546.html#a743758dc25fa01a6612205ff4036adfe">pos</a>;</div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02546.html#ad6f6592b3661be2fa21f66bf3b3e5ab1">   32</a></span>&#160;    glm::vec2 <a class="code" href="a02546.html#ad6f6592b3661be2fa21f66bf3b3e5ab1">vel</a>;</div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02546.html#a6305cb27622898dbae4391bd0caec654">   33</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02546.html#a6305cb27622898dbae4391bd0caec654">height</a>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02546.html#a5c8d7a77d0e3a633a8cbe8da46d499de">   35</a></span>&#160;    <a class="code" href="a02546.html#a5c8d7a77d0e3a633a8cbe8da46d499de">Snowflake</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02546.html#abddb2c1c1efcc8dcace79d5537f252ba">   37</a></span>&#160;    <a class="code" href="a02546.html#abddb2c1c1efcc8dcace79d5537f252ba">Snowflake</a>(<span class="keyword">const</span> sf::FloatRect&amp; area) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <a class="code" href="a02546.html#a743758dc25fa01a6612205ff4036adfe">pos</a>.x  = bl::util::Random::get&lt;float&gt;(area.left - 300.f, area.left + area.width + 300.f);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <a class="code" href="a02546.html#a743758dc25fa01a6612205ff4036adfe">pos</a>.y  = bl::util::Random::get&lt;float&gt;(area.top - 300.f, area.top + area.height + 300.f);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <a class="code" href="a02546.html#ad6f6592b3661be2fa21f66bf3b3e5ab1">vel</a>.x  = bl::util::Random::get&lt;float&gt;(-HorizontalVel, HorizontalVel);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <a class="code" href="a02546.html#ad6f6592b3661be2fa21f66bf3b3e5ab1">vel</a>.y  = bl::util::Random::get&lt;float&gt;(-1.f, 1.f);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <a class="code" href="a02546.html#a6305cb27622898dbae4391bd0caec654">height</a> = bl::util::Random::get&lt;float&gt;(140.f, 200.f);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;};</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02550.html">   46</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02550.html">GpuSnowflake</a> {</div>
-<div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="a02550.html#aa2f831d869eeda1816ead1b066a4d97f">   47</a></span>&#160;    glm::vec2 <a class="code" href="a02550.html#aa2f831d869eeda1816ead1b066a4d97f">pos</a>;</div>
-<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a02550.html#a14452a4f30833f92eb1dd01739a0d528">   48</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02550.html#a14452a4f30833f92eb1dd01739a0d528">height</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a02550.html#a8f088ee98ba0d05b2a51182d71e835f5">   49</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02550.html#a8f088ee98ba0d05b2a51182d71e835f5">padding</a>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>sandstorm</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span><a class="code" href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">Sand</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span><a class="code" href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">Swirl</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace sandstorm</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02597.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02597.html">Sandstorm</a> : <span class="keyword">public</span> <a class="code" href="a02473.html">Base</a> {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02597.html#a2dd614987eab30634c1583fea2b3ce78">Sandstorm</a>();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02597.html#a34ce4ca40ef37db01cf6345afd8f7ec3">~Sandstorm</a>();</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02597.html#a6137cabe409261ebd68b3de8ff975d30">type</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a91a3979cb4d89974ee985e9b56455f5f">start</a>(bl::engine::Engine&amp; engine, <a class="code" href="a01781.html">Map</a>&amp; map) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02550.html#af13f8f3e32fdf837ee13f628aaa2aa66">   51</a></span>&#160;    <a class="code" href="a02550.html#af13f8f3e32fdf837ee13f628aaa2aa66">GpuSnowflake</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02550.html#a6a7257863796f0536a6f82b62a28f9e9">   53</a></span>&#160;    <a class="code" href="a02550.html">GpuSnowflake</a>&amp; <a class="code" href="a02550.html#a6a7257863796f0536a6f82b62a28f9e9">operator=</a>(<span class="keyword">const</span> <a class="code" href="a02546.html">Snowflake</a>&amp; drop) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <a class="code" href="a02550.html#aa2f831d869eeda1816ead1b066a4d97f">pos</a>    = drop.<a class="code" href="a02546.html#a743758dc25fa01a6612205ff4036adfe">pos</a>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="a02550.html#a14452a4f30833f92eb1dd01739a0d528">height</a> = drop.<a class="code" href="a02546.html#a6305cb27622898dbae4391bd0caec654">height</a>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;};</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02554.html">   60</a></span>&#160;<span class="keyword">struct </span><span class="keyword">alignas</span>(8) <a class="code" href="a02554.html">GlobalShaderInfo</a> {</div>
-<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02554.html#acdc9b136175edfb15de421065dc57b37">   61</a></span>&#160;    glm::vec2 <a class="code" href="a02554.html#acdc9b136175edfb15de421065dc57b37">textureCenter</a>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02554.html#a593fefab7a04e11fff9da597f044d530">   62</a></span>&#160;    std::uint32_t <a class="code" href="a02554.html#a593fefab7a04e11fff9da597f044d530">textureId</a>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02554.html#a4d22ea118c0128f9885eed3977b77551">   63</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a02554.html#a4d22ea118c0128f9885eed3977b77551">radius</a>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;} <span class="comment">// namespace snow</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01096.html">bl</a></div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;{</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="keyword">namespace </span>pcl</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{</div>
-<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a01134.html#a443f1b3666011b23a7768c5286f2706f">   74</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02546.html">Snowflake</a>        = <a class="code" href="a01134.html#a443f1b3666011b23a7768c5286f2706f">core::map::weather::snow::Snowflake</a>;</div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a01134.html#aa82bb68c57ad1411ba17435962f0d573">   75</a></span>&#160;<span class="keyword">using</span> <a class="code" href="a02550.html">GpuSnowflake</a>     = <a class="code" href="a01134.html#aa82bb68c57ad1411ba17435962f0d573">core::map::weather::snow::GpuSnowflake</a>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderInfo</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">core::map::weather::snow::GlobalShaderInfo</a>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00079"></a><span class="lineno"><a class="line" href="a02558.html">   79</a></span>&#160;<span class="keyword">struct </span>RenderConfigMap&lt;<a class="code" href="a02546.html">Snowflake</a>&gt; {</div>
-<div class="line"><a name="l00080"></a><span class="lineno"><a class="line" href="a02558.html#aa856486a66497ba40cd67ca01f39ebed">   80</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t PipelineId  = <a class="code" href="a01882.html#a3e872f5ce09962959a631d9f0179d4b0">core::Properties::SnowflakePipelineId</a>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno"><a class="line" href="a02558.html#aa35a21add061b9d489eb5d409c1ec158">   81</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> ContainsTransparency = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="a02558.html#aa9b81189c1f5250f812396cc44773529">   83</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> CreateRenderPipeline = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02558.html#adfd1540f46923a88c1225d8ac6c8cf70">   85</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; RenderPassIds =</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        bl::pcl::RenderConfigDefaults&lt;Snowflake&gt;::RenderPassIds;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno"><a class="line" href="a02558.html#aafc99f828cff24abd078ac3014141988">   88</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02430.html">GlobalShaderPayload</a> = <a class="code" href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="a02558.html#a7b23ce803d5a768e7ca0c3c5c25cfb65">   89</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02558.html#a7b23ce803d5a768e7ca0c3c5c25cfb65">DescriptorSets</a> =</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        bl::pcl::RenderConfigDescriptorList&lt;bl::rc::ds::TexturePoolFactory,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                                            bl::rc::ds::Scene2DFactory,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                                            bl::pcl::DescriptorSetFactory&lt;Snowflake, GpuSnowflake&gt;&gt;;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno"><a class="line" href="a02558.html#a127060c2b21bece311f9cc67da5f1fca">   94</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> EnableDepthTesting      = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno"><a class="line" href="a02558.html#a961e34db4fed02d3ef23b486cfe4b557">   95</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
-<div class="line"><a name="l00096"></a><span class="lineno"><a class="line" href="a02558.html#a457a4b7dd48e4b3b69ca8a60e954d2b2">   96</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* VertexShader = <span class="stringliteral">&quot;Resources/Shaders/Particles/snowflake.vert.spv&quot;</span>;</div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a02558.html#a253d8893f1e0df92c774d819bdab74c1">   97</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* FragmentShader =</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;};</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace pcl</span></div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;{</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;{</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;{</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="keyword">namespace </span>snow</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;{</div>
-<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02562.html">  111</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02562.html">GravityAffector</a> : <span class="keyword">public</span> bl::pcl::Affector&lt;Snowflake&gt; {</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00113"></a><span class="lineno"><a class="line" href="a02562.html#afd2f182199749b80fa87048a421ff756">  113</a></span>&#160;    <a class="code" href="a02562.html#afd2f182199749b80fa87048a421ff756">GravityAffector</a>(<span class="keywordtype">float</span> fallVel)</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    : fallVel(fallVel) {}</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="a02562.html#ac36a95f09beba67da09d91e1b25f06d4">  116</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02562.html#ac36a95f09beba67da09d91e1b25f06d4">~GravityAffector</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a02562.html#a927ebdf31b7fb7c7223310f959e2745a">  118</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02562.html#a927ebdf31b7fb7c7223310f959e2745a">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02546.html">Snowflake</a>&amp; flake : proxy.particles()) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">if</span> (flake.height &gt; 0.f) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                flake.pos += flake.vel * dt;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;                flake.height += fallVel * dt;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;                <span class="keywordflow">if</span> (flake.vel.y &gt; 0.f) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;                    flake.vel.x -= HorizontalAccel * dt;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;                    <span class="keywordflow">if</span> (flake.vel.x &lt; -HorizontalVel) { flake.vel.y = -1.f; }</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;                }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;                <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                    flake.vel.x += HorizontalAccel * dt;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;                    <span class="keywordflow">if</span> (flake.vel.x &gt; HorizontalVel) { flake.vel.y = 1.f; }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;                }</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;                <span class="keywordflow">if</span> (flake.height &lt; 0.f) flake.height = -0.001f;</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;            <span class="keywordflow">else</span> { flake.height -= dt; }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> fallVel;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;};</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
-<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="a02566.html">  142</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02566.html">TimeSink</a> : <span class="keyword">public</span> bl::pcl::Sink&lt;Snowflake&gt; {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00144"></a><span class="lineno"><a class="line" href="a02566.html#acdd93e61e18007007119d3d1dcd8d655">  144</a></span>&#160;    <a class="code" href="a02566.html#acdd93e61e18007007119d3d1dcd8d655">TimeSink</a>()</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    : time(0.f) {}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a02566.html#acd55d48fb172ca26757e6a7b500b8fe4">  147</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02566.html#acd55d48fb172ca26757e6a7b500b8fe4">~TimeSink</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="a02566.html#a97d5fd163575cf1fab9cd733a08cb4a1">  149</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02566.html#a97d5fd163575cf1fab9cd733a08cb4a1">update</a>(Proxy&amp; proxy, std::span&lt;Snowflake&gt; particles, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        time += dt;</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">for</span> (<a class="code" href="a02546.html">Snowflake</a>&amp; drop : particles) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keywordflow">if</span> (drop.height &lt;= GroundTime) {</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;                proxy.destroy(drop);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                <span class="keywordflow">if</span> (time &gt;= RespawnDelay) { ++deadCount; }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        }</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    }</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordtype">float</span> time;</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;};</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno"><a class="line" href="a02570.html">  163</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02570.html">TimeEmitter</a> : <span class="keyword">public</span> bl::pcl::Emitter&lt;Snowflake&gt; {</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00165"></a><span class="lineno"><a class="line" href="a02570.html#a97064e98136a6de37e94d4812320cc2e">  165</a></span>&#160;    <a class="code" href="a02570.html#a97064e98136a6de37e94d4812320cc2e">TimeEmitter</a>(bl::rc::Observer&amp; observer, std::size_t target)</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    : observer(observer)</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    , target(target)</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    , residual(0.f) {}</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno"><a class="line" href="a02570.html#a641821a173ff1202e778a0425f8cf2fa">  170</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02570.html#a641821a173ff1202e778a0425f8cf2fa">~TimeEmitter</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="a02570.html#a5b04c784c34613efbf6cc7d8d459f94d">  172</a></span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02570.html#a5b04c784c34613efbf6cc7d8d459f94d">setTarget</a>(std::size_t t) { target = t; }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00174"></a><span class="lineno"><a class="line" href="a02570.html#a4a2012a8599369e65f1c4da97718e2d0">  174</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02570.html#a4a2012a8599369e65f1c4da97718e2d0">update</a>(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">const</span> std::size_t current = proxy.getManager().getParticleCount();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordflow">if</span> (current &lt; target) {</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;            residual += SpawnRate * dt;</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            <span class="keywordflow">if</span> (residual &gt;= 1.f || deadCount &gt; 0) {</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;                <span class="keyword">const</span> std::size_t maxSpawn = target - current;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;                <span class="keyword">const</span> std::size_t toSpawn =</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;                    std::min(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(std::floor(residual)) + deadCount, maxSpawn);</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                residual -= <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(toSpawn);</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;                bl::cam::Camera2D* cam = observer.getCurrentCamera&lt;bl::cam::Camera2D&gt;();</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;                <span class="keywordflow">if</span> (!cam) { <span class="keywordflow">return</span>; }</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                <span class="keyword">const</span> sf::FloatRect area = cam-&gt;getVisibleArea();</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                <span class="keywordflow">for</span> (std::size_t i = 0; i &lt; toSpawn; ++i) { proxy.emit(area); }</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;            }</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        }</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    bl::rc::Observer&amp; observer;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    std::size_t target;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keywordtype">float</span> residual;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;};</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;} <span class="comment">// namespace snow</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="a02574.html#a2011b83b06558c0a154e6ddd475bc8f4">  200</a></span>&#160;<a class="code" href="a02574.html#a2011b83b06558c0a154e6ddd475bc8f4">Snow::Snow</a>(<span class="keywordtype">bool</span> hard, <span class="keywordtype">bool</span> thunder)</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;: engine(nullptr)</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;, _type(hard ? (thunder ? <a class="code" href="a01782.html">Weather</a>::HardSnowThunder : <a class="code" href="a01782.html">Weather</a>::HardSnow) :</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;               (thunder ? <a class="code" href="a01782.html">Weather</a>::LightSnowThunder : <a class="code" href="a01782.html">Weather</a>::LightSnow))</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;, targetParticleCount(hard ? <a class="code" href="a01882.html">Properties</a>::HardSnowParticleCount() :</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;                             <a class="code" href="a01882.html">Properties</a>::LightSnowParticleCount())</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;, fallSpeed(hard ? FastFallSpeed : SlowFallSpeed)</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;, stopFactor(-1.f)</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;, thunder(thunder, hard) {}</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="a02574.html#ad632a12191b92e806c0b8579dc45f092">  210</a></span>&#160;<a class="code" href="a02574.html#ad632a12191b92e806c0b8579dc45f092">Snow::~Snow</a>() {</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    <a class="code" href="a02574.html#a002ac5c20717ad3e786eba3d14d22b01">stop</a>();</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">if</span> (engine) { engine-&gt;particleSystem().removeUniqueSystem&lt;<a class="code" href="a02546.html">snow::Snowflake</a>&gt;(); }</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno"><a class="line" href="a02574.html#a01d72106d7be3681a9405a04e8b18e20">  215</a></span>&#160;<a class="code" href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02574.html#a01d72106d7be3681a9405a04e8b18e20">Snow::type</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> _type; }</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
-<div class="line"><a name="l00217"></a><span class="lineno"><a class="line" href="a02574.html#a7460089a07af1d352fdf88b8db6629ba">  217</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02574.html#a7460089a07af1d352fdf88b8db6629ba">Snow::start</a>(bl::engine::Engine&amp; e, <a class="code" href="a01730.html">Map</a>&amp; map) {</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    engine    = &amp;e;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    deadCount = 0;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> sampler = e.renderer().vulkanState().samplerCache.noFilterBorderClamped();</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    snowTxtr = e.renderer().texturePool().getOrLoadTexture(<a class="code" href="a01882.html#ada66185adb31a4dd76c192d84ed7898d">Properties::SnowFlakeFile</a>(), sampler);</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    particles = &amp;e.particleSystem().getUniqueSystem&lt;<a class="code" href="a02546.html">snow::Snowflake</a>&gt;();</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    particles-&gt;getRenderer().getGlobals().textureId = snowTxtr.id();</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    particles-&gt;getRenderer().getGlobals().textureCenter =</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        snowTxtr-&gt;normalizeAndConvertCoord(snowTxtr-&gt;size() * 0.5f);</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    particles-&gt;getRenderer().getGlobals().radius = glm::length(snowTxtr-&gt;size()) * 0.5f;</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;    emitter =</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        particles-&gt;addEmitter&lt;<a class="code" href="a02570.html">snow::TimeEmitter</a>&gt;(e.renderer().getObserver(), targetParticleCount);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    particles-&gt;addAffector&lt;<a class="code" href="a02562.html">snow::GravityAffector</a>&gt;(fallSpeed);</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    particles-&gt;addSink&lt;<a class="code" href="a02566.html">snow::TimeSink</a>&gt;();</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    particles-&gt;addToScene(e.renderer().getObserver().getCurrentScene());</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    particles-&gt;getRenderer().getComponent()-&gt;vertexBuffer.vertices()[0].pos.z = map.<a class="code" href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">getMinDepth</a>();</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="a02574.html#a002ac5c20717ad3e786eba3d14d22b01">  239</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02574.html#a002ac5c20717ad3e786eba3d14d22b01">Snow::stop</a>() {</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    stopFactor = 0.f;</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    thunder.<a class="code" href="a02582.html#a30c483f0f170d26d0d87314b3ae8c92c">stop</a>();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;}</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160; </div>
-<div class="line"><a name="l00244"></a><span class="lineno"><a class="line" href="a02574.html#a1e2d19add6534381d1edd4ce30e965e4">  244</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02574.html#a1e2d19add6534381d1edd4ce30e965e4">Snow::stopped</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> particles &amp;&amp; particles-&gt;getParticleCount() == 0; }</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160; </div>
-<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="a02574.html#a792edfd9888f819b8dc6b1cc9dd84c40">  246</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02574.html#a792edfd9888f819b8dc6b1cc9dd84c40">Snow::update</a>(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <span class="keywordflow">if</span> (stopFactor &gt;= 0.f) {</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        stopFactor = std::min(stopFactor + StopSpeed * dt, 1.f);</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        emitter-&gt;<a class="code" href="a02570.html#a5b04c784c34613efbf6cc7d8d459f94d">setTarget</a>(</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;            targetParticleCount -</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(targetParticleCount) * stopFactor));</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;        <span class="keywordflow">if</span> (stopFactor &gt;= 0.8f) {</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;            stopFactor = -1.f;</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;            emitter-&gt;<a class="code" href="a02570.html#a5b04c784c34613efbf6cc7d8d459f94d">setTarget</a>(0);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        }</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    }</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160; </div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00725_html"><div class="ttname"><a href="a00725.html">Snow.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
-<div class="ttc" id="aa01134_html_a1fe2649dda87e4a4cc500096513be57c"><div class="ttname"><a href="a01134.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a></div><div class="ttdeci">core::map::weather::fog::GlobalShaderInfo GlobalShaderInfo</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00079">Fog.cpp:79</a></div></div>
-<div class="ttc" id="aa01134_html_a443f1b3666011b23a7768c5286f2706f"><div class="ttname"><a href="a01134.html#a443f1b3666011b23a7768c5286f2706f">bl::pcl::Snowflake</a></div><div class="ttdeci">core::map::weather::snow::Snowflake Snowflake</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00074">Snow.cpp:74</a></div></div>
-<div class="ttc" id="aa01134_html_aa82bb68c57ad1411ba17435962f0d573"><div class="ttname"><a href="a01134.html#aa82bb68c57ad1411ba17435962f0d573">bl::pcl::GpuSnowflake</a></div><div class="ttdeci">core::map::weather::snow::GpuSnowflake GpuSnowflake</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00075">Snow.cpp:75</a></div></div>
-<div class="ttc" id="aa01730_html"><div class="ttname"><a href="a01730.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03203_source.html#l00049">Map.hpp:49</a></div></div>
-<div class="ttc" id="aa01730_html_a01b804ccb6fd078385d99426ee3fee4c"><div class="ttname"><a href="a01730.html#a01b804ccb6fd078385d99426ee3fee4c">core::map::Map::getMinDepth</a></div><div class="ttdeci">float getMinDepth() const</div><div class="ttdoc">Returns the maximum depth possible for this map. Maximum is always 0.f. Minimum is negative,...</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00765">Map.cpp:765</a></div></div>
-<div class="ttc" id="aa01782_html"><div class="ttname"><a href="a01782.html">core::map::Weather</a></div><div class="ttdoc">Parent weather system for maps. Manages active weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00032">Weather.hpp:32</a></div></div>
-<div class="ttc" id="aa01782_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01782.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03188_source.html#l00038">Weather.hpp:38</a></div></div>
-<div class="ttc" id="aa01882_html"><div class="ttname"><a href="a01882.html">core::Properties</a></div><div class="ttdoc">Wrapper around bl::engine::Configuration. Provides application configuration in variables that may be...</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00028">Properties.hpp:28</a></div></div>
-<div class="ttc" id="aa01882_html_a3e872f5ce09962959a631d9f0179d4b0"><div class="ttname"><a href="a01882.html#a3e872f5ce09962959a631d9f0179d4b0">core::Properties::SnowflakePipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t SnowflakePipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00278_source.html#l00137">Properties.hpp:137</a></div></div>
-<div class="ttc" id="aa01882_html_ada66185adb31a4dd76c192d84ed7898d"><div class="ttname"><a href="a01882.html#ada66185adb31a4dd76c192d84ed7898d">core::Properties::SnowFlakeFile</a></div><div class="ttdeci">static const std::string &amp; SnowFlakeFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00401">Properties.cpp:401</a></div></div>
-<div class="ttc" id="aa02430_html"><div class="ttname"><a href="a02430.html">core::map::weather::fog::GlobalShaderInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00061">Fog.cpp:61</a></div></div>
-<div class="ttc" id="aa02546_html"><div class="ttname"><a href="a02546.html">core::map::weather::snow::Snowflake</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00030">Snow.cpp:30</a></div></div>
-<div class="ttc" id="aa02546_html_a5c8d7a77d0e3a633a8cbe8da46d499de"><div class="ttname"><a href="a02546.html#a5c8d7a77d0e3a633a8cbe8da46d499de">core::map::weather::snow::Snowflake::Snowflake</a></div><div class="ttdeci">Snowflake()=default</div></div>
-<div class="ttc" id="aa02546_html_a6305cb27622898dbae4391bd0caec654"><div class="ttname"><a href="a02546.html#a6305cb27622898dbae4391bd0caec654">core::map::weather::snow::Snowflake::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00033">Snow.cpp:33</a></div></div>
-<div class="ttc" id="aa02546_html_a743758dc25fa01a6612205ff4036adfe"><div class="ttname"><a href="a02546.html#a743758dc25fa01a6612205ff4036adfe">core::map::weather::snow::Snowflake::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00031">Snow.cpp:31</a></div></div>
-<div class="ttc" id="aa02546_html_abddb2c1c1efcc8dcace79d5537f252ba"><div class="ttname"><a href="a02546.html#abddb2c1c1efcc8dcace79d5537f252ba">core::map::weather::snow::Snowflake::Snowflake</a></div><div class="ttdeci">Snowflake(const sf::FloatRect &amp;area)</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00037">Snow.cpp:37</a></div></div>
-<div class="ttc" id="aa02546_html_ad6f6592b3661be2fa21f66bf3b3e5ab1"><div class="ttname"><a href="a02546.html#ad6f6592b3661be2fa21f66bf3b3e5ab1">core::map::weather::snow::Snowflake::vel</a></div><div class="ttdeci">glm::vec2 vel</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00032">Snow.cpp:32</a></div></div>
-<div class="ttc" id="aa02550_html"><div class="ttname"><a href="a02550.html">core::map::weather::snow::GpuSnowflake</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00046">Snow.cpp:46</a></div></div>
-<div class="ttc" id="aa02550_html_a14452a4f30833f92eb1dd01739a0d528"><div class="ttname"><a href="a02550.html#a14452a4f30833f92eb1dd01739a0d528">core::map::weather::snow::GpuSnowflake::height</a></div><div class="ttdeci">float height</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00048">Snow.cpp:48</a></div></div>
-<div class="ttc" id="aa02550_html_a6a7257863796f0536a6f82b62a28f9e9"><div class="ttname"><a href="a02550.html#a6a7257863796f0536a6f82b62a28f9e9">core::map::weather::snow::GpuSnowflake::operator=</a></div><div class="ttdeci">GpuSnowflake &amp; operator=(const Snowflake &amp;drop)</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00053">Snow.cpp:53</a></div></div>
-<div class="ttc" id="aa02550_html_a8f088ee98ba0d05b2a51182d71e835f5"><div class="ttname"><a href="a02550.html#a8f088ee98ba0d05b2a51182d71e835f5">core::map::weather::snow::GpuSnowflake::padding</a></div><div class="ttdeci">float padding</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00049">Snow.cpp:49</a></div></div>
-<div class="ttc" id="aa02550_html_aa2f831d869eeda1816ead1b066a4d97f"><div class="ttname"><a href="a02550.html#aa2f831d869eeda1816ead1b066a4d97f">core::map::weather::snow::GpuSnowflake::pos</a></div><div class="ttdeci">glm::vec2 pos</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00047">Snow.cpp:47</a></div></div>
-<div class="ttc" id="aa02550_html_af13f8f3e32fdf837ee13f628aaa2aa66"><div class="ttname"><a href="a02550.html#af13f8f3e32fdf837ee13f628aaa2aa66">core::map::weather::snow::GpuSnowflake::GpuSnowflake</a></div><div class="ttdeci">GpuSnowflake()=default</div></div>
-<div class="ttc" id="aa02554_html"><div class="ttname"><a href="a02554.html">core::map::weather::snow::GlobalShaderInfo</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00060">Snow.cpp:60</a></div></div>
-<div class="ttc" id="aa02554_html_a4d22ea118c0128f9885eed3977b77551"><div class="ttname"><a href="a02554.html#a4d22ea118c0128f9885eed3977b77551">core::map::weather::snow::GlobalShaderInfo::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00063">Snow.cpp:63</a></div></div>
-<div class="ttc" id="aa02554_html_a593fefab7a04e11fff9da597f044d530"><div class="ttname"><a href="a02554.html#a593fefab7a04e11fff9da597f044d530">core::map::weather::snow::GlobalShaderInfo::textureId</a></div><div class="ttdeci">std::uint32_t textureId</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00062">Snow.cpp:62</a></div></div>
-<div class="ttc" id="aa02554_html_acdc9b136175edfb15de421065dc57b37"><div class="ttname"><a href="a02554.html#acdc9b136175edfb15de421065dc57b37">core::map::weather::snow::GlobalShaderInfo::textureCenter</a></div><div class="ttdeci">glm::vec2 textureCenter</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00061">Snow.cpp:61</a></div></div>
-<div class="ttc" id="aa02558_html_a7b23ce803d5a768e7ca0c3c5c25cfb65"><div class="ttname"><a href="a02558.html#a7b23ce803d5a768e7ca0c3c5c25cfb65">bl::pcl::RenderConfigMap&lt; Snowflake &gt;::DescriptorSets</a></div><div class="ttdeci">bl::pcl::RenderConfigDescriptorList&lt; bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt; Snowflake, GpuSnowflake &gt; &gt; DescriptorSets</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00089">Snow.cpp:92</a></div></div>
-<div class="ttc" id="aa02562_html"><div class="ttname"><a href="a02562.html">core::map::weather::snow::GravityAffector</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00111">Snow.cpp:111</a></div></div>
-<div class="ttc" id="aa02562_html_a927ebdf31b7fb7c7223310f959e2745a"><div class="ttname"><a href="a02562.html#a927ebdf31b7fb7c7223310f959e2745a">core::map::weather::snow::GravityAffector::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00118">Snow.cpp:118</a></div></div>
-<div class="ttc" id="aa02562_html_ac36a95f09beba67da09d91e1b25f06d4"><div class="ttname"><a href="a02562.html#ac36a95f09beba67da09d91e1b25f06d4">core::map::weather::snow::GravityAffector::~GravityAffector</a></div><div class="ttdeci">virtual ~GravityAffector()=default</div></div>
-<div class="ttc" id="aa02562_html_afd2f182199749b80fa87048a421ff756"><div class="ttname"><a href="a02562.html#afd2f182199749b80fa87048a421ff756">core::map::weather::snow::GravityAffector::GravityAffector</a></div><div class="ttdeci">GravityAffector(float fallVel)</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00113">Snow.cpp:113</a></div></div>
-<div class="ttc" id="aa02566_html"><div class="ttname"><a href="a02566.html">core::map::weather::snow::TimeSink</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00142">Snow.cpp:142</a></div></div>
-<div class="ttc" id="aa02566_html_a97d5fd163575cf1fab9cd733a08cb4a1"><div class="ttname"><a href="a02566.html#a97d5fd163575cf1fab9cd733a08cb4a1">core::map::weather::snow::TimeSink::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, std::span&lt; Snowflake &gt; particles, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00149">Snow.cpp:149</a></div></div>
-<div class="ttc" id="aa02566_html_acd55d48fb172ca26757e6a7b500b8fe4"><div class="ttname"><a href="a02566.html#acd55d48fb172ca26757e6a7b500b8fe4">core::map::weather::snow::TimeSink::~TimeSink</a></div><div class="ttdeci">virtual ~TimeSink()=default</div></div>
-<div class="ttc" id="aa02566_html_acdd93e61e18007007119d3d1dcd8d655"><div class="ttname"><a href="a02566.html#acdd93e61e18007007119d3d1dcd8d655">core::map::weather::snow::TimeSink::TimeSink</a></div><div class="ttdeci">TimeSink()</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00144">Snow.cpp:144</a></div></div>
-<div class="ttc" id="aa02570_html"><div class="ttname"><a href="a02570.html">core::map::weather::snow::TimeEmitter</a></div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00163">Snow.cpp:163</a></div></div>
-<div class="ttc" id="aa02570_html_a4a2012a8599369e65f1c4da97718e2d0"><div class="ttname"><a href="a02570.html#a4a2012a8599369e65f1c4da97718e2d0">core::map::weather::snow::TimeEmitter::update</a></div><div class="ttdeci">virtual void update(Proxy &amp;proxy, float dt, float) override</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00174">Snow.cpp:174</a></div></div>
-<div class="ttc" id="aa02570_html_a5b04c784c34613efbf6cc7d8d459f94d"><div class="ttname"><a href="a02570.html#a5b04c784c34613efbf6cc7d8d459f94d">core::map::weather::snow::TimeEmitter::setTarget</a></div><div class="ttdeci">void setTarget(std::size_t t)</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00172">Snow.cpp:172</a></div></div>
-<div class="ttc" id="aa02570_html_a641821a173ff1202e778a0425f8cf2fa"><div class="ttname"><a href="a02570.html#a641821a173ff1202e778a0425f8cf2fa">core::map::weather::snow::TimeEmitter::~TimeEmitter</a></div><div class="ttdeci">virtual ~TimeEmitter()=default</div></div>
-<div class="ttc" id="aa02570_html_a97064e98136a6de37e94d4812320cc2e"><div class="ttname"><a href="a02570.html#a97064e98136a6de37e94d4812320cc2e">core::map::weather::snow::TimeEmitter::TimeEmitter</a></div><div class="ttdeci">TimeEmitter(bl::rc::Observer &amp;observer, std::size_t target)</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00165">Snow.cpp:165</a></div></div>
-<div class="ttc" id="aa02574_html_a002ac5c20717ad3e786eba3d14d22b01"><div class="ttname"><a href="a02574.html#a002ac5c20717ad3e786eba3d14d22b01">core::map::weather::Snow::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00239">Snow.cpp:239</a></div></div>
-<div class="ttc" id="aa02574_html_a01d72106d7be3681a9405a04e8b18e20"><div class="ttname"><a href="a02574.html#a01d72106d7be3681a9405a04e8b18e20">core::map::weather::Snow::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">One of LightSnow, LightSnowThunder, HardSnow, HardSnowThunder.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00215">Snow.cpp:215</a></div></div>
-<div class="ttc" id="aa02574_html_a1e2d19add6534381d1edd4ce30e965e4"><div class="ttname"><a href="a02574.html#a1e2d19add6534381d1edd4ce30e965e4">core::map::weather::Snow::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when no snow is left after a call to stop()</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00244">Snow.cpp:244</a></div></div>
-<div class="ttc" id="aa02574_html_a2011b83b06558c0a154e6ddd475bc8f4"><div class="ttname"><a href="a02574.html#a2011b83b06558c0a154e6ddd475bc8f4">core::map::weather::Snow::Snow</a></div><div class="ttdeci">Snow(bool hard, bool thunder)</div><div class="ttdoc">Create snowy weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00200">Snow.cpp:200</a></div></div>
-<div class="ttc" id="aa02574_html_a7460089a07af1d352fdf88b8db6629ba"><div class="ttname"><a href="a02574.html#a7460089a07af1d352fdf88b8db6629ba">core::map::weather::Snow::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Start the snow.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00217">Snow.cpp:217</a></div></div>
-<div class="ttc" id="aa02574_html_a792edfd9888f819b8dc6b1cc9dd84c40"><div class="ttname"><a href="a02574.html#a792edfd9888f819b8dc6b1cc9dd84c40">core::map::weather::Snow::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates all the flakes and spawns more.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00246">Snow.cpp:246</a></div></div>
-<div class="ttc" id="aa02574_html_ad632a12191b92e806c0b8579dc45f092"><div class="ttname"><a href="a02574.html#ad632a12191b92e806c0b8579dc45f092">core::map::weather::Snow::~Snow</a></div><div class="ttdeci">virtual ~Snow()</div><div class="ttdoc">Destroy the Snow object.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00210">Snow.cpp:210</a></div></div>
-<div class="ttc" id="aa02582_html_a30c483f0f170d26d0d87314b3ae8c92c"><div class="ttname"><a href="a02582.html#a30c483f0f170d26d0d87314b3ae8c92c">core::map::weather::Thunder::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Prevents further thunder and fades out current strike if present.</div><div class="ttdef"><b>Definition:</b> <a href="a00734_source.html#l00042">Thunder.cpp:42</a></div></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a2ed89923f6145684440ad67d94ddfa50">stop</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02597.html#a07ac834a6cc7ba446edd52f27ebe35c3">stopped</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a12ffb97e3a097d0ebb79499ef5c33fa1">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    bl::engine::Engine* engine;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    bl::rc::res::TextureRef sandTxtr;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    bl::rc::res::TextureRef swirlTxtr;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    bl::pcl::ParticleManager&lt;sandstorm::Sand&gt;* sand;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    bl::pcl::ParticleManager&lt;sandstorm::Swirl&gt;* swirls;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> targetAlpha;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">float</span> alpha;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> setAlpha();</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">Base.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01108_html_a923cf8da7c5d618e47d0cb6de16f813e"><div class="ttname"><a href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">bl::pcl::Swirl</a></div><div class="ttdeci">core::map::weather::sandstorm::Swirl Swirl</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00073">Sandstorm.cpp:73</a></div></div>
+<div class="ttc" id="aa01108_html_ad6d56c8b6ae3bbaa1fc5f6ade882484e"><div class="ttname"><a href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">bl::pcl::Sand</a></div><div class="ttdeci">core::map::weather::sandstorm::Sand Sand</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00072">Sandstorm.cpp:72</a></div></div>
+<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03265_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00038">Weather.hpp:38</a></div></div>
+<div class="ttc" id="aa02473_html"><div class="ttname"><a href="a02473.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00028">Base.hpp:28</a></div></div>
+<div class="ttc" id="aa02597_html"><div class="ttname"><a href="a02597.html">core::map::weather::Sandstorm</a></div><div class="ttdoc">Creates sandstorms.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00026">Sandstorm.hpp:26</a></div></div>
+<div class="ttc" id="aa02597_html_a07ac834a6cc7ba446edd52f27ebe35c3"><div class="ttname"><a href="a02597.html#a07ac834a6cc7ba446edd52f27ebe35c3">core::map::weather::Sandstorm::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true if the sandstorm is fully stopped, false if stopping.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00348">Sandstorm.cpp:348</a></div></div>
+<div class="ttc" id="aa02597_html_a12ffb97e3a097d0ebb79499ef5c33fa1"><div class="ttname"><a href="a02597.html#a12ffb97e3a097d0ebb79499ef5c33fa1">core::map::weather::Sandstorm::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00390">Sandstorm.cpp:390</a></div></div>
+<div class="ttc" id="aa02597_html_a2dd614987eab30634c1583fea2b3ce78"><div class="ttname"><a href="a02597.html#a2dd614987eab30634c1583fea2b3ce78">core::map::weather::Sandstorm::Sandstorm</a></div><div class="ttdeci">Sandstorm()</div><div class="ttdoc">Creates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00333">Sandstorm.cpp:333</a></div></div>
+<div class="ttc" id="aa02597_html_a2ed89923f6145684440ad67d94ddfa50"><div class="ttname"><a href="a02597.html#a2ed89923f6145684440ad67d94ddfa50">core::map::weather::Sandstorm::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00346">Sandstorm.cpp:346</a></div></div>
+<div class="ttc" id="aa02597_html_a34ce4ca40ef37db01cf6345afd8f7ec3"><div class="ttname"><a href="a02597.html#a34ce4ca40ef37db01cf6345afd8f7ec3">core::map::weather::Sandstorm::~Sandstorm</a></div><div class="ttdeci">virtual ~Sandstorm()</div><div class="ttdoc">Destroy the Sandstorm object.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00337">Sandstorm.cpp:337</a></div></div>
+<div class="ttc" id="aa02597_html_a6137cabe409261ebd68b3de8ff975d30"><div class="ttname"><a href="a02597.html#a6137cabe409261ebd68b3de8ff975d30">core::map::weather::Sandstorm::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns Sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00344">Sandstorm.cpp:344</a></div></div>
+<div class="ttc" id="aa02597_html_a91a3979cb4d89974ee985e9b56455f5f"><div class="ttname"><a href="a02597.html#a91a3979cb4d89974ee985e9b56455f5f">core::map::weather::Sandstorm::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Starts the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00350">Sandstorm.cpp:350</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

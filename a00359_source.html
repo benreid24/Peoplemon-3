@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/World.hpp Source File</title>
+<title>Peoplemon: include/Core/Systems/Trainers.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,85 +71,110 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">World.hpp</div>  </div>
+<div class="title">Trainers.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00359.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_WORLD_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_WORLD_HPP</span></div>
+<a href="a00359.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_TRAINERS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_TRAINERS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/System.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03164.html">Core/Events/GameSave.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03203.html">Core/Maps/Map.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02046.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02046.html">World</a></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: <span class="keyword">public</span> bl::engine::System</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, <span class="keyword">public</span> bl::event::Listener&lt;event::GameSaveInitializing, event::GameSaveLoaded&gt; {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <a class="code" href="a02046.html#a2d59d17c578592c34a3001f3232f8e02">World</a>(<a class="code" href="a02034.html">Systems</a>&amp; systems);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a02046.html#a055194bb19ccbbfd68dbe9e7617deeb3">   35</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02046.html#a055194bb19ccbbfd68dbe9e7617deeb3">~World</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02046.html#a8d85231f1c949e41a64b8967f599c2c4">switchMaps</a>(<span class="keyword">const</span> std::string&amp; newMap, <span class="keywordtype">int</span> spawnId);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Audio/AudioSystem.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/System.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Position.hpp&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00086.html">Core/Components/Movable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03214.html">Core/Components/Trainer.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03175.html">Core/Events/Battle.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00122.html">Core/Events/EntityMoved.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03226.html">Core/Events/GameSave.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02089.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02089.html">Trainers</a></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;: <span class="keyword">public</span> bl::engine::System</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, bl::event::Listener&lt;event::GameSaveInitializing,</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;                      bl::ecs::event::ComponentAdded&lt;component::Trainer&gt;, event::BattleCompleted,</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;                      event::EntityMoveFinished, event::EntityRotated&gt; {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a02089.html#acc08fe54b119cd087630adfc53d4d091">Trainers</a>(<a class="code" href="a02085.html">Systems</a>&amp; owner);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02089.html#a576e954cd058812b9dc8fc99fd1b268a">   44</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02089.html#a576e954cd058812b9dc8fc99fd1b268a">~Trainers</a>() = <span class="keywordflow">default</span>;</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02046.html#a50ca82a4f35846749671738b6daedf56">whiteout</a>(<span class="keyword">const</span> std::string&amp; newMap, <span class="keywordtype">int</span> spawnId);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="a01730.html">map::Map</a>&amp; <a class="code" href="a02046.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>();</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01730.html">map::Map</a>&amp; <a class="code" href="a02046.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02046.html#ab14a57ac77561c5d5cf3a232d77d2af9">observe</a>(<span class="keyword">const</span> <a class="code" href="a01414.html">event::GameSaveInitializing</a>&amp; save) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02046.html#ab14a57ac77561c5d5cf3a232d77d2af9">observe</a>(<span class="keyword">const</span> <a class="code" href="a01418.html">event::GameSaveLoaded</a>&amp; load) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02046.html#a37237bf8464a738e91d2c56569dbc021">setWhiteoutMap</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> spawn);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="a02034.html">Systems</a>&amp; owner;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    bl::resource::Ref&lt;map::Map&gt; currentMap;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::resource::Ref&lt;map::Map&gt; previousMap;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    std::string currentMapFile;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    std::string prevMapFile;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    bl::tmap::Position playerPos;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    bl::tmap::Position prevPlayerPos;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    bl::ecs::Entity <a class="code" href="a02089.html#a832b730851fe1796601412a04ef80b06">approachingTrainer</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02089.html#a640c1b9dffa13ec5c676c923d0b7b862">resetDefeated</a>();</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a02089.html#aa663463a29057045e7d45437ea9baf1f">trainerDefeated</a>(<span class="keyword">const</span> <a class="code" href="a01425.html">component::Trainer</a>&amp; trainer) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02089.html#ac076fc57965f4d38efe246360017aaa3">setDefeated</a>(<a class="code" href="a01425.html">component::Trainer</a>&amp; trainer);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keyword">enum struct</span> State { Searching, PoppingUp, Holding, Rising, Walking, Battling };</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <a class="code" href="a02085.html">Systems</a>&amp; owner;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    bl::ecs::ComponentPool&lt;component::Trainer&gt;&amp; trainerPool;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    bl::rc::res::TextureRef exclaimTxtr;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    bl::gfx::Sprite exclaim;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    bl::audio::AudioSystem::Handle exclaimSound;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordtype">float</span> height;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    State state;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::ecs::Entity walkingTrainer;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="a01425.html">component::Trainer</a>* trainerComponent;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keyword">const</span> bl::tmap::Position* trainerPos;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a01393.html">component::Movable</a>* trainerMove;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    std::unordered_set&lt;std::string&gt; defeated;</div>
 <div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> earlyCleanup() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01414_html"><div class="ttname"><a href="a01414.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03164_source.html#l00022">GameSave.hpp:22</a></div></div>
-<div class="ttc" id="aa01418_html"><div class="ttname"><a href="a01418.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a03164_source.html#l00046">GameSave.hpp:46</a></div></div>
-<div class="ttc" id="aa01730_html"><div class="ttname"><a href="a01730.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03203_source.html#l00049">Map.hpp:49</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02046_html"><div class="ttname"><a href="a02046.html">core::system::World</a></div><div class="ttdoc">System for managing the current map and previous maps.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00021">World.hpp:23</a></div></div>
-<div class="ttc" id="aa02046_html_a055194bb19ccbbfd68dbe9e7617deeb3"><div class="ttname"><a href="a02046.html#a055194bb19ccbbfd68dbe9e7617deeb3">core::system::World::~World</a></div><div class="ttdeci">virtual ~World()=default</div><div class="ttdoc">Destroys the system.</div></div>
-<div class="ttc" id="aa02046_html_a2d59d17c578592c34a3001f3232f8e02"><div class="ttname"><a href="a02046.html#a2d59d17c578592c34a3001f3232f8e02">core::system::World::World</a></div><div class="ttdeci">World(Systems &amp;systems)</div><div class="ttdoc">Creates the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00016">World.cpp:16</a></div></div>
-<div class="ttc" id="aa02046_html_a37237bf8464a738e91d2c56569dbc021"><div class="ttname"><a href="a02046.html#a37237bf8464a738e91d2c56569dbc021">core::system::World::setWhiteoutMap</a></div><div class="ttdeci">void setWhiteoutMap(unsigned int spawn)</div><div class="ttdoc">Sets the respawn point to the given spawn in the current map.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00079">World.cpp:79</a></div></div>
-<div class="ttc" id="aa02046_html_a50ca82a4f35846749671738b6daedf56"><div class="ttname"><a href="a02046.html#a50ca82a4f35846749671738b6daedf56">core::system::World::whiteout</a></div><div class="ttdeci">void whiteout(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches to the new map and resets the last map to empty.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00072">World.cpp:72</a></div></div>
-<div class="ttc" id="aa02046_html_a8d85231f1c949e41a64b8967f599c2c4"><div class="ttname"><a href="a02046.html#a8d85231f1c949e41a64b8967f599c2c4">core::system::World::switchMaps</a></div><div class="ttdeci">bool switchMaps(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches the current map to the map in the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00026">World.cpp:26</a></div></div>
-<div class="ttc" id="aa02046_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02046.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00084">World.cpp:84</a></div></div>
-<div class="ttc" id="aa02046_html_ab14a57ac77561c5d5cf3a232d77d2af9"><div class="ttname"><a href="a02046.html#ab14a57ac77561c5d5cf3a232d77d2af9">core::system::World::observe</a></div><div class="ttdeci">virtual void observe(const event::GameSaveInitializing &amp;save) override</div><div class="ttdoc">Adds saved world data to the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00092">World.cpp:92</a></div></div>
-<div class="ttc" id="aa03164_html"><div class="ttname"><a href="a03164.html">GameSave.hpp</a></div></div>
-<div class="ttc" id="aa03203_html"><div class="ttname"><a href="a03203.html">Map.hpp</a></div></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(std::mutex&amp; stageMutex, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span> realDt, <span class="keywordtype">float</span> residual,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        <span class="keywordtype">float</span> realResidual) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> init(bl::engine::Engine&amp;) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01465.html">event::GameSaveInitializing</a>&amp; save) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> bl::ecs::event::ComponentAdded&lt;component::Trainer&gt;&amp; tc) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01449.html">event::BattleCompleted</a>&amp; event) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01457.html">event::EntityMoveFinished</a>&amp; moved) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01461.html">event::EntityRotated</a>&amp; rotated) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">void</span> checkTrainer(bl::ecs::Entity ent, <a class="code" href="a01425.html">component::Trainer</a>&amp; trainer);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> cleanup();</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;};</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00086_html"><div class="ttname"><a href="a00086.html">Movable.hpp</a></div></div>
+<div class="ttc" id="aa00122_html"><div class="ttname"><a href="a00122.html">EntityMoved.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01393_html"><div class="ttname"><a href="a01393.html">core::component::Movable</a></div><div class="ttdoc">Adding this component to an entity will allow it to move.</div><div class="ttdef"><b>Definition:</b> <a href="a00086_source.html#l00026">Movable.hpp:26</a></div></div>
+<div class="ttc" id="aa01425_html"><div class="ttname"><a href="a01425.html">core::component::Trainer</a></div><div class="ttdoc">Adding this to an entity will make it a trainer that can battle.</div><div class="ttdef"><b>Definition:</b> <a href="a03214_source.html#l00018">Trainer.hpp:18</a></div></div>
+<div class="ttc" id="aa01449_html"><div class="ttname"><a href="a01449.html">core::event::BattleCompleted</a></div><div class="ttdoc">Fired when a battle finishes.</div><div class="ttdef"><b>Definition:</b> <a href="a03175_source.html#l00036">Battle.hpp:36</a></div></div>
+<div class="ttc" id="aa01457_html"><div class="ttname"><a href="a01457.html">core::event::EntityMoveFinished</a></div><div class="ttdoc">Fired when an entity completes a move from one tile to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00052">EntityMoved.hpp:52</a></div></div>
+<div class="ttc" id="aa01461_html"><div class="ttname"><a href="a01461.html">core::event::EntityRotated</a></div><div class="ttdoc">Fired when an entity rotates without moving.</div><div class="ttdef"><b>Definition:</b> <a href="a00122_source.html#l00076">EntityMoved.hpp:76</a></div></div>
+<div class="ttc" id="aa01465_html"><div class="ttname"><a href="a01465.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03226_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02089_html"><div class="ttname"><a href="a02089.html">core::system::Trainers</a></div><div class="ttdoc">This system manages trainers. It handles their vision and makes them walk up to the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00359_source.html#l00028">Trainers.hpp:32</a></div></div>
+<div class="ttc" id="aa02089_html_a576e954cd058812b9dc8fc99fd1b268a"><div class="ttname"><a href="a02089.html#a576e954cd058812b9dc8fc99fd1b268a">core::system::Trainers::~Trainers</a></div><div class="ttdeci">virtual ~Trainers()=default</div><div class="ttdoc">Destroys the system.</div></div>
+<div class="ttc" id="aa02089_html_a640c1b9dffa13ec5c676c923d0b7b862"><div class="ttname"><a href="a02089.html#a640c1b9dffa13ec5c676c923d0b7b862">core::system::Trainers::resetDefeated</a></div><div class="ttdeci">void resetDefeated()</div><div class="ttdoc">Resets the list of defeated trainers.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00200">Trainers.cpp:200</a></div></div>
+<div class="ttc" id="aa02089_html_a832b730851fe1796601412a04ef80b06"><div class="ttname"><a href="a02089.html#a832b730851fe1796601412a04ef80b06">core::system::Trainers::approachingTrainer</a></div><div class="ttdeci">bl::ecs::Entity approachingTrainer() const</div><div class="ttdoc">Returns the trainer currently approaching the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00105">Trainers.cpp:105</a></div></div>
+<div class="ttc" id="aa02089_html_aa663463a29057045e7d45437ea9baf1f"><div class="ttname"><a href="a02089.html#aa663463a29057045e7d45437ea9baf1f">core::system::Trainers::trainerDefeated</a></div><div class="ttdeci">bool trainerDefeated(const component::Trainer &amp;trainer) const</div><div class="ttdoc">Checks whether or not the given trainer has been defeated.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00107">Trainers.cpp:107</a></div></div>
+<div class="ttc" id="aa02089_html_ac076fc57965f4d38efe246360017aaa3"><div class="ttname"><a href="a02089.html#ac076fc57965f4d38efe246360017aaa3">core::system::Trainers::setDefeated</a></div><div class="ttdeci">void setDefeated(component::Trainer &amp;trainer)</div><div class="ttdoc">Sets the given trainer as having been defeated and updates the game save data.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00111">Trainers.cpp:111</a></div></div>
+<div class="ttc" id="aa02089_html_acc08fe54b119cd087630adfc53d4d091"><div class="ttname"><a href="a02089.html#acc08fe54b119cd087630adfc53d4d091">core::system::Trainers::Trainers</a></div><div class="ttdeci">Trainers(Systems &amp;owner)</div><div class="ttdoc">Construct a new Trainers system.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00021">Trainers.cpp:21</a></div></div>
+<div class="ttc" id="aa03175_html"><div class="ttname"><a href="a03175.html">Battle.hpp</a></div></div>
+<div class="ttc" id="aa03214_html"><div class="ttname"><a href="a03214.html">Trainer.hpp</a></div></div>
+<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">GameSave.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

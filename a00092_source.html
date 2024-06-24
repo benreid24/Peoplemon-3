@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Components/PlayerControlled.hpp Source File</title>
+<title>Peoplemon: include/Core/Components/PathFinder.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,63 +71,44 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PlayerControlled.hpp</div>  </div>
+<div class="title">PathFinder.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00092.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_PLAYERCONTROLLED_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_PLAYERCONTROLLED_HPP</span></div>
+<a href="a00092.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_PATHFINDER_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_PATHFINDER_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03128.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00161.html">Core/Input/Control.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Position.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01354.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01354.html">PlayerControlled</a> : <span class="keyword">public</span> bl::input::Listener {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a01354.html#a3d4dc978d582996f23d703e490ad0d31">PlayerControlled</a>(<a class="code" href="a02034.html">system::Systems</a>&amp; systems, <a class="code" href="a01330.html">Controllable</a>&amp; controllable);</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01401.html">   18</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01401.html">PathFinder</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01401.html#ae47297a716ca97abf3941306c9ae9222">   24</a></span>&#160;    <a class="code" href="a01401.html#ae47297a716ca97abf3941306c9ae9222">PathFinder</a>(<span class="keyword">const</span> bl::tmap::Position&amp; dest)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    : <a class="code" href="a01401.html#a17d14cf9edbf92feaa0635c14b53d91d">destination</a>(dest)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    , <a class="code" href="a01401.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>(0) {}</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01401.html#a17d14cf9edbf92feaa0635c14b53d91d">   28</a></span>&#160;    bl::tmap::Position <a class="code" href="a01401.html#a17d14cf9edbf92feaa0635c14b53d91d">destination</a>;</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01401.html#ad877ade3232920dd47b329ac0a77287e">   29</a></span>&#160;    std::vector&lt;bl::tmap::Position&gt; <a class="code" href="a01401.html#ad877ade3232920dd47b329ac0a77287e">path</a>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01401.html#a76a9a9f10c71f69347b056d14b7d3d8c">   30</a></span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="a01401.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a>;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01354.html#a3aa77115bf14ca40a94fab4bc848dc37">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01354.html#a3aa77115bf14ca40a94fab4bc848dc37">~PlayerControlled</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01354.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01354.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>();</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01354.html#ab1b91abc97ced56a36ac0dd099f68256">observe</a>(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, bl::input::DispatchType,</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                         <span class="keywordtype">bool</span>) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a02034.html">system::Systems</a>&amp; systems;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01330.html">component::Controllable</a>&amp; controllable;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> started;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00161_html"><div class="ttname"><a href="a00161.html">Control.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01330_html"><div class="ttname"><a href="a01330.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03128_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01354_html"><div class="ttname"><a href="a01354.html">core::component::PlayerControlled</a></div><div class="ttdoc">Add this component to an entity to make it controlled by player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00022">PlayerControlled.hpp:22</a></div></div>
-<div class="ttc" id="aa01354_html_a3aa77115bf14ca40a94fab4bc848dc37"><div class="ttname"><a href="a01354.html#a3aa77115bf14ca40a94fab4bc848dc37">core::component::PlayerControlled::~PlayerControlled</a></div><div class="ttdeci">virtual ~PlayerControlled()=default</div><div class="ttdoc">Destroy the Player Controlled component.</div></div>
-<div class="ttc" id="aa01354_html_a3d4dc978d582996f23d703e490ad0d31"><div class="ttname"><a href="a01354.html#a3d4dc978d582996f23d703e490ad0d31">core::component::PlayerControlled::PlayerControlled</a></div><div class="ttdeci">PlayerControlled(system::Systems &amp;systems, Controllable &amp;controllable)</div><div class="ttdoc">Construct a new Player Controlled component and immediately start taking player input....</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00010">PlayerControlled.cpp:10</a></div></div>
-<div class="ttc" id="aa01354_html_a4662aa3e001cd654705c5f6143bd0ae0"><div class="ttname"><a href="a01354.html#a4662aa3e001cd654705c5f6143bd0ae0">core::component::PlayerControlled::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Activate this listener and receive player input. Does not have effect if already activated but anothe...</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00015">PlayerControlled.cpp:15</a></div></div>
-<div class="ttc" id="aa01354_html_ab1b91abc97ced56a36ac0dd099f68256"><div class="ttname"><a href="a01354.html#ab1b91abc97ced56a36ac0dd099f68256">core::component::PlayerControlled::observe</a></div><div class="ttdeci">virtual bool observe(const bl::input::Actor &amp;, unsigned int ctrl, bl::input::DispatchType, bool) override</div><div class="ttdoc">Forwards the player input to the underlying entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00027">PlayerControlled.cpp:27</a></div></div>
-<div class="ttc" id="aa01354_html_adcfc7ef92c1e0887403dbebbcb634a75"><div class="ttname"><a href="a01354.html#adcfc7ef92c1e0887403dbebbcb634a75">core::component::PlayerControlled::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops listening to player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00632_source.html#l00022">PlayerControlled.cpp:22</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa03128_html"><div class="ttname"><a href="a03128.html">Controllable.hpp</a></div></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01401_html"><div class="ttname"><a href="a01401.html">core::component::PathFinder</a></div><div class="ttdoc">Component that dynamically navigates an entity to a specific tile. The entities Controllable componen...</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00018">PathFinder.hpp:18</a></div></div>
+<div class="ttc" id="aa01401_html_a17d14cf9edbf92feaa0635c14b53d91d"><div class="ttname"><a href="a01401.html#a17d14cf9edbf92feaa0635c14b53d91d">core::component::PathFinder::destination</a></div><div class="ttdeci">bl::tmap::Position destination</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00028">PathFinder.hpp:28</a></div></div>
+<div class="ttc" id="aa01401_html_a76a9a9f10c71f69347b056d14b7d3d8c"><div class="ttname"><a href="a01401.html#a76a9a9f10c71f69347b056d14b7d3d8c">core::component::PathFinder::step</a></div><div class="ttdeci">unsigned int step</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00030">PathFinder.hpp:30</a></div></div>
+<div class="ttc" id="aa01401_html_ad877ade3232920dd47b329ac0a77287e"><div class="ttname"><a href="a01401.html#ad877ade3232920dd47b329ac0a77287e">core::component::PathFinder::path</a></div><div class="ttdeci">std::vector&lt; bl::tmap::Position &gt; path</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00029">PathFinder.hpp:29</a></div></div>
+<div class="ttc" id="aa01401_html_ae47297a716ca97abf3941306c9ae9222"><div class="ttname"><a href="a01401.html#ae47297a716ca97abf3941306c9ae9222">core::component::PathFinder::PathFinder</a></div><div class="ttdeci">PathFinder(const bl::tmap::Position &amp;dest)</div><div class="ttdoc">Construct a new Path Finder object.</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00024">PathFinder.hpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

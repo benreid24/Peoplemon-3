@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Maps/LightingSystem.hpp Source File</title>
+<title>Peoplemon: include/Core/Maps/Light.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,178 +71,74 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">LightingSystem.hpp</div>  </div>
+<div class="title">Light.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00197.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_LIGHTINGSYSTEM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_LIGHTINGSYSTEM_HPP</span></div>
+<a href="a00197.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_LIGHT_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_LIGHT_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Containers/Grid.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Containers/ObjectPool.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BLIB/Render/Lighting/Scene2DLighting.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/Binary.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00143.html">Core/Events/TimeChange.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03185.html">Core/Events/Weather.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00194.html">Core/Maps/Light.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01722.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01722.html">LightingSystem</a></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: <span class="keyword">public</span> bl::event::Listener&lt;event::TimeChange, event::WeatherStarted, event::WeatherStopped,</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                             event::Thundered&gt; {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">   31</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> = std::uint16_t;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01722.html#aa0d8fadc62f2a2485130268a032d229e">   34</a></span>&#160;    <span class="keyword">static</span> constexpr <a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> <a class="code" href="a01722.html#aa0d8fadc62f2a2485130268a032d229e">None</a> = 0;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <a class="code" href="a01722.html#a28251123bbe9c32883aa8c8a1a79ee54">LightingSystem</a>();</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01722.html#a000a46cc9acd119b226ef91f624eaa39">   44</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01722.html#a000a46cc9acd119b226ef91f624eaa39">~LightingSystem</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a2eea65039d20d889a11ec26209cf68d4">addLight</a>(<span class="keyword">const</span> <a class="code" href="a01714.html">Light</a>&amp; light);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>map</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01765.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01765.html">Light</a> {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a01765.html#a45a705b338ce028d7f229f1390e1fd30">   17</a></span>&#160;    std::uint16_t <a class="code" href="a01765.html#a45a705b338ce028d7f229f1390e1fd30">radius</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01765.html#acfb5a898c64014d1d496d39fe46c1e98">   18</a></span>&#160;    sf::Vector2i <a class="code" href="a01765.html#acfb5a898c64014d1d496d39fe46c1e98">position</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01765.html#a3ec2916fe203784ab4fd5f011be80103">   19</a></span>&#160;    sf::Vector3i <a class="code" href="a01765.html#a3ec2916fe203784ab4fd5f011be80103">color</a>;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a01765.html#a814f9b2517b63178fdf1f4b475d3a9d9">   21</a></span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> sf::Vector3i <a class="code" href="a01765.html#a814f9b2517b63178fdf1f4b475d3a9d9">DefaultColor</a>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a01765.html#a62ef88f9796f56cb5b2466194198b70b">Light</a>();</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01765.html#a62ef88f9796f56cb5b2466194198b70b">Light</a>(std::uint16_t <a class="code" href="a01765.html#a45a705b338ce028d7f229f1390e1fd30">radius</a>, <span class="keyword">const</span> sf::Vector2i&amp; <a class="code" href="a01765.html#acfb5a898c64014d1d496d39fe46c1e98">position</a>,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;          <span class="keyword">const</span> sf::Vector3i&amp; <a class="code" href="a01765.html#a3ec2916fe203784ab4fd5f011be80103">color</a> = <a class="code" href="a01765.html#a814f9b2517b63178fdf1f4b475d3a9d9">DefaultColor</a>);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01107.html">bl</a></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">namespace </span>serial</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01769.html">   48</a></span>&#160;<span class="keyword">struct </span>SerializableObject&lt;<a class="code" href="a01101.html">core</a>::map::Light&gt; : <span class="keyword">public</span> SerializableObjectBase {</div>
+<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a01769.html#acd620dba4ccdc2d5e1ca4e24d7dbdaac">   49</a></span>&#160;    SerializableField&lt;1, core::map::Light, std::uint16_t&gt; <a class="code" href="a01769.html#acd620dba4ccdc2d5e1ca4e24d7dbdaac">radius</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a01769.html#a0233fd06cee0c3c9d28a458312f5a036">   50</a></span>&#160;    SerializableField&lt;2, core::map::Light, sf::Vector2i&gt; <a class="code" href="a01769.html#a0233fd06cee0c3c9d28a458312f5a036">position</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a01769.html#a98f140c99f0e7aa0c5e43bb5a8cdf719">   51</a></span>&#160;    SerializableField&lt;3, core::map::Light, sf::Vector3i&gt; <a class="code" href="a01769.html#a98f140c99f0e7aa0c5e43bb5a8cdf719">color</a>;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a5ff627878c9f46c5f1e6537f187bfb49">updateLight</a>(<a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> handle, <span class="keyword">const</span> <a class="code" href="a01714.html">Light</a>&amp; value);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> <a class="code" href="a01722.html#a6d47ce1a95ed476def9d802665910f2f">getClosestLight</a>(<span class="keyword">const</span> sf::Vector2i&amp; position);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01714.html">Light</a>&amp; <a class="code" href="a01722.html#a2dd44bd44a3664a0c05a29a3b46b71fe">getLight</a>(<a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> handle) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#aac89da8ffd7b180226e2053d2ac2576c">removeLight</a>(<a class="code" href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">Handle</a> light);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01722.html#a6408f6a8ae8d95424bd0d9f14cfa826b">lightsAreOn</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a55da73f21ff2620acb3732c7bc552205">setAmbientLevel</a>(std::uint8_t lowLightLevel, std::uint8_t highLightLevel);</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    std::uint8_t <a class="code" href="a01722.html#a1b51dcfcd7a4245be85b691cb36110ac">getMinLightLevel</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    std::uint8_t <a class="code" href="a01722.html#a11e3cd08c517c0dcc83ec7e526675017">getMaxLightLevel</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a47f7d35fe57772bffd8134b1ba093d82">adjustForSunlight</a>(<span class="keywordtype">bool</span> adjust);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01722.html#aeb8c68996269a5fecac1bc95ffe14c5a">adjustsForSunlight</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#ad6894a99029a0563007efba6b68ada6e">activate</a>(bl::rc::lgt::Scene2DLighting&amp; sceneLighting);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#ae7335df04832f465f2b8db69f01c2edc">subscribe</a>();</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a4e1f411ead4350673a1af661a09e32e4">unsubscribe</a>();</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#af06434143fb3ccb9c966ca1394e179d7">clear</a>();</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a3cda1838162031a81da5184fedc2df6a">update</a>(<span class="keywordtype">float</span> dt);</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01722.html#a151237fdeab775ff77e6b56819334bb0">setColorTint</a>(<span class="keyword">const</span> glm::vec3&amp; tint);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01722.html#aeaef84a90e78c8b34dca45c1acf58253">observe</a>(<span class="keyword">const</span> <a class="code" href="a01474.html">event::TimeChange</a>&amp; timeChange) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160; </div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01722.html#aeaef84a90e78c8b34dca45c1acf58253">observe</a>(<span class="keyword">const</span> <a class="code" href="a01478.html">event::WeatherStarted</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01722.html#aeaef84a90e78c8b34dca45c1acf58253">observe</a>(<span class="keyword">const</span> <a class="code" href="a01482.html">event::WeatherStopped</a>&amp; event) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160; </div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a01722.html#aeaef84a90e78c8b34dca45c1acf58253">observe</a>(<span class="keyword">const</span> <a class="code" href="a01486.html">event::Thundered</a>&amp;) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    std::vector&lt;Light&gt; rawLights;</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    std::uint8_t minLevel;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    std::uint8_t maxLevel;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    std::uint8_t sunlight;</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    glm::vec3 tint;</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    bl::rc::lgt::Scene2DLighting* sceneLighting;</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    std::vector&lt;bl::rc::lgt::Light2D&gt; activeLights;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordtype">bool</span> lightsActive;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordtype">float</span> levelRange;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">float</span> sunlightFactor;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">int</span> weatherModifier;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordtype">int</span> targetWeatherModifier;</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <span class="keywordtype">float</span> weatherResidual;</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;    <span class="keywordtype">float</span> thunderTime;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;    std::uint8_t computeAmbient() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordtype">void</span> addLightToScene(<span class="keyword">const</span> <a class="code" href="a01714.html">Light</a>&amp; light);</div>
-<div class="line"><a name="l00213"></a><span class="lineno"><a class="line" href="a01722.html#ad950b3c8122a422f69f6e5551afa49cd">  213</a></span>&#160;    <span class="keywordtype">void</span> updateAmbientLighting();</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span>bl::serial::SerializableObject&lt;<a class="code" href="a01722.html">LightingSystem</a>&gt;;</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;};</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160; </div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01096.html">bl</a></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="keyword">namespace </span>serial</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;{</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
-<div class="line"><a name="l00226"></a><span class="lineno"><a class="line" href="a01726.html">  226</a></span>&#160;<span class="keyword">struct </span>SerializableObject&lt;<a class="code" href="a01086.html">core</a>::map::LightingSystem&gt; : <span class="keyword">public</span> SerializableObjectBase {</div>
-<div class="line"><a name="l00227"></a><span class="lineno"><a class="line" href="a01726.html#aae089579e29dd888adc59b34bd535228">  227</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01722.html">LS</a> = <a class="code" href="a01722.html">core::map::LightingSystem</a>;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
-<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="a01726.html#a24ef1844991b4d2d29dfd7b1b8f30214">  229</a></span>&#160;    SerializableField&lt;1, LS, std::vector&lt;core::map::Light&gt;&gt; <a class="code" href="a01726.html#a24ef1844991b4d2d29dfd7b1b8f30214">lights</a>;</div>
-<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="a01726.html#acddf2e1b8eb0ff863c7d17c75df8e98e">  230</a></span>&#160;    SerializableField&lt;2, LS, std::uint8_t&gt; <a class="code" href="a01726.html#acddf2e1b8eb0ff863c7d17c75df8e98e">low</a>;</div>
-<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="a01726.html#a291b8032be37049c2e555602f9551e31">  231</a></span>&#160;    SerializableField&lt;3, LS, std::uint8_t&gt; <a class="code" href="a01726.html#a291b8032be37049c2e555602f9551e31">high</a>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno"><a class="line" href="a01726.html#a5aa4407d6b0e9c90635c52f2cc6a38ff">  232</a></span>&#160;    SerializableField&lt;4, LS, std::uint8_t&gt; <a class="code" href="a01726.html#a5aa4407d6b0e9c90635c52f2cc6a38ff">sun</a>;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="a01726.html#a06328ff9bdb800e2c777848f566912fd">  234</a></span>&#160;    <a class="code" href="a01726.html#a06328ff9bdb800e2c777848f566912fd">SerializableObject</a>()</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;    : SerializableObjectBase(<span class="stringliteral">&quot;LightingSystem&quot;</span>)</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    , lights(<span class="stringliteral">&quot;lights&quot;</span>, *this, &amp;<a class="code" href="a01722.html">LS</a>::rawLights, SerializableFieldBase::Required{})</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    , low(<span class="stringliteral">&quot;low&quot;</span>, *this, &amp;<a class="code" href="a01722.html">LS</a>::minLevel, SerializableFieldBase::Required{})</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;    , high(<span class="stringliteral">&quot;high&quot;</span>, *this, &amp;<a class="code" href="a01722.html">LS</a>::maxLevel, SerializableFieldBase::Required{})</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    , sun(<span class="stringliteral">&quot;sun&quot;</span>, *this, &amp;<a class="code" href="a01722.html">LS</a>::sunlight, SerializableFieldBase::Required{}) {}</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;};</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;} <span class="comment">// namespace serial</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;} <span class="comment">// namespace bl</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00143_html"><div class="ttname"><a href="a00143.html">TimeChange.hpp</a></div></div>
-<div class="ttc" id="aa00194_html"><div class="ttname"><a href="a00194.html">Light.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
-<div class="ttc" id="aa01474_html"><div class="ttname"><a href="a01474.html">core::event::TimeChange</a></div><div class="ttdoc">Basic event for when the game time changes.</div><div class="ttdef"><b>Definition:</b> <a href="a00143_source.html#l00024">TimeChange.hpp:24</a></div></div>
-<div class="ttc" id="aa01478_html"><div class="ttname"><a href="a01478.html">core::event::WeatherStarted</a></div><div class="ttdoc">Fired when weather starts.</div><div class="ttdef"><b>Definition:</b> <a href="a03185_source.html#l00015">Weather.hpp:15</a></div></div>
-<div class="ttc" id="aa01482_html"><div class="ttname"><a href="a01482.html">core::event::WeatherStopped</a></div><div class="ttdoc">Fired when weather stops.</div><div class="ttdef"><b>Definition:</b> <a href="a03185_source.html#l00033">Weather.hpp:33</a></div></div>
-<div class="ttc" id="aa01486_html"><div class="ttname"><a href="a01486.html">core::event::Thundered</a></div><div class="ttdoc">Fired when thunder happens.</div><div class="ttdef"><b>Definition:</b> <a href="a03185_source.html#l00051">Weather.hpp:51</a></div></div>
-<div class="ttc" id="aa01714_html"><div class="ttname"><a href="a01714.html">core::map::Light</a></div><div class="ttdoc">Represents a renderable light in a Map.</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00016">Light.hpp:16</a></div></div>
-<div class="ttc" id="aa01722_html"><div class="ttname"><a href="a01722.html">core::map::LightingSystem</a></div><div class="ttdoc">System for handling lighting in Maps. Manages all the lights and performs rendering....</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00026">LightingSystem.hpp:28</a></div></div>
-<div class="ttc" id="aa01722_html_a000a46cc9acd119b226ef91f624eaa39"><div class="ttname"><a href="a01722.html#a000a46cc9acd119b226ef91f624eaa39">core::map::LightingSystem::~LightingSystem</a></div><div class="ttdeci">virtual ~LightingSystem()=default</div><div class="ttdoc">Destroys the lighting system.</div></div>
-<div class="ttc" id="aa01722_html_a07cf9096e42952fae87c61e6018a45c4"><div class="ttname"><a href="a01722.html#a07cf9096e42952fae87c61e6018a45c4">core::map::LightingSystem::Handle</a></div><div class="ttdeci">std::uint16_t Handle</div><div class="ttdoc">Handle representing a light in the map.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00031">LightingSystem.hpp:31</a></div></div>
-<div class="ttc" id="aa01722_html_a11e3cd08c517c0dcc83ec7e526675017"><div class="ttname"><a href="a01722.html#a11e3cd08c517c0dcc83ec7e526675017">core::map::LightingSystem::getMaxLightLevel</a></div><div class="ttdeci">std::uint8_t getMaxLightLevel() const</div><div class="ttdoc">Returns the maximum ambient light level of this map.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00101">LightingSystem.cpp:101</a></div></div>
-<div class="ttc" id="aa01722_html_a151237fdeab775ff77e6b56819334bb0"><div class="ttname"><a href="a01722.html#a151237fdeab775ff77e6b56819334bb0">core::map::LightingSystem::setColorTint</a></div><div class="ttdeci">void setColorTint(const glm::vec3 &amp;tint)</div><div class="ttdoc">Sets a color tint to apply to the ambient lighting.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00267">LightingSystem.cpp:267</a></div></div>
-<div class="ttc" id="aa01722_html_a1b51dcfcd7a4245be85b691cb36110ac"><div class="ttname"><a href="a01722.html#a1b51dcfcd7a4245be85b691cb36110ac">core::map::LightingSystem::getMinLightLevel</a></div><div class="ttdeci">std::uint8_t getMinLightLevel() const</div><div class="ttdoc">Returns the minimum ambient light level of this map.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00099">LightingSystem.cpp:99</a></div></div>
-<div class="ttc" id="aa01722_html_a28251123bbe9c32883aa8c8a1a79ee54"><div class="ttname"><a href="a01722.html#a28251123bbe9c32883aa8c8a1a79ee54">core::map::LightingSystem::LightingSystem</a></div><div class="ttdeci">LightingSystem()</div><div class="ttdoc">Initializes the lighting system with no lights.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00022">LightingSystem.cpp:22</a></div></div>
-<div class="ttc" id="aa01722_html_a2dd44bd44a3664a0c05a29a3b46b71fe"><div class="ttname"><a href="a01722.html#a2dd44bd44a3664a0c05a29a3b46b71fe">core::map::LightingSystem::getLight</a></div><div class="ttdeci">const Light &amp; getLight(Handle handle) const</div><div class="ttdoc">Returns the value of the light with the given handle. Invalid handles return a default value (a light...</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00080">LightingSystem.cpp:80</a></div></div>
-<div class="ttc" id="aa01722_html_a2eea65039d20d889a11ec26209cf68d4"><div class="ttname"><a href="a01722.html#a2eea65039d20d889a11ec26209cf68d4">core::map::LightingSystem::addLight</a></div><div class="ttdeci">void addLight(const Light &amp;light)</div><div class="ttdoc">Adds a light to the map and to the persistent map file.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00034">LightingSystem.cpp:34</a></div></div>
-<div class="ttc" id="aa01722_html_a3cda1838162031a81da5184fedc2df6a"><div class="ttname"><a href="a01722.html#a3cda1838162031a81da5184fedc2df6a">core::map::LightingSystem::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the lighting system.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00134">LightingSystem.cpp:134</a></div></div>
-<div class="ttc" id="aa01722_html_a47f7d35fe57772bffd8134b1ba093d82"><div class="ttname"><a href="a01722.html#a47f7d35fe57772bffd8134b1ba093d82">core::map::LightingSystem::adjustForSunlight</a></div><div class="ttdeci">void adjustForSunlight(bool adjust)</div><div class="ttdoc">Set whether or not the light level is adjusted based on time of day. If not adjusting for sunlight th...</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00103">LightingSystem.cpp:103</a></div></div>
-<div class="ttc" id="aa01722_html_a4e1f411ead4350673a1af661a09e32e4"><div class="ttname"><a href="a01722.html#a4e1f411ead4350673a1af661a09e32e4">core::map::LightingSystem::unsubscribe</a></div><div class="ttdeci">void unsubscribe()</div><div class="ttdoc">Unsubscribes the lighting system from the event dispatcher.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00122">LightingSystem.cpp:122</a></div></div>
-<div class="ttc" id="aa01722_html_a55da73f21ff2620acb3732c7bc552205"><div class="ttname"><a href="a01722.html#a55da73f21ff2620acb3732c7bc552205">core::map::LightingSystem::setAmbientLevel</a></div><div class="ttdeci">void setAmbientLevel(std::uint8_t lowLightLevel, std::uint8_t highLightLevel)</div><div class="ttdoc">The ambient light band. 0 is full darkness and 255 is full brightness.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00093">LightingSystem.cpp:93</a></div></div>
-<div class="ttc" id="aa01722_html_a5ff627878c9f46c5f1e6537f187bfb49"><div class="ttname"><a href="a01722.html#a5ff627878c9f46c5f1e6537f187bfb49">core::map::LightingSystem::updateLight</a></div><div class="ttdeci">void updateLight(Handle handle, const Light &amp;value)</div><div class="ttdoc">Updates the light with the given handle to the new information.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00050">LightingSystem.cpp:50</a></div></div>
-<div class="ttc" id="aa01722_html_a6408f6a8ae8d95424bd0d9f14cfa826b"><div class="ttname"><a href="a01722.html#a6408f6a8ae8d95424bd0d9f14cfa826b">core::map::LightingSystem::lightsAreOn</a></div><div class="ttdeci">bool lightsAreOn() const</div><div class="ttdoc">Returns whether lights are being shown or not based on how dark it is.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00091">LightingSystem.cpp:91</a></div></div>
-<div class="ttc" id="aa01722_html_a6d47ce1a95ed476def9d802665910f2f"><div class="ttname"><a href="a01722.html#a6d47ce1a95ed476def9d802665910f2f">core::map::LightingSystem::getClosestLight</a></div><div class="ttdeci">Handle getClosestLight(const sf::Vector2i &amp;position)</div><div class="ttdoc">Returns a handle to the light closest to the given position.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00064">LightingSystem.cpp:64</a></div></div>
-<div class="ttc" id="aa01722_html_aa0d8fadc62f2a2485130268a032d229e"><div class="ttname"><a href="a01722.html#aa0d8fadc62f2a2485130268a032d229e">core::map::LightingSystem::None</a></div><div class="ttdeci">static constexpr Handle None</div><div class="ttdoc">Special handle indicating that no light is referenced.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00034">LightingSystem.hpp:34</a></div></div>
-<div class="ttc" id="aa01722_html_aac89da8ffd7b180226e2053d2ac2576c"><div class="ttname"><a href="a01722.html#aac89da8ffd7b180226e2053d2ac2576c">core::map::LightingSystem::removeLight</a></div><div class="ttdeci">void removeLight(Handle light)</div><div class="ttdoc">Remove the given light from the system and optionally persist the removal.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00082">LightingSystem.cpp:82</a></div></div>
-<div class="ttc" id="aa01722_html_ad6894a99029a0563007efba6b68ada6e"><div class="ttname"><a href="a01722.html#ad6894a99029a0563007efba6b68ada6e">core::map::LightingSystem::activate</a></div><div class="ttdeci">void activate(bl::rc::lgt::Scene2DLighting &amp;sceneLighting)</div><div class="ttdoc">Adds all lights into the scene.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00107">LightingSystem.cpp:107</a></div></div>
-<div class="ttc" id="aa01722_html_ae7335df04832f465f2b8db69f01c2edc"><div class="ttname"><a href="a01722.html#ae7335df04832f465f2b8db69f01c2edc">core::map::LightingSystem::subscribe</a></div><div class="ttdeci">void subscribe()</div><div class="ttdoc">Subscribes the lighting system to time events for ambient light level.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00120">LightingSystem.cpp:120</a></div></div>
-<div class="ttc" id="aa01722_html_aeaef84a90e78c8b34dca45c1acf58253"><div class="ttname"><a href="a01722.html#aeaef84a90e78c8b34dca45c1acf58253">core::map::LightingSystem::observe</a></div><div class="ttdeci">virtual void observe(const event::TimeChange &amp;timeChange) override</div><div class="ttdoc">Updates the light level based on the new current time.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00209">LightingSystem.cpp:209</a></div></div>
-<div class="ttc" id="aa01722_html_aeb8c68996269a5fecac1bc95ffe14c5a"><div class="ttname"><a href="a01722.html#aeb8c68996269a5fecac1bc95ffe14c5a">core::map::LightingSystem::adjustsForSunlight</a></div><div class="ttdeci">bool adjustsForSunlight() const</div><div class="ttdoc">Returns whether or not this map is adjusted for time of day.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00105">LightingSystem.cpp:105</a></div></div>
-<div class="ttc" id="aa01722_html_af06434143fb3ccb9c966ca1394e179d7"><div class="ttname"><a href="a01722.html#af06434143fb3ccb9c966ca1394e179d7">core::map::LightingSystem::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdoc">Clears all lights from the map, including the persisted light data.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00124">LightingSystem.cpp:124</a></div></div>
-<div class="ttc" id="aa01726_html_a06328ff9bdb800e2c777848f566912fd"><div class="ttname"><a href="a01726.html#a06328ff9bdb800e2c777848f566912fd">bl::serial::SerializableObject&lt; core::map::LightingSystem &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00234">LightingSystem.hpp:234</a></div></div>
-<div class="ttc" id="aa01726_html_a24ef1844991b4d2d29dfd7b1b8f30214"><div class="ttname"><a href="a01726.html#a24ef1844991b4d2d29dfd7b1b8f30214">bl::serial::SerializableObject&lt; core::map::LightingSystem &gt;::lights</a></div><div class="ttdeci">SerializableField&lt; 1, LS, std::vector&lt; core::map::Light &gt; &gt; lights</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00229">LightingSystem.hpp:229</a></div></div>
-<div class="ttc" id="aa01726_html_a291b8032be37049c2e555602f9551e31"><div class="ttname"><a href="a01726.html#a291b8032be37049c2e555602f9551e31">bl::serial::SerializableObject&lt; core::map::LightingSystem &gt;::high</a></div><div class="ttdeci">SerializableField&lt; 3, LS, std::uint8_t &gt; high</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00231">LightingSystem.hpp:231</a></div></div>
-<div class="ttc" id="aa01726_html_a5aa4407d6b0e9c90635c52f2cc6a38ff"><div class="ttname"><a href="a01726.html#a5aa4407d6b0e9c90635c52f2cc6a38ff">bl::serial::SerializableObject&lt; core::map::LightingSystem &gt;::sun</a></div><div class="ttdeci">SerializableField&lt; 4, LS, std::uint8_t &gt; sun</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00232">LightingSystem.hpp:232</a></div></div>
-<div class="ttc" id="aa01726_html_acddf2e1b8eb0ff863c7d17c75df8e98e"><div class="ttname"><a href="a01726.html#acddf2e1b8eb0ff863c7d17c75df8e98e">bl::serial::SerializableObject&lt; core::map::LightingSystem &gt;::low</a></div><div class="ttdeci">SerializableField&lt; 2, LS, std::uint8_t &gt; low</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00230">LightingSystem.hpp:230</a></div></div>
-<div class="ttc" id="aa03185_html"><div class="ttname"><a href="a03185.html">Weather.hpp</a></div></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01769.html#a49b2d2e629f7fe78d90c180c9229037a">   53</a></span>&#160;    <a class="code" href="a01769.html#a49b2d2e629f7fe78d90c180c9229037a">SerializableObject</a>()</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    : SerializableObjectBase(<span class="stringliteral">&quot;Light&quot;</span>)</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    , radius(<span class="stringliteral">&quot;radius&quot;</span>, *this, &amp;<a class="code" href="a01101.html">core</a>::map::Light::radius, SerializableFieldBase::Required{})</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    , position(<span class="stringliteral">&quot;position&quot;</span>, *this, &amp;<a class="code" href="a01101.html">core</a>::map::Light::position, SerializableFieldBase::Required{})</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    , color(<span class="stringliteral">&quot;color&quot;</span>, *this, &amp;<a class="code" href="a01101.html">core</a>::map::Light::color, SerializableFieldBase::Optional{}) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        color.setDefault(<span class="keyword">const_cast&lt;</span>sf::Vector3i&amp;&amp;<span class="keyword">&gt;</span>(<a class="code" href="a01765.html#a814f9b2517b63178fdf1f4b475d3a9d9">core::map::Light::DefaultColor</a>));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace serial</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
+<div class="ttc" id="aa01765_html"><div class="ttname"><a href="a01765.html">core::map::Light</a></div><div class="ttdoc">Represents a renderable light in a Map.</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00016">Light.hpp:16</a></div></div>
+<div class="ttc" id="aa01765_html_a3ec2916fe203784ab4fd5f011be80103"><div class="ttname"><a href="a01765.html#a3ec2916fe203784ab4fd5f011be80103">core::map::Light::color</a></div><div class="ttdeci">sf::Vector3i color</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00019">Light.hpp:19</a></div></div>
+<div class="ttc" id="aa01765_html_a45a705b338ce028d7f229f1390e1fd30"><div class="ttname"><a href="a01765.html#a45a705b338ce028d7f229f1390e1fd30">core::map::Light::radius</a></div><div class="ttdeci">std::uint16_t radius</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00017">Light.hpp:17</a></div></div>
+<div class="ttc" id="aa01765_html_a62ef88f9796f56cb5b2466194198b70b"><div class="ttname"><a href="a01765.html#a62ef88f9796f56cb5b2466194198b70b">core::map::Light::Light</a></div><div class="ttdeci">Light()</div><div class="ttdoc">Creates an empty light.</div><div class="ttdef"><b>Definition:</b> <a href="a00686_source.html#l00009">Light.cpp:9</a></div></div>
+<div class="ttc" id="aa01765_html_a814f9b2517b63178fdf1f4b475d3a9d9"><div class="ttname"><a href="a01765.html#a814f9b2517b63178fdf1f4b475d3a9d9">core::map::Light::DefaultColor</a></div><div class="ttdeci">static const sf::Vector3i DefaultColor</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00021">Light.hpp:21</a></div></div>
+<div class="ttc" id="aa01765_html_acfb5a898c64014d1d496d39fe46c1e98"><div class="ttname"><a href="a01765.html#acfb5a898c64014d1d496d39fe46c1e98">core::map::Light::position</a></div><div class="ttdeci">sf::Vector2i position</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00018">Light.hpp:18</a></div></div>
+<div class="ttc" id="aa01769_html_a0233fd06cee0c3c9d28a458312f5a036"><div class="ttname"><a href="a01769.html#a0233fd06cee0c3c9d28a458312f5a036">bl::serial::SerializableObject&lt; core::map::Light &gt;::position</a></div><div class="ttdeci">SerializableField&lt; 2, core::map::Light, sf::Vector2i &gt; position</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00050">Light.hpp:50</a></div></div>
+<div class="ttc" id="aa01769_html_a49b2d2e629f7fe78d90c180c9229037a"><div class="ttname"><a href="a01769.html#a49b2d2e629f7fe78d90c180c9229037a">bl::serial::SerializableObject&lt; core::map::Light &gt;::SerializableObject</a></div><div class="ttdeci">SerializableObject()</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00053">Light.hpp:53</a></div></div>
+<div class="ttc" id="aa01769_html_a98f140c99f0e7aa0c5e43bb5a8cdf719"><div class="ttname"><a href="a01769.html#a98f140c99f0e7aa0c5e43bb5a8cdf719">bl::serial::SerializableObject&lt; core::map::Light &gt;::color</a></div><div class="ttdeci">SerializableField&lt; 3, core::map::Light, sf::Vector3i &gt; color</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00051">Light.hpp:51</a></div></div>
+<div class="ttc" id="aa01769_html_acd620dba4ccdc2d5e1ca4e24d7dbdaac"><div class="ttname"><a href="a01769.html#acd620dba4ccdc2d5e1ca4e24d7dbdaac">bl::serial::SerializableObject&lt; core::map::Light &gt;::radius</a></div><div class="ttdeci">SerializableField&lt; 1, core::map::Light, std::uint16_t &gt; radius</div><div class="ttdef"><b>Definition:</b> <a href="a00197_source.html#l00049">Light.hpp:49</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

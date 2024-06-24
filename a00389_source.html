@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Components/GameTestingWindow.hpp Source File</title>
+<title>Peoplemon: include/Editor/Components/EventEditor.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,88 +71,66 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GameTestingWindow.hpp</div>  </div>
+<div class="title">EventEditor.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00389.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_GAMETESTINGWINDOW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_GAMETESTINGWINDOW_HPP</span></div>
+<a href="a00389.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_EVENTEDITOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_EVENTEDITOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03167.html">Core/Files/GameSave.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00398.html">Editor/Components/ItemSelector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00425.html">Editor/Components/PeoplemonSelector.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01104.html">editor</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02114.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02114.html">GameTestingWindow</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">   15</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> = std::function&lt;void()&gt;;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a02114.html#a2563afebfbd02e56066d8d81344d731e">GameTestingWindow</a>(<span class="keyword">const</span> <a class="code" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a>&amp; onSave);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02114.html#aa19a494e40fb0817e2593f73bc7dcd31">open</a>(bl::gui::GUI* gui, <a class="code" href="a01562.html">core::file::GameSave</a>&amp; save);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a01562.html">core::file::GameSave</a>* activeSave;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">ActionCb</a> onSave;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bl::gui::GUI::Ptr gui;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    bl::gui::Window::Ptr window;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    bl::gui::TextEntry::Ptr nameEntry;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    bl::gui::TextEntry::Ptr moneyEntry;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    bl::gui::Slider::Ptr timeSlider;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    bl::gui::Label::Ptr timeLabel;</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    bl::gui::SelectBox::Ptr itemBox;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <a class="code" href="a02126.html#a7a37e19f66b21321f74da8d8665805cb">component::ItemSelector::Ptr</a> itemSelect;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    bl::gui::TextEntry::Ptr flagEntry;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    bl::gui::SelectBox::Ptr flagBox;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03265.html">Core/Maps/Map.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00437.html">Editor/Components/ScriptSelector.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02161.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02161.html">EventEditor</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">   21</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a> = std::function&lt;void(<span class="keyword">const</span> <a class="code" href="a01733.html">core::map::Event</a>*, <span class="keyword">const</span> <a class="code" href="a01733.html">core::map::Event</a>&amp;)&gt;;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a02161.html#ad318430737b91fac29b4d9d02355ec58">EventEditor</a>(<span class="keyword">const</span> <a class="code" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a>&amp; onEdit);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02161.html#a6d9888654cb5941067c465b26a9e40c8">open</a>(bl::gui::GUI* parent, <span class="keyword">const</span> <a class="code" href="a01733.html">core::map::Event</a>* source,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;              <span class="keyword">const</span> sf::Vector2i&amp; pos);</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    bl::gui::SelectBox::Ptr pplBox;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <a class="code" href="a02162.html#a6d76a002c49606003c5d23e108d5ac7c">component::PeoplemonSelector::Ptr</a> pplSelect;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    bl::gui::ComboBox::Ptr levelSelect;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> updateTimeLabel(<span class="keyword">const</span> <a class="code" href="a01942.html">core::system::Clock::Time</a>&amp; time);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordtype">void</span> addItem();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordtype">void</span> rmItem();</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> addFlag();</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> rmFlag();</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a> onEdit;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01733.html">core::map::Event</a>* orig;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    bl::gui::GUI* parent;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    bl::gui::Window::Ptr window;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    bl::gui::Label::Ptr scriptLabel;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    bl::gui::TextEntry::Ptr xInput;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    bl::gui::TextEntry::Ptr yInput;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    bl::gui::TextEntry::Ptr wInput;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    bl::gui::TextEntry::Ptr hInput;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    bl::gui::ComboBox::Ptr triggerSelect;</div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> addPeoplemon();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> rmPeoplemon();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="a02225.html">ScriptSelector</a> scriptSelector;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> onScriptChosen(<span class="keyword">const</span> std::string&amp; s);</div>
 <div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> doSave();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordtype">void</span> cancel();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">bool</span> valid() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a01733.html">core::map::Event</a> makeEvent() <span class="keyword">const</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;};</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace component</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace editor</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00398_html"><div class="ttname"><a href="a00398.html">ItemSelector.hpp</a></div></div>
-<div class="ttc" id="aa00425_html"><div class="ttname"><a href="a00425.html">PeoplemonSelector.hpp</a></div></div>
-<div class="ttc" id="aa01104_html"><div class="ttname"><a href="a01104.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01562_html"><div class="ttname"><a href="a01562.html">core::file::GameSave</a></div><div class="ttdoc">Represents a game save and provides functionality to load and save.</div><div class="ttdef"><b>Definition:</b> <a href="a03167_source.html#l00024">GameSave.hpp:24</a></div></div>
-<div class="ttc" id="aa01942_html"><div class="ttname"><a href="a01942.html">core::system::Clock::Time</a></div><div class="ttdoc">Simple struct representing a point in time.</div><div class="ttdef"><b>Definition:</b> <a href="a00317_source.html#l00032">Clock.hpp:32</a></div></div>
-<div class="ttc" id="aa02114_html"><div class="ttname"><a href="a02114.html">editor::component::GameTestingWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00013">GameTestingWindow.hpp:13</a></div></div>
-<div class="ttc" id="aa02114_html_a2563afebfbd02e56066d8d81344d731e"><div class="ttname"><a href="a02114.html#a2563afebfbd02e56066d8d81344d731e">editor::component::GameTestingWindow::GameTestingWindow</a></div><div class="ttdeci">GameTestingWindow(const ActionCb &amp;onSave)</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00051">GameTestingWindow.cpp:51</a></div></div>
-<div class="ttc" id="aa02114_html_a66f91fd6a9da2c408bad276989452e1f"><div class="ttname"><a href="a02114.html#a66f91fd6a9da2c408bad276989452e1f">editor::component::GameTestingWindow::ActionCb</a></div><div class="ttdeci">std::function&lt; void()&gt; ActionCb</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00015">GameTestingWindow.hpp:15</a></div></div>
-<div class="ttc" id="aa02114_html_aa19a494e40fb0817e2593f73bc7dcd31"><div class="ttname"><a href="a02114.html#aa19a494e40fb0817e2593f73bc7dcd31">editor::component::GameTestingWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *gui, core::file::GameSave &amp;save)</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00189">GameTestingWindow.cpp:189</a></div></div>
-<div class="ttc" id="aa02126_html_a7a37e19f66b21321f74da8d8665805cb"><div class="ttname"><a href="a02126.html#a7a37e19f66b21321f74da8d8665805cb">editor::component::ItemSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; ItemSelector &gt; Ptr</div><div class="ttdoc">Pointer to this component.</div><div class="ttdef"><b>Definition:</b> <a href="a00398_source.html#l00020">ItemSelector.hpp:20</a></div></div>
-<div class="ttc" id="aa02162_html_a6d76a002c49606003c5d23e108d5ac7c"><div class="ttname"><a href="a02162.html#a6d76a002c49606003c5d23e108d5ac7c">editor::component::PeoplemonSelector::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; PeoplemonSelector &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00425_source.html#l00019">PeoplemonSelector.hpp:19</a></div></div>
-<div class="ttc" id="aa03167_html"><div class="ttname"><a href="a03167.html">GameSave.hpp</a></div></div>
+<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">ScriptSelector.hpp</a></div></div>
+<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
+<div class="ttc" id="aa01733_html"><div class="ttname"><a href="a01733.html">core::map::Event</a></div><div class="ttdoc">Represents an event in a Map. A script that is run on a trigger within a given region.</div><div class="ttdef"><b>Definition:</b> <a href="a00185_source.html#l00019">Event.hpp:19</a></div></div>
+<div class="ttc" id="aa02161_html"><div class="ttname"><a href="a02161.html">editor::component::EventEditor</a></div><div class="ttdoc">Map event editor dialog.</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00018">EventEditor.hpp:18</a></div></div>
+<div class="ttc" id="aa02161_html_a6a9c160db875812b0aa70d32d9551b81"><div class="ttname"><a href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">editor::component::EventEditor::OnEdit</a></div><div class="ttdeci">std::function&lt; void(const core::map::Event *, const core::map::Event &amp;)&gt; OnEdit</div><div class="ttdoc">Callback called when an event is created or modified.</div><div class="ttdef"><b>Definition:</b> <a href="a00389_source.html#l00021">EventEditor.hpp:21</a></div></div>
+<div class="ttc" id="aa02161_html_a6d9888654cb5941067c465b26a9e40c8"><div class="ttname"><a href="a02161.html#a6d9888654cb5941067c465b26a9e40c8">editor::component::EventEditor::open</a></div><div class="ttdeci">void open(bl::gui::GUI *parent, const core::map::Event *source, const sf::Vector2i &amp;pos)</div><div class="ttdoc">Opens the dialog window and optionally populates with event info.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00084">EventEditor.cpp:84</a></div></div>
+<div class="ttc" id="aa02161_html_ad318430737b91fac29b4d9d02355ec58"><div class="ttname"><a href="a02161.html#ad318430737b91fac29b4d9d02355ec58">editor::component::EventEditor::EventEditor</a></div><div class="ttdeci">EventEditor(const OnEdit &amp;onEdit)</div><div class="ttdoc">Construct a new Event Editor dialog.</div><div class="ttdef"><b>Definition:</b> <a href="a00884_source.html#l00009">EventEditor.cpp:9</a></div></div>
+<div class="ttc" id="aa02225_html"><div class="ttname"><a href="a02225.html">editor::component::ScriptSelector</a></div><div class="ttdoc">GUI component for selecting or writing scripts. Performs syntax validation as well.</div><div class="ttdef"><b>Definition:</b> <a href="a00437_source.html#l00017">ScriptSelector.hpp:17</a></div></div>
+<div class="ttc" id="aa03265_html"><div class="ttname"><a href="a03265.html">Map.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

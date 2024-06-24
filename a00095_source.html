@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Components/Renderable.hpp Source File</title>
+<title>Peoplemon: include/Core/Components/PlayerControlled.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,102 +71,63 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Renderable.hpp</div>  </div>
+<div class="title">PlayerControlled.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00095.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_RENDERABLE_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_RENDERABLE_HPP</span></div>
+<a href="a00095.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_PLAYERCONTROLLED_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_PLAYERCONTROLLED_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/ECS/Registry.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics/Animation2D.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics/Slideshow.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics/Sprite.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;BLIB/Tilemap/Position.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00083.html">Core/Components/Movable.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00287.html">Core/Resources/RunWalkAnimations.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00290.html">Core/Resources/WalkAnimations.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03190.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00164.html">Core/Input/Control.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span>Render;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;}</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01358.html">   28</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01358.html">Renderable</a> {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <a class="code" href="a01358.html#ae1511a2c1c8387099aafae3e9aa4ffdd">Renderable</a>();</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">static</span> <a class="code" href="a01358.html">Renderable</a>&amp; <a class="code" href="a01358.html#ad6b536f5afa0802c969aca9ea6cc1578">createFromSprite</a>(bl::engine::Engine&amp; engine, bl::ecs::Entity entity,</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;                                        bl::rc::Scene* scene, <span class="keyword">const</span> std::string&amp; path);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <a class="code" href="a01358.html">Renderable</a>&amp; <a class="code" href="a01358.html#adfc468af0181c5c1deb013f171d0ef0e">createFromMoveAnims</a>(bl::engine::Engine&amp; engine, bl::ecs::Entity entity,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;                                           bl::rc::Scene* scene, <span class="keyword">const</span> std::string&amp; path);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">static</span> <a class="code" href="a01358.html">Renderable</a>&amp; <a class="code" href="a01358.html#aa0492b42eb7c90c2d3512d22cdcfe247">createFromFastMoveAnims</a>(bl::engine::Engine&amp; engine, bl::ecs::Entity entity,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                               bl::rc::Scene* scene, <span class="keyword">const</span> std::string&amp; path);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keyword">static</span> <a class="code" href="a01358.html">Renderable</a>&amp; <a class="code" href="a01358.html#a136593179c694a0059922b318cd62c81">createFromAnimation</a>(bl::engine::Engine&amp; engine, bl::ecs::Entity entity,</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                                           bl::rc::Scene* scene, <span class="keyword">const</span> std::string&amp; path);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordtype">float</span> <a class="code" href="a01358.html#a7f7856b68cafa62da97aca51e6112ea8">animLength</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01358.html#ae02e608c464cc1dfcd9602619fc052cf">triggerAnim</a>(<span class="keywordtype">bool</span> loop);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01358.html#aedf0899c8c9bea8388888c5b18ad0d16">notifyMoveState</a>(bl::tmap::Direction dir, <span class="keywordtype">bool</span> moving, <span class="keywordtype">bool</span> running);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01358.html#a73c0a598d15155adec7392480b929fc7">setAngle</a>(<span class="keywordtype">float</span> angle);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno"><a class="line" href="a01358.html#a79a13c176d35bbc44f64609aec6d6096">  114</a></span>&#160;    bl::com::Transform2D&amp; <a class="code" href="a01358.html#a79a13c176d35bbc44f64609aec6d6096">getTransform</a>() { <span class="keywordflow">return</span> *transform; }</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keyword">enum</span> SourceType { Walk, Run, SingleAnim, Sprite } srcType;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keyword">union </span>{</div>
-<div class="line"><a name="l00119"></a><span class="lineno"><a class="line" href="a01358.html#a05a4859d787d513d9a3d454a9c3df1ff">  119</a></span>&#160;        <a class="code" href="a01902.html">res::WalkAnimations</a>* <a class="code" href="a01358.html#a05a4859d787d513d9a3d454a9c3df1ff">walkSrc</a>;</div>
-<div class="line"><a name="l00120"></a><span class="lineno"><a class="line" href="a01358.html#ad8f4c90cb5f458e0f419cbdce13061ad">  120</a></span>&#160;        <a class="code" href="a01894.html">res::RunWalkAnimations</a>* <a class="code" href="a01358.html#ad8f4c90cb5f458e0f419cbdce13061ad">runSrc</a>;</div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a01358.html#a10e807e72d811c4ee761f612b297d349">  121</a></span>&#160;        bl::gfx::a2d::AnimationData* <a class="code" href="a01358.html#a10e807e72d811c4ee761f612b297d349">animSrc</a>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    };</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    bl::com::Transform2D* transform;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    bl::com::Animation2DPlayer* player;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    bl::ecs::Entity shadow;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    <span class="keywordtype">bool</span> isMoving;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160; </div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="a01358.html#a7954e3a06a8dfb84cb94104628e93713">  128</a></span>&#160;    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code" href="a02026.html">system::Render</a>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;};</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00083_html"><div class="ttname"><a href="a00083.html">Movable.hpp</a></div></div>
-<div class="ttc" id="aa00287_html"><div class="ttname"><a href="a00287.html">RunWalkAnimations.hpp</a></div></div>
-<div class="ttc" id="aa00290_html"><div class="ttname"><a href="a00290.html">WalkAnimations.hpp</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01358_html"><div class="ttname"><a href="a01358.html">core::component::Renderable</a></div><div class="ttdoc">Adding this component to an entity will allow it to be rendered.</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00028">Renderable.hpp:28</a></div></div>
-<div class="ttc" id="aa01358_html_a05a4859d787d513d9a3d454a9c3df1ff"><div class="ttname"><a href="a01358.html#a05a4859d787d513d9a3d454a9c3df1ff">core::component::Renderable::walkSrc</a></div><div class="ttdeci">res::WalkAnimations * walkSrc</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00119">Renderable.hpp:119</a></div></div>
-<div class="ttc" id="aa01358_html_a10e807e72d811c4ee761f612b297d349"><div class="ttname"><a href="a01358.html#a10e807e72d811c4ee761f612b297d349">core::component::Renderable::animSrc</a></div><div class="ttdeci">bl::gfx::a2d::AnimationData * animSrc</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00121">Renderable.hpp:121</a></div></div>
-<div class="ttc" id="aa01358_html_a136593179c694a0059922b318cd62c81"><div class="ttname"><a href="a01358.html#a136593179c694a0059922b318cd62c81">core::component::Renderable::createFromAnimation</a></div><div class="ttdeci">static Renderable &amp; createFromAnimation(bl::engine::Engine &amp;engine, bl::ecs::Entity entity, bl::rc::Scene *scene, const std::string &amp;path)</div><div class="ttdoc">Creates a renderable component from a single animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00068">Renderable.cpp:68</a></div></div>
-<div class="ttc" id="aa01358_html_a73c0a598d15155adec7392480b929fc7"><div class="ttname"><a href="a01358.html#a73c0a598d15155adec7392480b929fc7">core::component::Renderable::setAngle</a></div><div class="ttdeci">void setAngle(float angle)</div><div class="ttdoc">Sets the angle to render the entity at.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00103">Renderable.cpp:103</a></div></div>
-<div class="ttc" id="aa01358_html_a79a13c176d35bbc44f64609aec6d6096"><div class="ttname"><a href="a01358.html#a79a13c176d35bbc44f64609aec6d6096">core::component::Renderable::getTransform</a></div><div class="ttdeci">bl::com::Transform2D &amp; getTransform()</div><div class="ttdoc">Returns the render transform.</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00114">Renderable.hpp:114</a></div></div>
-<div class="ttc" id="aa01358_html_a7f7856b68cafa62da97aca51e6112ea8"><div class="ttname"><a href="a01358.html#a7f7856b68cafa62da97aca51e6112ea8">core::component::Renderable::animLength</a></div><div class="ttdeci">float animLength() const</div><div class="ttdoc">Returns the length of the contained animation, or 0.f if no animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00105">Renderable.cpp:105</a></div></div>
-<div class="ttc" id="aa01358_html_aa0492b42eb7c90c2d3512d22cdcfe247"><div class="ttname"><a href="a01358.html#aa0492b42eb7c90c2d3512d22cdcfe247">core::component::Renderable::createFromFastMoveAnims</a></div><div class="ttdeci">static Renderable &amp; createFromFastMoveAnims(bl::engine::Engine &amp;engine, bl::ecs::Entity entity, bl::rc::Scene *scene, const std::string &amp;path)</div><div class="ttdoc">Creates a renderable component for movement animations with running.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00047">Renderable.cpp:47</a></div></div>
-<div class="ttc" id="aa01358_html_ad6b536f5afa0802c969aca9ea6cc1578"><div class="ttname"><a href="a01358.html#ad6b536f5afa0802c969aca9ea6cc1578">core::component::Renderable::createFromSprite</a></div><div class="ttdeci">static Renderable &amp; createFromSprite(bl::engine::Engine &amp;engine, bl::ecs::Entity entity, bl::rc::Scene *scene, const std::string &amp;path)</div><div class="ttdoc">Creates a renderable component for a static sprite.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00012">Renderable.cpp:12</a></div></div>
-<div class="ttc" id="aa01358_html_ad8f4c90cb5f458e0f419cbdce13061ad"><div class="ttname"><a href="a01358.html#ad8f4c90cb5f458e0f419cbdce13061ad">core::component::Renderable::runSrc</a></div><div class="ttdeci">res::RunWalkAnimations * runSrc</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00120">Renderable.hpp:120</a></div></div>
-<div class="ttc" id="aa01358_html_adfc468af0181c5c1deb013f171d0ef0e"><div class="ttname"><a href="a01358.html#adfc468af0181c5c1deb013f171d0ef0e">core::component::Renderable::createFromMoveAnims</a></div><div class="ttdeci">static Renderable &amp; createFromMoveAnims(bl::engine::Engine &amp;engine, bl::ecs::Entity entity, bl::rc::Scene *scene, const std::string &amp;path)</div><div class="ttdoc">Creates a renderable component for movement animations.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00027">Renderable.cpp:27</a></div></div>
-<div class="ttc" id="aa01358_html_ae02e608c464cc1dfcd9602619fc052cf"><div class="ttname"><a href="a01358.html#ae02e608c464cc1dfcd9602619fc052cf">core::component::Renderable::triggerAnim</a></div><div class="ttdeci">void triggerAnim(bool loop)</div><div class="ttdoc">Triggers the current animation if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00118">Renderable.cpp:118</a></div></div>
-<div class="ttc" id="aa01358_html_ae1511a2c1c8387099aafae3e9aa4ffdd"><div class="ttname"><a href="a01358.html#ae1511a2c1c8387099aafae3e9aa4ffdd">core::component::Renderable::Renderable</a></div><div class="ttdeci">Renderable()</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00095">Renderable.cpp:95</a></div></div>
-<div class="ttc" id="aa01358_html_aedf0899c8c9bea8388888c5b18ad0d16"><div class="ttname"><a href="a01358.html#aedf0899c8c9bea8388888c5b18ad0d16">core::component::Renderable::notifyMoveState</a></div><div class="ttdeci">void notifyMoveState(bl::tmap::Direction dir, bool moving, bool running)</div><div class="ttdoc">Call when the entity starts or stops moving or changes direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00125">Renderable.cpp:125</a></div></div>
-<div class="ttc" id="aa01894_html"><div class="ttname"><a href="a01894.html">core::res::RunWalkAnimations</a></div><div class="ttdoc">Extension of animation data that loads and combines the animations for each movement direction into a...</div><div class="ttdef"><b>Definition:</b> <a href="a00287_source.html#l00018">RunWalkAnimations.hpp:18</a></div></div>
-<div class="ttc" id="aa01902_html"><div class="ttname"><a href="a01902.html">core::res::WalkAnimations</a></div><div class="ttdoc">Extension of animation data that loads and combines the animations for each movement direction into a...</div><div class="ttdef"><b>Definition:</b> <a href="a00290_source.html#l00018">WalkAnimations.hpp:18</a></div></div>
-<div class="ttc" id="aa02026_html"><div class="ttname"><a href="a02026.html">core::system::Render</a></div><div class="ttdoc">Basic system that synchronizes animation states based on movement state events.</div><div class="ttdef"><b>Definition:</b> <a href="a00347_source.html#l00020">Render.hpp:22</a></div></div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01405.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01405.html">PlayerControlled</a> : <span class="keyword">public</span> bl::input::Listener {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a01405.html#a3d4dc978d582996f23d703e490ad0d31">PlayerControlled</a>(<a class="code" href="a02085.html">system::Systems</a>&amp; systems, <a class="code" href="a01381.html">Controllable</a>&amp; controllable);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01405.html#a3aa77115bf14ca40a94fab4bc848dc37">   37</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01405.html#a3aa77115bf14ca40a94fab4bc848dc37">~PlayerControlled</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01405.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>();</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01405.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a01405.html#ab1b91abc97ced56a36ac0dd099f68256">observe</a>(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, bl::input::DispatchType,</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;                         <span class="keywordtype">bool</span>) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <a class="code" href="a02085.html">system::Systems</a>&amp; systems;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a01381.html">component::Controllable</a>&amp; controllable;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordtype">bool</span> started;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;};</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00164_html"><div class="ttname"><a href="a00164.html">Control.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01381_html"><div class="ttname"><a href="a01381.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03190_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01405_html"><div class="ttname"><a href="a01405.html">core::component::PlayerControlled</a></div><div class="ttdoc">Add this component to an entity to make it controlled by player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00095_source.html#l00022">PlayerControlled.hpp:22</a></div></div>
+<div class="ttc" id="aa01405_html_a3aa77115bf14ca40a94fab4bc848dc37"><div class="ttname"><a href="a01405.html#a3aa77115bf14ca40a94fab4bc848dc37">core::component::PlayerControlled::~PlayerControlled</a></div><div class="ttdeci">virtual ~PlayerControlled()=default</div><div class="ttdoc">Destroy the Player Controlled component.</div></div>
+<div class="ttc" id="aa01405_html_a3d4dc978d582996f23d703e490ad0d31"><div class="ttname"><a href="a01405.html#a3d4dc978d582996f23d703e490ad0d31">core::component::PlayerControlled::PlayerControlled</a></div><div class="ttdeci">PlayerControlled(system::Systems &amp;systems, Controllable &amp;controllable)</div><div class="ttdoc">Construct a new Player Controlled component and immediately start taking player input....</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00010">PlayerControlled.cpp:10</a></div></div>
+<div class="ttc" id="aa01405_html_a4662aa3e001cd654705c5f6143bd0ae0"><div class="ttname"><a href="a01405.html#a4662aa3e001cd654705c5f6143bd0ae0">core::component::PlayerControlled::start</a></div><div class="ttdeci">void start()</div><div class="ttdoc">Activate this listener and receive player input. Does not have effect if already activated but anothe...</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00015">PlayerControlled.cpp:15</a></div></div>
+<div class="ttc" id="aa01405_html_ab1b91abc97ced56a36ac0dd099f68256"><div class="ttname"><a href="a01405.html#ab1b91abc97ced56a36ac0dd099f68256">core::component::PlayerControlled::observe</a></div><div class="ttdeci">virtual bool observe(const bl::input::Actor &amp;, unsigned int ctrl, bl::input::DispatchType, bool) override</div><div class="ttdoc">Forwards the player input to the underlying entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00027">PlayerControlled.cpp:27</a></div></div>
+<div class="ttc" id="aa01405_html_adcfc7ef92c1e0887403dbebbcb634a75"><div class="ttname"><a href="a01405.html#adcfc7ef92c1e0887403dbebbcb634a75">core::component::PlayerControlled::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Stops listening to player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00635_source.html#l00022">PlayerControlled.cpp:22</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/MapExplorer.cpp Source File</title>
+<title>Peoplemon: src/Game/States/Evolution.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,209 +71,304 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MapExplorer.cpp</div>  </div>
+<div class="title">Evolution.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01043.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00533.html">Game/States/MapExplorer.hpp</a>&gt;</span></div>
+<a href="a01043.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00521.html">Game/States/Evolution.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Cameras.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Logging.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03203.html">Core/Maps/Map.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00539.html">Game/States/PauseMenu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Math.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00518.html">Game/States/Evolution/Particles.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01113.html">game</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01107.html">bl</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>pcl</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> Padding  = 12.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> FadeTime = 0.5f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> sf::Color BoxColor(30, 30, 30, 180);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">const</span> sf::Color BoxOutlineColor(20, 200, 20, 180);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">const</span> sf::Color TextColor(220, 220, 220);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">class </span>ExplorerCameraController : <span class="keyword">public</span> bl::cam::CameraController2D {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    ExplorerCameraController(<a class="code" href="a02034.html">core::system::Systems</a>&amp; systems)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    : position(systems.player().position().transform-&gt;getLocalPosition())</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    , zoom(1.5f) {}</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    glm::vec2 position;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordtype">float</span> zoom;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> update(<span class="keywordtype">float</span> dt)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> PixelsPerSecond =</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            0.5f * zoom * <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01882.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a>());</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> ZoomPerSecond = std::max(0.5f, zoom * 0.5f);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) { position.y -= PixelsPerSecond * dt; }</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) { position.x += PixelsPerSecond * dt; }</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) { position.y += PixelsPerSecond * dt; }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) { position.x -= PixelsPerSecond * dt; }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) {</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;            zoom -= ZoomPerSecond * dt;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;            <span class="keywordflow">if</span> (zoom &lt; 0.1f) zoom = 0.1f;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        }</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keywordflow">if</span> (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom += ZoomPerSecond * dt; }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">const</span> sf::Vector2f size = zoom * <a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        camera().setCenter(position);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        camera().setSize({size.x, size.y});</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;};</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno"><a class="line" href="a02366.html#a7fc59fde21e63a8d3e996b44c7e74f81">   54</a></span>&#160;bl::engine::State::Ptr <a class="code" href="a02366.html#a7fc59fde21e63a8d3e996b44c7e74f81">MapExplorer::create</a>(<a class="code" href="a02034.html">core::system::Systems</a>&amp; systems) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> bl::engine::State::Ptr(<span class="keyword">new</span> <a class="code" href="a02366.html">MapExplorer</a>(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;MapExplorer::MapExplorer(<a class="code" href="a02034.html">core::system::Systems</a>&amp; systems)</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;: <a class="code" href="a02398.html">State</a>(systems, <a class="code" href="a01096.html">bl</a>::engine::StateMask::Menu) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    hintBox.create(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), {100.f, 100.f});</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    hintBox.setFillColor(BoxColor);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    hintBox.setOutlineColor(BoxOutlineColor);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    hintBox.setOutlineThickness(4.f);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    hintBox.getTransform().setPosition(5.f, 5.f);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    hintText.create(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(),</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                    <a class="code" href="a01882.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a>(),</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                    <span class="stringliteral">&quot;Move around: WASD\nZoom out: V\nZoom in: C\nExit: Esc&quot;</span>,</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                    28,</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                    TextColor);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    hintText.getTransform().setPosition(Padding, Padding);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    hintText.setParent(hintBox);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    hintBox.setSize(hintText.getLocalSize() + glm::vec2(Padding * 2.f));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno"><a class="line" href="a02366.html#ac370eb1c45b531c4c15565f44d420873">   76</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02366.html#ac370eb1c45b531c4c15565f44d420873">MapExplorer::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;MapExplorer&quot;</span>; }</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno"><a class="line" href="a02366.html#ae53c68ffd2d70541f76dc9e671380762">   78</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02366.html#ae53c68ffd2d70541f76dc9e671380762">MapExplorer::activate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    bl::event::Dispatcher::subscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#aaf8dbe9656bfe2356847bfab4398153a">removePlayerControlled</a>(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>());</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keyword">static_cast&lt;</span>bl::cam::Camera2D*<span class="keyword">&gt;</span>(engine.renderer().getObserver().getCurrentCamera())</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        -&gt;setController&lt;ExplorerCameraController&gt;(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    bl::rc::Overlay* overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    hintBox.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    hintText.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    hintState = Hidden;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    hintBox.setHidden(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    hintTime = 0.f;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span><a class="code" href="a01131.html">game::state</a>;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">template</span>&lt;&gt;</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02849.html">   16</a></span>&#160;<span class="keyword">struct </span>RenderConfigMap&lt;<a class="code" href="a02393.html">Evolution</a>::Spark&gt; {</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02849.html#a553c5e8148d5d03f8d02c9d6b75ca345">   17</a></span>&#160;    <span class="keyword">static</span> constexpr std::uint32_t PipelineId  = <a class="code" href="a01933.html#a112c3012cb58271d555eea37b7115f37">core::Properties::EvolutionSparkPipelineId</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02849.html#abd331e8d9010367d5043feb4507f7fb3">   18</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> ContainsTransparency = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02849.html#a341241a8d9e5d6056ed2db40e8947e60">   20</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> CreateRenderPipeline = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02849.html#afe2db949ab1b8ed37f7dc169e3240e7c">   21</a></span>&#160;    <span class="keyword">static</span> constexpr std::initializer_list&lt;std::uint32_t&gt; RenderPassIds =</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        RenderConfigDefaults&lt;Evolution::Spark&gt;::RenderPassIds;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">   24</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">GlobalShaderPayload</a> = RenderConfigDefaults&lt;Evolution::Spark&gt;::GlobalShaderPayload;</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02849.html#a943d8c28a3159db790769f45dec6e9bc">   25</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02849.html#a943d8c28a3159db790769f45dec6e9bc">DescriptorSets</a> =</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        RenderConfigDescriptorList&lt;bl::rc::ds::Scene2DFactory,</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                                   DescriptorSetFactory&lt;Evolution::Spark, evo::GpuSpark&gt;&gt;;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02849.html#a959b44f4085f506098ac93061ec66977">   29</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keywordtype">bool</span> EnableDepthTesting      = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02849.html#a2ccde7cec92a82a863c0ae90ce995369">   30</a></span>&#160;    <span class="keyword">static</span> constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="comment">// TODO - how to constexpr join path? need constexpr??</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02849.html#aebd4314a07bd15957697db5ebad3e83a">   32</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* VertexShader =</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="stringliteral">&quot;Resources/Shaders/Particles/evolution_spark.vert.spv&quot;</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02849.html#a69ec556e96ef383b86b41bdbfa8aa3e1">   34</a></span>&#160;    <span class="keyword">static</span> constexpr <span class="keyword">const</span> <span class="keywordtype">char</span>* FragmentShader =</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="stringliteral">&quot;Resources/Shaders/Particles/evolution_spark.frag.spv&quot;</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;};</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;} <span class="comment">// namespace pcl</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;} <span class="comment">// namespace bl</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;constexpr <span class="keywordtype">float</span> FadeTime      = 1.5f;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;constexpr <span class="keywordtype">float</span> FadeRate      = 255.f / FadeTime;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;constexpr <span class="keywordtype">float</span> FadeAlpha     = 95.f;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;constexpr <span class="keywordtype">float</span> FadeDiff      = 255.f - FadeAlpha;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;constexpr <span class="keywordtype">float</span> MaxColorRecip = 1.f / 255.f;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;constexpr <span class="keywordtype">float</span> ScalingTime = 7.f;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;constexpr <span class="keywordtype">float</span> InitialRpm  = 0.9f;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;constexpr <span class="keywordtype">float</span> SinMult     = 90.f / InitialRpm; <span class="comment">// 90 so we end at 0</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;constexpr <span class="keywordtype">float</span> SparkPercent   = 1.f / 2.3f;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;constexpr <span class="keywordtype">float</span> SparkStopColor = 255.f * SparkPercent;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;sf::Color makeFade(<span class="keywordtype">float</span> c) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> af        = 255.f - (1.f - c * MaxColorRecip) * FadeDiff;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">const</span> std::uint8_t a  = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(af);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">const</span> std::uint8_t ci = <span class="keyword">static_cast&lt;</span>std::uint8_t<span class="keyword">&gt;</span>(c);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">return</span> sf::Color(ci, ci, ci, a);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02393.html#a1acb77ef7eafdfc997ed2fa89e147063">   68</a></span>&#160;bl::engine::State::Ptr Evolution::create(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                                         <a class="code" href="a01861.html">core::pplmn::OwnedPeoplemon</a>&amp; ppl) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> Ptr{<span class="keyword">new</span> <a class="code" href="a02393.html">Evolution</a>(systems, ppl)};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;Evolution::Evolution(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems, <a class="code" href="a01861.html">core::pplmn::OwnedPeoplemon</a>&amp; ppl)</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;: <a class="code" href="a02453.html">State</a>(systems, <a class="code" href="a01107.html">bl</a>::engine::StateMask::Menu)</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;, ppl(ppl)</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;, state(AnimState::IntroMsg)</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;, sparks(nullptr)</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;, fadeColor(255.f) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">auto</span>&amp; txtrs = <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().texturePool();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    bgndTxtr = txtrs.getOrLoadTexture(</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        bl::util::FileUtil::joinPath(<a class="code" href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a>(), <span class="stringliteral">&quot;Battle/evolveBgnd.png&quot;</span>));</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    background.create(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), bgndTxtr);</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    oldTxtr = txtrs.getOrLoadTexture(<a class="code" href="a01869.html#a47f8358d6597050553cb62dc82aa93e7">core::pplmn::Peoplemon::opponentImage</a>(ppl.<a class="code" href="a01861.html#a831cd56ab9da348fb94ad282cdbe5a44">id</a>()));</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    oldThumb.create(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), oldTxtr);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    oldThumb.getTransform().setOrigin(oldTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    oldThumb.getTransform().setPosition(<a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                                        <a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f);</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    oldThumb.setParent(background);</div>
 <div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02366.html#adca74eead404a4a1fd3582bb7e1960ec">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02366.html#adca74eead404a4a1fd3582bb7e1960ec">MapExplorer::deactivate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    bl::event::Dispatcher::unsubscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#afe635c2175ac223f478e64aa3c0ed2b9">makePlayerControlled</a>(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>());</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02046.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01730.html#a2e13fbf0a86cd3ed946c2ff1af5847d0">setupCamera</a>(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    hintBox.removeFromScene();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    newTxtr = txtrs.getOrLoadTexture(<a class="code" href="a01869.html#a47f8358d6597050553cb62dc82aa93e7">core::pplmn::Peoplemon::opponentImage</a>(ppl.<a class="code" href="a01861.html#ac597feb2f381460a3f45fa34ac25e1a5">evolvesInto</a>()));</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    newThumb.create(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), newTxtr);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    newThumb.getTransform().setOrigin(newTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    newThumb.getTransform().setPosition(<a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;                                        <a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    newThumb.setParent(background);</div>
 <div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="a02366.html#abc3846299b4fc36af689003b50bf08d2">   99</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02366.html#abc3846299b4fc36af689003b50bf08d2">MapExplorer::update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">switch</span> (hintState) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">case</span> Hidden:</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        hintTime += dt;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (hintTime &gt;= 4.f) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            hintState = Showing;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;            hintTime  = 0.f;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            hintBox.setHidden(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;            hintBox.setFillColor(BoxColor);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;            hintBox.setOutlineColor(BoxOutlineColor);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            hintText.getSection().setFillColor(TextColor);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordflow">case</span> Fading:</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        hintTime += dt;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        <span class="keywordflow">if</span> (hintTime &lt;= FadeTime) {</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> p  = (1.f - hintTime / FadeTime);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> ab = p * <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(BoxColor.a);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keyword">const</span> <span class="keywordtype">float</span> a  = p * 255.f;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            hintBox.setFillColor(sf::Color(BoxColor.r, BoxColor.g, BoxColor.b, ab));</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            hintBox.setOutlineColor(</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                sf::Color(BoxOutlineColor.r, BoxOutlineColor.g, BoxOutlineColor.b, ab));</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            hintText.getSection().setFillColor(sf::Color(TextColor.r, TextColor.g, TextColor.b, a));</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;            hintBox.setHidden(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            hintState = Hidden;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        }</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;}</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keywordtype">void</span> MapExplorer::observe(<span class="keyword">const</span> sf::Event&amp; event) {</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">if</span> (event.type == sf::Event::KeyPressed) {</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;        <span class="keywordflow">if</span> (hintState == Showing) { hintState = Fading; }</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hintState == Hidden) { hintTime = 0.f; }</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">if</span> (event.key.code == sf::Keyboard::Escape) { <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().popState(); }</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    }</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.type == sf::Event::MouseMoved) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        glm::vec2 wpos = <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver().transformToWorldSpace(</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            {<span class="keyword">event</span>.mouseMove.x, <span class="keyword">event</span>.mouseMove.y});</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        <span class="keyword">const</span> glm::i32vec2 tiles = wpos / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01882.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a>());</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keyword">const</span> bl::tmap::Position pos(0, {tiles.x, tiles.y}, bl::tmap::Direction::Up);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <a class="code" href="a01402.html">core::event::EntityMoved</a> move(bl::ecs::InvalidEntity, pos, pos);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02046.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01730.html#a04325969a762da291e93b7fd3da05c51">observe</a>(move);</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    }</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event.type == sf::Event::MouseButtonPressed &amp;&amp;</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;             event.mouseButton.button == sf::Mouse::Left) {</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="keyword">const</span> glm::i32vec2 wpos = <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver().transformToWorldSpace(</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;            {<span class="keyword">event</span>.mouseButton.x, <span class="keyword">event</span>.mouseButton.y});</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        bl::tmap::Position npos = <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#a3cf2e4213684ff96d04876b6d98b13fa">position</a>();</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        npos.position           = wpos / <a class="code" href="a01882.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a>();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02046.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01730.html#a6abed109636e3b1323cf774ba11b6f44">contains</a>(npos)) {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <span class="keyword">const</span> bl::tmap::Position ogPos = <a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#a3cf2e4213684ff96d04876b6d98b13fa">position</a>();</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            bl::tmap::Position&amp; playerPos =</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;                *<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::tmap::Position&gt;(<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02014.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>());</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;            playerPos = npos;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            playerPos.syncTransform(<a class="code" href="a01882.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a>());</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            bl::event::Dispatcher::dispatch&lt;core::event::EntityMoved&gt;(</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;                {<a class="code" href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02034.html#a614eb9bb163de0567a30da6c215835af">player</a>().player(), ogPos, playerPos});</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;}</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00533_html"><div class="ttname"><a href="a00533.html">MapExplorer.hpp</a></div></div>
-<div class="ttc" id="aa00539_html"><div class="ttname"><a href="a00539.html">PauseMenu.hpp</a></div></div>
-<div class="ttc" id="aa01096_html"><div class="ttname"><a href="a01096.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00149_source.html#l00203">Behavior.hpp:204</a></div></div>
-<div class="ttc" id="aa01113_html"><div class="ttname"><a href="a01113.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00491_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01402_html"><div class="ttname"><a href="a01402.html">core::event::EntityMoved</a></div><div class="ttdoc">Fired after an entity begins moving from one position to another.</div><div class="ttdef"><b>Definition:</b> <a href="a00119_source.html#l00018">EntityMoved.hpp:18</a></div></div>
-<div class="ttc" id="aa01730_html_a04325969a762da291e93b7fd3da05c51"><div class="ttname"><a href="a01730.html#a04325969a762da291e93b7fd3da05c51">core::map::Map::observe</a></div><div class="ttdeci">virtual void observe(const event::EntityMoved &amp;moveEvent) override</div><div class="ttdoc">Event listener for moving entities. Used to trigger map events.</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00386">Map.cpp:386</a></div></div>
-<div class="ttc" id="aa01730_html_a2e13fbf0a86cd3ed946c2ff1af5847d0"><div class="ttname"><a href="a01730.html#a2e13fbf0a86cd3ed946c2ff1af5847d0">core::map::Map::setupCamera</a></div><div class="ttdeci">void setupCamera(system::Systems &amp;systems)</div><div class="ttdoc">Configures the game camera for the player in the map.</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00160">Map.cpp:160</a></div></div>
-<div class="ttc" id="aa01730_html_a6abed109636e3b1323cf774ba11b6f44"><div class="ttname"><a href="a01730.html#a6abed109636e3b1323cf774ba11b6f44">core::map::Map::contains</a></div><div class="ttdeci">bool contains(const bl::tmap::Position &amp;position) const</div><div class="ttdoc">Returns whether or not the map contains the given position.</div><div class="ttdef"><b>Definition:</b> <a href="a03299_source.html#l00272">Map.cpp:272</a></div></div>
-<div class="ttc" id="aa01882_html_a1c0e01b7aac945e979717ba95c79ddf8"><div class="ttname"><a href="a01882.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a></div><div class="ttdeci">static int WindowWidth()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00250">Properties.cpp:250</a></div></div>
-<div class="ttc" id="aa01882_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01882.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00363">Properties.cpp:363</a></div></div>
-<div class="ttc" id="aa01882_html_a3dbd0e08a9910f9755d0e5218ba45f5a"><div class="ttname"><a href="a01882.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a></div><div class="ttdeci">static int PixelsPerTile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00279">Properties.cpp:279</a></div></div>
-<div class="ttc" id="aa01882_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00262">Properties.cpp:262</a></div></div>
-<div class="ttc" id="aa02014_html_a3cf2e4213684ff96d04876b6d98b13fa"><div class="ttname"><a href="a02014.html#a3cf2e4213684ff96d04876b6d98b13fa">core::system::Player::position</a></div><div class="ttdeci">const bl::tmap::Position &amp; position() const</div><div class="ttdoc">Returns the current position of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00057">Player.cpp:57</a></div></div>
-<div class="ttc" id="aa02014_html_aaf8dbe9656bfe2356847bfab4398153a"><div class="ttname"><a href="a02014.html#aaf8dbe9656bfe2356847bfab4398153a">core::system::Player::removePlayerControlled</a></div><div class="ttdeci">void removePlayerControlled(bl::ecs::Entity entity)</div><div class="ttdoc">Removes the PlayerControlled component from the given entity, if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00091">Player.cpp:91</a></div></div>
-<div class="ttc" id="aa02014_html_adf0f45e0a9fe86ce78ed2f4aafbdbf15"><div class="ttname"><a href="a02014.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">core::system::Player::player</a></div><div class="ttdeci">bl::ecs::Entity player() const</div><div class="ttdoc">Returns the id of the player entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00055">Player.cpp:55</a></div></div>
-<div class="ttc" id="aa02014_html_afe635c2175ac223f478e64aa3c0ed2b9"><div class="ttname"><a href="a02014.html#afe635c2175ac223f478e64aa3c0ed2b9">core::system::Player::makePlayerControlled</a></div><div class="ttdeci">bool makePlayerControlled(bl::ecs::Entity entity)</div><div class="ttdoc">Makes the given entity controlled by the player. Only one entity may be player controlled at a time.</div><div class="ttdef"><b>Definition:</b> <a href="a00836_source.html#l00076">Player.cpp:76</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02034_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00035">Systems.cpp:35</a></div></div>
-<div class="ttc" id="aa02034_html_a614eb9bb163de0567a30da6c215835af"><div class="ttname"><a href="a02034.html#a614eb9bb163de0567a30da6c215835af">core::system::Systems::player</a></div><div class="ttdeci">Player &amp; player()</div><div class="ttdoc">Returns the player system.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00059">Systems.cpp:59</a></div></div>
-<div class="ttc" id="aa02034_html_ad71abe5cc74772044d51b1108df6ade4"><div class="ttname"><a href="a02034.html#ad71abe5cc74772044d51b1108df6ade4">core::system::Systems::world</a></div><div class="ttdeci">World &amp; world()</div><div class="ttdoc">Modifiable accessor for the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00043">Systems.cpp:43</a></div></div>
-<div class="ttc" id="aa02046_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02046.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00084">World.cpp:84</a></div></div>
-<div class="ttc" id="aa02366_html"><div class="ttname"><a href="a02366.html">game::state::MapExplorer</a></div><div class="ttdoc">Debug only state that allows free roaming the map with a special camera.</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00018">MapExplorer.hpp:20</a></div></div>
-<div class="ttc" id="aa02366_html_a7fc59fde21e63a8d3e996b44c7e74f81"><div class="ttname"><a href="a02366.html#a7fc59fde21e63a8d3e996b44c7e74f81">game::state::MapExplorer::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates a new MapExplorer state.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00054">MapExplorer.cpp:54</a></div></div>
-<div class="ttc" id="aa02366_html_abc3846299b4fc36af689003b50bf08d2"><div class="ttname"><a href="a02366.html#abc3846299b4fc36af689003b50bf08d2">game::state::MapExplorer::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the game world logic and the hint fadeout.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00099">MapExplorer.cpp:99</a></div></div>
-<div class="ttc" id="aa02366_html_ac370eb1c45b531c4c15565f44d420873"><div class="ttname"><a href="a02366.html#ac370eb1c45b531c4c15565f44d420873">game::state::MapExplorer::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;MapExplorer&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00076">MapExplorer.cpp:76</a></div></div>
-<div class="ttc" id="aa02366_html_adca74eead404a4a1fd3582bb7e1960ec"><div class="ttname"><a href="a02366.html#adca74eead404a4a1fd3582bb7e1960ec">game::state::MapExplorer::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Reconnects the player to their entity and pops the camera.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00092">MapExplorer.cpp:92</a></div></div>
-<div class="ttc" id="aa02366_html_ae53c68ffd2d70541f76dc9e671380762"><div class="ttname"><a href="a02366.html#ae53c68ffd2d70541f76dc9e671380762">game::state::MapExplorer::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state and camera. Disconnects the player from their entity.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00078">MapExplorer.cpp:78</a></div></div>
-<div class="ttc" id="aa02398_html"><div class="ttname"><a href="a02398.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03242_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02398_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02398.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03242_source.html#l00066">State.hpp:66</a></div></div>
-<div class="ttc" id="aa03203_html"><div class="ttname"><a href="a03203.html">Map.hpp</a></div></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    sparks = &amp;<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().particleSystem().getUniqueSystem&lt;Spark&gt;();</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    sparks-&gt;addAffector&lt;<a class="code" href="a02389.html">evo::SparkAffector</a>&gt;();</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    sparks-&gt;addSink&lt;<a class="code" href="a02385.html">evo::SparkSink</a>&gt;();</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;}</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno"><a class="line" href="a02393.html#a5b53331d6d6c9a920746b4be59c4b438">  104</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02393.html#a5b53331d6d6c9a920746b4be59c4b438">Evolution::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;Evolution&quot;</span>; }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
+<div class="line"><a name="l00106"></a><span class="lineno"><a class="line" href="a02393.html#a09750c9c391f6b396adb9362f983ca38">  106</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02393.html#a09750c9c391f6b396adb9362f983ca38">Evolution::activate</a>(bl::engine::Engine&amp; engine) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keyword">auto</span> overlay = engine.renderer().getObserver().pushScene&lt;bl::rc::Overlay&gt;();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    oldThumb.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    newThumb.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    sparks-&gt;addToScene(overlay);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    engine.ecs().setEntityParent(sparks-&gt;getRenderer().getEntity(), background.entity());</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    newThumb.setHidden(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    oldThumb.setHidden(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    engine.inputSystem().getActor().addListener(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (ppl.<a class="code" href="a01861.html#ac597feb2f381460a3f45fa34ac25e1a5">evolvesInto</a>() == <a class="code" href="a01091.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a>) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        BL_LOG_CRITICAL &lt;&lt; <span class="stringliteral">&quot;Tried to evolve &quot;</span> &lt;&lt; ppl.<a class="code" href="a01861.html#a831cd56ab9da348fb94ad282cdbe5a44">id</a>()</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;                        &lt;&lt; <span class="stringliteral">&quot; which does not have a valid evolution&quot;</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        engine.popState();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;What?? Something is happening!&quot;</span>);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a8dcef55abad4de6f091926fb3b7b60ee">displayStickyMessage</a>(</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            ppl.<a class="code" href="a01861.html#af4731e6322705fc9292249da3d888a74">name</a>() + <span class="stringliteral">&quot; is evolving!&quot;</span>, <span class="keyword">true</span>, std::bind(&amp;Evolution::messageDone, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        state = AnimState::IntroMsg;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="comment">// TODO - start music</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno"><a class="line" href="a02393.html#adad7ea0ac714dd9fa732b469b827c82d">  132</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02393.html#adad7ea0ac714dd9fa732b469b827c82d">Evolution::deactivate</a>(bl::engine::Engine&amp; engine) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    engine.renderer().getObserver().popScene();</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    engine.inputSystem().getActor().removeListener(*<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="comment">// TODO - stop music</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a02393.html#ad1b96a0c7373f9f1583611654e32172c">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02393.html#ad1b96a0c7373f9f1583611654e32172c">Evolution::update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> updateSpark = [dt](<a class="code" href="a02397.html">Spark</a>&amp; spark) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        spark.time += dt;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        spark.position += spark.velocity * dt;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">return</span> spark.time &lt; spark.lifetime;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    };</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordflow">case</span> AnimState::OldFadeOut:</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> = std::max(0.f, <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> - FadeRate * dt);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;        oldThumb.setColor(makeFade(<a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a>));</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> == 0.f) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;            state = AnimState::SizeOscillating;</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;            newThumb.setHidden(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            <a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a> = 0.f;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            newThumb.component().setColor(oldThumb.component().getColor());</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;            newThumb.getTransform().setScale(0.f, 0.f);</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        }</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">case</span> AnimState::SizeOscillating: {</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a>  = std::min(<a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a> + dt, ScalingTime);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s  = std::abs(bl::math::sin(SinMult * <a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a> * <a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a>));</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> os = 1.f - s;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        oldThumb.getTransform().setScale(os, os);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        newThumb.getTransform().setScale(s, s);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02393.html#a987325dc69a44702b874a24829c6c30c">oscillateTime</a> &gt;= ScalingTime) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            state = AnimState::NewFadeIn;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;            oldThumb.setHidden(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;            newThumb.getTransform().setScale(1.f, 1.f);</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;            <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> = 0.f;</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;            sparks-&gt;addEmitter&lt;<a class="code" href="a02381.html">evo::SparkEmitter</a>&gt;();</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        }</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    } <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160; </div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">case</span> AnimState::NewFadeIn:</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> = std::min(255.f, <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> + FadeRate * dt);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        newThumb.setColor(makeFade(<a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a>));</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> &gt;= SparkStopColor) { sparks-&gt;removeAllEmitters(); }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keywordflow">if</span> (<a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> &gt;= 255.f) {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;            state = AnimState::EvolvedMsg;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;            ppl.<a class="code" href="a01861.html#a13339f3bf4df7eb337df9e50b6dc905a">evolve</a>();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;            <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#af51de855fd4b7c575f4bb817d402e888">dismissStickyMessage</a>();</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;            <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(ppl.<a class="code" href="a01861.html#af4731e6322705fc9292249da3d888a74">name</a>() + <span class="stringliteral">&quot; evolved into &quot;</span> +</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;                                             <a class="code" href="a01869.html#ab9b9c3a216937bd06a0726667dd981b2">core::pplmn::Peoplemon::name</a>(ppl.<a class="code" href="a01861.html#ac597feb2f381460a3f45fa34ac25e1a5">evolvesInto</a>()) + <span class="stringliteral">&quot;!&quot;</span>,</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;                                         std::bind(&amp;Evolution::messageDone, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        }</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">case</span> AnimState::EvolvedMsg:</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">case</span> AnimState::IntroMsg:</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <span class="keywordflow">case</span> AnimState::CancelMsg:</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">case</span> AnimState::CancelConfirm:</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    }</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;}</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="keywordtype">void</span> Evolution::messageDone() {</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">case</span> AnimState::IntroMsg:</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        state     = AnimState::OldFadeOut;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        <a class="code" href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">fadeColor</a> = 255.f;</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">case</span> AnimState::CancelMsg:</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">case</span> AnimState::EvolvedMsg:</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().popState();</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;        BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Received message done event while in invalid state&quot;</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keywordtype">void</span> Evolution::onCancelConfirm(<span class="keyword">const</span> std::string&amp; choice) {</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    <span class="keywordflow">if</span> (choice == <span class="stringliteral">&quot;Yes&quot;</span>) {</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(ppl.<a class="code" href="a01861.html#af4731e6322705fc9292249da3d888a74">name</a>() + <span class="stringliteral">&quot; did not evolve.&quot;</span>,</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;                                     std::bind(&amp;Evolution::messageDone, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        state = AnimState::CancelMsg;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    }</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        state = cancelPriorState;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a8dcef55abad4de6f091926fb3b7b60ee">displayStickyMessage</a>(</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            ppl.<a class="code" href="a01861.html#af4731e6322705fc9292249da3d888a74">name</a>() + <span class="stringliteral">&quot; is evolving!&quot;</span>, <span class="keyword">false</span>, std::bind(&amp;Evolution::messageDone, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    }</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="keywordtype">bool</span> Evolution::observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, bl::input::DispatchType,</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;                        <span class="keywordtype">bool</span> fromEvent) {</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    <span class="keywordflow">if</span> (fromEvent) {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="keywordflow">switch</span> (state) {</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        <span class="keywordflow">case</span> AnimState::OldFadeOut:</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="keywordflow">case</span> AnimState::SizeOscillating:</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="keywordflow">case</span> AnimState::NewFadeIn:</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;            <span class="keywordflow">if</span> (ctrl == <a class="code" href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a>) {</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;                cancelPriorState = state;</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;                state            = AnimState::CancelConfirm;</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;                <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#af51de855fd4b7c575f4bb817d402e888">dismissStickyMessage</a>();</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a4861aaeecc1a3b97b0397b25437301f3">promptUser</a>(</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;                    <span class="stringliteral">&quot;Are you sure you want to stop &quot;</span> + ppl.<a class="code" href="a01861.html#af4731e6322705fc9292249da3d888a74">name</a>() + <span class="stringliteral">&quot; from evolving?&quot;</span>,</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;                    {<span class="stringliteral">&quot;Yes&quot;</span>, <span class="stringliteral">&quot;No&quot;</span>},</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;                    std::bind(&amp;Evolution::onCancelConfirm, <span class="keyword">this</span>, std::placeholders::_1));</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            }</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;        <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        }</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    }</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">Particles.hpp</a></div></div>
+<div class="ttc" id="aa00521_html"><div class="ttname"><a href="a00521.html">Evolution.hpp</a></div></div>
+<div class="ttc" id="aa01088_html_ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868"><div class="ttname"><a href="a01088.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a></div><div class="ttdeci">@ Back</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00036">Control.hpp:36</a></div></div>
+<div class="ttc" id="aa01091_html_ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01091.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
+<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
+<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01131_html"><div class="ttname"><a href="a01131.html">game::state</a></div><div class="ttdoc">Parent namespace for all engine states implemented by the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03223_source.html#l00015">BagMenu.hpp:16</a></div></div>
+<div class="ttc" id="aa01861_html"><div class="ttname"><a href="a01861.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
+<div class="ttc" id="aa01861_html_a13339f3bf4df7eb337df9e50b6dc905a"><div class="ttname"><a href="a01861.html#a13339f3bf4df7eb337df9e50b6dc905a">core::pplmn::OwnedPeoplemon::evolve</a></div><div class="ttdeci">void evolve()</div><div class="ttdoc">Changes this Peoplemon into it's evolved form if it has one.</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00126">OwnedPeoplemon.cpp:126</a></div></div>
+<div class="ttc" id="aa01861_html_a831cd56ab9da348fb94ad282cdbe5a44"><div class="ttname"><a href="a01861.html#a831cd56ab9da348fb94ad282cdbe5a44">core::pplmn::OwnedPeoplemon::id</a></div><div class="ttdeci">Id id() const</div><div class="ttdoc">Returns the id of this peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00124">OwnedPeoplemon.cpp:124</a></div></div>
+<div class="ttc" id="aa01861_html_ac597feb2f381460a3f45fa34ac25e1a5"><div class="ttname"><a href="a01861.html#ac597feb2f381460a3f45fa34ac25e1a5">core::pplmn::OwnedPeoplemon::evolvesInto</a></div><div class="ttdeci">Id evolvesInto() const</div><div class="ttdoc">Returns the people that this evolves into. Returns Unknown if no evolution.</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00144">OwnedPeoplemon.cpp:144</a></div></div>
+<div class="ttc" id="aa01861_html_af4731e6322705fc9292249da3d888a74"><div class="ttname"><a href="a01861.html#af4731e6322705fc9292249da3d888a74">core::pplmn::OwnedPeoplemon::name</a></div><div class="ttdeci">const std::string &amp; name() const</div><div class="ttdoc">Returns the name of this peoplemon, custom or defualt.</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00132">OwnedPeoplemon.cpp:132</a></div></div>
+<div class="ttc" id="aa01869_html_a47f8358d6597050553cb62dc82aa93e7"><div class="ttname"><a href="a01869.html#a47f8358d6597050553cb62dc82aa93e7">core::pplmn::Peoplemon::opponentImage</a></div><div class="ttdeci">static std::string opponentImage(Id id)</div><div class="ttdoc">Returns the full path to the image to use in battle for the opponent peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03373_source.html#l00228">Peoplemon.cpp:228</a></div></div>
+<div class="ttc" id="aa01869_html_ab9b9c3a216937bd06a0726667dd981b2"><div class="ttname"><a href="a01869.html#ab9b9c3a216937bd06a0726667dd981b2">core::pplmn::Peoplemon::name</a></div><div class="ttdeci">static const std::string &amp; name(Id id)</div><div class="ttdoc">Returns the name of the given Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03373_source.html#l00126">Peoplemon.cpp:126</a></div></div>
+<div class="ttc" id="aa01933_html_a112c3012cb58271d555eea37b7115f37"><div class="ttname"><a href="a01933.html#a112c3012cb58271d555eea37b7115f37">core::Properties::EvolutionSparkPipelineId</a></div><div class="ttdeci">static constexpr std::uint32_t EvolutionSparkPipelineId</div><div class="ttdef"><b>Definition:</b> <a href="a00281_source.html#l00135">Properties.hpp:135</a></div></div>
+<div class="ttc" id="aa01933_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00262">Properties.cpp:262</a></div></div>
+<div class="ttc" id="aa01933_html_ad00a636ee72ff65264fc176b8c91d144"><div class="ttname"><a href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a></div><div class="ttdeci">static const std::string &amp; ImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00333">Properties.cpp:333</a></div></div>
+<div class="ttc" id="aa02041_html_a2fde7c654039330e1a393f26a294f994"><div class="ttname"><a href="a02041.html#a2fde7c654039330e1a393f26a294f994">core::system::HUD::displayMessage</a></div><div class="ttdeci">void displayMessage(const std::string &amp;message, const Callback &amp;cb=[](const std::string &amp;) {})</div><div class="ttdoc">Displays a message in the HUD textbox. Messages are queued in order that they arrive.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00092">HUD.cpp:92</a></div></div>
+<div class="ttc" id="aa02041_html_a4861aaeecc1a3b97b0397b25437301f3"><div class="ttname"><a href="a02041.html#a4861aaeecc1a3b97b0397b25437301f3">core::system::HUD::promptUser</a></div><div class="ttdeci">void promptUser(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, const Callback &amp;cb)</div><div class="ttdoc">Asks the player a question through the HUD.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00112">HUD.cpp:112</a></div></div>
+<div class="ttc" id="aa02041_html_a8dcef55abad4de6f091926fb3b7b60ee"><div class="ttname"><a href="a02041.html#a8dcef55abad4de6f091926fb3b7b60ee">core::system::HUD::displayStickyMessage</a></div><div class="ttdeci">void displayStickyMessage(const std::string &amp;message, bool ghostWrite, const Callback &amp;cb=[](const std::string &amp;) {})</div><div class="ttdoc">Displays a message in the HUD textbox. Sticky messages stay displayed until programmatically dismisse...</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00097">HUD.cpp:97</a></div></div>
+<div class="ttc" id="aa02041_html_af51de855fd4b7c575f4bb817d402e888"><div class="ttname"><a href="a02041.html#af51de855fd4b7c575f4bb817d402e888">core::system::HUD::dismissStickyMessage</a></div><div class="ttdeci">bool dismissStickyMessage(bool ignoreGhostWrite=true)</div><div class="ttdoc">Dismisses the currently active sticky message.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00102">HUD.cpp:102</a></div></div>
+<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02085_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00035">Systems.cpp:35</a></div></div>
+<div class="ttc" id="aa02085_html_abb5e1cbaf09a2d66b686562d3006cf34"><div class="ttname"><a href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">core::system::Systems::hud</a></div><div class="ttdeci">HUD &amp; hud()</div><div class="ttdoc">Returns the HUD.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00069">Systems.cpp:69</a></div></div>
+<div class="ttc" id="aa02381_html"><div class="ttname"><a href="a02381.html">game::state::evo::SparkEmitter</a></div><div class="ttdoc">Spark emitter for the evolution sparks particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00040">Particles.hpp:40</a></div></div>
+<div class="ttc" id="aa02385_html"><div class="ttname"><a href="a02385.html">game::state::evo::SparkSink</a></div><div class="ttdoc">Spark sink for the evolution sparks particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00056">Particles.hpp:56</a></div></div>
+<div class="ttc" id="aa02389_html"><div class="ttname"><a href="a02389.html">game::state::evo::SparkAffector</a></div><div class="ttdoc">Spark affector for the evolution sparks particle system.</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00070">Particles.hpp:70</a></div></div>
+<div class="ttc" id="aa02393_html"><div class="ttname"><a href="a02393.html">game::state::Evolution</a></div><div class="ttdoc">Game state for when a Peoplemon evolves into another one.</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00018">Evolution.hpp:20</a></div></div>
+<div class="ttc" id="aa02393_html_a09750c9c391f6b396adb9362f983ca38"><div class="ttname"><a href="a02393.html#a09750c9c391f6b396adb9362f983ca38">game::state::Evolution::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Subscribes to player input.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00106">Evolution.cpp:106</a></div></div>
+<div class="ttc" id="aa02393_html_a5b53331d6d6c9a920746b4be59c4b438"><div class="ttname"><a href="a02393.html#a5b53331d6d6c9a920746b4be59c4b438">game::state::Evolution::name</a></div><div class="ttdeci">const char * name() const override</div><div class="ttdoc">Returns &quot;Evolution&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00104">Evolution.cpp:104</a></div></div>
+<div class="ttc" id="aa02393_html_a60fe5c29a716a33d7cb1b617ca014878"><div class="ttname"><a href="a02393.html#a60fe5c29a716a33d7cb1b617ca014878">game::state::Evolution::fadeColor</a></div><div class="ttdeci">float fadeColor</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00089">Evolution.hpp:89</a></div></div>
+<div class="ttc" id="aa02393_html_a987325dc69a44702b874a24829c6c30c"><div class="ttname"><a href="a02393.html#a987325dc69a44702b874a24829c6c30c">game::state::Evolution::oscillateTime</a></div><div class="ttdeci">float oscillateTime</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00090">Evolution.hpp:90</a></div></div>
+<div class="ttc" id="aa02393_html_ad1b96a0c7373f9f1583611654e32172c"><div class="ttname"><a href="a02393.html#ad1b96a0c7373f9f1583611654e32172c">game::state::Evolution::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the evolution process.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00138">Evolution.cpp:138</a></div></div>
+<div class="ttc" id="aa02393_html_adad7ea0ac714dd9fa732b469b827c82d"><div class="ttname"><a href="a02393.html#adad7ea0ac714dd9fa732b469b827c82d">game::state::Evolution::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Unsubscribes from player input.</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00132">Evolution.cpp:132</a></div></div>
+<div class="ttc" id="aa02397_html"><div class="ttname"><a href="a02397.html">game::state::Evolution::Spark</a></div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00057">Evolution.hpp:57</a></div></div>
+<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02453_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa02849_html_a943d8c28a3159db790769f45dec6e9bc"><div class="ttname"><a href="a02849.html#a943d8c28a3159db790769f45dec6e9bc">bl::pcl::RenderConfigMap&lt; Evolution::Spark &gt;::DescriptorSets</a></div><div class="ttdeci">RenderConfigDescriptorList&lt; bl::rc::ds::Scene2DFactory, DescriptorSetFactory&lt; Evolution::Spark, evo::GpuSpark &gt; &gt; DescriptorSets</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00025">Evolution.cpp:27</a></div></div>
+<div class="ttc" id="aa02849_html_ac0c6a168ffba09e3d204bfdf5925ed47"><div class="ttname"><a href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">bl::pcl::RenderConfigMap&lt; Evolution::Spark &gt;::GlobalShaderPayload</a></div><div class="ttdeci">RenderConfigDefaults&lt; Evolution::Spark &gt;::GlobalShaderPayload GlobalShaderPayload</div><div class="ttdef"><b>Definition:</b> <a href="a01043_source.html#l00024">Evolution.cpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

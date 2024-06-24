@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/HUD.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/HUD/ScreenKeyboard.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,526 +66,204 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li><li class="navelem"><a class="el" href="dir_eb4f631c9efc438d7f9e0601d0e06295.html">HUD</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">HUD.cpp</div>  </div>
+<div class="title">ScreenKeyboard.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">Core/Systems/HUD.hpp</a>&gt;</span></div>
+<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">Core/Systems/HUD/ScreenKeyboard.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00278.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00353.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01086.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> ChoiceHeight  = 25.f;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> ChoicePadding = 8.f;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> TextPadding   = 10.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> FlashOn       = 0.75f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr <span class="keywordtype">float</span> FlashOff      = 0.65f;</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>hud</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> InputAreaHeight = 35.f;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">using namespace </span>bl::menu;</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">bool</span> isNextCommand(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> cmd) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> cmd == <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">input::Control::Back</a> || cmd == <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">input::Control::Interact</a>;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;}</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01990.html#aa1052b3650984bc4bb29975e87ffcea9">   25</a></span>&#160;<a class="code" href="a01990.html#aa1052b3650984bc4bb29975e87ffcea9">HUD::HUD</a>(<a class="code" href="a02034.html">Systems</a>&amp; owner)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: owner(owner)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, state(Hidden)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, inputListener(*this)</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;, screenKeyboard(owner.engine(), std::bind(&amp;<a class="code" href="a01990.html">HUD</a>::keyboardSubmit, this, std::placeholders::_1))</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;, entryCard(owner.engine())</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, currentOverlay(nullptr)</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, qtyEntry(owner.engine()) {}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> HUD::init(bl::engine::Engine&amp;) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    textboxTxtr =</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().texturePool().getOrLoadTexture(<a class="code" href="a01882.html#a9d215c4a5f2fc0505b60df193f92f820">Properties::TextboxFile</a>());</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">   19</a></span>&#160;<a class="code" href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">ScreenKeyboard::ScreenKeyboard</a>(bl::engine::Engine&amp; engine, <span class="keyword">const</span> <a class="code" href="a02037.html#a000a2c5ffd2c8dde2599d2e9e34da872">OnSubmit</a>&amp; os)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: engine(engine)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, onSubmit(os)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, minLen(0)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, maxLen(16)</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, position() {}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::lazyCreate() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    keyboardMenu.create(</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        engine, engine.renderer().getObserver(), ArrowSelector::create(8.f, sf::Color::Black));</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Item::Ptr space = TextItem::create(<span class="stringliteral">&quot;(space)&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Black, 24);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    space-&gt;getSignal(Item::EventType::Activated).willAlwaysCall([<span class="keyword">this</span>]() {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        input.push_back(<span class="charliteral">&#39; &#39;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        renderedInput.getSection().setString(input);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    });</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">const</span> glm::vec2&amp; boxSize = textboxTxtr-&gt;size();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    textbox.create(owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), textboxTxtr);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    textbox.getTransform().setPosition(<a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">Properties::WindowSize</a>().x * 0.5f - boxSize.x * 0.5f,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                                       <a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">Properties::WindowSize</a>().y - boxSize.y);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    textbox.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    choiceBoxX = boxSize.x * 2.f * 0.75f + 3.f;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    displayText.create(</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), <a class="code" href="a01882.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), <span class="stringliteral">&quot;&quot;</span>, <a class="code" href="a01882.html#aea2a700dea6c81d54048dcf1c4d48a04">Properties::HudFontSize</a>(), sf::Color::Black);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    displayText.getTransform().setPosition(TextPadding, 8.f);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    displayText.wordWrap(textboxTxtr-&gt;size().x - TextPadding * 2.f);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    displayText.setParent(textbox);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    promptTriangle.create(owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(), {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    promptTriangle.setFillColor(sf::Color(255, 77, 0));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    promptTriangle.setOutlineColor(sf::Color(255, 238, 128, 185));</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    promptTriangle.setOutlineThickness(1.5f);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    promptTriangle.getTransform().setPosition(boxSize - glm::vec2(18.f, 14.f));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    promptTriangle.setParent(textbox);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    choiceMenu.create(owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>(),</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;                      owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver(),</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                      bl::menu::ArrowSelector::create(10.f, sf::Color::Black));</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    choiceMenu.setPadding({0.f, ChoicePadding});</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    choiceMenu.setMinHeight(ChoiceHeight);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    choiceMenu.configureBackground(sf::Color::White, sf::Color::Black, 2.f, {18.f, 2.f, 4.f, 4.f});</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    qtyEntry.<a class="code" href="a01982.html#a28d989497274f72e2c18edf4ff91fc33">setPosition</a>(</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        {textbox.getTransform().getLocalPosition().x + textboxTxtr-&gt;size().x - 50.f,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;         textbox.getTransform().getLocalPosition().y - 70.f});</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="keywordtype">void</span> HUD::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">case</span> Printing:</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> (currentMessage.update(dt)) {</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            displayText.getSection().setString(std::string(currentMessage.getVisible()));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        <span class="keywordflow">if</span> (currentMessage.finished()) printDoneStateTransition();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">case</span> WaitingKeyboard:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">case</span> WaitingPrompt:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">case</span> WaitingSticky:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="comment">// noop</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    entryCard.update(dt);</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;}</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a01990.html#a2fde7c654039330e1a393f26a294f994">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a2fde7c654039330e1a393f26a294f994">HUD::displayMessage</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a>&amp; cb) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    queuedOutput.emplace(msg, <span class="keyword">false</span>, <span class="keyword">true</span>, cb);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    ensureActive();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;}</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno"><a class="line" href="a01990.html#a8dcef55abad4de6f091926fb3b7b60ee">   97</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a8dcef55abad4de6f091926fb3b7b60ee">HUD::displayStickyMessage</a>(<span class="keyword">const</span> std::string&amp; msg, <span class="keywordtype">bool</span> ghost, <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a>&amp; cb) {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    queuedOutput.emplace(msg, <span class="keyword">true</span>, ghost, cb);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    ensureActive();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;}</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="a01990.html#af51de855fd4b7c575f4bb817d402e888">  102</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01990.html#af51de855fd4b7c575f4bb817d402e888">HUD::dismissStickyMessage</a>(<span class="keywordtype">bool</span> ignoreGhost) {</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">if</span> (queuedOutput.empty()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">if</span> (queuedOutput.front().getType() != Item::Message) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">if</span> (!queuedOutput.front().isSticky()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (!ignoreGhost &amp;&amp; !currentMessage.finished()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    next();</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a01990.html#a4861aaeecc1a3b97b0397b25437301f3">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a4861aaeecc1a3b97b0397b25437301f3">HUD::promptUser</a>(<span class="keyword">const</span> std::string&amp; prompt, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; choices,</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;                     <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a>&amp; cb) {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    queuedOutput.emplace(prompt, choices, cb);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    ensureActive();</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno"><a class="line" href="a01990.html#a915330b9d11ff6dabd5d65e473c0255b">  118</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a915330b9d11ff6dabd5d65e473c0255b">HUD::getInputString</a>(<span class="keyword">const</span> std::string&amp; prompt, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mn, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mx,</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                         <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">Callback</a>&amp; cb) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    queuedOutput.emplace(prompt, mn, mx, cb);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    ensureActive();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;}</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno"><a class="line" href="a01990.html#a3d17fd885fe2fd65a0b076ccc7146802">  124</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a3d17fd885fe2fd65a0b076ccc7146802">HUD::getQty</a>(<span class="keyword">const</span> std::string&amp; prompt, <span class="keywordtype">int</span> minQty, <span class="keywordtype">int</span> maxQty, <span class="keyword">const</span> <a class="code" href="a01990.html#a6469956f3d145c35c221c90ef008a57d">QtyCallback</a>&amp; cb) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    queuedOutput.emplace(prompt, minQty, maxQty, cb);</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    ensureActive();</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
-<div class="line"><a name="l00129"></a><span class="lineno"><a class="line" href="a01990.html#a000fc6be7abcfe3e038a150e62ce9612">  129</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a000fc6be7abcfe3e038a150e62ce9612">HUD::displayEntryCard</a>(<span class="keyword">const</span> std::string&amp; name) { entryCard.display(name); }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno"><a class="line" href="a01990.html#a0227b0661b12504a4a3969c0c904fe26">  131</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01990.html#a0227b0661b12504a4a3969c0c904fe26">HUD::hideEntryCard</a>() { entryCard.hide(); }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="keywordtype">void</span> HUD::ensureActive() {</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordflow">if</span> (state == Hidden &amp;&amp; !queuedOutput.empty()) {</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().inputSystem().getActor().addListener(inputListener);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        startPrinting();</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    }</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;}</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="keywordtype">void</span> HUD::startPrinting() {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    setState(Printing);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    currentMessage.setContent(queuedOutput.front().getMessage());</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">if</span> (!queuedOutput.front().ghostWrite()) { currentMessage.showAll(); }</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    displayText.getSection().setString(std::string{currentMessage.getVisible()});</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    Item::Ptr del = TextItem::create(<span class="stringliteral">&quot;(del)&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Red, 24);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    del-&gt;getSignal(Item::EventType::Activated).willAlwaysCall([<span class="keyword">this</span>]() {</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        input.pop_back();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        renderedInput.getSection().setString(input);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    });</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Item::Ptr submit = TextItem::create(<span class="stringliteral">&quot;Submit&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Green, 24);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    submit-&gt;getSignal(Item::EventType::Activated)</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        .willAlwaysCall(std::bind(&amp;ScreenKeyboard::onEnter, <span class="keyword">this</span>));</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::vector&lt;std::vector&lt;TextItem::Ptr&gt;&gt; keys;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    keys.resize(4);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) { keys[i].reserve(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(13)); }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> createKey = [<span class="keyword">this</span>, &amp;keys](<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">char</span> k) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        keys[i].emplace_back(</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            TextItem::create(std::string(1, k), <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Black, 24));</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        keys[i]</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            .back()</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            -&gt;getSignal(Item::EventType::Activated)</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            .willAlwaysCall(std::bind(&amp;ScreenKeyboard::onKeyPress, <span class="keyword">this</span>, k));</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;A&#39;</span>; l &lt;= <span class="charliteral">&#39;M&#39;</span>; ++l) { createKey(0, l); }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;N&#39;</span>; l &lt;= <span class="charliteral">&#39;Z&#39;</span>; ++l) { createKey(1, l); }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;a&#39;</span>; l &lt;= <span class="charliteral">&#39;m&#39;</span>; ++l) { createKey(2, l); }</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;n&#39;</span>; l &lt;= <span class="charliteral">&#39;z&#39;</span>; ++l) { createKey(3, l); }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a01104.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">Item</a>* topRow[3] = {space.get(), del.get(), submit.get()};</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    keyboardMenu.setPosition({3.f, InputAreaHeight - 6.f});</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    keyboardMenu.setMinWidth(28.f);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    keyboardMenu.setMinHeight(30.f);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    keyboardMenu.setPadding({18.f, 4.f});</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    keyboardMenu.setRootItem(space);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    keyboardMenu.addItem(del, space.get(), Item::Right);</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    keyboardMenu.addItem(submit, del.get(), Item::Right);</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    keyboardMenu.addItem(keys[0][0], space.get(), Item::Bottom);</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; keys[0].size(); ++i) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        keyboardMenu.addItem(keys[0][i], keys[0][i - 1].get(), Item::Right);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (i &lt; 3) { keyboardMenu.attachExisting(keys[0][i].get(), topRow[i], Item::Bottom); }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">else</span> { keyboardMenu.attachExisting(submit.get(), keys[0][i].get(), Item::Top, <span class="keyword">false</span>); }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    keyboardMenu.attachExisting(keys[0].back().get(), keys[0].front().get(), Item::Left);</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; 4; ++i) {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; keys[i].size(); ++j) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">if</span> (j &lt; keys[i - 1].size()) {</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                keyboardMenu.addItem(keys[i][j], keys[i - 1][j].get(), Item::Bottom);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">else</span> { keyboardMenu.addItem(keys[i][j], keys[i][j - 1].get(), Item::Right); }</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> (j &gt; 0) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                keyboardMenu.attachExisting(keys[i][j].get(), keys[i][j - 1].get(), Item::Right);</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            }</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        keyboardMenu.attachExisting(keys[i].back().get(), keys[i].front().get(), Item::Left);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; keys.back().size(); ++i) {</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">if</span> (i &lt; 3) { keyboardMenu.attachExisting(keys.back()[i].get(), topRow[i], Item::Top); }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            keyboardMenu.attachExisting(submit.get(), keys.back()[i].get(), Item::Bottom, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    keyboardMenu.setSelectedItem(keys[0][0].get());</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    keyboardMenu.setDepth(0.f);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    background.create(engine,</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                      {keyboardMenu.getBounds().width + 28.f,</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                       keyboardMenu.getBounds().height + InputAreaHeight + 20.f});</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    background.setFillColor(sf::Color::White);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    background.setOutlineColor(sf::Color::Black);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    background.setOutlineThickness(2.f);</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    background.getTransform().setPosition(position.x, position.y);</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    engine.ecs().setEntityParentDestructionBehavior(</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        background.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    renderedInput.create(engine, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a>(), <span class="stringliteral">&quot;&quot;</span>, 28, sf::Color::Black);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    renderedInput.getTransform().setPosition(15.f, 5.f);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    renderedInput.setParent(background);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
+<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">  121</a></span>&#160;<a class="code" href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">ScreenKeyboard::~ScreenKeyboard</a>() { <a class="code" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">stop</a>(); }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">ScreenKeyboard::start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mn, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mx) {</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    lazyCreate();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    minLen = mn;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    maxLen = mx;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    input.clear();</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    renderedInput.getSection().setString(input);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    inputDriver.drive(&amp;keyboardMenu);</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    renderedInput.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    keyboardMenu.addToOverlay(background.entity());</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
+<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">ScreenKeyboard::stop</a>() {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    inputDriver.drive(<span class="keyword">nullptr</span>);</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) { background.removeFromScene(); }</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">  143</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">ScreenKeyboard::process</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, <span class="keywordtype">bool</span> ignore) {</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    inputDriver.sendControl(ctrl, ignore);</div>
 <div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
 <div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="keywordtype">void</span> HUD::printDoneStateTransition() {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keywordflow">switch</span> (queuedOutput.front().getType()) {</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">case</span> Item::Message:</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        <span class="keywordflow">if</span> (!queuedOutput.front().isSticky()) { setState(WaitingContinue); }</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;            setState(WaitingSticky);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            queuedOutput.front().getCallback()(queuedOutput.front().getMessage());</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;        }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">case</span> Item::Prompt: {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; choices = queuedOutput.front().getChoices();</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        bl::menu::Item::Ptr mitem =</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;            bl::menu::TextItem::create(choices.empty() ? <span class="stringliteral">&quot;INVALID&quot;</span> : choices.front(),</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;                                       <a class="code" href="a01882.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(),</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;                                       sf::Color::Black,</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;                                       <a class="code" href="a01882.html#aea2a700dea6c81d54048dcf1c4d48a04">Properties::HudFontSize</a>());</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;        mitem-&gt;getSignal(bl::menu::Item::Activated)</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            .willAlwaysCall(std::bind(&amp;HUD::choiceMade, <span class="keyword">this</span>, 0));</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        choiceMenu.setRootItem(mitem);</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160; </div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;        bl::menu::Item* prev = mitem.get();</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; choices.size(); ++i) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            mitem = bl::menu::TextItem::create(</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;                choices[i], <a class="code" href="a01882.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Black, <a class="code" href="a01882.html#aea2a700dea6c81d54048dcf1c4d48a04">Properties::HudFontSize</a>());</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;            mitem-&gt;getSignal(bl::menu::Item::Activated)</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                .willAlwaysCall(std::bind(&amp;HUD::choiceMade, <span class="keyword">this</span>, i));</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;            choiceMenu.addItem(mitem, prev, bl::menu::Item::Bottom);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;            prev = mitem.get();</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        }</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        <span class="keyword">const</span> sf::FloatRect bounds = choiceMenu.getBounds();</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> y              = <a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">Properties::WindowSize</a>().y - bounds.height - 18.f;</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        choiceMenu.setPosition({choiceBoxX + 18.f, y + 2.f});</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;        choiceDriver.drive(&amp;choiceMenu);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        setState(WaitingPrompt); <span class="comment">// TODO - why does this need to be after setting root item?</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    } <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <span class="keywordflow">case</span> Item::Keyboard:</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        setState(WaitingKeyboard);</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;        screenKeyboard.<a class="code" href="a01986.html#a1ca52d3385438b2c8bb5513d2a774cdc">start</a>(queuedOutput.front().minInputLength(),</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                             queuedOutput.front().maxInputLength());</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        screenKeyboard.<a class="code" href="a01986.html#a57cd989e29d2d8e5aad4a7bee8635e89">setPosition</a>(</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;            {<a class="code" href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">Properties::WindowSize</a>().x * 0.5f - screenKeyboard.<a class="code" href="a01986.html#a15fbb1e57df6c799d37a637e153eeb2a">getSize</a>().x * 0.5f,</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;             textbox.getTransform().getLocalPosition().y - screenKeyboard.<a class="code" href="a01986.html#a15fbb1e57df6c799d37a637e153eeb2a">getSize</a>().y - 2.f});</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">case</span> Item::Qty:</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        setState(WaitingQty);</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        qtyEntry.<a class="code" href="a01982.html#a015e9af262756b1070f2c89fab35a9ea">configure</a>(queuedOutput.front().getMinQty(), queuedOutput.front().getMaxQty(), 1);</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        setState(Hidden);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        next();</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="keywordtype">void</span> HUD::choiceMade(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) {</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    queuedOutput.front().getCallback()(queuedOutput.front().getChoices()[i]);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    choiceDriver.drive(<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    next();</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;}</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="keywordtype">void</span> HUD::qtySelected(<span class="keywordtype">int</span> qty) {</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    queuedOutput.front().getQtyCallback()(qty);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    next();</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;}</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="keywordtype">void</span> HUD::next() {</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;    queuedOutput.pop();</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">if</span> (!queuedOutput.empty()) { startPrinting(); }</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        setState(Hidden);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().inputSystem().getActor().removeListener(inputListener);</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    }</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;}</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160; </div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="keywordtype">void</span> HUD::keyboardSubmit(<span class="keyword">const</span> std::string&amp; i) {</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;    queuedOutput.front().getCallback()(i);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    screenKeyboard.<a class="code" href="a01986.html#aa59b54eba02acafd30bc6bd77bfa7ad1">stop</a>();</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    next();</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;HUD::HudListener::HudListener(HUD&amp; o)</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;: owner(o) {}</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160; </div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="keywordtype">bool</span> HUD::HudListener::observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, bl::input::DispatchType,</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;                               <span class="keywordtype">bool</span> eventTriggered) {</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keywordflow">switch</span> (owner.state) {</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keywordflow">case</span> Printing:</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="keywordflow">if</span> (isNextCommand(ctrl) &amp;&amp; eventTriggered) {</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;            owner.currentMessage.showAll();</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;            owner.displayText.getSection().setString(owner.currentMessage.getContent());</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            owner.printDoneStateTransition();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;        }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160; </div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;    <span class="keywordflow">case</span> WaitingContinue:</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        <span class="keywordflow">if</span> (isNextCommand(ctrl) &amp;&amp; eventTriggered) {</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;            owner.queuedOutput.front().getCallback()(owner.queuedOutput.front().getMessage());</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;            owner.next();</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        }</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160; </div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    <span class="keywordflow">case</span> WaitingPrompt:</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;        owner.choiceDriver.sendControl(ctrl, eventTriggered);</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160; </div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordflow">case</span> WaitingKeyboard:</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        owner.screenKeyboard.process(ctrl, eventTriggered);</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160; </div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordflow">case</span> WaitingQty:</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordflow">switch</span> (ctrl) {</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">input::Control::MoveDown</a>:</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            owner.qtyEntry.down(1, eventTriggered);</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">input::Control::MoveUp</a>:</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            owner.qtyEntry.up(1, eventTriggered);</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">input::Control::MoveRight</a>:</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            owner.qtyEntry.up(10, eventTriggered);</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">input::Control::MoveLeft</a>:</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            owner.qtyEntry.down(10, eventTriggered);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">input::Control::Interact</a>:</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;            owner.qtySelected(owner.qtyEntry.curQty());</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;        <span class="keywordflow">case</span> <a class="code" href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">input::Control::Back</a>:</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            owner.qtySelected(0);</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;        }</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160; </div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">case</span> HUD::WaitingSticky:</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <span class="comment">// ignore input</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160; </div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Input received by HUD while in invalid state: &quot;</span> &lt;&lt; owner.state;</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    }</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160; </div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;}</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160; </div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="keywordtype">void</span> HUD::setState(State ns) {</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    textbox.setHidden(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keywordflow">if</span> (state == WaitingKeyboard &amp;&amp; ns != WaitingKeyboard) { screenKeyboard.<a class="code" href="a01986.html#aa59b54eba02acafd30bc6bd77bfa7ad1">stop</a>(); }</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;    <span class="keywordflow">if</span> (state == WaitingQty &amp;&amp; ns != WaitingQty) { qtyEntry.<a class="code" href="a01982.html#a9d446e27002b25b290cd65615a51b60d">hide</a>(); }</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;    <span class="keywordflow">if</span> (ns != WaitingContinue) { promptTriangle.stopFlashing(); }</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;    <span class="keywordflow">if</span> (state == Hidden || !currentOverlay ||</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;        owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;        currentOverlay = owner.<a class="code" href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().renderer().getObserver().getOrCreateSceneOverlay();</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;        textbox.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        displayText.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;        promptTriangle.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    <span class="keywordflow">if</span> (state == WaitingPrompt &amp;&amp; ns != WaitingPrompt) { choiceMenu.removeFromOverlay(); }</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160; </div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    state = ns;</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    <span class="keywordflow">case</span> Hidden:</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;        textbox.setHidden(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;        textbox.removeFromScene();</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;        displayText.removeFromScene();</div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;        promptTriangle.removeFromScene();</div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;        choiceMenu.removeFromOverlay();</div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;        currentOverlay = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    <span class="keywordflow">case</span> WaitingContinue:</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;        promptTriangle.flash(FlashOn, FlashOff);</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;    <span class="keywordflow">case</span> WaitingPrompt:</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;        choiceMenu.addToOverlay();</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="keywordflow">case</span> WaitingQty:</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <span class="keywordflow">case</span> Printing:</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">case</span> WaitingSticky:</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;    <span class="keywordflow">case</span> WaitingKeyboard:</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;        <span class="comment">// noop</span></div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;    }</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;}</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160; </div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;HUD::Item::Item(<span class="keyword">const</span> std::string&amp; msg, <span class="keywordtype">bool</span> sticky, <span class="keywordtype">bool</span> ghost, <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">HUD::Callback</a>&amp; cb)</div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;: type(Message)</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;, cb(cb)</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;, message(msg)</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;, data(std::in_place_type_t&lt;std::pair&lt;bool, bool&gt;&gt;{}, sticky, ghost) {}</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160; </div>
-<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;HUD::Item::Item(<span class="keyword">const</span> std::string&amp; p, <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; c, <span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">HUD::Callback</a>&amp; cb)</div>
-<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;: type(Prompt)</div>
-<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;, cb(cb)</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;, message(p)</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;, data(std::in_place_type_t&lt;std::vector&lt;std::string&gt;&gt;{}, c) {}</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160; </div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;HUD::Item::Item(<span class="keyword">const</span> std::string&amp; prompt, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> minLen, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> maxLen,</div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;                <span class="keyword">const</span> Callback&amp; cb)</div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;: type(Keyboard)</div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;, cb(cb)</div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;, message(prompt)</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;, data(std::in_place_type_t&lt;std::pair&lt;unsigned int, unsigned int&gt;&gt;{}, minLen, maxLen) {}</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;HUD::Item::Item(<span class="keyword">const</span> std::string&amp; prompt, <span class="keywordtype">int</span> minQty, <span class="keywordtype">int</span> maxQty, <span class="keyword">const</span> QtyCallback&amp; cb)</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;: type(Qty)</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;, cb(cb)</div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;, message(prompt)</div>
-<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;, data(std::in_place_type_t&lt;std::pair&lt;int, int&gt;&gt;{}, minQty, maxQty) {}</div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160; </div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<a class="code" href="a01074.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">HUD::Item::Type</a> HUD::Item::getType()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160; </div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;<span class="keyword">const</span> std::string&amp; HUD::Item::getMessage()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> message; }</div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="keywordtype">bool</span> HUD::Item::isSticky()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::get_if&lt;std::pair&lt;bool, bool&gt;&gt;(&amp;data)-&gt;first; }</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160; </div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="keywordtype">bool</span> HUD::Item::ghostWrite()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span>* p = std::get_if&lt;std::pair&lt;bool, bool&gt;&gt;(&amp;data);</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="keywordflow">return</span> p ? p-&gt;second : <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;}</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; HUD::Item::getChoices()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="keywordflow">return</span> *std::get_if&lt;std::vector&lt;std::string&gt;&gt;(&amp;data);</div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;}</div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160; </div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> HUD::Item::minInputLength()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;    <span class="keywordflow">return</span> std::get_if&lt;std::pair&lt;unsigned int, unsigned int&gt;&gt;(&amp;data)-&gt;first;</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;}</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160; </div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> HUD::Item::maxInputLength()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;    <span class="keywordflow">return</span> std::get_if&lt;std::pair&lt;unsigned int, unsigned int&gt;&gt;(&amp;data)-&gt;second;</div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}</div>
-<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160; </div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;<span class="keywordtype">int</span> HUD::Item::getMinQty()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::get_if&lt;std::pair&lt;int, int&gt;&gt;(&amp;data)-&gt;first; }</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="keywordtype">int</span> HUD::Item::getMaxQty()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> std::get_if&lt;std::pair&lt;int, int&gt;&gt;(&amp;data)-&gt;second; }</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160; </div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="keyword">const</span> <a class="code" href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">HUD::Callback</a>&amp; HUD::Item::getCallback()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *std::get_if&lt;Callback&gt;(&amp;cb); }</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160; </div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="keyword">const</span> <a class="code" href="a01990.html#a6469956f3d145c35c221c90ef008a57d">HUD::QtyCallback</a>&amp; HUD::Item::getQtyCallback()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> *std::get_if&lt;QtyCallback&gt;(&amp;cb); }</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;HUD::EntryCard::EntryCard(bl::engine::Engine&amp; engine)</div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;: engine(engine)</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;, currentOverlay(nullptr) {}</div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160; </div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="keywordtype">void</span> HUD::EntryCard::ensureCreated() {</div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;    <span class="keywordflow">if</span> (!txtr) {</div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;        txtr = engine.renderer().texturePool().getOrLoadTexture(</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;            bl::util::FileUtil::joinPath(<a class="code" href="a01882.html#a83a1435c52995339e6a350c3120a9beb">Properties::MenuImagePath</a>(), <span class="stringliteral">&quot;HUD/namecard.png&quot;</span>));</div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;        card.create(engine, txtr);</div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;        text.create(engine, <a class="code" href="a01882.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), <span class="stringliteral">&quot;&quot;</span>, 20, sf::Color(20, 200, 240));</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;        text.setParent(card);</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;        text.wordWrapToParent(0.98f);</div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;    }</div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;    <span class="keywordflow">if</span> (!currentOverlay ||</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;        engine.renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;        currentOverlay = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;        card.addToScene(currentOverlay, bl::rc::UpdateSpeed::Dynamic);</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;        text.addToScene(currentOverlay, bl::rc::UpdateSpeed::Dynamic);</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    }</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;}</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160; </div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;<span class="keywordtype">void</span> HUD::EntryCard::update(<span class="keywordtype">float</span> dt) {</div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;    constexpr <span class="keywordtype">float</span> MoveSpeed = 150.f;</div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    constexpr <span class="keywordtype">float</span> HoldTime  = 2.5f;</div>
-<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">case</span> Dropping:</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;        stateVar -= MoveSpeed * dt;</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;        card.getTransform().setPosition(0.f, -stateVar);</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;        <span class="keywordflow">if</span> (stateVar &lt;= 0.f) {</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;            stateVar = 0.f;</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;            state    = Holding;</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;            card.getTransform().setPosition(0.f, 0.f);</div>
-<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;        }</div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160; </div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;    <span class="keywordflow">case</span> Rising:</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;        stateVar += MoveSpeed * dt;</div>
-<div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160;        card.getTransform().setPosition(0.f, -stateVar);</div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;        <span class="keywordflow">if</span> (stateVar &gt;= txtr-&gt;size().y) { hide(); }</div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160; </div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">case</span> Holding:</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;        stateVar += dt;</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;        <span class="keywordflow">if</span> (stateVar &gt;= HoldTime) {</div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;            state    = Rising;</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;            stateVar = 0.f;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;        }</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160; </div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;    <span class="keywordflow">case</span> Hidden:</div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;    <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;        <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;    }</div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;}</div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160; </div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="keywordtype">void</span> HUD::EntryCard::display(<span class="keyword">const</span> std::string&amp; t) {</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    constexpr <span class="keywordtype">float</span> Padding = 10.f;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160; </div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;    ensureCreated();</div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;    text.getSection().setString(t);</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    text.getTransform().setPosition(txtr-&gt;size() * 0.5f - text.getLocalSize() * 0.5f);</div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160; </div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;    state    = Dropping;</div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    stateVar = txtr-&gt;size().y;</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;}</div>
-<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160; </div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160;<span class="keywordtype">void</span> HUD::EntryCard::hide() {</div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;    <span class="keywordflow">if</span> (state != State::Hidden) {</div>
-<div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;        state = State::Hidden;</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;        card.removeFromScene();</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    }</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;}</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160; </div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00278_html"><div class="ttname"><a href="a00278.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">HUD.hpp</a></div></div>
-<div class="ttc" id="aa00353_html"><div class="ttname"><a href="a00353.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a></div><div class="ttdeci">@ MoveDown</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00031">Control.hpp:31</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a1899a8772502d8ebc0f31a92bc342868">core::input::Control::Back</a></div><div class="ttdeci">@ Back</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00036">Control.hpp:36</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2a8bafd27a45b38414d9b0359fba45b223">core::input::Control::Interact</a></div><div class="ttdeci">@ Interact</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00034">Control.hpp:34</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a></div><div class="ttdeci">@ MoveLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00032">Control.hpp:32</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a></div><div class="ttdeci">@ MoveRight</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00030">Control.hpp:30</a></div></div>
-<div class="ttc" id="aa01073_html_ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"><div class="ttname"><a href="a01073.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a></div><div class="ttdeci">@ MoveUp</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00029">Control.hpp:29</a></div></div>
-<div class="ttc" id="aa01074_html_ga0e0fc5f0899c8ab17fd8d7d307e878dd"><div class="ttname"><a href="a01074.html#ga0e0fc5f0899c8ab17fd8d7d307e878dd">core::item::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type classification of an item. This is used to determine when an item may be used and how to use...</div><div class="ttdef"><b>Definition:</b> <a href="a03197_source.html#l00017">Type.hpp:17</a></div></div>
-<div class="ttc" id="aa01086_html"><div class="ttname"><a href="a01086.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03104_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01882_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01882.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00363">Properties.cpp:363</a></div></div>
-<div class="ttc" id="aa01882_html_a83a1435c52995339e6a350c3120a9beb"><div class="ttname"><a href="a01882.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a></div><div class="ttdeci">static const std::string &amp; MenuImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00303">Properties.cpp:303</a></div></div>
-<div class="ttc" id="aa01882_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01882.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00262">Properties.cpp:262</a></div></div>
-<div class="ttc" id="aa01882_html_a9d215c4a5f2fc0505b60df193f92f820"><div class="ttname"><a href="a01882.html#a9d215c4a5f2fc0505b60df193f92f820">core::Properties::TextboxFile</a></div><div class="ttdeci">static const std::string &amp; TextboxFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00607">Properties.cpp:607</a></div></div>
-<div class="ttc" id="aa01882_html_aea2a700dea6c81d54048dcf1c4d48a04"><div class="ttname"><a href="a01882.html#aea2a700dea6c81d54048dcf1c4d48a04">core::Properties::HudFontSize</a></div><div class="ttdeci">static unsigned int HudFontSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00782_source.html#l00613">Properties.cpp:613</a></div></div>
-<div class="ttc" id="aa01982_html_a015e9af262756b1070f2c89fab35a9ea"><div class="ttname"><a href="a01982.html#a015e9af262756b1070f2c89fab35a9ea">core::system::hud::QtyEntry::configure</a></div><div class="ttdeci">void configure(int minQty, int maxQty, int qty)</div><div class="ttdoc">Configures the entry with the given parameters and adds to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00069">QtyEntry.cpp:69</a></div></div>
-<div class="ttc" id="aa01982_html_a28d989497274f72e2c18edf4ff91fc33"><div class="ttname"><a href="a01982.html#a28d989497274f72e2c18edf4ff91fc33">core::system::hud::QtyEntry::setPosition</a></div><div class="ttdeci">void setPosition(const sf::Vector2f &amp;position)</div><div class="ttdoc">Sets the position of the selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00060">QtyEntry.cpp:60</a></div></div>
-<div class="ttc" id="aa01982_html_a9d446e27002b25b290cd65615a51b60d"><div class="ttname"><a href="a01982.html#a9d446e27002b25b290cd65615a51b60d">core::system::hud::QtyEntry::hide</a></div><div class="ttdeci">void hide()</div><div class="ttdoc">Removes the quantity entry from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00821_source.html#l00053">QtyEntry.cpp:53</a></div></div>
-<div class="ttc" id="aa01986_html_a15fbb1e57df6c799d37a637e153eeb2a"><div class="ttname"><a href="a01986.html#a15fbb1e57df6c799d37a637e153eeb2a">core::system::hud::ScreenKeyboard::getSize</a></div><div class="ttdeci">sf::Vector2f getSize() const</div><div class="ttdoc">Returns the size of the screen keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00156">ScreenKeyboard.cpp:156</a></div></div>
-<div class="ttc" id="aa01986_html_a1ca52d3385438b2c8bb5513d2a774cdc"><div class="ttname"><a href="a01986.html#a1ca52d3385438b2c8bb5513d2a774cdc">core::system::hud::ScreenKeyboard::start</a></div><div class="ttdeci">void start(unsigned int minLen=0, unsigned int maxLen=16)</div><div class="ttdoc">Subscribes the keyboard to the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00123">ScreenKeyboard.cpp:123</a></div></div>
-<div class="ttc" id="aa01986_html_a57cd989e29d2d8e5aad4a7bee8635e89"><div class="ttname"><a href="a01986.html#a57cd989e29d2d8e5aad4a7bee8635e89">core::system::hud::ScreenKeyboard::setPosition</a></div><div class="ttdeci">void setPosition(const sf::Vector2f &amp;position)</div><div class="ttdoc">Sets the position of the keyboard. The default is (??)</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00147">ScreenKeyboard.cpp:147</a></div></div>
-<div class="ttc" id="aa01986_html_aa59b54eba02acafd30bc6bd77bfa7ad1"><div class="ttname"><a href="a01986.html#aa59b54eba02acafd30bc6bd77bfa7ad1">core::system::hud::ScreenKeyboard::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Unsubscribes the keyboard from the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00138">ScreenKeyboard.cpp:138</a></div></div>
-<div class="ttc" id="aa01990_html"><div class="ttname"><a href="a01990.html">core::system::HUD</a></div><div class="ttdoc">The primary HUD system for the player. Manages displaying messages and asking questions....</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00031">HUD.hpp:31</a></div></div>
-<div class="ttc" id="aa01990_html_a000fc6be7abcfe3e038a150e62ce9612"><div class="ttname"><a href="a01990.html#a000fc6be7abcfe3e038a150e62ce9612">core::system::HUD::displayEntryCard</a></div><div class="ttdeci">void displayEntryCard(const std::string &amp;name)</div><div class="ttdoc">Displays a card to indicate entering a new town, route, or map.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00129">HUD.cpp:129</a></div></div>
-<div class="ttc" id="aa01990_html_a0227b0661b12504a4a3969c0c904fe26"><div class="ttname"><a href="a01990.html#a0227b0661b12504a4a3969c0c904fe26">core::system::HUD::hideEntryCard</a></div><div class="ttdeci">void hideEntryCard()</div><div class="ttdoc">Hides the entry card.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00131">HUD.cpp:131</a></div></div>
-<div class="ttc" id="aa01990_html_a0641582187a89f721de0fc5870bcd0cf"><div class="ttname"><a href="a01990.html#a0641582187a89f721de0fc5870bcd0cf">core::system::HUD::Callback</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;value)&gt; Callback</div><div class="ttdoc">Signature for HUD callbacks. Used for both messages completing and choices made.</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00039">HUD.hpp:39</a></div></div>
-<div class="ttc" id="aa01990_html_a2fde7c654039330e1a393f26a294f994"><div class="ttname"><a href="a01990.html#a2fde7c654039330e1a393f26a294f994">core::system::HUD::displayMessage</a></div><div class="ttdeci">void displayMessage(const std::string &amp;message, const Callback &amp;cb=[](const std::string &amp;) {})</div><div class="ttdoc">Displays a message in the HUD textbox. Messages are queued in order that they arrive.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00092">HUD.cpp:92</a></div></div>
-<div class="ttc" id="aa01990_html_a3d17fd885fe2fd65a0b076ccc7146802"><div class="ttname"><a href="a01990.html#a3d17fd885fe2fd65a0b076ccc7146802">core::system::HUD::getQty</a></div><div class="ttdeci">void getQty(const std::string &amp;prompt, int minQty, int maxQty, const QtyCallback &amp;cb)</div><div class="ttdoc">Gets a number from the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00124">HUD.cpp:124</a></div></div>
-<div class="ttc" id="aa01990_html_a4861aaeecc1a3b97b0397b25437301f3"><div class="ttname"><a href="a01990.html#a4861aaeecc1a3b97b0397b25437301f3">core::system::HUD::promptUser</a></div><div class="ttdeci">void promptUser(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, const Callback &amp;cb)</div><div class="ttdoc">Asks the player a question through the HUD.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00112">HUD.cpp:112</a></div></div>
-<div class="ttc" id="aa01990_html_a6469956f3d145c35c221c90ef008a57d"><div class="ttname"><a href="a01990.html#a6469956f3d145c35c221c90ef008a57d">core::system::HUD::QtyCallback</a></div><div class="ttdeci">std::function&lt; void(int qty)&gt; QtyCallback</div><div class="ttdoc">Called when a qty is entered.</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00047">HUD.hpp:47</a></div></div>
-<div class="ttc" id="aa01990_html_a8dcef55abad4de6f091926fb3b7b60ee"><div class="ttname"><a href="a01990.html#a8dcef55abad4de6f091926fb3b7b60ee">core::system::HUD::displayStickyMessage</a></div><div class="ttdeci">void displayStickyMessage(const std::string &amp;message, bool ghostWrite, const Callback &amp;cb=[](const std::string &amp;) {})</div><div class="ttdoc">Displays a message in the HUD textbox. Sticky messages stay displayed until programmatically dismisse...</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00097">HUD.cpp:97</a></div></div>
-<div class="ttc" id="aa01990_html_a915330b9d11ff6dabd5d65e473c0255b"><div class="ttname"><a href="a01990.html#a915330b9d11ff6dabd5d65e473c0255b">core::system::HUD::getInputString</a></div><div class="ttdeci">void getInputString(const std::string &amp;prompt, unsigned int minLen, unsigned int maxLen, const Callback &amp;cb)</div><div class="ttdoc">Prompts the player to input a string using the screen keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00118">HUD.cpp:118</a></div></div>
-<div class="ttc" id="aa01990_html_aa1052b3650984bc4bb29975e87ffcea9"><div class="ttname"><a href="a01990.html#aa1052b3650984bc4bb29975e87ffcea9">core::system::HUD::HUD</a></div><div class="ttdeci">HUD(Systems &amp;owner)</div><div class="ttdoc">Construct a new HUD system.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00025">HUD.cpp:25</a></div></div>
-<div class="ttc" id="aa01990_html_af51de855fd4b7c575f4bb817d402e888"><div class="ttname"><a href="a01990.html#af51de855fd4b7c575f4bb817d402e888">core::system::HUD::dismissStickyMessage</a></div><div class="ttdeci">bool dismissStickyMessage(bool ignoreGhostWrite=true)</div><div class="ttdoc">Dismisses the currently active sticky message.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00102">HUD.cpp:102</a></div></div>
-<div class="ttc" id="aa02034_html"><div class="ttname"><a href="a02034.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00353_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02034_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02034.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00035">Systems.cpp:35</a></div></div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">  147</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">ScreenKeyboard::setPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos) {</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    position = pos;</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        background.getTransform().setPosition(pos.x, pos.y);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
+<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">  154</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">ScreenKeyboard::value</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> input; }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">  156</a></span>&#160;sf::Vector2f <a class="code" href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">ScreenKeyboard::getSize</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> {background.getSize().x, background.getSize().y};</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::onKeyPress(<span class="keywordtype">char</span> c) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    input.push_back(c);</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    renderedInput.getSection().setString(input);</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::onEnter() {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (input.size() &gt;= minLen &amp;&amp; input.size() &lt;= maxLen) { onSubmit(input); }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;} <span class="comment">// namespace hud</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">ScreenKeyboard.hpp</a></div></div>
+<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01104_html_a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679"><div class="ttname"><a href="a01104.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">core::battle::TurnAction::Item</a></div><div class="ttdeci">@ Item</div></div>
+<div class="ttc" id="aa01933_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00363">Properties.cpp:363</a></div></div>
+<div class="ttc" id="aa02037_html_a000a2c5ffd2c8dde2599d2e9e34da872"><div class="ttname"><a href="a02037.html#a000a2c5ffd2c8dde2599d2e9e34da872">core::system::hud::ScreenKeyboard::OnSubmit</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; OnSubmit</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00029">ScreenKeyboard.hpp:29</a></div></div>
+<div class="ttc" id="aa02037_html_a15fbb1e57df6c799d37a637e153eeb2a"><div class="ttname"><a href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">core::system::hud::ScreenKeyboard::getSize</a></div><div class="ttdeci">sf::Vector2f getSize() const</div><div class="ttdoc">Returns the size of the screen keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00156">ScreenKeyboard.cpp:156</a></div></div>
+<div class="ttc" id="aa02037_html_a1ca52d3385438b2c8bb5513d2a774cdc"><div class="ttname"><a href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">core::system::hud::ScreenKeyboard::start</a></div><div class="ttdeci">void start(unsigned int minLen=0, unsigned int maxLen=16)</div><div class="ttdoc">Subscribes the keyboard to the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00123">ScreenKeyboard.cpp:123</a></div></div>
+<div class="ttc" id="aa02037_html_a53fd26fa824e285bc6d5776150b70ca2"><div class="ttname"><a href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">core::system::hud::ScreenKeyboard::process</a></div><div class="ttdeci">void process(unsigned int ctrl, bool ignoreDebounce)</div><div class="ttdoc">Handles player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00143">ScreenKeyboard.cpp:143</a></div></div>
+<div class="ttc" id="aa02037_html_a57cd989e29d2d8e5aad4a7bee8635e89"><div class="ttname"><a href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">core::system::hud::ScreenKeyboard::setPosition</a></div><div class="ttdeci">void setPosition(const sf::Vector2f &amp;position)</div><div class="ttdoc">Sets the position of the keyboard. The default is (??)</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00147">ScreenKeyboard.cpp:147</a></div></div>
+<div class="ttc" id="aa02037_html_aa59b54eba02acafd30bc6bd77bfa7ad1"><div class="ttname"><a href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">core::system::hud::ScreenKeyboard::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Unsubscribes the keyboard from the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00138">ScreenKeyboard.cpp:138</a></div></div>
+<div class="ttc" id="aa02037_html_ace27bbb977260d4a4c328b1dafa35f6d"><div class="ttname"><a href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">core::system::hud::ScreenKeyboard::ScreenKeyboard</a></div><div class="ttdeci">ScreenKeyboard(bl::engine::Engine &amp;engine, const OnSubmit &amp;onSubmit)</div><div class="ttdoc">Construct a new Screen Keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00019">ScreenKeyboard.cpp:19</a></div></div>
+<div class="ttc" id="aa02037_html_afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"><div class="ttname"><a href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">core::system::hud::ScreenKeyboard::~ScreenKeyboard</a></div><div class="ttdeci">~ScreenKeyboard()</div><div class="ttdoc">Unsubscribes the keyboard if still subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00121">ScreenKeyboard.cpp:121</a></div></div>
+<div class="ttc" id="aa02037_html_afc78ba18cf213cb9159c214d4973fe03"><div class="ttname"><a href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">core::system::hud::ScreenKeyboard::value</a></div><div class="ttdeci">const std::string &amp; value() const</div><div class="ttdoc">Returns the current input value.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00154">ScreenKeyboard.cpp:154</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Sat Jun 1 2024 21:10:48 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
