@@ -24,5 +24,12 @@ bool State::evolutionPending() const {
     return false;
 }
 
+bool State::hasLivingPeoplemon() const {
+    for (const auto& ppl : peoplemon) {
+        if (ppl.currentHp() > 0) { return true; }
+    }
+    return false;
+}
+
 } // namespace player
 } // namespace core

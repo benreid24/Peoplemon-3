@@ -837,6 +837,7 @@ BattleState::Stage LocalBattleController::getNextStage(BattleState::Stage ns) {
         if (currentFainter->canFight()) { return Stage::WaitingFaintSwitch; }
         else {
             if (!state->enemy().canFight() && state->localPlayer().canFight()) { // player won
+                battle->result.localPlayerWon = true;
                 queueCommand({Command::NotifyBattleWinner, state->localPlayer().isHost()});
                 switch (battle->type) {
                 case Battle::Type::Trainer:

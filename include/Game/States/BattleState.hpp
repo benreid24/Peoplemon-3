@@ -60,6 +60,7 @@ public:
 
 private:
     std::unique_ptr<core::battle::Battle> battle;
+    bl::rc::SceneRef scene;
 
     BattleState(core::system::Systems& systems, std::unique_ptr<core::battle::Battle>&& battle);
 

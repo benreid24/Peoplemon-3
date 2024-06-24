@@ -54,6 +54,7 @@ std::string snackShareSuffix(Message::Type type, const std::string& other) {
 MessagePrinter::MessagePrinter(bl::engine::Engine& engine)
 : engine(engine)
 , state(State::Hidden)
+, menu(0.f)
 , keyboard(engine, std::bind(&MessagePrinter::nameEntered, this)) {}
 
 void MessagePrinter::init(bl::rc::scene::CodeScene* scene) {
@@ -63,10 +64,8 @@ void MessagePrinter::init(bl::rc::scene::CodeScene* scene) {
 
     triangle.create(engine, {0.f, 0.f}, {12.f, 5.5f}, {0.f, 11.f});
     triangle.getTransform().setPosition(ArrowPos);
-    triangle.getTransform().setDepth(-100.f);
     triangle.setFillColor(bl::sfcol(sf::Color(242, 186, 17)));
     triangle.flash(TriangleFlashOn, TriangleFlashOff);
-    triangle.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
     text.create(engine, Properties::MenuFont(), "", 18, {0.f, 0.f, 0.f, 1.f});
     text.getTransform().setPosition(TextPos);
@@ -1130,6 +1129,7 @@ void MessagePrinter::setState(State ns) {
     if (state == State::WaitingNameEntry) { keyboard.stop(); }
 
     state = ns;
+    triangle.resetFlash();
 
     if (ns == State::WaitingNameEntry) { keyboard.start(0, 32); }
 }

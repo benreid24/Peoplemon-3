@@ -36,6 +36,11 @@ public:
     PeoplemonAnimation(bl::engine::Engine& engine, Position position);
 
     /**
+     * @brief Frees resources
+     */
+    ~PeoplemonAnimation();
+
+    /**
      * @brief Initializes rendering resources
      *
      * @param scene The scene to use
@@ -89,6 +94,7 @@ private:
     bl::rc::scene::CodeScene* scene;
     const Position position;
     const VkViewport viewport;
+    const VkRect2D scissor;
     State state;
     cmd::Animation::Type type;
     union {

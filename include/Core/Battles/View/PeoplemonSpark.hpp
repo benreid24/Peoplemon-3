@@ -109,8 +109,9 @@ public:
     static constexpr float CreateRate      = 200.f;
     static constexpr unsigned int MaxSpawn = 50;
 
-    SparkExplosionEmitter()
-    : residual(0.f)
+    SparkExplosionEmitter(const glm::vec2& origin)
+    : origin(origin)
+    , residual(0.f)
     , enabled(false) {}
 
     virtual ~SparkExplosionEmitter() = default;
@@ -118,6 +119,7 @@ public:
     void setEnabled(bool e) { enabled = e; }
 
 private:
+    const glm::vec2 origin;
     float residual;
     bool enabled;
 
@@ -135,8 +137,8 @@ private:
                 const float v = bl::util::Random::get<float>(150.f, 900.f);
                 const float c = bl::math::cos(a);
                 const float s = bl::math::sin(a);
-                sp.position.x = SquareSize * 0.5f + d * c;
-                sp.position.y = SquareSize * 0.5f + d * s;
+                sp.position.x = origin.x + SquareSize * 0.5f + d * c;
+                sp.position.y = origin.y + SquareSize * 0.5f + d * s;
                 sp.velocity.x = v * c;
                 sp.velocity.y = v * s;
                 sp.time       = 0.f;

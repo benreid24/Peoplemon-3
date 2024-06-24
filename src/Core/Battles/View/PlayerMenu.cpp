@@ -24,6 +24,8 @@ PlayerMenu::PlayerMenu(bl::engine::Engine& engine, bool canRun)
 , state(State::Hidden)
 , stateLoopGuard(false)
 , currentPeoplemon(0)
+, actionMenu(0.f)
+, moveMenu(0.f)
 , moves(nullptr) {}
 
 void PlayerMenu::init(bl::rc::scene::CodeScene* scene) {

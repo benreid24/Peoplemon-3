@@ -67,16 +67,26 @@ using Animation = cmd::Animation;
 
 glm::vec4 makeColor(float alpha) { return glm::vec4(FlashColor, alpha / 256.f); }
 
-VkViewport makeViewport(PeoplemonAnimation::Position pos) {
+VkViewport makeViewport(bl::engine::Engine& engine, PeoplemonAnimation::Position pos) {
     const glm::vec2 corner = pos == PeoplemonAnimation::Player ? PlayerPos : OpponentPos;
     VkViewport vp{};
     vp.x        = corner.x;
     vp.y        = corner.y;
-    vp.width    = ViewSize.x;
-    vp.height   = ViewSize.y;
+    vp.width    = engine.renderer().getObserver().getRegionSize().x;
+    vp.height   = engine.renderer().getObserver().getRegionSize().y;
     vp.minDepth = 0.f;
     vp.maxDepth = 1.f;
     return vp;
+}
+
+VkRect2D makeScissor(PeoplemonAnimation::Position pos) {
+    const glm::vec2 corner = pos == PeoplemonAnimation::Player ? PlayerPos : OpponentPos;
+    VkRect2D scissor{};
+    scissor.offset.x      = corner.x;
+    scissor.offset.y      = corner.y;
+    scissor.extent.width  = ViewSize.x;
+    scissor.extent.height = ViewSize.y;
+    return scissor;
 }
 
 glm::vec4 sfcol(const sf::Color& c) {
@@ -91,12 +101,19 @@ glm::vec4 sfcol(const sf::Color& c) {
 PeoplemonAnimation::PeoplemonAnimation(bl::engine::Engine& engine, Position pos)
 : engine(engine)
 , position(pos)
-, viewport(makeViewport(pos))
+, viewport(makeViewport(engine, pos))
+, scissor(makeScissor(pos))
 , renderBall(false) {}
+
+PeoplemonAnimation::~PeoplemonAnimation() {
+    if (sparks) { engine.particleSystem().removeRepeatedSystems<PeoplemonSpark>(); }
+}
 
 void PeoplemonAnimation::init(bl::rc::scene::CodeScene* s) {
     const auto join = bl::util::FileUtil::joinPath;
     scene           = s;
+
+    const glm::vec2 boxCorner = position == Position::Player ? PlayerPos : OpponentPos;
 
     peoplemon.create(engine, engine.renderer().texturePool().getBlankTexture());
     peoplemon.getTransform().setPosition(ViewSize.x * 0.5f, ViewSize.y);
@@ -113,8 +130,9 @@ void PeoplemonAnimation::init(bl::rc::scene::CodeScene* s) {
     ball.addToScene(scene, bl::rc::UpdateSpeed::Dynamic);
 
     ballFlash.create(engine, 100.f);
-    ballFlash.getTransform().setPosition(ball.getTransform().getLocalPosition().x,
-                                         ball.getTransform().getLocalPosition().y + 15.f);
+    ballFlash.getTransform().setOrigin(100.f, 100.f);
+    ballFlash.getTransform().setPosition(boxCorner + ball.getTransform().getLocalPosition() +
+                                         glm::vec2(0.f, 15.f));
     ballFlash.setColorGradient(glm::vec4(FlashColor, 1.f), sfcol(sf::Color::Transparent));
     ballFlash.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -154,7 +172,7 @@ void PeoplemonAnimation::init(bl::rc::scene::CodeScene* s) {
     sparks = &engine.particleSystem().addRepeatedSystem<PeoplemonSpark>();
     sparks->addAffector<SparkAffector>();
     sparks->addSink<SparkSink>();
-    sparkExplosionEmitter = sparks->addEmitter<SparkExplosionEmitter>();
+    sparkExplosionEmitter = sparks->addEmitter<SparkExplosionEmitter>(boxCorner);
     sparks->addToScene(scene);
 
     implosion = &engine.particleSystem().addRepeatedSystem<PeoplemonSpark>();
@@ -162,6 +180,9 @@ void PeoplemonAnimation::init(bl::rc::scene::CodeScene* s) {
     implosion->addSink<SparkSink>();
     sparkImplosionEmitter = implosion->addEmitter<SparkImplosionEmitter>();
     implosion->addToScene(scene);
+
+    screenFlash.create(engine, glm::vec2(Properties::WindowWidth(), Properties::WindowHeight()));
+    screenFlash.addToScene(scene, bl::rc::UpdateSpeed::Static);
 }
 
 void PeoplemonAnimation::setPeoplemon(pplmn::Id ppl) {
@@ -358,7 +379,7 @@ void PeoplemonAnimation::update(float dt) {
                 ballTime += dt;
                 if (ballTime >= 0.75f) {
                     setBallTexture(ballOpenTxtr);
-                    ballFlash.setRadius(1.f);
+                    ballFlash.scaleToSize({1.f, 1.f});
                     ballFlash.setColorGradient(makeColor(255.f), {0.f, 0.f, 0.f, 0.f});
                     alpha = 0.f;
                     sparkExplosionEmitter->setEnabled(true);
@@ -375,9 +396,10 @@ void PeoplemonAnimation::update(float dt) {
                 const float p        = alpha / 255.f;
                 const float ps       = std::sqrt(p);
                 const float pss      = std::sqrt(ps);
+                const float ns       = BallFlashRadius * pss * 2.f;
                 const std::uint8_t a = static_cast<std::uint8_t>(alpha);
                 ballFlash.setColorGradient(makeColor(255.f - 255.f * p), {0.f, 0.f, 0.f, 0.f});
-                ballFlash.setRadius(BallFlashRadius * pss);
+                ballFlash.scaleToSize({ns, ns});
                 if (a < 255) {
                     peoplemon.setColor(sf::Color(122, 8, 128, std::max(a, ScreenFlashAlpha)));
                 }
@@ -396,7 +418,10 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::ShakeAndFlash:
             shakeTime += dt;
-            if (shakeTime >= ShakeTime) { state = State::Static; }
+            if (shakeTime >= ShakeTime) {
+                peoplemon.stopFlashing();
+                state = State::Static;
+            }
             break;
 
         case Animation::Type::SlideOut:
@@ -560,7 +585,11 @@ void PeoplemonAnimation::update(float dt) {
 void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (state == State::Hidden) return;
 
-    ctx.setViewport(viewport, true);
+    const auto setViewport = [this, &ctx]() {
+        ctx.setViewport(viewport, false);
+        ctx.setScissor(scissor, false);
+    };
+    setViewport();
 
     if (state == State::Playing) {
         switch (type) {
@@ -578,9 +607,7 @@ void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
             ctx.resetViewportAndScissor();
             screenFlash.draw(ctx);
             if (ball.getTexture().id() == ballOpenTxtr.id()) {
-                ctx.setViewport(viewport, true);
                 ballFlash.draw(ctx);
-                ctx.resetViewportAndScissor();
                 sparks->draw(ctx);
             }
             break;
@@ -591,7 +618,7 @@ void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
             VkViewport vp = viewport;
             vp.x += m * ShakeXMag * bl::math::sin(t);
             vp.y += m * ShakeYMag * bl::math::cos(-t);
-            ctx.setViewport(vp, true);
+            ctx.setViewport(vp, false);
             peoplemon.draw(ctx);
         } break;
 
@@ -614,6 +641,7 @@ void PeoplemonAnimation::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
         case Animation::Type::StatDecrease:
         case Animation::Type::StatIncrease:
             peoplemon.draw(ctx);
+            ctx.resetScissor();
             statArrow.draw(ctx);
             break;
 

@@ -114,6 +114,11 @@ void StatBoxes::init(bl::rc::scene::CodeScene* scene) {
     lpHpBar.setParent(lpBox);
     lpXpBar.getTransform().setPosition(XpBarPos);
     lpXpBar.setParent(lpBox);
+
+    // size bars to 0 to start
+    lpHpBar.scaleToSize({0.f, BarSize.y});
+    opHpBar.scaleToSize({0.f, BarSize.y});
+    lpXpBar.scaleToSize({0.f, XpBarSize.y});
 }
 
 void StatBoxes::setOpponent(pplmn::BattlePeoplemon* ppl) {
@@ -240,7 +245,6 @@ bool StatBoxes::synced() const {
 
 void StatBoxes::render(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (oState != State::Hidden) {
-        opHpBar.draw(ctx);
         opHpBar.draw(ctx);
         opBox.draw(ctx);
         opName.draw(ctx);

@@ -66,7 +66,7 @@ void MoveAnimation::playAnimation(User user, pplmn::MoveId move) {
     playing->play();
 }
 
-bool MoveAnimation::completed() const { return playing && playing->finished(); }
+bool MoveAnimation::completed() const { return !playing || playing->finished(); }
 
 void MoveAnimation::renderBackground(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (playing) {
@@ -90,7 +90,7 @@ bool MoveAnimation::Anim::init(bl::engine::Engine& engine, bl::rc::scene::CodeSc
 
     auto bgSrc = AnimationManager::load(getMoveBackground(user, mid));
     auto fgSrc = AnimationManager::load(getMoveForeground(user, mid));
-    if (!bgSrc || !fgSrc) {
+    if (bgSrc->frameCount() == 0 || fgSrc->frameCount() == 0) {
         valid = false;
         return false;
     }
