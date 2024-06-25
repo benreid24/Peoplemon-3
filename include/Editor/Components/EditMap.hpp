@@ -692,10 +692,15 @@ private:
     unsigned int overlayLevel;
     unsigned int nextItemId;
 
+    std::vector<bl::resource::Ref<sf::Texture>> colGfx;
+    bl::resource::Ref<sf::Texture> arrowGfx;
+    std::vector<bl::resource::Ref<sf::Texture>> ltGfx;
+
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
     bool doLoad(const std::string& file);
     bool editorActivate();
+    void loadResources();
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;

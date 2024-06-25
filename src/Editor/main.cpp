@@ -77,7 +77,7 @@ int main(int, char**) {
         BL_LOG_INFO << "Core game systems initialized";
 
         BL_LOG_INFO << "Running engine main loop";
-        if (!engine.run(editor::state::MainEditor::create(systems))) {
+        if (!engine.run(std::bind(&editor::state::MainEditor::create, std::ref(systems)))) {
             BL_LOG_ERROR << "Engine exited with error";
             bl::util::Waiter::unblockAll();
             return 1;

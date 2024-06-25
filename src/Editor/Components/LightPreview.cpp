@@ -6,18 +6,12 @@ namespace editor
 {
 namespace component
 {
-namespace
-{
-bl::resource::Ref<sf::Image> txtr;
-}
-
 LightPreview::Ptr LightPreview::create(const sf::Vector2f& size) {
-    if (!txtr) { txtr = ImageManager::load("EditorResources/lightpreview.png"); }
     return Ptr(new LightPreview(size));
 }
 
 LightPreview::LightPreview(const sf::Vector2f& size)
-: Image(txtr)
+: Image(ImageManager::load("EditorResources/lightpreview.png"))
 , cover(size) {
     scaleToSize(size);
     cover.setFillColor(sf::Color::Transparent);

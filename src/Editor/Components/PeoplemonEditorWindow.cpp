@@ -264,18 +264,21 @@ PeoplemonEditorWindow::PeoplemonEditorWindow(PeoplemonDB& db, const OnChange& on
     subRow          = Box::create(rowPack);
     Box::Ptr subCol = Box::create(colPack);
     subCol->pack(Label::create("Thumbnail:"));
-    subCol->pack(thumbImg);
+    // TODO - pack image
+    // subCol->pack(thumbImg);
     subRow->pack(subCol, false, true);
     subRow->pack(imgReload);
     col->pack(subRow, true, false);
     subRow = Box::create(rowPack);
     subCol = Box::create(colPack);
     subCol->pack(Label::create("Player:"));
-    subCol->pack(playerImg);
+    // TODO - pack image
+    // subCol->pack(playerImg);
     subRow->pack(subCol, false, true);
     subCol = Box::create(colPack);
     subCol->pack(Label::create("Opponent:"));
-    subCol->pack(opImg);
+    // TODO - pack image
+    // subCol->pack(opImg);
     subRow->pack(subCol, false, true);
     col->pack(subRow, true, false);
     row->pack(col, false, true);
