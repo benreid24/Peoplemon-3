@@ -67,7 +67,8 @@ int main(int, char**) {
                         .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                         .withTitle("Peoplemon Editor")
                         .withIcon("EditorResources/icon.png")
-                        .withLetterBoxOnResize(false))
+                        .withLetterBoxOnResize(false)
+                        .withSyncOverlaySizeToWindow(true))
                 .withAllowVariableTimestep(false);
         bl::engine::Engine engine(engineSettings);
         BL_LOG_INFO << "Created engine";
