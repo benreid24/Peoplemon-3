@@ -33,3 +33,4 @@ target_sources(PeoplemonEditor PRIVATE
 )
 
 add_subdirectory(Helpers)
+add_subdirectory(Render)

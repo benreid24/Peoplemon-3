@@ -2,6 +2,7 @@
 #define EDITOR_COMPONENTS_HIGHLIGHTRADIOBUTTON_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/RadioButton.hpp>
+#include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
 {
@@ -12,7 +13,6 @@ namespace component
  *        highlight when it is active
  *
  * @ingroup UIComponents
- *
  */
 class HighlightRadioButton : public bl::gui::RadioButton {
 public:
@@ -30,12 +30,11 @@ public:
 
     /**
      * @brief Destroy the Highlight Radio Button
-     *
      */
     virtual ~HighlightRadioButton() = default;
 
 private:
-    mutable sf::RectangleShape highlight;
+    rdr::HighlightRadioButtonComponent component;
 
     HighlightRadioButton(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group* group);
 

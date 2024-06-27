@@ -11,27 +11,13 @@ HighlightRadioButton::Ptr HighlightRadioButton::create(Element::Ptr child,
 }
 
 HighlightRadioButton::HighlightRadioButton(Element::Ptr c, RadioButton::Group* g)
-: RadioButton(c, "", g) {
-    highlight.setFillColor(sf::Color(252, 252, 23, 128));
-}
+: RadioButton(c, "", g) {}
 
-void HighlightRadioButton::onAcquisition() {
-    ToggleButton::onAcquisition();
-    highlight.setSize({getAcquisition().width, getAcquisition().height});
-}
+void HighlightRadioButton::onAcquisition() { ToggleButton::onAcquisition(); }
 
 bl::gui::rdr::Component* HighlightRadioButton::doPrepareRender(bl::gui::rdr::Renderer& renderer) {
-    return nullptr;
+    return &component;
 }
-
-// void HighlightRadioButton::doRender(sf::RenderTarget& target, sf::RenderStates states,
-//                                     const Renderer& renderer) const {
-//     ToggleButton::doRender(target, states, renderer);
-//     if (getValue()) {
-//         highlight.setPosition(getPosition());
-//         target.draw(highlight, states);
-//     }
-// }
 
 } // namespace component
 } // namespace editor
