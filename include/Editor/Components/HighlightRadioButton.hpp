@@ -2,7 +2,6 @@
 #define EDITOR_COMPONENTS_HIGHLIGHTRADIOBUTTON_HPP
 
 #include <BLIB/Interfaces/GUI/Elements/RadioButton.hpp>
-#include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
 {
@@ -34,8 +33,6 @@ public:
     virtual ~HighlightRadioButton() = default;
 
 private:
-    rdr::HighlightRadioButtonComponent component;
-
     HighlightRadioButton(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group* group);
 
     virtual void onAcquisition() override;

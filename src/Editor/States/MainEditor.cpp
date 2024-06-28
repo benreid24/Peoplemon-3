@@ -1,6 +1,8 @@
 #include <Editor/States/MainEditor.hpp>
 
 #include <Core/Properties.hpp>
+#include <Editor/Components/HighlightRadioButton.hpp>
+#include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
 {
@@ -27,8 +29,6 @@ MainEditor::MainEditor(core::system::Systems& s)
          0.f,
          static_cast<float>(core::Properties::WindowWidth()) + 350.f,
          static_cast<float>(core::Properties::WindowHeight()) + 200.f});
-
-    // TODO - BLIB_UPGRADE - add custom gui components for rendering
 
     mapPage.registerGui(gui.get());
     variousEditorsPage.registerGui(gui.get());
@@ -89,6 +89,13 @@ void MainEditor::observe(const sf::Event& event) {
                         static_cast<float>(event.size.width),
                         static_cast<float>(event.size.height)});
     }
+}
+
+void MainEditor::registerCustomGuiComponents() {
+    using namespace component;
+    auto& table = bl::gui::rdr::FactoryTable::getDefaultTable();
+
+    table.registerFactoryForElement<HighlightRadioButton, rdr::HighlightRadioButtonComponent>();
 }
 
 } // namespace state

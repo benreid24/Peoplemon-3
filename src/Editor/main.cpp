@@ -55,6 +55,9 @@ int main(int, char**) {
     core::pplmn::Peoplemon::setDataSource(ppldb);
     BL_LOG_INFO << "Game metadata loaded";
 
+    editor::state::MainEditor::registerCustomGuiComponents();
+    BL_LOG_INFO << "Registered factories for custom GUI elements";
+
     {
         BL_LOG_INFO << "Creating engine instance";
         const bl::engine::Settings engineSettings =

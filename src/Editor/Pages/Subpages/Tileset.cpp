@@ -207,8 +207,7 @@ void Tileset::updateGui() {
     // tiles
     RadioButton::Group* group = nullptr;
     for (const auto& pair : tileset->getTiles()) {
-        // TODO - BLIB_UPGRADE - update tileset tile storage
-        /*Image::Ptr img = Image::create(pair->second);
+        Image::Ptr img = Image::create(pair->second);
         img->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(img, group);
@@ -220,7 +219,7 @@ void Tileset::updateGui() {
             button->setValue(true);
         }
         group = button->getRadioGroup();
-        tilesBox->pack(button);*/
+        tilesBox->pack(button);
     }
 
     // animations

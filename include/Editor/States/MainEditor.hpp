@@ -74,6 +74,11 @@ public:
      */
     virtual void update(bl::engine::Engine&, float dt, float) override;
 
+    /**
+     * @brief Registers renderer components for custom GUI elements
+     */
+    static void registerCustomGuiComponents();
+
 private:
     core::system::Systems& systems;
 

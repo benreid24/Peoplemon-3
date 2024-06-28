@@ -1,5 +1,7 @@
 #include <Editor/Components/HighlightRadioButton.hpp>
 
+#include <BLIB/Interfaces/GUI/Renderer/Renderer.hpp>
+
 namespace editor
 {
 namespace component
@@ -16,7 +18,7 @@ HighlightRadioButton::HighlightRadioButton(Element::Ptr c, RadioButton::Group* g
 void HighlightRadioButton::onAcquisition() { ToggleButton::onAcquisition(); }
 
 bl::gui::rdr::Component* HighlightRadioButton::doPrepareRender(bl::gui::rdr::Renderer& renderer) {
-    return &component;
+    return renderer.createComponent<HighlightRadioButton>(*this);
 }
 
 } // namespace component
