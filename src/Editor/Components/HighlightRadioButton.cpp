@@ -13,7 +13,9 @@ HighlightRadioButton::Ptr HighlightRadioButton::create(Element::Ptr child,
 }
 
 HighlightRadioButton::HighlightRadioButton(Element::Ptr c, RadioButton::Group* g)
-: RadioButton(c, "", g) {}
+: RadioButton(c, "", g) {
+    setToggleSize(18.f);
+}
 
 void HighlightRadioButton::onAcquisition() { ToggleButton::onAcquisition(); }
 

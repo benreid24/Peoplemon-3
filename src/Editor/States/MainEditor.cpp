@@ -27,8 +27,8 @@ MainEditor::MainEditor(core::system::Systems& s)
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
         {0.f,
          0.f,
-         static_cast<float>(core::Properties::WindowWidth()) + 350.f,
-         static_cast<float>(core::Properties::WindowHeight()) + 200.f});
+         static_cast<float>(s.engine().window().getSfWindow().getSize().x),
+         static_cast<float>(s.engine().window().getSfWindow().getSize().y)});
 
     mapPage.registerGui(gui.get());
     variousEditorsPage.registerGui(gui.get());

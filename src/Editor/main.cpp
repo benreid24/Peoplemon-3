@@ -64,8 +64,8 @@ int main(int, char**) {
             bl::engine::Settings()
                 .withWindowParameters(
                     bl::engine::Settings::WindowParameters()
-                        .withVideoMode(sf::VideoMode(core::Properties::WindowWidth() + 350,
-                                                     core::Properties::WindowHeight() + 200,
+                        .withVideoMode(sf::VideoMode(core::Properties::WindowWidth() + 350.f,
+                                                     core::Properties::WindowHeight() + 200.f,
                                                      32))
                         .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                         .withTitle("Peoplemon Editor")
