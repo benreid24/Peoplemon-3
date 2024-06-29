@@ -761,11 +761,11 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
                 if (isNum(id)) {
                     const unsigned int n = std::atoi(id);
                     if (mapArea.editMap().spawnIdUnused(n)) {
-                        mapArea.editMap().addSpawn(levelSelect->getSelectedOption(),
-                                                   tiles,
-                                                   n,
-                                                   static_cast<bl::tmap::Direction>(
-                                                       spawnDirEntry->getSelectedOption()));
+                        mapArea.editMap().addSpawn(
+                            levelSelect->getSelectedOption(),
+                            tiles,
+                            n,
+                            static_cast<bl::tmap::Direction>(spawnDirEntry->getSelectedOption()));
                     }
                 }
             }

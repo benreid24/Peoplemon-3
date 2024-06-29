@@ -34,22 +34,25 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     gbut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& e, Element*) {
         map->showGrid(e.toggleValue());
     });
+    positionLabel = Label::create("Tile: ()");
+    positionLabel->setHorizontalAlignment(RenderSettings::Right);
+    positionLabel->setVerticalAlignment(RenderSettings::Bottom);
     leftSide->pack(undoBut, false, true);
     leftSide->pack(redoBut, false, true);
     leftSide->pack(gbut, false, true);
+    leftSide->pack(positionLabel, true, true);
 
-    Box::Ptr rightSide = Box::create(
-        LinePacker::create(LinePacker::Horizontal, 4, LinePacker::Compact, LinePacker::RightAlign));
-    enableBut = CheckButton::create("Enable Map Controls");
+    Box::Ptr rightSide = Box::create(LinePacker::create(
+        LinePacker::Horizontal, 6.f, LinePacker::Compact, LinePacker::RightAlign));
+    enableBut          = CheckButton::create("Enable Map Controls");
     enableBut->setTooltip("Enable or disable map editing. Useful for not making accidental edits");
     enableBut->getSignal(Event::ValueChanged).willAlwaysCall([this](const Event& a, Element*) {
         map->setControlsEnabled(a.toggleValue());
     });
-    dragBut       = CheckButton::create("Enable drag");
-    positionLabel = Label::create("Tile: ()");
+    dragBut = CheckButton::create("Enable drag");
+
     rightSide->pack(enableBut, false, true);
     rightSide->pack(dragBut, false, true);
-    rightSide->pack(positionLabel, false, true);
 
     controlRow->pack(leftSide, true, false);
     controlRow->pack(rightSide, true, false);
