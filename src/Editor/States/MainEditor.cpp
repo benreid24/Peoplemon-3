@@ -11,7 +11,7 @@ namespace state
 MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new MainEditor(s)); }
 
 MainEditor::MainEditor(core::system::Systems& s)
-: State(bl::engine::StateMask::Paused)
+: State(bl::engine::StateMask::Editor)
 , systems(s)
 , mapPage(s)
 , variousEditorsPage(s)
