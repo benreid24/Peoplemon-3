@@ -227,6 +227,7 @@ void Tileset::updateGui() {
     for (const auto& pair : tileset->getAnims()) {
         Animation::Ptr anim = Animation::create(pair->second);
         anim->scaleToSize({56, 56});
+        anim->setVerticalAlignment(RenderSettings::Top);
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);
         button->getSignal(Event::LeftClicked).willAlwaysCall([this, pair](const Event&, Element*) {

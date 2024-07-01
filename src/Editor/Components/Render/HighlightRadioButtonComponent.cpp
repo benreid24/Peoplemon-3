@@ -28,7 +28,6 @@ void HighlightRadioButtonComponent::doCreate(bl::engine::Engine& engine,
     highlight.create(engine, {100.f, 100.f});
     highlight.setFillColor(sf::Color(252, 252, 23, 128));
     highlight.setParent(base.getEntity());
-    // TODO - depth bias?
 }
 
 void HighlightRadioButtonComponent::doSceneAdd(bl::rc::Overlay* overlay) {
