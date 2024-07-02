@@ -13,7 +13,6 @@ namespace component
  * @brief Special component that renders a clickable tree view of a conversation
  *
  * @ingroup UIComponents
- *
  */
 class ConversationTree : public bl::gui::Element {
 public:

@@ -14,7 +14,6 @@ namespace component
  * @brief Helper component for editing individual conversation nodes
  *
  * @ingroup UIComponents
- *
  */
 class ConversationNode {
 public:
@@ -64,7 +63,6 @@ public:
 
     /**
      * @brief Set the parent GUI object
-     *
      */
     void setParent(bl::gui::GUI* parent);
 

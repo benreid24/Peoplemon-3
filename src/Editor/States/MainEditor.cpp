@@ -1,7 +1,9 @@
 #include <Editor/States/MainEditor.hpp>
 
 #include <Core/Properties.hpp>
+#include <Editor/Components/ConversationTree.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
+#include <Editor/Components/Render/ConversationTreeComponent.hpp>
 #include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
@@ -96,6 +98,7 @@ void MainEditor::registerCustomGuiComponents() {
     auto& table = bl::gui::rdr::FactoryTable::getDefaultTable();
 
     table.registerFactoryForElement<HighlightRadioButton, rdr::HighlightRadioButtonComponent>();
+    table.registerFactoryForElement<ConversationTree, rdr::ConversationTreeComponent>();
 }
 
 } // namespace state
