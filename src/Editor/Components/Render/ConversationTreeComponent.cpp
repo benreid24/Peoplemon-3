@@ -29,21 +29,23 @@ void ensurePipelinesCreated(bl::engine::Engine& engine) {
         cache.createPipline(core::Properties::EditorConversationTreeShapePipelineId,
                             bl::rc::vk::PipelineParameters()
                                 .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                                .withSimpleDepthStencil(true)
                                 .addDescriptorSet<bl::rc::ds::TexturePoolFactory>()
                                 .addDescriptorSet<bl::rc::ds::Scene2DFactory>()
                                 .addDescriptorSet<bl::rc::ds::Object2DFactory>()
                                 .addDescriptorSet<CustomSetFactory>()
-                                .withShaders("Resources/Shaders/Editor/conversationTree.vert",
+                                .withShaders("Resources/Shaders/Editor/conversationTree.vert.spv",
                                              bl::rc::Config::ShaderIds::Fragment2DSkinnedLit)
                                 .build());
         cache.createPipline(core::Properties::EditorConversationTreeTextPipelineId,
                             bl::rc::vk::PipelineParameters()
                                 .withPrimitiveType(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST)
+                                .withSimpleDepthStencil(true)
                                 .addDescriptorSet<bl::rc::ds::TexturePoolFactory>()
                                 .addDescriptorSet<bl::rc::ds::Scene2DFactory>()
                                 .addDescriptorSet<bl::rc::ds::Object2DFactory>()
                                 .addDescriptorSet<CustomSetFactory>()
-                                .withShaders("Resources/Shaders/Editor/conversationTree.vert",
+                                .withShaders("Resources/Shaders/Editor/conversationTree.vert.spv",
                                              bl::rc::Config::ShaderIds::TextFragment)
                                 .build());
     }
@@ -156,10 +158,12 @@ void ConversationTreeComponent::onElementUpdated() {
         ++srcNode;
     }
 
-    uniform->center    = tree.getCamCenter();
-    uniform->zoom      = tree.getCamZoom();
-    uniform->acqSize.x = tree.getAcquisition().width;
-    uniform->acqSize.y = tree.getAcquisition().height;
+    if (uniform) {
+        uniform->center    = tree.getCamCenter();
+        uniform->zoom      = tree.getCamZoom();
+        uniform->acqSize.x = tree.getAcquisition().width;
+        uniform->acqSize.y = tree.getAcquisition().height;
+    }
 }
 
 void ConversationTreeComponent::onRenderSettingChange() {}
@@ -193,6 +197,8 @@ void ConversationTreeComponent::doSceneAdd(bl::rc::Overlay* overlay) {
                                             bl::rc::UpdateSpeed::Static,
                                             core::Properties::EditorConversationTreeTextPipelineId);
     }
+
+    uniform = &overlay->getDescriptorSet<CustomSet>().getBindingPayload<TreeCamera>();
 }
 
 void ConversationTreeComponent::doSceneRemove() { background.removeFromScene(); }
