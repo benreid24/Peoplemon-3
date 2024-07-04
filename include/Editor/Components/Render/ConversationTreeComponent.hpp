@@ -7,6 +7,7 @@
 #include <BLIB/Graphics/Rectangle.hpp>
 #include <BLIB/Graphics/Text.hpp>
 #include <BLIB/Interfaces/GUI/Renderer/Component.hpp>
+#include <memory>
 #include <vector>
 
 namespace editor
@@ -22,6 +23,12 @@ namespace rdr
  */
 class ConversationTreeComponent : public bl::gui::rdr::Component {
 public:
+    struct TreeCamera {
+        glm::vec2 center; // in virtual coords
+        glm::vec2 acqSize;
+        float zoom;
+    };
+
     /**
      * @brief Creates the component
      */
@@ -37,10 +44,12 @@ private:
     bl::gfx::BatchedShapes2D shapeBatch;
     std::vector<bl::gfx::BatchCircle> nodeCircles;
     std::vector<bl::gfx::BatchIcon> nodeArrows;
-    std::vector<bl::gfx::Text> nodeLabels;
+    std::vector<std::unique_ptr<bl::gfx::Text>> nodeLabels;
 
     bl::engine::Engine* enginePtr;
     bl::rc::Overlay* currentOverlay;
+    unsigned int lastTreeVersion;
+    TreeCamera* uniform;
 
     virtual void setVisible(bool visible) override;
     virtual void onElementUpdated() override;

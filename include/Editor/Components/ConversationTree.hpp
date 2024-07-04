@@ -4,6 +4,7 @@
 #include <BLIB/Graphics.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Files/Conversation.hpp>
+#include <Editor/Components/Render/ConversationTreeComponent.hpp>
 
 namespace editor
 {
@@ -17,6 +18,29 @@ namespace component
 class ConversationTree : public bl::gui::Element {
 public:
     using Ptr = std::shared_ptr<ConversationTree>;
+
+    static constexpr float NodeRadius        = 60.f;
+    static constexpr float NodeRadiusSquared = NodeRadius * NodeRadius;
+    static constexpr float NodePadding       = 100.f;
+    static constexpr float Spacing           = NodeRadius * 2.f + NodePadding;
+
+    struct Node {
+        glm::vec2 center;
+        bool terminator;
+        unsigned int index; // in source
+        std::string label;
+
+        Node() = default;
+        void setup(const sf::Vector2f& pos, const core::file::Conversation::Node& src,
+                   unsigned int i, bool terminator);
+
+        friend class ConversationTree;
+    };
+
+    struct Edge {
+        unsigned int from;
+        unsigned int to;
+    };
 
     /// Called when a node is clicked
     using ClickCb = std::function<void(unsigned int)>;
@@ -42,41 +66,61 @@ public:
      */
     void setSelected(unsigned int i);
 
+    /**
+     * @brief Used by the renderer component
+     */
+    const std::vector<Node>& getNodes() const { return renderNodes; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    const std::vector<Edge>& getEdges() const { return edges; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    unsigned int getSelectedNode() const { return selected; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    unsigned int getTreeVersion() const { return treeVersion; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    const glm::vec2& getCamCenter() const { return camCenter; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    float getCamZoom() const { return camZoom; }
+
+    /**
+     * @brief Used by the renderer component
+     */
+    bool shouldHighlightSelectedNode() const { return highlightSelected; }
+
 private:
-    // TODO - BLIB_UPGRADE - update conversation tree rendering
-
-    struct Node {
-        sf::Text label;
-        sf::Vector2f center;
-        unsigned int vBegin;
-        unsigned int vEnd;
-        bool terminator;
-        unsigned int index;
-
-        Node();
-        void setup(const sf::Vector2f& pos, unsigned int i,
-                   const core::file::Conversation::Node& node, unsigned int vi, unsigned int ve,
-                   bool terminator);
-    };
-
     const ClickCb clickCb;
-    mutable sf::View view;
-    sf::RectangleShape background;
-    // bl::gfx::VertexBuffer vertexBuffer;
     std::vector<Node> renderNodes;
+    std::vector<Edge> edges;
     unsigned int selected;
     float flashTime;
+    unsigned int treeVersion;
+    glm::vec2 camCenter;
+    float camZoom;
+    bool highlightSelected;
 
     ConversationTree(const ClickCb& clickCb);
 
-    void updateBackground();
     void onDrag(const bl::gui::Event& dragEvent);
     virtual bool handleScroll(const bl::gui::Event& zoomEvent) override;
     void onClick(const bl::gui::Event& clickEvent);
     void centerView();
+    sf::FloatRect getVirtualBounds() const;
 
     sf::Vector2f transformToTreeCoord(const sf::Vector2f& point) const;
-    void setSelectedColor(const sf::Color& color);
 
     virtual void update(float dt) override;
     virtual sf::Vector2f minimumRequisition() const override;
