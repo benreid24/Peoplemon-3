@@ -57,7 +57,7 @@ const sf::Color SelectedNodeColor(190, 190, 70);
 const sf::Color DownArrowColor(30, 220, 65);
 const sf::Color UpArrowColor(230, 90, 40);
 
-constexpr float ArrowWidth = 5.f;
+constexpr float ArrowWidth = 24.f;
 constexpr float ArrowDepth = 18.f;
 
 } // namespace
@@ -146,7 +146,7 @@ void ConversationTreeComponent::onElementUpdated() {
             arrow.getLocalTransform().setPosition(from.center + pdiff * 0.5f);
             arrow.getLocalTransform().setRotation(bl::math::radiansToDegrees(angle) + 90.f);
             // TODO - need to account for rotation?
-            arrow.getLocalTransform().setScale(gap / SrcSize, ArrowWidth / SrcSize);
+            arrow.getLocalTransform().setScale(ArrowWidth / SrcSize, gap / SrcSize);
             arrow.setFillColor(src.to > src.from ? DownArrowColor : UpArrowColor);
         }
     }
