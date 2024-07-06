@@ -127,6 +127,7 @@ void ConversationTree::update(const std::vector<core::file::Conversation::Node>&
     std::vector<bool> terminators(nodes.size(), false);
 
     // Initial setup
+    edges.clear();
     edges.reserve(nodes.size() * 2);
     toVisit.push(0);
     visited[0]     = true;

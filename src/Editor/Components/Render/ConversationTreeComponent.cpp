@@ -61,6 +61,7 @@ constexpr float ArrowWidth = 24.f;
 constexpr float ArrowDepth = 18.f;
 
 } // namespace
+
 ConversationTreeComponent::ConversationTreeComponent()
 : Component(HighlightState::IgnoresMouse)
 , enginePtr(nullptr)
@@ -132,21 +133,19 @@ void ConversationTreeComponent::onElementUpdated() {
             auto& arrow = nodeArrows[i];
             ++i;
 
-            if (!arrow.isCreated()) {
-                arrow.create(*enginePtr, shapeBatch);
-                arrow.getLocalTransform().setOrigin(SrcSize * 0.5f, SrcSize * 0.5f);
-            }
+            if (!arrow.isCreated()) { arrow.create(*enginePtr, shapeBatch); }
 
             const auto& from = tree.getNodes()[src.from];
             const auto& to   = tree.getNodes()[src.to];
 
             const glm::vec2 pdiff = to.center - from.center;
             const float gap = glm::length(pdiff) - ConversationTree::NodeRadius * 2.f + ArrowDepth;
-            const float angle = std::atan2f(pdiff.y, pdiff.x);
+            const float angle   = std::atan2f(pdiff.y, pdiff.x);
+            const float degrees = bl::math::radiansToDegrees(angle) + 90.f;
+            arrow.setSize({ArrowWidth, gap});
+            arrow.getLocalTransform().setOrigin(arrow.getSize() * 0.5f);
             arrow.getLocalTransform().setPosition(from.center + pdiff * 0.5f);
-            arrow.getLocalTransform().setRotation(bl::math::radiansToDegrees(angle) + 90.f);
-            // TODO - need to account for rotation?
-            arrow.getLocalTransform().setScale(ArrowWidth / SrcSize, gap / SrcSize);
+            arrow.getLocalTransform().setRotation(degrees);
             arrow.setFillColor(src.to > src.from ? DownArrowColor : UpArrowColor);
         }
     }
