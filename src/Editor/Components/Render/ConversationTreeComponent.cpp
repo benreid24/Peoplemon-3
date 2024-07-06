@@ -109,8 +109,16 @@ void ConversationTreeComponent::onElementUpdated() {
                 }
             }
             else { lbl->getSection().setString(src.label); }
-            lbl->getTransform().setOrigin(lbl->getLocalSize() * 0.5f);
-            lbl->getTransform().setPosition(src.center);
+            lbl->commit();
+
+            // reposition text vertices similar to how ShapeBatch works
+            bl::com::Transform2D transform;
+            transform.setOrigin(lbl->getLocalSize() * 0.5f);
+            transform.setPosition(src.center);
+            for (auto& v : lbl->component().vertices.vertices()) {
+                v.pos = transform.transformPoint(v.pos);
+            }
+            lbl->getTransform().setPosition(shapeBatch.getTransform().getLocalPosition());
 
             ++i;
         }
