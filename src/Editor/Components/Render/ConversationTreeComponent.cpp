@@ -35,7 +35,7 @@ void ensurePipelinesCreated(bl::engine::Engine& engine) {
                                 .addDescriptorSet<bl::rc::ds::Object2DFactory>()
                                 .addDescriptorSet<CustomSetFactory>()
                                 .withShaders("Resources/Shaders/Editor/conversationTree.vert.spv",
-                                             bl::rc::Config::ShaderIds::Fragment2DSkinnedLit)
+                                             bl::rc::Config::ShaderIds::Fragment2DUnlit)
                                 .build());
         cache.createPipline(core::Properties::EditorConversationTreeTextPipelineId,
                             bl::rc::vk::PipelineParameters()
@@ -136,7 +136,7 @@ void ConversationTreeComponent::onElementUpdated() {
             const float gap = glm::length(pdiff) - ConversationTree::NodeRadius * 2.f + ArrowDepth;
             const float angle = std::atan2f(pdiff.y, pdiff.x);
             arrow.getLocalTransform().setPosition(from.center + pdiff * 0.5f);
-            arrow.getLocalTransform().setRotation(bl::math::radiansToDegrees(angle));
+            arrow.getLocalTransform().setRotation(bl::math::radiansToDegrees(angle) + 90.f);
             // TODO - need to account for rotation?
             arrow.getLocalTransform().setScale(gap / SrcSize, ArrowWidth / SrcSize);
             arrow.setFillColor(src.to > src.from ? DownArrowColor : UpArrowColor);

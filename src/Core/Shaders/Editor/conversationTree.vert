@@ -1,4 +1,5 @@
 #version 450
+#extension GL_ARB_separate_shader_objects : enable
 
 layout(location = 0) in vec3 inPosition;
 layout(location = 1) in vec4 inColor;
@@ -28,14 +29,20 @@ layout( set = 3, binding = 0) uniform TreeCamera {
 
 void main() {
     vec2 gcsHalf = tcam.componentSize * 0.5;
-    mat4 virtualTransform = mat4(
-        tcam.zoom, 0.0, 0.0, gcsHalf.x - tcam.zoom * tcam.camCenter.x,
-        0.0, tcam.zoom, 0.0, gcsHalf.y - tcam.zoom * tcam.camCenter.y,
-        0.0, 0.0, 1.0, 0.0,
-        0.0, 0.0, 0.0, 1.0
-    );
 
-    vec4 localPos = virtualTransform * vec4(inPosition, 1.0);
+    mat4 vcam = mat4(1);
+    vcam[3][0] = gcsHalf.x;
+    vcam[3][1] = gcsHalf.y;
+
+    mat4 zoom = mat4(1);
+    zoom[0][0] = tcam.zoom;
+    zoom[1][1] = tcam.zoom;
+
+    mat4 move = mat4(1);
+    move[3][0] = -tcam.camCenter.x;
+    move[3][1] = -tcam.camCenter.y;
+
+    vec4 localPos = vcam * zoom * move * vec4(inPosition, 1.0);
     vec4 worldPos = object.model[gl_InstanceIndex] * localPos;
 
     gl_Position = camera.viewProj * worldPos;

@@ -99,7 +99,10 @@ ConversationTree::ConversationTree(const ClickCb& ccb)
 : clickCb(ccb)
 , selected(0)
 , flashTime(0.f)
-, treeVersion(0) {
+, treeVersion(0)
+, camCenter()
+, camZoom(1.f)
+, highlightSelected(true) {
     setTooltip(
         "Click and drag to move. Scroll to zoom. Click node to edit. Right click to center view.");
     getSignal(Event::Dragged)
