@@ -301,7 +301,7 @@ sf::FloatRect EditMap::EditCamera::getArea() const {
 sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
 
 bl::gui::rdr::Component* EditMap::doPrepareRender(bl::gui::rdr::Renderer& renderer) {
-    return nullptr;
+    return renderer.createComponent<EditMap>(*this);
 }
 
 // void EditMap::doRender(sf::RenderTarget& target, sf::RenderStates,

@@ -4,6 +4,7 @@
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
+#include <Editor/Components/Render/EditMapComponent.hpp>
 #include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
@@ -20,7 +21,6 @@ namespace component
  * @brief Wrapper over the core::Map class that is directly usable in a bl::gui::GUI
  *
  * @ingroup UIComponents
- *
  */
 class EditMap
 : public bl::gui::Element
@@ -37,7 +37,6 @@ public:
 
     /**
      * @brief Optional render overlays depending on editor state
-     *
      */
     enum struct RenderOverlay {
         /// No extra overlay
@@ -77,19 +76,16 @@ public:
 
     /**
      * @brief Destroy the Edit Map object
-     *
      */
     virtual ~EditMap() = default;
 
     /**
      * @brief Returns whether or not the map has been updated since last being saved
-     *
      */
     bool unsavedChanges() const;
 
     /**
      * @brief Returns the current file the map is saving to
-     *
      */
     const std::string& currentFile() const;
 
@@ -122,31 +118,26 @@ public:
 
     /**
      * @brief Returns the description of what action will be undone if undo is called
-     *
      */
     const char* undoDescription() const;
 
     /**
      * @brief Undoes the previous action in the edit history
-     *
      */
     void undo();
 
     /**
      * @brief Returns the description of what action will be redone if redo is called
-     *
      */
     const char* redoDescription() const;
 
     /**
      * @brief Reapplies the next action in the edit history
-     *
      */
     void redo();
 
     /**
      * @brief Enables or disables the map camera and click controls
-     *
      */
     void setControlsEnabled(bool enabled);
 
@@ -177,7 +168,6 @@ public:
 
     /**
      * @brief Set whether or not to render a grid between tiles
-     *
      */
     void showGrid(bool show);
 
@@ -230,7 +220,6 @@ public:
 
     /**
      * @brief Get the OnEnter script
-     *
      */
     const std::string& getOnEnterScript() const;
 
@@ -243,7 +232,6 @@ public:
 
     /**
      * @brief Get the OnExit script
-     *
      */
     const std::string& getOnExitScript() const;
 
@@ -258,7 +246,6 @@ public:
 
     /**
      * @brief Creates a new level
-     *
      */
     void appendLevel();
 
@@ -549,13 +536,11 @@ public:
 
     /**
      * @brief Adds a new catch region to the map
-     *
      */
     void addCatchRegion();
 
     /**
      * @brief Returns a reference to all catch regions
-     *
      */
     const std::vector<core::map::CatchRegion>& catchRegions() const;
 
@@ -576,7 +561,6 @@ public:
 
     /**
      * @brief Adds a town
-     *
      */
     void addTown();
 
@@ -643,8 +627,6 @@ public:
     void staticRender(const RenderMapWindow& params);
 
 private:
-    // TODO - BLIB_UPGRADE - update edit map rendering
-
     struct Action {
         using Ptr = std::shared_ptr<Action>;
 
@@ -709,6 +691,7 @@ private:
 
     friend class page::Map;
     friend class page::Towns;
+    friend class rdr::EditMapComponent;
 
     class SetNameAction;
     class SetPlaylistAction;

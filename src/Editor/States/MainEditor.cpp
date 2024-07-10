@@ -2,8 +2,10 @@
 
 #include <Core/Properties.hpp>
 #include <Editor/Components/ConversationTree.hpp>
+#include <Editor/Components/EditMap.hpp>
 #include <Editor/Components/HighlightRadioButton.hpp>
 #include <Editor/Components/Render/ConversationTreeComponent.hpp>
+#include <Editor/Components/Render/EditMapComponent.hpp>
 #include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
@@ -99,6 +101,7 @@ void MainEditor::registerCustomGuiComponents() {
 
     table.registerFactoryForElement<HighlightRadioButton, rdr::HighlightRadioButtonComponent>();
     table.registerFactoryForElement<ConversationTree, rdr::ConversationTreeComponent>();
+    table.registerFactoryForElement<EditMap, rdr::EditMapComponent>();
 }
 
 } // namespace state
