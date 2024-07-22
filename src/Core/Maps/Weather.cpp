@@ -41,13 +41,14 @@ Weather::Weather()
 : type(None)
 , state(Continuous)
 , stateTime(-1.f)
-, engine(nullptr) {}
+, owner(nullptr)
+, systems(nullptr) {}
 
 Weather::~Weather() { weather.reset(); }
 
-void Weather::activate(bl::engine::Engine& e, Map& m) {
-    engine = &e;
-    owner  = &m;
+void Weather::activate(system::Systems& sys, Map& m) {
+    systems = &sys;
+    owner   = &m;
 }
 
 void Weather::set(Type t, bool im) {
@@ -213,7 +214,7 @@ void Weather::makeWeather() {
     }
 
     if (weather) {
-        weather->start(*engine, *owner);
+        weather->start(systems->engine(), systems->render().getMainRenderTarget(), *owner);
         bl::event::Dispatcher::dispatch<event::WeatherStarted>({weather->type()});
     }
 }

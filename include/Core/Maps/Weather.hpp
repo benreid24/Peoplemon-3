@@ -103,10 +103,10 @@ public:
     /**
      * @brief Activates the weather system
      *
-     * @param engine The game engine instance
+     * @param systems The main game systems
      * @param map The map that the weather is in
      */
-    void activate(bl::engine::Engine& engine, Map& map);
+    void activate(system::Systems& systems, Map& map);
 
     /**
      * @brief Sets the current weather type
@@ -136,7 +136,7 @@ private:
     std::unique_ptr<weather::Base> weather;
     State state;
     float stateTime;
-    bl::engine::Engine* engine;
+    system::Systems* systems;
     Map* owner;
 
     void makeWeather();

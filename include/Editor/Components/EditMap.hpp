@@ -672,6 +672,7 @@ private:
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
+    bool setRenderTarget;
 
     std::vector<bl::resource::Ref<sf::Texture>> colGfx;
     bl::resource::Ref<sf::Texture> arrowGfx;

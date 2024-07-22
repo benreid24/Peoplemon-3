@@ -15,7 +15,6 @@ namespace weather
  * @brief Simple helper class for creating thunder in different weather types
  *
  * @ingroup Weather
- *
  */
 class Thunder {
 public:
@@ -29,13 +28,11 @@ public:
 
     /**
      * @brief Stops the thunder sound
-     *
      */
     ~Thunder();
 
     /**
      * @brief Prevents further thunder and fades out current strike if present
-     *
      */
     void stop();
 

@@ -45,9 +45,11 @@ public:
      * @brief Starts the fog
      *
      * @param engine The game engine instance
+     * @param renderTarget The render target the weather will be rendered to
      * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine, Map& map) override;
+    virtual void start(bl::engine::Engine& engine, bl::rc::RenderTarget& renderTarget,
+                       Map& map) override;
 
     /**
      * @brief Stops the fog

@@ -162,7 +162,7 @@ private:
 
 class TimeEmitter : public bl::pcl::Emitter<Snowflake> {
 public:
-    TimeEmitter(bl::rc::Observer& observer, std::size_t target)
+    TimeEmitter(bl::rc::RenderTarget& observer, std::size_t target)
     : observer(observer)
     , target(target)
     , residual(0.f) {}
@@ -190,7 +190,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     std::size_t target;
     float residual;
 };
@@ -214,7 +214,7 @@ Snow::~Snow() {
 
 Weather::Type Snow::type() const { return _type; }
 
-void Snow::start(bl::engine::Engine& e, Map& map) {
+void Snow::start(bl::engine::Engine& e, bl::rc::RenderTarget& renderTarget, Map& map) {
     engine    = &e;
     deadCount = 0;
 
@@ -228,11 +228,10 @@ void Snow::start(bl::engine::Engine& e, Map& map) {
         snowTxtr->normalizeAndConvertCoord(snowTxtr->size() * 0.5f);
     particles->getRenderer().getGlobals().radius = glm::length(snowTxtr->size()) * 0.5f;
 
-    emitter =
-        particles->addEmitter<snow::TimeEmitter>(e.renderer().getObserver(), targetParticleCount);
+    emitter = particles->addEmitter<snow::TimeEmitter>(renderTarget, targetParticleCount);
     particles->addAffector<snow::GravityAffector>(fallSpeed);
     particles->addSink<snow::TimeSink>();
-    particles->addToScene(e.renderer().getObserver().getCurrentScene());
+    particles->addToScene(renderTarget.getCurrentScene());
     particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
 }
 

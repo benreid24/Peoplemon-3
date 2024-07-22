@@ -35,7 +35,8 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 //, grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
 , renderOverlay(RenderOverlay::None)
 , overlayLevel(0)
-, nextItemId(0) {
+, nextItemId(0)
+, setRenderTarget(false) {
     systems = &s;
     loadResources();
 
@@ -136,6 +137,7 @@ bool EditMap::editorActivate() {
     Map::prepareRender();
     camera = nullptr;
 
+    weather.activate(*systems, *this);
     weather.set(weatherField);
     lighting.activate(getSceneLighting());
 
@@ -203,6 +205,16 @@ void EditMap::update(float dt) {
                 camera          = cam->setController<EditCameraController>(this);
                 camera->enabled = controlsEnabled;
                 camera->reset(sizeTiles());
+            }
+        }
+    }
+    if (!setRenderTarget) {
+        rdr::EditMapComponent* com = dynamic_cast<rdr::EditMapComponent*>(getComponent());
+        if (com) {
+            bl::rc::RenderTarget* rt = com->getTarget();
+            if (rt) {
+                systems->render().setMainRenderTarget(*rt);
+                setRenderTarget = true;
             }
         }
     }

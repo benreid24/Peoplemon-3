@@ -98,7 +98,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     enterTown(currentTown);
 
     // Activate camera and weather
-    weather.activate(game.engine(), *this);
+    weather.activate(game, *this);
 
     // Ensure lighting is updated for time
     lighting.subscribe();

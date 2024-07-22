@@ -43,13 +43,11 @@ public:
 
     /**
      * @brief Destroy the Rain
-     *
      */
     virtual ~Rain();
 
     /**
      * @brief One of LightRain, LightRainThunder, HardRain, or HardRainThunder
-     *
      */
     virtual Weather::Type type() const override;
 
@@ -57,13 +55,14 @@ public:
      * @brief Start the rain
      *
      * @param engine The game engine instance
+     * @param renderTarget The render target the weather will be rendered to
      * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine, Map& map) override;
+    virtual void start(bl::engine::Engine& engine, bl::rc::RenderTarget& renderTarget,
+                       Map& map) override;
 
     /**
      * @brief Stop the rain
-     *
      */
     virtual void stop() override;
 

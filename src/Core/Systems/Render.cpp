@@ -9,6 +9,7 @@ namespace system
 {
 Render::Render(Systems& o)
 : owner(o)
+, mainRenderTarget(&o.engine().renderer().getObserver())
 , pool(owner.engine().ecs().getAllComponents<component::Renderable>())
 , transformPool(owner.engine().ecs().getAllComponents<bl::com::Transform2D>()) {}
 
@@ -99,6 +100,8 @@ void Render::removeShadow(bl::ecs::Entity entity) {
         rc->shadow = bl::ecs::InvalidEntity;
     }
 }
+
+void Render::setMainRenderTarget(bl::rc::RenderTarget& rt) { mainRenderTarget = &rt; }
 
 } // namespace system
 } // namespace core
