@@ -186,7 +186,6 @@ LightingSystem& Map::lightingSystem() { return lighting; }
 void Map::update(float dt) {
     weather.update(dt);
     lighting.update(dt);
-    // TODO - refresh render range
 }
 
 std::string Map::getMapFile(const std::string& file) {

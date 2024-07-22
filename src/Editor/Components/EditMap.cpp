@@ -1,6 +1,7 @@
 #include <Editor/Components/EditMap.hpp>
 
 #include "MapActions.hpp"
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <Core/Items/Item.hpp>
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
@@ -12,7 +13,6 @@ namespace editor
 {
 namespace component
 {
-
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
                              core::system::Systems& systems) {
@@ -29,7 +29,7 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , moveCb(mcb)
 , actionCb(actionCb)
 , syncCb(syncCb)
-, camera()
+, camera(nullptr)
 , controlsEnabled(false)
 , renderGrid(false)
 //, grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
@@ -119,15 +119,14 @@ bool EditMap::editorActivate() {
             static_cast<int>(levels.front().bottomLayers().front().height())};
     bl::event::Dispatcher::dispatch<core::event::MapSwitch>({*this});
 
-    camera.reset(size);
-
     tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField));
     if (!tileset) return false;
-    /*tileset->activate();
-    for (core::map::LayerSet& level : levels) { level.activate(*tileset); }*/
+    tileset->activate(systems->engine());
+    Map::prepareRender();
+    camera = nullptr;
 
     weather.set(weatherField);
-    // lighting.activate(getSceneLighting());
+    lighting.activate(getSceneLighting());
 
     core::script::LegacyWarn::warn(loadScriptField);
     core::script::LegacyWarn::warn(unloadScriptField);
@@ -137,13 +136,13 @@ bool EditMap::editorActivate() {
         lighting.subscribe();
     }
 
-    /*for (const core::map::CharacterSpawn& spawn : characterField) {
+    for (const core::map::CharacterSpawn& spawn : characterField) {
         if (systems->entity().spawnCharacter(spawn, *this) == bl::ecs::InvalidEntity) {
             BL_LOG_WARN << "Failed to spawn character: " << spawn.file;
         }
     }
 
-    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item, *this); }*/
+    for (const core::map::Item& item : itemsField) { systems->entity().spawnItem(item, *this); }
 
     bl::event::Dispatcher::dispatch<core::event::MapEntered>({*this});
 
@@ -181,14 +180,25 @@ bool EditMap::editorActivate() {
 bool EditMap::unsavedChanges() const { return saveHead != historyHead; }
 
 void EditMap::update(float dt) {
-    // TODO - re-enable
-    /*Map::update(dt);
-    camera.update(dt, sizePixels());*/
+    Map::update(dt);
+    if (scene && !camera) {
+        rdr::EditMapComponent* com = dynamic_cast<rdr::EditMapComponent*>(getComponent());
+        if (com) {
+            bl::rc::RenderTarget* rt = com->getTarget();
+            if (rt) {
+                bl::cam::Camera2D* cam = rt->setCamera<bl::cam::Camera2D>(
+                    glm::vec2{sizePixels().x, sizePixels().y},
+                    glm::vec2{getAcquisition().width, getAcquisition().height});
+                camera          = cam->setController<EditCameraController>(this);
+                camera->enabled = controlsEnabled;
+            }
+        }
+    }
 }
 
 void EditMap::setControlsEnabled(bool e) {
     controlsEnabled = e;
-    camera.enabled  = e;
+    if (camera) { camera->enabled = controlsEnabled; }
 }
 
 void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] = v; }
@@ -234,68 +244,62 @@ void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
     }
 }
 
-EditMap::EditCamera::EditCamera()
+EditMap::EditCameraController::EditCameraController(EditMap* owner)
 : enabled(false)
-, position(core::Properties::WindowSize() * 0.5f) {}
+, owner(owner) {}
 
-void EditMap::EditCamera::update(float dt, const sf::Vector2f& sp) {
+void EditMap::EditCameraController::update(float dt) {
     if (enabled) {
         float PixelsPerSecond =
             0.5f * zoomAmount * static_cast<float>(core::Properties::WindowWidth());
-        static const float ZoomPerSecond = 1.f;
+        constexpr float ZoomPerSecond = 1.f;
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) PixelsPerSecond *= 5.f;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) { PixelsPerSecond *= 5.f; }
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ||
             sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            position.y -= PixelsPerSecond * dt;
+            camera().move({0.f, -PixelsPerSecond * dt});
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right) ||
             sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            position.x += PixelsPerSecond * dt;
+            camera().move({PixelsPerSecond * dt, 0.f});
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) ||
             sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            position.y += PixelsPerSecond * dt;
+            camera().move({0.f, PixelsPerSecond * dt});
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left) ||
             sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            position.x -= PixelsPerSecond * dt;
+            camera().move({-PixelsPerSecond * dt, 0.f});
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::C)) { zoom(-ZoomPerSecond * dt); }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::V)) { zoom(ZoomPerSecond * dt); }
-
-        const float w = getArea().width;
-        const float h = getArea().height;
-
-        // constrain
-        if (position.x - w * 0.5f < 0.f) { position.x = w * 0.5f; }
-        if (position.x + w * 0.5f > sp.x) { position.x = sp.x - w * 0.5f; }
-        if (position.y - h * 0.5f < 0.f) { position.y = h * 0.5f; }
-        if (position.y + h * 0.5f > sp.y) { position.y = sp.y - h * 0.5f; }
     }
+
+    // always constrain
+    const float w      = camera().getSize().x;
+    const float h      = camera().getSize().y;
+    glm::vec2 position = camera().getCenter();
+    if (position.x - w * 0.5f < 0.f) { position.x = w * 0.5f; }
+    if (position.x + w * 0.5f > mapSize.x) { position.x = mapSize.x - w * 0.5f; }
+    if (position.y - h * 0.5f < 0.f) { position.y = h * 0.5f; }
+    if (position.y + h * 0.5f > mapSize.y) { position.y = mapSize.y - h * 0.5f; }
+    camera().setCenter(position);
+
+    // always set size
+    const sf::FloatRect& acq = owner->getAcquisition();
+    camera().setSize(glm::vec2(acq.width, acq.height) * zoomAmount);
 }
 
-void EditMap::EditCamera::reset(const sf::Vector2i& t) {
-    position   = sf::Vector2f(t) * static_cast<float>(core::Properties::PixelsPerTile()) * 0.5f;
+void EditMap::EditCameraController::reset(const sf::Vector2i& t) {
+    mapSize = glm::vec2(t.x, t.y) * static_cast<float>(core::Properties::PixelsPerTile());
+    camera().setCenter(mapSize * 0.5f);
     zoomAmount = 1.5f;
 }
 
-void EditMap::EditCamera::zoom(float z) {
+void EditMap::EditCameraController::zoom(float z) {
     zoomAmount += z;
-    if (zoomAmount < 0.1f) zoomAmount = 0.1f;
-}
-
-void EditMap::EditCamera::apply(sf::RenderTarget& target) const {
-    sf::View view = target.getView();
-    view.setCenter(position);
-    view.setSize(view.getSize() * zoomAmount);
-    target.setView(view);
-}
-
-sf::FloatRect EditMap::EditCamera::getArea() const {
-    return sf::FloatRect(position - core::Properties::WindowSize() * 0.5f,
-                         core::Properties::WindowSize());
+    if (zoomAmount < 0.1f) { zoomAmount = 0.1f; }
 }
 
 sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
@@ -317,7 +321,7 @@ bl::gui::rdr::Component* EditMap::doPrepareRender(bl::gui::rdr::Renderer& render
 
 bool EditMap::handleScroll(const bl::gui::Event& event) {
     const bool c = getAcquisition().contains(event.mousePosition());
-    if (controlsEnabled && c) camera.zoom(-event.scrollDelta() * 0.1f);
+    if (controlsEnabled && c) { camera->zoom(-event.scrollDelta() * 0.1f); }
     return c;
 }
 

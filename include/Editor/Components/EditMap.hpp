@@ -1,6 +1,7 @@
 #ifndef EDITOR_COMPONENTS_EDITMAP_HPP
 #define EDITOR_COMPONENTS_EDITMAP_HPP
 
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
@@ -640,18 +641,16 @@ private:
     unsigned int saveHead;
     void addAction(const Action::Ptr& action);
 
-    struct EditCamera {
-        using Ptr = std::shared_ptr<EditCamera>;
-
-        EditCamera();
-        void update(float dt, const sf::Vector2f& area);
+    struct EditCameraController : public bl::cam::CameraController2D {
+        EditCameraController(EditMap* owner);
+        virtual ~EditCameraController() = default;
+        virtual void update(float dt) override;
         void reset(const sf::Vector2i& size);
         void zoom(float z);
-        sf::FloatRect getArea() const;
-        void apply(sf::RenderTarget& target) const;
 
+        EditMap* owner;
         bool enabled;
-        sf::Vector2f position;
+        glm::vec2 mapSize;
         float zoomAmount;
     };
 
@@ -659,7 +658,7 @@ private:
     const PositionCb moveCb;
     const ActionCb actionCb;
     const ActionCb syncCb;
-    EditCamera camera;
+    EditCameraController* camera;
     bool controlsEnabled;
     std::string savefile;
     std::vector<bool> levelFilter;

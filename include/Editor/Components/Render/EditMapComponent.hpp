@@ -11,11 +11,27 @@ namespace component
 {
 namespace rdr
 {
+/**
+ * @brief GUI renderer component for the map itself
+ */
 class EditMapComponent : public bl::gui::rdr::Component {
 public:
+    /**
+     * @brief Creates the component
+     */
     EditMapComponent();
 
+    /**
+     * @brief Destroys the component
+     */
     virtual ~EditMapComponent() = default;
+
+    /**
+     * @brief Returns the render target the map is being rendered to
+     */
+    bl::rc::RenderTarget* getTarget() {
+        return renderTexture ? renderTexture.operator->() : nullptr;
+    }
 
 private:
     bl::engine::Engine* enginePtr;

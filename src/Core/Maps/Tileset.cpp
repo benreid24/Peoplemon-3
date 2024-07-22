@@ -22,7 +22,7 @@ Tile::IdType Tileset::addTexture(const std::string& uri) {
         textureAtlas.try_emplace(nextTextureId, textureStitcher.value().addImage(*it->second));
         combinedTextures->ensureSize({textureStitcher.value().getStitchedImage().getSize().x,
                                       textureStitcher.value().getStitchedImage().getSize().y});
-        combinedTextures->update(textureStitcher.value().getStitchedImage());
+        combinedTextures.asBindlessTexture()->update(textureStitcher.value().getStitchedImage());
     }
     return nextTextureId++;
 }

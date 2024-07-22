@@ -1,5 +1,6 @@
 #include <Editor/Components/Render/EditMapComponent.hpp>
 
+#include <Core/Properties.hpp>
 #include <Editor/Components/EditMap.hpp>
 
 namespace editor
@@ -20,7 +21,7 @@ void EditMapComponent::onElementUpdated() {
         if (renderTexture->sceneCount() > 0) { renderTexture->popScene(); }
         renderTexture->pushScene(owner.scene);
 
-        // TODO - new scene means recreate overlay entities
+        // TODO - new scene means recreate overlay entities - manage in EditMap?
     }
 
     // TODO - overlays, etc
@@ -37,7 +38,7 @@ void EditMapComponent::doCreate(bl::engine::Engine& engine, bl::gui::rdr::Render
     auto& owner = getOwnerAs<EditMap>();
 
     renderTexture = engine.renderer().createRenderTexture(
-        glm::u32vec2(owner.getAcquisition().width, owner.getAcquisition().height));
+        glm::u32vec2(core::Properties::WindowWidth(), core::Properties::WindowHeight()));
     sprite.create(engine, renderTexture->getTexture());
 }
 
@@ -49,12 +50,16 @@ void EditMapComponent::doSceneRemove() { sprite.removeFromScene(); }
 
 void EditMapComponent::handleAcquisition() {
     EditMap& owner = getOwnerAs<EditMap>();
+
+    // only respond to valid acquisition
     const glm::u32vec2 acq(owner.getAcquisition().width, owner.getAcquisition().height);
-    if (acq != renderTexture->getSize()) {
-        renderTexture->resize(acq);
-        sprite.scaleToSize(acq);
+    if (acq.x > 0 && acq.x < 5000 && acq.y > 0 && acq.y < 5000) {
+        if (acq != renderTexture->getSize()) {
+            renderTexture->resize(acq);
+            sprite.scaleToSize(acq);
+        }
+        handleMove();
     }
-    handleMove();
 }
 
 void EditMapComponent::handleMove() {
