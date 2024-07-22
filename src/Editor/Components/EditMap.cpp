@@ -43,8 +43,19 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
         static const float PixelRatio = 1.f / static_cast<float>(core::Properties::PixelsPerTile());
 
         const sf::Vector2i mouse = sf::Mouse::getPosition(s.engine().window().getSfWindow());
-        const sf::Vector2f pixels(mouse); // TODO - BLIB_UPGRADE
-        // s.engine().window().mapPixelToCoords(mouse, renderView);
+        sf::Vector2f pixels(mouse);
+        pixels -= sf::Vector2f(getAcquisition().left, getAcquisition().top);
+
+        rdr::EditMapComponent* com = dynamic_cast<rdr::EditMapComponent*>(getComponent());
+        if (com) {
+            bl::rc::RenderTarget* rt = com->getTarget();
+            if (rt) {
+                const glm::vec2 wpos = rt->transformToWorldSpace({pixels.x, pixels.y});
+                pixels.x             = wpos.x;
+                pixels.y             = wpos.y;
+            }
+        }
+
         const sf::Vector2i tiles(std::floor(pixels.x * PixelRatio),
                                  std::floor(pixels.y * PixelRatio));
         cb(pixels, tiles);
@@ -191,6 +202,7 @@ void EditMap::update(float dt) {
                     glm::vec2{getAcquisition().width, getAcquisition().height});
                 camera          = cam->setController<EditCameraController>(this);
                 camera->enabled = controlsEnabled;
+                camera->reset(sizeTiles());
             }
         }
     }
@@ -280,10 +292,16 @@ void EditMap::EditCameraController::update(float dt) {
     const float w      = camera().getSize().x;
     const float h      = camera().getSize().y;
     glm::vec2 position = camera().getCenter();
-    if (position.x - w * 0.5f < 0.f) { position.x = w * 0.5f; }
-    if (position.x + w * 0.5f > mapSize.x) { position.x = mapSize.x - w * 0.5f; }
-    if (position.y - h * 0.5f < 0.f) { position.y = h * 0.5f; }
-    if (position.y + h * 0.5f > mapSize.y) { position.y = mapSize.y - h * 0.5f; }
+    if (mapSize.x > w) {
+        if (position.x - w * 0.5f < 0.f) { position.x = w * 0.5f; }
+        if (position.x + w * 0.5f > mapSize.x) { position.x = mapSize.x - w * 0.5f; }
+    }
+    else { position.x = mapSize.x * 0.5f; }
+    if (mapSize.y > h) {
+        if (position.y - h * 0.5f < 0.f) { position.y = h * 0.5f; }
+        if (position.y + h * 0.5f > mapSize.y) { position.y = mapSize.y - h * 0.5f; }
+    }
+    else { position.y = mapSize.y * 0.5f; }
     camera().setCenter(position);
 
     // always set size
@@ -294,6 +312,7 @@ void EditMap::EditCameraController::update(float dt) {
 void EditMap::EditCameraController::reset(const sf::Vector2i& t) {
     mapSize = glm::vec2(t.x, t.y) * static_cast<float>(core::Properties::PixelsPerTile());
     camera().setCenter(mapSize * 0.5f);
+    camera().setNearAndFarPlanes(-owner->getMinDepth(), 0.f);
     zoomAmount = 1.5f;
 }
 
