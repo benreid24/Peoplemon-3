@@ -8,7 +8,6 @@ layout(location = 0) out vec4 fragColor;
 layout(location = 1) out vec2 fragTexCoords;
 layout(location = 2) flat out uint fragTextureId;
 layout(location = 3) out vec2 fragPos;
-layout(location = 4) out flat float rotation;
 
 layout(set = 1, binding = 0) uniform cam {
     mat4 viewProj;
@@ -29,9 +28,7 @@ layout(std140, set = 2, binding = 1) uniform gpinfo {
 } globalInfo;
 
 layout(set = 2, binding = 2) uniform gpcl {
-    vec2 texCoordCenter;
     uint textureId;
-    float radius;
 } globals;
 
 void main() {
@@ -54,10 +51,8 @@ void main() {
         alpha = max(1.0 - p, 0.0);
     }
 
-    gl_PointSize = globals.radius * globalInfo.cameraToWindowScale;
-    fragTexCoords = globals.texCoordCenter;
+    fragTexCoords = inTexCoords;
     fragTextureId = globals.textureId;
     fragPos = worldPos.xy;
     fragColor = vec4(1.0, 1.0, 1.0, alpha);
-    rotation = 0.0;
 }

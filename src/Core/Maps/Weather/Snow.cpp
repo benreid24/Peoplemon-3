@@ -58,9 +58,7 @@ struct GpuSnowflake {
 };
 
 struct alignas(8) GlobalShaderInfo {
-    glm::vec2 textureCenter;
     std::uint32_t textureId;
-    float radius;
 };
 } // namespace snow
 } // namespace weather
@@ -92,10 +90,9 @@ struct RenderConfigMap<Snowflake> {
                                             bl::pcl::DescriptorSetFactory<Snowflake, GpuSnowflake>>;
 
     static constexpr bool EnableDepthTesting      = true;
-    static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST;
-    static constexpr const char* VertexShader = "Resources/Shaders/Particles/snowflake.vert.spv";
-    static constexpr const char* FragmentShader =
-        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle;
+    static constexpr VkPrimitiveTopology Topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+    static constexpr const char* VertexShader   = "Resources/Shaders/Particles/snowflake.vert.spv";
+    static constexpr const char* FragmentShader = bl::rc::Config::ShaderIds::Fragment2DSkinnedLit;
 };
 } // namespace pcl
 } // namespace bl
@@ -223,16 +220,16 @@ void Snow::start(bl::engine::Engine& e, bl::rc::RenderTarget& renderTarget, Map&
 
     particles = &e.particleSystem().getUniqueSystem<snow::Snowflake>();
 
-    particles->getRenderer().getGlobals().textureId = snowTxtr.id();
-    particles->getRenderer().getGlobals().textureCenter =
-        snowTxtr->normalizeAndConvertCoord(snowTxtr->size() * 0.5f);
-    particles->getRenderer().getGlobals().radius = glm::length(snowTxtr->size()) * 0.5f;
-
     emitter = particles->addEmitter<snow::TimeEmitter>(renderTarget, targetParticleCount);
     particles->addAffector<snow::GravityAffector>(fallSpeed);
     particles->addSink<snow::TimeSink>();
     particles->addToScene(renderTarget.getCurrentScene());
-    particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
+
+    particles->getRenderer().getGlobals().textureId = snowTxtr.id();
+    particles->getRenderer().getComponent()->makeSprite(snowTxtr);
+    for (auto& v : particles->getRenderer().getComponent()->vertexBuffer.vertices()) {
+        v.pos.z = map.getMinDepth();
+    }
 }
 
 void Snow::stop() {
