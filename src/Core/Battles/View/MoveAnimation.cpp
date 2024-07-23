@@ -70,13 +70,13 @@ bool MoveAnimation::completed() const { return !playing || playing->finished(); 
 
 void MoveAnimation::renderBackground(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (playing) {
-        if (playing->background.getPlayer().isPlaying) { playing->background.draw(ctx); }
+        if (playing->background.getPlayer().playing()) { playing->background.draw(ctx); }
     }
 }
 
 void MoveAnimation::renderForeground(bl::rc::scene::CodeScene::RenderContext& ctx) {
     if (playing) {
-        if (playing->foreground.getPlayer().isPlaying) { playing->foreground.draw(ctx); }
+        if (playing->foreground.getPlayer().playing()) { playing->foreground.draw(ctx); }
     }
 }
 
@@ -112,7 +112,7 @@ void MoveAnimation::Anim::play() {
 }
 
 bool MoveAnimation::Anim::finished() const {
-    return !valid || (!background.getPlayer().isPlaying && !foreground.getPlayer().isPlaying);
+    return !valid || (!background.getPlayer().playing() && !foreground.getPlayer().playing());
 }
 
 } // namespace view
