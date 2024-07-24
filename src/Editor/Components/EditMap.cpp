@@ -31,8 +31,6 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , syncCb(syncCb)
 , camera(nullptr)
 , controlsEnabled(false)
-, renderGrid(false)
-//, grid(sf::PrimitiveType::Lines, sf::VertexBuffer::Static, 0)
 , renderOverlay(RenderOverlay::None)
 , overlayLevel(0)
 , nextItemId(0)
@@ -170,24 +168,6 @@ bool EditMap::editorActivate() {
 
     actionCb();
 
-    /*grid.resize((size.x + size.y + 2) * 2);
-    for (int x = 0; x <= size.x * 2; x += 2) {
-        grid[x].color     = sf::Color::Black;
-        grid[x + 1].color = sf::Color::Black;
-        grid[x].position  = sf::Vector2f(x / 2 * core::Properties::PixelsPerTile(), 0.f);
-        grid[x + 1].position =
-            sf::Vector2f(x / 2 * core::Properties::PixelsPerTile(), sizePixels().y);
-    }
-    const int o = size.x * 2;
-    for (int y = 0; y <= size.y * 2; y += 2) {
-        grid[y + o].color     = sf::Color::Black;
-        grid[y + 1 + o].color = sf::Color::Black;
-        grid[y + o].position  = sf::Vector2f(0.f, y / 2 * core::Properties::PixelsPerTile());
-        grid[y + 1 + o].position =
-            sf::Vector2f(sizePixels().x, y / 2 * core::Properties::PixelsPerTile());
-    }
-    grid.update();*/
-
     return true;
 }
 
@@ -206,6 +186,7 @@ void EditMap::update(float dt) {
                 camera          = cam->setController<EditCameraController>(this);
                 camera->enabled = controlsEnabled;
                 camera->reset(sizeTiles());
+                setupOverlay();
             }
         }
     }
@@ -237,7 +218,7 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
     overlayLevel  = l;
 }
 
-void EditMap::showGrid(bool s) { renderGrid = s; }
+void EditMap::showGrid(bool s) { grid.setHidden(!s); }
 
 void EditMap::showSelection(const sf::IntRect& s) { selection = s; }
 
@@ -1006,6 +987,35 @@ void EditMap::loadResources() {
              TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png"),
              TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png"),
              TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png")};
+}
+
+void EditMap::setupOverlay() {
+    // grid
+    constexpr glm::vec4 Black(0.f, 0.f, 0.f, 1.f);
+    if (grid.exists()) { grid.resize((size.x + size.y + 2) * 2, false); }
+    else {
+        grid.create(systems->engine(), (size.x + size.y + 2) * 2);
+        grid.setHidden(true);
+    }
+    for (int x = 0; x <= size.x * 2; x += 2) {
+        grid[x].color     = Black;
+        grid[x + 1].color = Black;
+        grid[x].pos       = glm::vec3(x / 2 * core::Properties::PixelsPerTile(), 0.f, 0.f);
+        grid[x + 1].pos = glm::vec3(x / 2 * core::Properties::PixelsPerTile(), sizePixels().y, 0.f);
+    }
+    const int o = size.x * 2;
+    for (int y = 0; y <= size.y * 2; y += 2) {
+        grid[y + o].color     = Black;
+        grid[y + 1 + o].color = Black;
+        grid[y + o].pos       = glm::vec3(0.f, y / 2 * core::Properties::PixelsPerTile(), 0.f);
+        grid[y + 1 + o].pos =
+            glm::vec3(sizePixels().x, y / 2 * core::Properties::PixelsPerTile(), 0.f);
+    }
+    grid.component().containsTransparency = true;
+    grid.getTransform().setDepth(getMinDepth());
+    grid.commit();
+    grid.addToSceneWithCustomPipeline(
+        scene, bl::rc::UpdateSpeed::Static, bl::rc::Config::PipelineIds::Lines2D);
 }
 
 } // namespace component

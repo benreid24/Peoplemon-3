@@ -664,11 +664,11 @@ private:
     std::vector<bool> levelFilter;
     std::vector<std::vector<bool>> layerFilter;
     sf::IntRect selection;
+
     mutable sf::View renderView;
     mutable sf::RectangleShape selectRect;
     mutable sf::Sprite overlaySprite;
-    bool renderGrid;
-    // bl::gfx::VertexBuffer grid;
+    bl::gfx::VertexBuffer2D grid;
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
@@ -683,6 +683,7 @@ private:
     bool doLoad(const std::string& file);
     bool editorActivate();
     void loadResources();
+    void setupOverlay();
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
