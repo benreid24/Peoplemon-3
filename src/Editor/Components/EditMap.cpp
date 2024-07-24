@@ -135,6 +135,7 @@ bool EditMap::editorActivate() {
     if (!tileset) return false;
     tileset->activate(systems->engine());
     Map::prepareRender();
+    if (getComponent()) { getComponent()->onElementUpdated(); }
     camera = nullptr;
 
     weather.activate(*systems, *this);

@@ -521,6 +521,9 @@ bool Map::interact(bl::ecs::Entity interactor, const bl::tmap::Position& pos) {
 }
 
 void Map::clear() {
+    // Clear batch buffers first for speedier cleanup than if tiles are destroyed first
+    renderLevels.clear();
+
     levels.clear();
     spawns.clear();
     characterField.clear();
@@ -533,7 +536,6 @@ void Map::clear() {
     weatherField = Weather::None;
     weather.set(Weather::None, true);
     cleanupRender();
-    // renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
 Town* Map::getTown(const glm::i32vec2& pos) {
