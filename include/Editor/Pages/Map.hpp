@@ -7,6 +7,7 @@
 #include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/PlaylistEditorWindow.hpp>
+#include <Editor/Components/RenderMapWindow.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -15,7 +16,6 @@
 #include <Editor/Pages/Subpages/Levels.hpp>
 #include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
-#include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
 {
@@ -111,6 +111,7 @@ private:
 
     sf::IntRect selection;
     enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;
+    void setSelectionState(SelectionState newState);
 
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;

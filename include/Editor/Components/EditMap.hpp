@@ -665,9 +665,7 @@ private:
     std::vector<std::vector<bool>> layerFilter;
     sf::IntRect selection;
 
-    mutable sf::RectangleShape selectRect;
-    mutable sf::Sprite overlaySprite;
-
+    bl::gfx::Rectangle selectRect;
     bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
     bl::gfx::BatchedShapes2D townSquareBatch;
     bl::gfx::VertexBuffer2D grid;

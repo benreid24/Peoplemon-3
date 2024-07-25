@@ -158,13 +158,13 @@ Map::Map(core::system::Systems& s)
     });
     Button::Ptr tileDeselectBut = Button::create("Deselect");
     tileDeselectBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        selectionState = NoSelection;
+        setSelectionState(NoSelection);
     });
     Button::Ptr selectAllBut = Button::create("All");
     selectAllBut->setTooltip("Select all tiles");
     selectAllBut->getSignal(Event::LeftClicked).willAlwaysCall([this](const Event&, Element*) {
-        selectionState = SelectionMade;
-        selection      = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
+        selection = {sf::Vector2i(0, 0), mapArea.editMap().sizeTiles()};
+        setSelectionState(SelectionMade);
     });
     box->pack(tileSetBut, true, true);
     box->pack(fillBut, true, true);
@@ -462,12 +462,6 @@ Map::Map(core::system::Systems& s)
 }
 
 void Map::update(float) {
-    if (selectionState == SelectionMade) { mapArea.editMap().showSelection(selection); }
-    else if (selectionState == Selecting) {
-        mapArea.editMap().showSelection({selection.left, selection.top, -1, -1});
-    }
-    else { mapArea.editMap().showSelection({0, 0, 0, 0}); }
-
     switch (tileset.getActiveTool()) {
     case Tileset::CollisionTiles:
         mapArea.editMap().setRenderOverlay(component::EditMap::RenderOverlay::Collisions,
@@ -512,6 +506,15 @@ void Map::update(float) {
         saveMapBut->setColor(sf::Color(200, 185, 20), sf::Color::Red);
     }
     else { saveMapBut->setColor(sf::Color::Green, sf::Color::Black); }
+}
+
+void Map::setSelectionState(SelectionState ns) {
+    selectionState = ns;
+    if (selectionState == SelectionMade) { mapArea.editMap().showSelection(selection); }
+    else if (selectionState == Selecting) {
+        mapArea.editMap().showSelection({selection.left, selection.top, -1, -1});
+    }
+    else { mapArea.editMap().showSelection({0, 0, 0, 0}); }
 }
 
 void Map::doLoadMap(const std::string& file) {
@@ -699,22 +702,20 @@ void Map::onMapClick(const sf::Vector2f& pixels, const sf::Vector2i& tiles) {
             switch (selectionState) {
             case SelectionMade:
             case NoSelection:
-                selectionState = Selecting;
                 selection.left = tiles.x;
                 selection.top  = tiles.y;
+                setSelectionState(Selecting);
                 break;
-            case Selecting:
-                selectionState = SelectionMade;
-                {
-                    const int minX = std::min(selection.left, tiles.x);
-                    const int minY = std::min(selection.top, tiles.y);
-                    const int maxX = std::max(selection.left, tiles.x);
-                    const int maxY = std::max(selection.top, tiles.y);
-                    selection      = {minX, minY, maxX - minX + 1, maxY - minY + 1};
-                }
-                break;
+            case Selecting: {
+                const int minX = std::min(selection.left, tiles.x);
+                const int minY = std::min(selection.top, tiles.y);
+                const int maxX = std::max(selection.left, tiles.x);
+                const int maxY = std::max(selection.top, tiles.y);
+                selection      = {minX, minY, maxX - minX + 1, maxY - minY + 1};
+                setSelectionState(SelectionMade);
+            } break;
             default:
-                selectionState = NoSelection;
+                setSelectionState(NoSelection);
                 break;
             }
             break;

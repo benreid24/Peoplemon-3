@@ -256,7 +256,21 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
 
 void EditMap::showGrid(bool s) { grid.setHidden(!s); }
 
-void EditMap::showSelection(const sf::IntRect& s) { selection = s; }
+void EditMap::showSelection(const sf::IntRect& s) {
+    selection = s;
+
+    const float PixelsPerTile = core::Properties::PixelsPerTile();
+    selectRect.getTransform().setPosition(s.left * PixelsPerTile, s.top * PixelsPerTile);
+    selectRect.setHidden(s.width == 0);
+    if (s.width > 0) {
+        selectRect.setFillColor(sf::Color(180, 160, 20, 165));
+        selectRect.scaleToSize(glm::vec2(s.width * PixelsPerTile, s.height * PixelsPerTile));
+    }
+    else {
+        selectRect.scaleToSize({PixelsPerTile, PixelsPerTile});
+        selectRect.setFillColor(sf::Color(20, 70, 220, 165));
+    }
+}
 
 void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
     const auto cleanLayer = [this, id, anim](core::map::TileLayer& layer) -> bool {
@@ -1027,6 +1041,37 @@ void EditMap::setupOverlay() {
     BL_LOG_INFO << "Preparing map editor overlays...";
     const float PixelsPerTile = core::Properties::PixelsPerTile();
 
+    // towns
+    BL_LOG_INFO << "Generating town geometry...";
+    if (townSquareBatch.exists()) {
+        townSquareBatch.destroy();
+        townSquares.clear();
+    }
+    townSquareBatch.create(systems->engine(), size.x * size.y * 4);
+    townSquares.setSize(size.x, size.y);
+    townSquareBatch.getTransform().setDepth(getMinDepth());
+    for (int x = 0; x < size.x; ++x) {
+        for (int y = 0; y < size.y; ++y) {
+            auto& square = townSquares(x, y);
+            square.create(systems->engine(), townSquareBatch, {PixelsPerTile, PixelsPerTile});
+            square.setFillColor(page::Towns::getColor(townTiles(x, y)));
+            square.setOutlineColor(sf::Color::Black);
+            square.setOutlineThickness(1.f);
+            square.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
+            square.commit();
+        }
+    }
+    townSquareBatch.component().containsTransparency = true;
+    townSquareBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
+
+    // selection
+    if (!selectRect.exists()) { selectRect.create(systems->engine(), {100.f, 100.f}); }
+    selectRect.getTransform().setDepth(getMinDepth());
+    selectRect.component().containsTransparency = true;
+    selectRect.setHidden(true);
+    selectRect.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
     // grid
     BL_LOG_INFO << "Generating grid geometry...";
     constexpr glm::vec4 Black(0.f, 0.f, 0.f, 1.f);
@@ -1054,30 +1099,6 @@ void EditMap::setupOverlay() {
     grid.commit();
     grid.addToSceneWithCustomPipeline(
         scene, bl::rc::UpdateSpeed::Static, bl::rc::Config::PipelineIds::Lines2D);
-
-    // towns
-    BL_LOG_INFO << "Generating town geometry...";
-    if (townSquareBatch.exists()) {
-        townSquareBatch.destroy();
-        townSquares.clear();
-    }
-    townSquareBatch.create(systems->engine(), size.x * size.y * 4);
-    townSquares.setSize(size.x, size.y);
-    townSquareBatch.getTransform().setDepth(getMinDepth());
-    for (int x = 0; x < size.x; ++x) {
-        for (int y = 0; y < size.y; ++y) {
-            auto& square = townSquares(x, y);
-            square.create(systems->engine(), townSquareBatch, {PixelsPerTile, PixelsPerTile});
-            square.setFillColor(page::Towns::getColor(townTiles(x, y)));
-            square.setOutlineColor(sf::Color::Black);
-            square.setOutlineThickness(1.f);
-            square.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
-            square.commit();
-        }
-    }
-    townSquareBatch.component().containsTransparency = true;
-    townSquareBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
-    townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
 
     BL_LOG_INFO << "Map editor overlays initialized";
 }
