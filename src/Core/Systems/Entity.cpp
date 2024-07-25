@@ -117,6 +117,7 @@ bool Entity::spawnItem(const map::Item& item, map::Map& map) {
         owner.engine().ecs().addComponent<component::Collision>(entity, {});
         component::Renderable::createFromSprite(
             owner.engine(), entity, map.getScene(), Properties::ItemSprite());
+        owner.engine().ecs().getComponent<bl::com::Transform2D>(entity)->setOrigin(0.f, 0.f);
         map.setupEntityPosition(entity);
     }
 
