@@ -979,13 +979,16 @@ EditMap::AddSpawnAction::AddSpawnAction(unsigned int l, const sf::Vector2i& p, u
 , dir(dir) {}
 
 bool EditMap::AddSpawnAction::apply(EditMap& map) {
-    map.spawns[id] =
+    const auto spawn =
         core::map::Spawn(id, bl::tmap::Position(level, glm::i32vec2(pos.x, pos.y), dir));
+    map.spawns[id] = spawn;
+    map.addSpawnGfx(spawn);
     return false;
 }
 
 bool EditMap::AddSpawnAction::undo(EditMap& map) {
     map.spawns.erase(id);
+    map.spawnSprites.erase(id);
     return false;
 }
 
@@ -1016,6 +1019,7 @@ bool EditMap::RotateSpawnAction::apply(EditMap& map) {
     default:
         d = bl::tmap::Direction::Up;
     }
+    map.updateSpawnRotation(id);
     return false;
 }
 
@@ -1037,6 +1041,7 @@ bool EditMap::RotateSpawnAction::undo(EditMap& map) {
     default:
         d = bl::tmap::Direction::Down;
     }
+    map.updateSpawnRotation(id);
     return false;
 }
 
@@ -1053,11 +1058,13 @@ EditMap::RemoveSpawnAction::RemoveSpawnAction(unsigned int id, const core::map::
 
 bool EditMap::RemoveSpawnAction::apply(EditMap& map) {
     map.spawns.erase(id);
+    map.spawnSprites.erase(id);
     return false;
 }
 
 bool EditMap::RemoveSpawnAction::undo(EditMap& map) {
     map.spawns[id] = spawn;
+    map.addSpawnGfx(spawn);
     return false;
 }
 

@@ -252,6 +252,12 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
     overlayLevel  = l;
 
     townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
+
+    const bool hideSpawns = renderOverlay != RenderOverlay::Spawns;
+    for (auto& spawn : spawnSprites) {
+        spawn.second.arrow.setHidden(hideSpawns);
+        spawn.second.label.setHidden(hideSpawns);
+    }
 }
 
 void EditMap::showGrid(bool s) { grid.setHidden(!s); }
@@ -1065,6 +1071,11 @@ void EditMap::setupOverlay() {
     townSquareBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
     townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
 
+    // spawns
+    BL_LOG_INFO << "Generating spawn icons...";
+    spawnSprites.clear();
+    for (auto& spawn : spawns) { addSpawnGfx(spawn.second); }
+
     // selection
     if (!selectRect.exists()) { selectRect.create(systems->engine(), {100.f, 100.f}); }
     selectRect.getTransform().setDepth(getMinDepth());
@@ -1101,6 +1112,44 @@ void EditMap::setupOverlay() {
         scene, bl::rc::UpdateSpeed::Static, bl::rc::Config::PipelineIds::Lines2D);
 
     BL_LOG_INFO << "Map editor overlays initialized";
+}
+
+void EditMap::addSpawnGfx(const core::map::Spawn& spawn) {
+    const float PixelsPerTile = core::Properties::PixelsPerTile();
+    auto spawnArrow =
+        systems->engine().renderer().texturePool().getOrLoadTexture("EditorResources/arrow.png");
+
+    auto& gfx = spawnSprites.try_emplace(spawn.id).first->second;
+    gfx.arrow.create(systems->engine(), spawnArrow);
+    gfx.arrow.getTransform().setOrigin(spawnArrow->size() * 0.5f);
+    gfx.arrow.getTransform().setPosition(spawn.position.getWorldPosition(PixelsPerTile) +
+                                         glm::vec2(PixelsPerTile, PixelsPerTile) * 0.5f);
+    gfx.arrow.getTransform().setRotation(90.f * static_cast<float>(spawn.position.direction));
+    gfx.arrow.component().containsTransparency = true;
+    gfx.arrow.getTransform().setDepth(getMinDepth() + 0.1f);
+    gfx.arrow.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    gfx.label.create(systems->engine(),
+                     core::Properties::MenuFont(),
+                     std::to_string(spawn.id),
+                     24,
+                     sf::Color::Red);
+    gfx.label.getSection().setOutlineColor(sf::Color::Black);
+    gfx.label.getSection().setOutlineThickness(1.f);
+    gfx.label.getTransform().setOrigin(gfx.label.getLocalSize() * 0.5f);
+    gfx.label.setParent(gfx.arrow);
+    gfx.label.getTransform().setDepth(-0.1f);
+    gfx.label.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    gfx.label.commit(); // need to call manually otherwise we render before commit occurs
+}
+
+void EditMap::updateSpawnRotation(std::uint16_t id) {
+    const auto srcIt = spawns.find(id);
+    const auto it    = spawnSprites.find(id);
+    if (srcIt != spawns.end() && it != spawnSprites.end()) {
+        it->second.arrow.getTransform().setRotation(
+            90.f * static_cast<float>(srcIt->second.position.direction));
+    }
 }
 
 } // namespace component

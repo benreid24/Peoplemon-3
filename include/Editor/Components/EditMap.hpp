@@ -665,10 +665,16 @@ private:
     std::vector<std::vector<bool>> layerFilter;
     sf::IntRect selection;
 
+    struct SpawnGraphics {
+        bl::gfx::Sprite arrow;
+        bl::gfx::Text label;
+    };
+
     bl::gfx::Rectangle selectRect;
     bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
     bl::gfx::BatchedShapes2D townSquareBatch;
     bl::gfx::VertexBuffer2D grid;
+    std::unordered_map<unsigned int, SpawnGraphics> spawnSprites;
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
@@ -685,6 +691,9 @@ private:
     bool editorActivate();
     void loadResources();
     void setupOverlay();
+
+    void addSpawnGfx(const core::map::Spawn& spawn);
+    void updateSpawnRotation(std::uint16_t id);
     void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
 
     virtual sf::Vector2f minimumRequisition() const override;
