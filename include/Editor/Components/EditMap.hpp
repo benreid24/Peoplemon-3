@@ -665,10 +665,13 @@ private:
     std::vector<std::vector<bool>> layerFilter;
     sf::IntRect selection;
 
-    mutable sf::View renderView;
     mutable sf::RectangleShape selectRect;
     mutable sf::Sprite overlaySprite;
+
+    bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
+    bl::gfx::BatchedShapes2D townSquareBatch;
     bl::gfx::VertexBuffer2D grid;
+
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;

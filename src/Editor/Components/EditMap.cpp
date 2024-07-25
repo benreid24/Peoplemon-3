@@ -216,6 +216,8 @@ void EditMap::setLayerVisible(unsigned int level, unsigned int layer, bool v) {
 void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
     renderOverlay = ro;
     overlayLevel  = l;
+
+    townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
 }
 
 void EditMap::showGrid(bool s) { grid.setHidden(!s); }
@@ -990,7 +992,11 @@ void EditMap::loadResources() {
 }
 
 void EditMap::setupOverlay() {
+    BL_LOG_INFO << "Preparing map editor overlays...";
+    const float PixelsPerTile = core::Properties::PixelsPerTile();
+
     // grid
+    BL_LOG_INFO << "Generating grid geometry...";
     constexpr glm::vec4 Black(0.f, 0.f, 0.f, 1.f);
     if (grid.exists()) { grid.resize((size.x + size.y + 2) * 2, false); }
     else {
@@ -1016,6 +1022,32 @@ void EditMap::setupOverlay() {
     grid.commit();
     grid.addToSceneWithCustomPipeline(
         scene, bl::rc::UpdateSpeed::Static, bl::rc::Config::PipelineIds::Lines2D);
+
+    // towns
+    BL_LOG_INFO << "Generating town geometry...";
+    if (townSquareBatch.exists()) {
+        townSquareBatch.destroy();
+        townSquares.clear();
+    }
+    townSquareBatch.create(systems->engine(), size.x * size.y * 4);
+    townSquares.setSize(size.x, size.y);
+    townSquareBatch.getTransform().setDepth(getMinDepth());
+    for (int x = 0; x < size.x; ++x) {
+        for (int y = 0; y < size.y; ++y) {
+            auto& square = townSquares(x, y);
+            square.create(systems->engine(), townSquareBatch, {PixelsPerTile, PixelsPerTile});
+            square.setFillColor(page::Towns::getColor(townTiles(x, y)));
+            square.setOutlineColor(sf::Color::Black);
+            square.setOutlineThickness(1.f);
+            square.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
+            square.commit();
+        }
+    }
+    townSquareBatch.component().containsTransparency = true;
+    townSquareBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
+
+    BL_LOG_INFO << "Map editor overlays initialized";
 }
 
 } // namespace component

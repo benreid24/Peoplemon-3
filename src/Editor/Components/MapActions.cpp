@@ -2,6 +2,7 @@
 
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
 {
@@ -1506,11 +1507,13 @@ EditMap::SetTownTileAction::SetTownTileAction(const sf::Vector2i& pos, std::uint
 
 bool EditMap::SetTownTileAction::apply(EditMap& map) {
     map.townTiles(pos.x, pos.y) = id;
+    map.townSquares(pos.x, pos.y).setFillColor(page::Towns::getColor(map.townTiles(pos.x, pos.y)));
     return false;
 }
 
 bool EditMap::SetTownTileAction::undo(EditMap& map) {
     map.townTiles(pos.x, pos.y) = orig;
+    map.townSquares(pos.x, pos.y).setFillColor(page::Towns::getColor(map.townTiles(pos.x, pos.y)));
     return false;
 }
 
