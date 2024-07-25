@@ -687,6 +687,7 @@ private:
     bool editorActivate();
     void loadResources();
     void setupOverlay();
+    void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;

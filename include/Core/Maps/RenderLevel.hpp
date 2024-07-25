@@ -14,9 +14,6 @@ namespace map
  * @ingroup Maps
  */
 struct RenderLevel {
-    /// Indices for the different layer zones
-    enum ZoneType { Bottom = 0, Ysort = 1, Top = 2 };
-
     /**
      * @brief Batched graphics primitives for a set of layers
      */
@@ -26,7 +23,7 @@ struct RenderLevel {
     };
 
     /// The graphics primitives for all the layers in the level
-    std::array<Zone, 3> zones;
+    std::vector<Zone*> zones;
 
     /**
      * @brief Creates the graphics primitives and adds them to the given scene
@@ -40,14 +37,8 @@ struct RenderLevel {
     void create(bl::engine::Engine& engine, bl::rc::res::TextureRef tileset,
                 unsigned int layerCount, const sf::Vector2u& mapSize, bl::rc::Scene* scene);
 
-    /**
-     * @brief Returns the correct zone for the given layer in the given level
-     *
-     * @param level The level the layer belongs to
-     * @param layer The index of the layer to get the zone for
-     * @return The zone for the given layer
-     */
-    Zone& getZone(const LayerSet& level, unsigned int layer);
+private:
+    std::list<Zone> storage;
 };
 
 } // namespace map

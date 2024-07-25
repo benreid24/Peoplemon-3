@@ -642,8 +642,10 @@ void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& 
 
     auto it = renderLevels.begin();
     std::advance(it, level);
-    auto& zone         = it->getZone(levels[level], layer);
-    const bool isYsort = &zone == &it->zones[RenderLevel::Ysort];
+    auto& zone = *(it->zones[layer]);
+    const bool isYsort =
+        layer >= levels[level].bottomLayers().size() &&
+        layer < levels[level].bottomLayers().size() + levels[level].ysortLayers().size();
 
     const auto getBottomDepth = [this, &pos, layer, level, &tile]() {
         const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());

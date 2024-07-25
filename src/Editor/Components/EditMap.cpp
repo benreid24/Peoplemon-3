@@ -207,10 +207,44 @@ void EditMap::setControlsEnabled(bool e) {
     if (camera) { camera->enabled = controlsEnabled; }
 }
 
-void EditMap::setLevelVisible(unsigned int level, bool v) { levelFilter[level] = v; }
+void EditMap::setLevelVisible(unsigned int level, bool v) {
+    levelFilter[level] = v;
+
+    auto it = renderLevels.begin();
+    std::advance(it, level);
+    auto& rl = *it;
+
+    unsigned int layer = 0;
+    for (auto zone : rl.zones) {
+        const bool hide = !v || !layerFilter[level][layer];
+
+        updateLayerVisibility(level, layer, hide);
+        ++layer;
+    }
+}
 
 void EditMap::setLayerVisible(unsigned int level, unsigned int layer, bool v) {
     layerFilter[level][layer] = v;
+    updateLayerVisibility(level, layer, !v || !levelFilter[level]);
+}
+
+void EditMap::updateLayerVisibility(unsigned int level, unsigned int layer, bool hide) {
+    auto it = renderLevels.begin();
+    std::advance(it, level);
+    auto& rl = *it;
+
+    auto* zone = rl.zones[layer];
+    zone->tileSprites.setHidden(hide);
+    zone->tileAnims.setHidden(hide);
+
+    auto& tileLayer = levels[level].getLayer(layer);
+    for (unsigned int x = 0; x < size.x; ++x) {
+        for (unsigned int y = 0; y < size.y; ++y) {
+            auto& tile = tileLayer.getRef(x, y);
+            auto* anim = std::get_if<std::shared_ptr<bl::gfx::Animation2D>>(&tile.renderObject);
+            if (anim) { (*anim)->setHidden(hide); }
+        }
+    }
 }
 
 void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
@@ -247,8 +281,6 @@ void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
             if (cleanLayer(layer)) { needClean = true; }
         }
         for (auto& layer : level.topLayers()) { cleanLayer(layer); }
-
-        /*if (needClean) { level.activate(*tileset); }*/
     }
 }
 
