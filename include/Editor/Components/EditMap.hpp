@@ -78,7 +78,7 @@ public:
     /**
      * @brief Destroy the Edit Map object
      */
-    virtual ~EditMap() = default;
+    virtual ~EditMap();
 
     /**
      * @brief Returns whether or not the map has been updated since last being saved

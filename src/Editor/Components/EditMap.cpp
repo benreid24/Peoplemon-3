@@ -76,6 +76,13 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
     setOutlineThickness(0.f);
 }
 
+EditMap::~EditMap() {
+    if (townSquareBatch.exists()) {
+        townSquareBatch.destroy();
+        townSquares.clear();
+    }
+}
+
 bool EditMap::editorLoad(const std::string& file) {
     if (!doLoad(file)) {
         doLoad(savefile);
@@ -248,15 +255,17 @@ void EditMap::updateLayerVisibility(unsigned int level, unsigned int layer, bool
 }
 
 void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
-    renderOverlay = ro;
-    overlayLevel  = l;
+    if (renderOverlay != ro || overlayLevel != l) {
+        renderOverlay = ro;
+        overlayLevel  = l;
 
-    townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
+        townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
 
-    const bool hideSpawns = renderOverlay != RenderOverlay::Spawns;
-    for (auto& spawn : spawnSprites) {
-        spawn.second.arrow.setHidden(hideSpawns);
-        spawn.second.label.setHidden(hideSpawns);
+        const bool hideSpawns = renderOverlay != RenderOverlay::Spawns;
+        for (auto& spawn : spawnSprites) {
+            spawn.second.arrow.setHidden(hideSpawns);
+            spawn.second.label.setHidden(hideSpawns);
+        }
     }
 }
 
@@ -1127,6 +1136,7 @@ void EditMap::addSpawnGfx(const core::map::Spawn& spawn) {
     gfx.arrow.getTransform().setRotation(90.f * static_cast<float>(spawn.position.direction));
     gfx.arrow.component().containsTransparency = true;
     gfx.arrow.getTransform().setDepth(getMinDepth() + 0.1f);
+    gfx.arrow.setHidden(renderOverlay != RenderOverlay::Spawns);
     gfx.arrow.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
     gfx.label.create(systems->engine(),
@@ -1139,6 +1149,7 @@ void EditMap::addSpawnGfx(const core::map::Spawn& spawn) {
     gfx.label.getTransform().setOrigin(gfx.label.getLocalSize() * 0.5f);
     gfx.label.setParent(gfx.arrow);
     gfx.label.getTransform().setDepth(-0.1f);
+    gfx.label.setHidden(renderOverlay != RenderOverlay::Spawns);
     gfx.label.addToScene(scene, bl::rc::UpdateSpeed::Static);
     gfx.label.commit(); // need to call manually otherwise we render before commit occurs
 }
