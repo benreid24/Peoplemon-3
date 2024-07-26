@@ -698,6 +698,9 @@ private:
     bl::rc::res::TextureRef levelTransitionsTexture;
     std::vector<glm::vec2> levelTransitionsTextureCoords;
     std::optional<BatchSpriteOverlayLayer> levelTransitionsOverlay;
+    std::list<bl::gfx::Rectangle> eventsOverlay;
+    sf::Color currentEventFillColor;
+    float eventColorTime;
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
@@ -718,6 +721,9 @@ private:
     void updateTownTileColor(unsigned int x, unsigned int y);
     void updateCollisionTileTexture(unsigned int level, unsigned int x, unsigned int y);
     void updateLevelTransitionTexture(unsigned int x, unsigned int y);
+    void addEventGfx(unsigned int i);
+    void removeEventGfx(unsigned int i);
+    sf::Color nextEventFillColor(float dt);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;

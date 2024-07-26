@@ -61,6 +61,8 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , syncCb(syncCb)
 , camera(nullptr)
 , controlsEnabled(false)
+, currentEventFillColor(0, 0, 0, 100)
+, eventColorTime(0.f)
 , renderOverlay(RenderOverlay::None)
 , overlayLevel(0)
 , nextItemId(0)
@@ -236,6 +238,12 @@ void EditMap::update(float dt) {
             }
         }
     }
+
+    const sf::Color newEventColor = nextEventFillColor(dt);
+    if (currentEventFillColor != newEventColor) {
+        currentEventFillColor = newEventColor;
+        for (auto& rect : eventsOverlay) { rect.setFillColor(newEventColor); }
+    }
 }
 
 void EditMap::setControlsEnabled(bool e) {
@@ -312,6 +320,9 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
 
         levelTransitionsOverlay.value().batch.setHidden(renderOverlay !=
                                                         RenderOverlay::LevelTransitions);
+
+        const bool hideEvents = renderOverlay != RenderOverlay::Events;
+        for (auto& eventRect : eventsOverlay) { eventRect.setHidden(hideEvents); }
     }
 }
 
@@ -1159,6 +1170,11 @@ void EditMap::setupOverlay() {
     ltOverlay.batch.addToScene(scene, bl::rc::UpdateSpeed::Static);
     ltOverlay.batch.setHidden(renderOverlay != RenderOverlay::LevelTransitions);
 
+    // events
+    BL_LOG_INFO << "Generating events geometry...";
+    eventsOverlay.clear();
+    for (unsigned int i = 0; i < eventsField.size(); ++i) { addEventGfx(i); }
+
     // selection
     if (!selectRect.exists()) { selectRect.create(systems->engine(), {100.f, 100.f}); }
     selectRect.getTransform().setDepth(getMinDepth());
@@ -1275,6 +1291,41 @@ void EditMap::updateLevelTransitionTexture(unsigned int x, unsigned int y) {
     const float Px  = core::Properties::PixelsPerTile();
     tile.updateSourceRect({src.x, src.y, Px, Px});
     tile.commit();
+}
+
+void EditMap::addEventGfx(unsigned int i) {
+    auto it = eventsOverlay.begin();
+    std::advance(it, i);
+
+    const auto& event = eventsField[i];
+    auto& rect        = *eventsOverlay.emplace(it);
+    rect.create(systems->engine(),
+                glm::vec2(event.areaSize.x * core::Properties::PixelsPerTile(),
+                          event.areaSize.y * core::Properties::PixelsPerTile()));
+    rect.setFillColor(currentEventFillColor);
+    rect.getTransform().setPosition(event.position.x * core::Properties::PixelsPerTile(),
+                                    event.position.y * core::Properties::PixelsPerTile());
+    rect.getTransform().setDepth(getMinDepth());
+    rect.component().containsTransparency = true;
+    rect.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    rect.setHidden(renderOverlay != RenderOverlay::Events);
+}
+
+void EditMap::removeEventGfx(unsigned int i) {
+    auto it = eventsOverlay.begin();
+    std::advance(it, i);
+    eventsOverlay.erase(it);
+}
+
+sf::Color EditMap::nextEventFillColor(float dt) {
+    constexpr float Period = 1.2f;
+
+    eventColorTime += dt;
+    if (eventColorTime >= Period) {
+        eventColorTime -= Period;
+        return currentEventFillColor.a == 100 ? sf::Color(0, 0, 0, 165) : sf::Color(0, 0, 0, 100);
+    }
+    return currentEventFillColor;
 }
 
 void EditMap::stitchOverlayTextures() {

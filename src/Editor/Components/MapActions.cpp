@@ -929,11 +929,13 @@ EditMap::AddEventAction::AddEventAction(const core::map::Event& e, unsigned int 
 
 bool EditMap::AddEventAction::apply(EditMap& map) {
     map.eventsField.emplace_back(event);
+    map.addEventGfx(i);
     return false;
 }
 
 bool EditMap::AddEventAction::undo(EditMap& map) {
     map.eventsField.erase(map.eventsField.begin() + i);
+    map.removeEventGfx(i);
     return false;
 }
 
@@ -972,11 +974,13 @@ EditMap::RemoveEventAction::RemoveEventAction(const core::map::Event& e, unsigne
 
 bool EditMap::RemoveEventAction::apply(EditMap& map) {
     map.eventsField.erase(map.eventsField.begin() + i);
+    map.removeEventGfx(i);
     return false;
 }
 
 bool EditMap::RemoveEventAction::undo(EditMap& map) {
     map.eventsField.insert(map.eventsField.begin() + i, event);
+    map.addEventGfx(i);
     return false;
 }
 

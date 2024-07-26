@@ -20,11 +20,7 @@ void EditMapComponent::onElementUpdated() {
     if (renderTexture->getCurrentScene() != owner.scene) {
         if (renderTexture->sceneCount() > 0) { renderTexture->popScene(); }
         renderTexture->pushScene(owner.scene);
-
-        // TODO - new scene means recreate overlay entities - manage in EditMap?
     }
-
-    // TODO - overlays, etc
 }
 
 void EditMapComponent::onRenderSettingChange() {
