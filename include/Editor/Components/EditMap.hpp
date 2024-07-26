@@ -677,27 +677,34 @@ private:
         ~CatchTileLayerGraphics();
     };
 
+    struct BatchSpriteOverlayLayer {
+        bl::gfx::BatchedSprites batch;
+        bl::ctr::Vector2D<bl::gfx::BatchSprite> tiles;
+
+        ~BatchSpriteOverlayLayer();
+    };
+
     bl::gfx::Rectangle selectRect;
     bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
     bl::gfx::BatchedShapes2D townSquareBatch;
     bl::gfx::VertexBuffer2D grid;
     std::unordered_map<unsigned int, SpawnGraphics> spawnSprites;
     std::list<CatchTileLayerGraphics> catchTileOverlay;
+    std::optional<bl::util::ImageStitcher> colStitcher;
+    bl::rc::res::TextureRef collisionTilesTexture;
+    std::vector<glm::vec2> collisionTextureCoords;
+    std::list<BatchSpriteOverlayLayer> collisionTileOverlay;
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
     bool setRenderTarget;
 
-    std::vector<bl::resource::Ref<sf::Texture>> colGfx;
-    bl::resource::Ref<sf::Texture> arrowGfx;
-    std::vector<bl::resource::Ref<sf::Texture>> ltGfx;
-
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
     bool doLoad(const std::string& file);
+    void stitchOverlayTextures();
     bool editorActivate();
-    void loadResources();
     void setupOverlay();
 
     void addSpawnGfx(const core::map::Spawn& spawn);
@@ -705,6 +712,7 @@ private:
     void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
     void updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y);
     void updateTownTileColor(unsigned int x, unsigned int y);
+    void updateCollisionTileTexture(unsigned int level, unsigned int x, unsigned int y);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;

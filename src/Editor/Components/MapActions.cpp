@@ -364,11 +364,13 @@ EditMap::SetCollisionAction::SetCollisionAction(unsigned int level, const sf::Ve
 
 bool EditMap::SetCollisionAction::apply(EditMap& map) {
     map.levels[level].collisionLayer().set(pos.x, pos.y, value);
+    map.updateCollisionTileTexture(level, pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetCollisionAction::undo(EditMap& map) {
     map.levels[level].collisionLayer().set(pos.x, pos.y, ogVal);
+    map.updateCollisionTileTexture(level, pos.x, pos.y);
     return false;
 }
 
@@ -400,6 +402,7 @@ bool EditMap::SetCollisionAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].collisionLayer().set(x, y, value);
+            map.updateCollisionTileTexture(level, x, y);
         }
     }
     return false;
@@ -409,6 +412,7 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].collisionLayer().set(x, y, ogVals(x - area.left, y - area.top));
+            map.updateCollisionTileTexture(level, x, y);
         }
     }
     return false;
@@ -463,13 +467,17 @@ EditMap::FillCollisionAction::FillCollisionAction(
 , set(set) {}
 
 bool EditMap::FillCollisionAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.levels[level].collisionLayer().set(p.first.x, p.first.y, col); }
+    for (const auto& p : set) {
+        map.levels[level].collisionLayer().set(p.first.x, p.first.y, col);
+        map.updateCollisionTileTexture(level, p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillCollisionAction::undo(EditMap& map) {
     for (const auto& p : set) {
         map.levels[level].collisionLayer().set(p.first.x, p.first.y, p.second);
+        map.updateCollisionTileTexture(level, p.first.x, p.first.y);
     }
     return false;
 }

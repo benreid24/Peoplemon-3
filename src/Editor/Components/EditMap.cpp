@@ -13,6 +13,30 @@ namespace editor
 {
 namespace component
 {
+namespace
+{
+constexpr const std::initializer_list<std::string_view> CollisionTileTextures = {
+    "EditorResources/Collisions/none.png",
+    "EditorResources/Collisions/all.png",
+    "EditorResources/Collisions/top.png",
+    "EditorResources/Collisions/right.png",
+    "EditorResources/Collisions/bottom.png",
+    "EditorResources/Collisions/left.png",
+    "EditorResources/Collisions/topRight.png",
+    "EditorResources/Collisions/bottomRight.png",
+    "EditorResources/Collisions/bottomLeft.png",
+    "EditorResources/Collisions/topLeft.png",
+    "EditorResources/Collisions/topBottom.png",
+    "EditorResources/Collisions/leftRight.png",
+    "EditorResources/Collisions/noTop.png",
+    "EditorResources/Collisions/noRight.png",
+    "EditorResources/Collisions/noBottom.png",
+    "EditorResources/Collisions/noLeft.png",
+    "EditorResources/Collisions/water.png",
+    "EditorResources/Collisions/fall.png",
+    "EditorResources/Collisions/ledge.png"};
+}
+
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
                              const ActionCb& actionCb, const ActionCb& syncCb,
                              core::system::Systems& systems) {
@@ -36,7 +60,6 @@ EditMap::EditMap(const PositionCb& cb, const PositionCb& mcb, const ActionCb& ac
 , nextItemId(0)
 , setRenderTarget(false) {
     systems = &s;
-    loadResources();
 
     static const auto callCb = [this, &s](const PositionCb& cb) {
         static const float PixelRatio = 1.f / static_cast<float>(core::Properties::PixelsPerTile());
@@ -271,6 +294,13 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
         for (auto& catchLayer : catchTileOverlay) {
             catchLayer.shapeBatch.setHidden(renderOverlay != RenderOverlay::CatchTiles ||
                                             overlayLevel != level);
+            ++level;
+        }
+
+        level = 0;
+        for (auto& colLayer : collisionTileOverlay) {
+            colLayer.batch.setHidden(renderOverlay != RenderOverlay::Collisions ||
+                                     overlayLevel != level);
             ++level;
         }
     }
@@ -1029,35 +1059,35 @@ void EditMap::setLevelTileArea(const sf::IntRect& area, core::map::LevelTransiti
     addAction(SetLevelTileAreaAction::create(area, lt, *this));
 }
 
-void EditMap::loadResources() {
-    // TODO - use renderer texture pool
-    colGfx = {TextureManager::load("EditorResources/Collisions/none.png"),
-              TextureManager::load("EditorResources/Collisions/all.png"),
-              TextureManager::load("EditorResources/Collisions/top.png"),
-              TextureManager::load("EditorResources/Collisions/right.png"),
-              TextureManager::load("EditorResources/Collisions/bottom.png"),
-              TextureManager::load("EditorResources/Collisions/left.png"),
-              TextureManager::load("EditorResources/Collisions/topRight.png"),
-              TextureManager::load("EditorResources/Collisions/bottomRight.png"),
-              TextureManager::load("EditorResources/Collisions/bottomLeft.png"),
-              TextureManager::load("EditorResources/Collisions/topLeft.png"),
-              TextureManager::load("EditorResources/Collisions/topBottom.png"),
-              TextureManager::load("EditorResources/Collisions/leftRight.png"),
-              TextureManager::load("EditorResources/Collisions/noTop.png"),
-              TextureManager::load("EditorResources/Collisions/noRight.png"),
-              TextureManager::load("EditorResources/Collisions/noBottom.png"),
-              TextureManager::load("EditorResources/Collisions/noLeft.png"),
-              TextureManager::load("EditorResources/Collisions/water.png"),
-              TextureManager::load("EditorResources/Collisions/fall.png"),
-              TextureManager::load("EditorResources/Collisions/ledge.png")};
-
-    arrowGfx = TextureManager::load("EditorResources/arrow.png");
-
-    ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png"),
-             TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png"),
-             TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png"),
-             TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png")};
-}
+// void EditMap::loadResources() {
+//     // TODO - use renderer texture pool
+//     colGfx = {TextureManager::load("EditorResources/Collisions/none.png"),
+//               TextureManager::load("EditorResources/Collisions/all.png"),
+//               TextureManager::load("EditorResources/Collisions/top.png"),
+//               TextureManager::load("EditorResources/Collisions/right.png"),
+//               TextureManager::load("EditorResources/Collisions/bottom.png"),
+//               TextureManager::load("EditorResources/Collisions/left.png"),
+//               TextureManager::load("EditorResources/Collisions/topRight.png"),
+//               TextureManager::load("EditorResources/Collisions/bottomRight.png"),
+//               TextureManager::load("EditorResources/Collisions/bottomLeft.png"),
+//               TextureManager::load("EditorResources/Collisions/topLeft.png"),
+//               TextureManager::load("EditorResources/Collisions/topBottom.png"),
+//               TextureManager::load("EditorResources/Collisions/leftRight.png"),
+//               TextureManager::load("EditorResources/Collisions/noTop.png"),
+//               TextureManager::load("EditorResources/Collisions/noRight.png"),
+//               TextureManager::load("EditorResources/Collisions/noBottom.png"),
+//               TextureManager::load("EditorResources/Collisions/noLeft.png"),
+//               TextureManager::load("EditorResources/Collisions/water.png"),
+//               TextureManager::load("EditorResources/Collisions/fall.png"),
+//               TextureManager::load("EditorResources/Collisions/ledge.png")};
+//
+//     arrowGfx = TextureManager::load("EditorResources/arrow.png");
+//
+//     ltGfx = {TextureManager::load("EditorResources/LevelTransitions/horUpRight.png"),
+//              TextureManager::load("EditorResources/LevelTransitions/horUpLeft.png"),
+//              TextureManager::load("EditorResources/LevelTransitions/vertUpUp.png"),
+//              TextureManager::load("EditorResources/LevelTransitions/vertUpDown.png")};
+// }
 
 void EditMap::setupOverlay() {
     BL_LOG_INFO << "Preparing map editor overlays...";
@@ -1115,6 +1145,31 @@ void EditMap::setupOverlay() {
         overlay.shapeBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
         overlay.shapeBatch.setHidden(renderOverlay != RenderOverlay::CatchTiles ||
                                      overlayLevel != level);
+    }
+
+    // stitched textures
+    if (!collisionTilesTexture) { stitchOverlayTextures(); }
+
+    // collisions
+    BL_LOG_INFO << "Generating collision tile geometry...";
+    collisionTileOverlay.clear();
+    for (unsigned int level = 0; level < levels.size(); ++level) {
+        auto& overlay = collisionTileOverlay.emplace_back();
+        overlay.batch.create(systems->engine(), collisionTilesTexture, size.x * size.y);
+        overlay.batch.getTransform().setDepth(getMinDepth());
+        overlay.tiles.setSize(size.x, size.y);
+        for (unsigned int x = 0; x < size.x; ++x) {
+            for (unsigned int y = 0; y < size.y; ++y) {
+                auto& tile = overlay.tiles(x, y);
+                tile.create(systems->engine(), overlay.batch, {0.f, 0.f, 32.f, 32.f});
+                tile.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
+                updateCollisionTileTexture(level, x, y);
+            }
+        }
+        overlay.batch.component().containsTransparency = true;
+        overlay.batch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        overlay.batch.setHidden(renderOverlay != RenderOverlay::Collisions ||
+                                overlayLevel != level);
     }
 
     // selection
@@ -1199,6 +1254,10 @@ EditMap::CatchTileLayerGraphics::~CatchTileLayerGraphics() {
     if (shapeBatch.exists()) { shapeBatch.destroy(); }
 }
 
+EditMap::BatchSpriteOverlayLayer::~BatchSpriteOverlayLayer() {
+    if (batch.exists()) { batch.destroy(); }
+}
+
 void EditMap::updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y) {
     auto it = catchTileOverlay.begin();
     std::advance(it, level);
@@ -1209,6 +1268,31 @@ void EditMap::updateCatchTileColor(unsigned int level, unsigned int x, unsigned 
 void EditMap::updateTownTileColor(unsigned int x, unsigned int y) {
     townSquares(x, y).setFillColor(page::Towns::getColor(townTiles(x, y)));
     townSquares(x, y).commit();
+}
+
+void EditMap::updateCollisionTileTexture(unsigned int level, unsigned int x, unsigned int y) {
+    const auto col = levels[level].collisionLayer().get(x, y);
+    auto it        = collisionTileOverlay.begin();
+    std::advance(it, level);
+    auto& tile      = it->tiles(x, y);
+    const auto& src = collisionTextureCoords[static_cast<unsigned int>(col)];
+    const float Px  = core::Properties::PixelsPerTile();
+    tile.updateSourceRect({src.x, src.y, Px, Px});
+    tile.commit();
+}
+
+void EditMap::stitchOverlayTextures() {
+    // collision tiles
+    BL_LOG_INFO << "Stitching collision tile textures...";
+    colStitcher.emplace(core::Properties::PixelsPerTile() * 8);
+    collisionTextureCoords.reserve(CollisionTileTextures.size());
+    for (const auto& src : CollisionTileTextures) {
+        auto img         = bl::resource::ResourceManager<sf::Image>::load(src.data());
+        const auto coord = colStitcher.value().addImage(*img);
+        collisionTextureCoords.emplace_back(glm::vec2(coord));
+    }
+    collisionTilesTexture = systems->engine().renderer().texturePool().createTexture(
+        colStitcher.value().getStitchedImage());
 }
 
 } // namespace component
