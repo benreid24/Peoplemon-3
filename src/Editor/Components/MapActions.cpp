@@ -1656,11 +1656,13 @@ EditMap::SetLevelTileAction::SetLevelTileAction(const sf::Vector2i& pos,
 
 bool EditMap::SetLevelTileAction::apply(EditMap& map) {
     map.transitionField(pos.x, pos.y) = lt;
+    map.updateLevelTransitionTexture(pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetLevelTileAction::undo(EditMap& map) {
     map.transitionField(pos.x, pos.y) = orig;
+    map.updateLevelTransitionTexture(pos.x, pos.y);
     return false;
 }
 
@@ -1689,7 +1691,10 @@ EditMap::SetLevelTileAreaAction::SetLevelTileAreaAction(
 
 bool EditMap::SetLevelTileAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
-        for (int y = area.top; y < area.top + area.height; ++y) { map.transitionField(x, y) = lt; }
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.transitionField(x, y) = lt;
+            map.updateLevelTransitionTexture(x, y);
+        }
     }
     return false;
 }
@@ -1698,6 +1703,7 @@ bool EditMap::SetLevelTileAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.transitionField(x, y) = orig(x - area.left, y - area.top);
+            map.updateLevelTransitionTexture(x, y);
         }
     }
     return false;

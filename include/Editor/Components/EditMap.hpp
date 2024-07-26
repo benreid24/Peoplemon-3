@@ -694,6 +694,10 @@ private:
     bl::rc::res::TextureRef collisionTilesTexture;
     std::vector<glm::vec2> collisionTextureCoords;
     std::list<BatchSpriteOverlayLayer> collisionTileOverlay;
+    std::optional<bl::util::ImageStitcher> levelTransitionsStitcher;
+    bl::rc::res::TextureRef levelTransitionsTexture;
+    std::vector<glm::vec2> levelTransitionsTextureCoords;
+    std::optional<BatchSpriteOverlayLayer> levelTransitionsOverlay;
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
@@ -713,6 +717,7 @@ private:
     void updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y);
     void updateTownTileColor(unsigned int x, unsigned int y);
     void updateCollisionTileTexture(unsigned int level, unsigned int x, unsigned int y);
+    void updateLevelTransitionTexture(unsigned int x, unsigned int y);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
