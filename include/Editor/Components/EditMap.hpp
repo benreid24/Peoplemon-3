@@ -670,11 +670,19 @@ private:
         bl::gfx::Text label;
     };
 
+    struct CatchTileLayerGraphics {
+        bl::gfx::BatchedShapes2D shapeBatch;
+        bl::ctr::Vector2D<bl::gfx::BatchRectangle> tiles;
+
+        ~CatchTileLayerGraphics();
+    };
+
     bl::gfx::Rectangle selectRect;
     bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
     bl::gfx::BatchedShapes2D townSquareBatch;
     bl::gfx::VertexBuffer2D grid;
     std::unordered_map<unsigned int, SpawnGraphics> spawnSprites;
+    std::list<CatchTileLayerGraphics> catchTileOverlay;
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
@@ -695,6 +703,8 @@ private:
     void addSpawnGfx(const core::map::Spawn& spawn);
     void updateSpawnRotation(std::uint16_t id);
     void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
+    void updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y);
+    void updateTownTileColor(unsigned int x, unsigned int y);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;

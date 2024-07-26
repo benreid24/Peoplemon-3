@@ -491,11 +491,13 @@ EditMap::SetCatchAction::SetCatchAction(unsigned int level, const sf::Vector2i& 
 
 bool EditMap::SetCatchAction::apply(EditMap& map) {
     map.levels[level].catchLayer().set(pos.x, pos.y, value);
+    map.updateCatchTileColor(level, pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetCatchAction::undo(EditMap& map) {
     map.levels[level].catchLayer().set(pos.x, pos.y, ogVal);
+    map.updateCatchTileColor(level, pos.x, pos.y);
     return false;
 }
 
@@ -526,6 +528,7 @@ bool EditMap::SetCatchAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].catchLayer().set(x, y, value);
+            map.updateCatchTileColor(level, x, y);
         }
     }
     return false;
@@ -535,6 +538,7 @@ bool EditMap::SetCatchAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].catchLayer().set(x, y, ogVals(x - area.left, y - area.top));
+            map.updateCatchTileColor(level, x, y);
         }
     }
     return false;
@@ -586,13 +590,17 @@ EditMap::FillCatchAction::FillCatchAction(unsigned int level, std::uint8_t id,
 , set(set) {}
 
 bool EditMap::FillCatchAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.levels[level].catchLayer().set(p.first.x, p.first.y, id); }
+    for (const auto& p : set) {
+        map.levels[level].catchLayer().set(p.first.x, p.first.y, id);
+        map.updateCatchTileColor(level, p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillCatchAction::undo(EditMap& map) {
     for (const auto& p : set) {
         map.levels[level].catchLayer().set(p.first.x, p.first.y, p.second);
+        map.updateCatchTileColor(level, p.first.x, p.first.y);
     }
     return false;
 }
@@ -1514,13 +1522,13 @@ EditMap::SetTownTileAction::SetTownTileAction(const sf::Vector2i& pos, std::uint
 
 bool EditMap::SetTownTileAction::apply(EditMap& map) {
     map.townTiles(pos.x, pos.y) = id;
-    map.townSquares(pos.x, pos.y).setFillColor(page::Towns::getColor(map.townTiles(pos.x, pos.y)));
+    map.updateTownTileColor(pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetTownTileAction::undo(EditMap& map) {
     map.townTiles(pos.x, pos.y) = orig;
-    map.townSquares(pos.x, pos.y).setFillColor(page::Towns::getColor(map.townTiles(pos.x, pos.y)));
+    map.updateTownTileColor(pos.x, pos.y);
     return false;
 }
 
@@ -1545,16 +1553,20 @@ EditMap::SetTownTileAreaAction::SetTownTileAreaAction(const sf::IntRect& area, s
 , orig(set) {}
 
 bool EditMap::SetTownTileAreaAction::apply(EditMap& map) {
-    for (int x = 0; x < area.width; ++x) {
-        for (int y = 0; y < area.height; ++y) { map.townTiles(area.left + x, area.top + y) = id; }
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.townTiles(x, y) = id;
+            map.updateTownTileColor(x, y);
+        }
     }
     return false;
 }
 
 bool EditMap::SetTownTileAreaAction::undo(EditMap& map) {
-    for (int x = 0; x < area.width; ++x) {
-        for (int y = 0; y < area.height; ++y) {
-            map.townTiles(area.left + x, area.top + y) = orig(x, y);
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.townTiles(x, y) = orig(x - area.left, y - area.top);
+            map.updateTownTileColor(x, y);
         }
     }
     return false;
@@ -1604,12 +1616,18 @@ EditMap::FillTownTileAction::FillTownTileAction(
 , id(fill) {}
 
 bool EditMap::FillTownTileAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = id; }
+    for (const auto& p : set) {
+        map.townTiles(p.first.x, p.first.y) = id;
+        map.updateTownTileColor(p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillTownTileAction::undo(EditMap& map) {
-    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = p.second; }
+    for (const auto& p : set) {
+        map.townTiles(p.first.x, p.first.y) = p.second;
+        map.updateTownTileColor(p.first.x, p.first.y);
+    }
     return false;
 }
 

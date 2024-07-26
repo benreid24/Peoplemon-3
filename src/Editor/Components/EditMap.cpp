@@ -266,6 +266,13 @@ void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
             spawn.second.arrow.setHidden(hideSpawns);
             spawn.second.label.setHidden(hideSpawns);
         }
+
+        unsigned int level = 0;
+        for (auto& catchLayer : catchTileOverlay) {
+            catchLayer.shapeBatch.setHidden(renderOverlay != RenderOverlay::CatchTiles ||
+                                            overlayLevel != level);
+            ++level;
+        }
     }
 }
 
@@ -1071,7 +1078,7 @@ void EditMap::setupOverlay() {
             square.create(systems->engine(), townSquareBatch, {PixelsPerTile, PixelsPerTile});
             square.setFillColor(page::Towns::getColor(townTiles(x, y)));
             square.setOutlineColor(sf::Color::Black);
-            square.setOutlineThickness(1.f);
+            square.setOutlineThickness(-1.f);
             square.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
             square.commit();
         }
@@ -1084,6 +1091,31 @@ void EditMap::setupOverlay() {
     BL_LOG_INFO << "Generating spawn icons...";
     spawnSprites.clear();
     for (auto& spawn : spawns) { addSpawnGfx(spawn.second); }
+
+    // catch tiles
+    BL_LOG_INFO << "Generating catch tile geometry...";
+    catchTileOverlay.clear();
+    for (unsigned int level = 0; level < levels.size(); ++level) {
+        auto& overlay = catchTileOverlay.emplace_back();
+        overlay.shapeBatch.create(systems->engine(), size.x * size.y * 4);
+        overlay.shapeBatch.getTransform().setDepth(getMinDepth());
+        overlay.tiles.setSize(size.x, size.y);
+        for (unsigned int x = 0; x < size.x; ++x) {
+            for (unsigned int y = 0; y < size.y; ++y) {
+                auto& tile = overlay.tiles(x, y);
+                tile.create(systems->engine(), overlay.shapeBatch, {PixelsPerTile, PixelsPerTile});
+                tile.getLocalTransform().setPosition(x * PixelsPerTile, y * PixelsPerTile);
+                tile.setOutlineColor(sf::Color::Black);
+                tile.setOutlineThickness(-1.f);
+                tile.setFillColor(page::Catchables::getColor(levels[level].catchLayer().get(x, y)));
+                tile.commit();
+            }
+        }
+        overlay.shapeBatch.component().containsTransparency = true;
+        overlay.shapeBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        overlay.shapeBatch.setHidden(renderOverlay != RenderOverlay::CatchTiles ||
+                                     overlayLevel != level);
+    }
 
     // selection
     if (!selectRect.exists()) { selectRect.create(systems->engine(), {100.f, 100.f}); }
@@ -1161,6 +1193,22 @@ void EditMap::updateSpawnRotation(std::uint16_t id) {
         it->second.arrow.getTransform().setRotation(
             90.f * static_cast<float>(srcIt->second.position.direction));
     }
+}
+
+EditMap::CatchTileLayerGraphics::~CatchTileLayerGraphics() {
+    if (shapeBatch.exists()) { shapeBatch.destroy(); }
+}
+
+void EditMap::updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y) {
+    auto it = catchTileOverlay.begin();
+    std::advance(it, level);
+    it->tiles(x, y).setFillColor(page::Catchables::getColor(levels[level].catchLayer().get(x, y)));
+    it->tiles(x, y).commit();
+}
+
+void EditMap::updateTownTileColor(unsigned int x, unsigned int y) {
+    townSquares(x, y).setFillColor(page::Towns::getColor(townTiles(x, y)));
+    townSquares(x, y).commit();
 }
 
 } // namespace component
