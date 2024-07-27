@@ -4,6 +4,7 @@
 #include <Core/Files/Conversation.hpp>
 #include <Core/Properties.hpp>
 #include <Editor/Components/ConversationTree.hpp>
+#include <cmath>
 
 namespace editor
 {
@@ -140,7 +141,7 @@ void ConversationTreeComponent::onElementUpdated() {
 
             const glm::vec2 pdiff = to.center - from.center;
             const float gap = glm::length(pdiff) - ConversationTree::NodeRadius * 2.f + ArrowDepth;
-            const float angle   = std::atan2f(pdiff.y, pdiff.x);
+            const float angle   = atan2f(pdiff.y, pdiff.x);
             const float degrees = bl::math::radiansToDegrees(angle) + 90.f;
             arrow.setSize({ArrowWidth, gap});
             arrow.getLocalTransform().setOrigin(arrow.getSize() * 0.5f);

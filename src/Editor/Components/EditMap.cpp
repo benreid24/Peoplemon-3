@@ -15,7 +15,7 @@ namespace component
 {
 namespace
 {
-constexpr const std::initializer_list<std::string_view> CollisionTileTextures = {
+const std::initializer_list<std::string_view> CollisionTileTextures{
     "EditorResources/Collisions/none.png",
     "EditorResources/Collisions/all.png",
     "EditorResources/Collisions/top.png",
@@ -36,7 +36,7 @@ constexpr const std::initializer_list<std::string_view> CollisionTileTextures = 
     "EditorResources/Collisions/fall.png",
     "EditorResources/Collisions/ledge.png"};
 
-constexpr const std::initializer_list<std::string_view> LevelTransitionTextures = {
+const std::initializer_list<std::string_view> LevelTransitionTextures{
     "EditorResources/LevelTransitions/horUpRight.png",
     "EditorResources/LevelTransitions/horUpLeft.png",
     "EditorResources/LevelTransitions/vertUpUp.png",
