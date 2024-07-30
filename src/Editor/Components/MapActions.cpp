@@ -32,7 +32,6 @@ const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, u
 void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset& tileset,
                    unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                    core::map::Tile::IdType value, bool isAnim) {
-    // TODO - BLIB_UPGRADE - reset render data
     core::map::LayerSet& l = levels[level];
     core::map::Tile* tile;
     if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
@@ -175,6 +174,7 @@ bool EditMap::SetTileAction::apply(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, updated, isAnim);
+                map.setupTile(level, layer, sf::Vector2u(position));
             }
         }
     }
@@ -188,6 +188,7 @@ bool EditMap::SetTileAction::undo(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, prev, wasAnim);
+                map.setupTile(level, layer, sf::Vector2u(position));
             }
         }
     }
@@ -257,6 +258,7 @@ bool EditMap::SetTileAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; x += w) {
         for (int y = area.top; y < area.top + area.height; y += h) {
             setSingleTile(map.levels, *map.tileset, level, layer, {x, y}, updated, isAnim);
+            map.setupTile(level, layer, sf::Vector2u(x, y));
         }
     }
     return false;
@@ -272,6 +274,7 @@ bool EditMap::SetTileAreaAction::undo(EditMap& map) {
                           {x, y},
                           prev(x - area.left, y - area.top),
                           wasAnim(x - area.left, y - area.top) == 1);
+            map.setupTile(level, layer, sf::Vector2u(x, y));
         }
     }
     return false;
@@ -333,6 +336,7 @@ EditMap::FillTileAction::FillTileAction(unsigned int level, unsigned int layer,
 bool EditMap::FillTileAction::apply(EditMap& map) {
     for (const auto& p : set) {
         setSingleTile(map.levels, *map.tileset, level, layer, p.position, id, isAnim);
+        map.setupTile(level, layer, sf::Vector2u(p.position));
     }
     return false;
 }
@@ -340,6 +344,7 @@ bool EditMap::FillTileAction::apply(EditMap& map) {
 bool EditMap::FillTileAction::undo(EditMap& map) {
     for (const auto& p : set) {
         setSingleTile(map.levels, *map.tileset, level, layer, p.position, p.id, p.isAnim);
+        map.setupTile(level, layer, sf::Vector2u(p.position));
     }
     return false;
 }

@@ -636,7 +636,10 @@ void Map::prepareRender() {
 
 void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
     Tile& tile = levels[level].getLayer(layer).getRef(pos.x, pos.y);
-    if (tile.id() == Tile::Blank) { return; }
+    if (tile.id() == Tile::Blank) {
+        tile.renderObject.emplace<std::monostate>();
+        return;
+    }
     const glm::vec2 offset(pos.x * Properties::PixelsPerTile(),
                            pos.y * Properties::PixelsPerTile());
 
