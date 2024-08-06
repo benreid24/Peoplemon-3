@@ -716,6 +716,8 @@ private:
 
     void addSpawnGfx(const core::map::Spawn& spawn);
     void updateSpawnRotation(std::uint16_t id);
+    void updateLevelDepths(unsigned int level);
+    void updateLayerDepths(unsigned int level, unsigned int layer);
     void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
     void updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y);
     void updateTownTileColor(unsigned int x, unsigned int y);

@@ -1179,5 +1179,69 @@ void EditMap::stitchOverlayTextures() {
         levelTransitionsStitcher.value().getStitchedImage());
 }
 
+void EditMap::updateLayerDepths(unsigned int level, unsigned int li) {
+    auto& layer = levels[level].getLayer(li);
+    const bool isYsort =
+        li >= levels[level].bottomLayers().size() &&
+        li < levels[level].bottomLayers().size() + levels[level].ysortLayers().size();
+
+    for (unsigned int x = 0; x < size.x; ++x) {
+        for (unsigned int y = 0; y < size.y; ++y) {
+            auto& tile = layer.getRef(x, y);
+
+            const auto getBottomDepth = [this, y, li, level, &tile]() {
+                const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());
+                unsigned int size     = th / core::Properties::PixelsPerTile();
+                if (th % core::Properties::PixelsPerTile() != 0) { ++size; }
+                return getDepthForPosition(level, y + size, li);
+            };
+
+            switch (tile.renderObject.index()) {
+            case 1: {
+                const float baseDepth = getDepthForPosition(level, y, li);
+                const float depth = !isYsort ? baseDepth : (baseDepth + getBottomDepth()) * 0.5f;
+                for (auto& v :
+                     std::get<bl::gfx::BatchSpriteSimple>(tile.renderObject).getVertices()) {
+                    v.pos.z = depth;
+                }
+            } break;
+            case 2: {
+                const float topDepth    = getDepthForPosition(level, y, li);
+                const float bottomDepth = getBottomDepth();
+                unsigned int i          = 0;
+                for (auto& v :
+                     std::get<bl::gfx::BatchSlideshowSimple>(tile.renderObject).getVertices()) {
+                    v.pos.z = isYsort ? (i < 2 ? topDepth : bottomDepth) : topDepth;
+                }
+            } break;
+            case 3:
+                std::get<std::shared_ptr<bl::gfx::Animation2D>>(tile.renderObject)
+                    ->getTransform()
+                    .setDepth(isYsort ?
+                                  ((getDepthForPosition(level, y, li) + getBottomDepth()) * 0.5f) :
+                                  getDepthForPosition(level, y, li));
+                break;
+
+            case 0:
+            default:
+                break;
+            }
+        }
+    }
+
+    auto it = renderLevels.begin();
+    std::advance(it, level);
+    it->zones[li]->tileSprites.component().getBuffer().commit();
+    it->zones[li]->tileAnims.component().indexBuffer.commit();
+}
+
+void EditMap::updateLevelDepths(unsigned int level) {
+    for (unsigned int level = 0; level < levels.size(); ++level) {
+        for (unsigned int layer = 0; layer < levels[level].layerCount(); ++layer) {
+            updateLayerDepths(level, layer);
+        }
+    }
+}
+
 } // namespace component
 } // namespace editor
