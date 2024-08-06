@@ -345,28 +345,40 @@ void EditMap::showSelection(const sf::IntRect& s) {
 }
 
 void EditMap::removeAllTiles(core::map::Tile::IdType id, bool anim) {
-    const auto cleanLayer = [this, id, anim](core::map::TileLayer& layer) -> bool {
+    const auto cleanLayer = [this, id, anim](core::map::TileLayer& layer,
+                                             unsigned int levelIndex,
+                                             unsigned int layerIndex) -> bool {
         bool mod = false;
         for (unsigned int x = 0; x < layer.width(); ++x) {
             for (unsigned int y = 0; y < layer.height(); ++y) {
                 auto& tile = layer.getRef(x, y);
                 if (tile.id() == id && tile.isAnimation() == anim) {
                     mod = true;
-                    /*tile.set(*tileset, core::map::Tile::Blank, false);*/
+                    tile.set(core::map::Tile::Blank, false);
+                    setupTile(levelIndex, layerIndex, {x, y});
                 }
             }
         }
         return mod;
     };
 
+    unsigned int levelIndex = 0;
     for (auto& level : levels) {
-        bool needClean = false;
-
-        for (auto& layer : level.bottomLayers()) { cleanLayer(layer); }
-        for (auto& layer : level.ysortLayers()) {
-            if (cleanLayer(layer)) { needClean = true; }
+        unsigned int layerIndex = 0;
+        for (auto& layer : level.bottomLayers()) {
+            cleanLayer(layer, levelIndex, layerIndex);
+            ++layerIndex;
         }
-        for (auto& layer : level.topLayers()) { cleanLayer(layer); }
+        for (auto& layer : level.ysortLayers()) {
+            cleanLayer(layer, levelIndex, layerIndex);
+            ++layerIndex;
+        }
+        for (auto& layer : level.topLayers()) {
+            cleanLayer(layer, levelIndex, layerIndex);
+            ++layerIndex;
+        }
+
+        ++levelIndex;
     }
 }
 
