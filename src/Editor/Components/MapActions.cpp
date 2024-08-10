@@ -114,13 +114,11 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
 
 void shiftLevelDown(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                     unsigned int i) {
-    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i + 1]);
 }
 
 void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                   unsigned int i) {
-    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i - 1]);
 }
 
@@ -785,7 +783,8 @@ bool EditMap::RemoveLayerAction::apply(EditMap& map) {
     }
     set->erase(set->begin() + ay);
     map.layerFilter[level].erase(map.layerFilter[level].begin() + layer);
-    // TODO - BLIB_UPGRADE - reset render data
+    std::next(map.renderLevels.begin(), level)->removeLayer(layer);
+    map.updateAllDepths();
     return true;
 }
 
@@ -804,7 +803,9 @@ bool EditMap::RemoveLayerAction::undo(EditMap& map) {
     }
     set->insert(set->begin() + ay, removedLayer);
     map.layerFilter[level].insert(map.layerFilter[level].begin() + layer, true);
-    // TODO - BLIB_UPGRADE - reset render data
+    std::next(map.renderLevels.begin(), level)->insertLayer(layer);
+    map.setupLayer(level, layer);
+    map.updateAllDepths();
     return true;
 }
 
