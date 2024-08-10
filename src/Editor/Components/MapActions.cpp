@@ -693,43 +693,55 @@ EditMap::AppendLayerAction::AppendLayerAction(unsigned int lv, Location l)
 bool EditMap::AppendLayerAction::apply(EditMap& map) {
     core::map::LayerSet& lv               = map.levels[level];
     std::vector<core::map::TileLayer>* ls = nullptr;
+    unsigned int offset                   = 0;
     switch (location) {
     case Bottom:
         ls = &lv.bottomLayers();
         break;
     case YSort:
-        ls = &lv.ysortLayers();
+        ls     = &lv.ysortLayers();
+        offset = lv.bottomLayers().size();
         break;
     default:
-        ls = &lv.topLayers();
+        ls     = &lv.topLayers();
+        offset = lv.bottomLayers().size() + lv.ysortLayers().size();
         break;
     }
-    const unsigned int i = ls->size();
+    const unsigned int i  = ls->size();
+    const unsigned int gi = i + offset;
 
     ls->emplace_back();
     ls->back().create(map.sizeTiles().x, map.sizeTiles().y, core::map::Tile::Blank);
-    // TODO - BLIB_UPGRADE - reset render data
-    map.layerFilter[level].insert(map.layerFilter[level].begin() + i, true);
+    std::next(map.renderLevels.begin(), level)->insertLayer(gi);
+    map.updateAllDepths();
+    map.layerFilter[level].insert(map.layerFilter[level].begin() + gi, true);
     return true;
 }
 
 bool EditMap::AppendLayerAction::undo(EditMap& map) {
     core::map::LayerSet& lv               = map.levels[level];
     std::vector<core::map::TileLayer>* ls = nullptr;
+    unsigned int offset                   = 0;
     switch (location) {
     case Bottom:
         ls = &lv.bottomLayers();
         break;
     case YSort:
-        ls = &lv.ysortLayers();
+        ls     = &lv.ysortLayers();
+        offset = lv.bottomLayers().size();
         break;
     default:
-        ls = &lv.topLayers();
+        ls     = &lv.topLayers();
+        offset = lv.bottomLayers().size() + lv.ysortLayers().size();
         break;
     }
+    const unsigned int i  = ls->size() - 1;
+    const unsigned int gi = i + offset;
 
     ls->pop_back();
-    map.layerFilter[level].pop_back();
+    std::next(map.renderLevels.begin(), level)->removeLayer(gi);
+    map.updateAllDepths();
+    map.layerFilter[level].erase(map.layerFilter[level].begin() + gi);
     return true;
 }
 

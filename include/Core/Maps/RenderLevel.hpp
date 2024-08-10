@@ -38,6 +38,20 @@ struct RenderLevel {
                 unsigned int layerCount, const sf::Vector2u& mapSize, bl::rc::Scene* scene);
 
     /**
+     * @brief Inserts a layer at the given position
+     *
+     * @param position The index to insert at
+     */
+    void insertLayer(unsigned int position);
+
+    /**
+     * @brief Removes the layer at the given position
+     *
+     * @param position The index of the layer to remove
+     */
+    void removeLayer(unsigned int position);
+
+    /**
      * @brief Swaps two render layers
      *
      * @param l1 Index of the first layer to swap
@@ -46,6 +60,10 @@ struct RenderLevel {
     void swapLayers(unsigned int l1, unsigned int l2);
 
 private:
+    bl::engine::Engine* enginePtr;
+    bl::rc::res::TextureRef tileset;
+    sf::Vector2u mapSize;
+    bl::rc::Scene* scene;
     std::list<Zone> storage;
 };
 

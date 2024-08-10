@@ -6,9 +6,13 @@ namespace core
 {
 namespace map
 {
-void RenderLevel::create(bl::engine::Engine& engine, bl::rc::res::TextureRef tileset,
-                         unsigned int layerCount, const sf::Vector2u& mapSize,
-                         bl::rc::Scene* scene) {
+void RenderLevel::create(bl::engine::Engine& engine, bl::rc::res::TextureRef ts,
+                         unsigned int layerCount, const sf::Vector2u& ms, bl::rc::Scene* s) {
+    enginePtr = &engine;
+    tileset   = ts;
+    scene     = s;
+    mapSize   = ms;
+
     const unsigned int initialCapacity = mapSize.x * mapSize.y / 2;
     zones.reserve(layerCount);
     for (unsigned int i = 0; i < layerCount; ++i) {
@@ -31,6 +35,22 @@ void RenderLevel::swapLayers(unsigned int i1, unsigned int i2) {
     const auto s2   = isGt ? it2 : it1;
     storage.splice(s2, storage, s1);
     std::swap(zones[i1], zones[i2]);
+}
+
+void RenderLevel::insertLayer(unsigned int position) {
+    auto& layer = *storage.emplace(std::next(storage.begin(), position));
+    zones.insert(zones.begin() + position, &layer);
+
+    const unsigned int initialCapacity = mapSize.x * mapSize.y / 2;
+    layer.tileSprites.create(*enginePtr, tileset, initialCapacity);
+    layer.tileAnims.create(*enginePtr, initialCapacity);
+    layer.tileSprites.addToScene(scene, bl::rc::UpdateSpeed::Static);
+    layer.tileAnims.addToScene(scene, bl::rc::UpdateSpeed::Static);
+}
+
+void RenderLevel::removeLayer(unsigned int position) {
+    storage.erase(std::next(storage.begin(), position));
+    zones.erase(zones.begin() + position);
 }
 
 } // namespace map
