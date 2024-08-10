@@ -22,9 +22,12 @@ Map::Map(core::system::Systems& s)
 : Page(s)
 , mapArea([this](const sf::Vector2f& p, const sf::Vector2i& t) { onMapClick(p, t); },
           std::bind(&Map::syncGui, this), s)
-, tileset([this](core::map::Tile::IdType id,
-                 bool isAnim) { mapArea.editMap().removeAllTiles(id, isAnim); },
-          mapArea)
+, tileset(
+      s.engine(),
+      [this](core::map::Tile::IdType id, bool isAnim) {
+          mapArea.editMap().removeAllTiles(id, isAnim);
+      },
+      mapArea)
 , levelPage([this](unsigned int l, bool v) { mapArea.editMap().setLevelVisible(l, v); },
             [this](unsigned int l, bool up) { mapArea.editMap().shiftLevel(l, up); },
             [this]() { mapArea.editMap().appendLevel(); })

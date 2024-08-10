@@ -29,10 +29,10 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
+Tileset::Tileset(bl::engine::Engine& engine, const DeleteCb& dcb, MapArea& map)
 : deleteCb(dcb)
 , catchables(map.editMap())
-, towns(map)
+, towns(engine, map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)

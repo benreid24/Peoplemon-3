@@ -16,8 +16,9 @@ constexpr float FlymapScale     = 0.5f;
 } // namespace
 using namespace bl::gui;
 
-Towns::Towns(MapArea& ma)
-: mapArea(ma)
+Towns::Towns(bl::engine::Engine& engine, MapArea& ma)
+: engine(engine)
+, mapArea(ma)
 , map(ma.editMap())
 , active(0)
 , playlistWindow(std::bind(&Towns::onPlaylistPick, this, std::placeholders::_1),
@@ -83,12 +84,27 @@ Towns::Towns(MapArea& ma)
     row->pack(spawnSelect, false, true);
     window->pack(row, true, false);
 
-    flymapTxtr = TextureManager::load(
+    scene      = engine.renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
+    flymapTxtr = engine.renderer().texturePool().getOrLoadTexture(
         bl::util::FileUtil::joinPath(core::Properties::MenuImagePath(), "FlyMap/background.png"));
-    flyMap.setTexture(*flymapTxtr, true);
-    flyMap.setScale(FlymapScale, FlymapScale);
+    flyMap.create(engine, flymapTxtr);
+    flyMap.getTransform().setScale(FlymapScale, FlymapScale);
+    flyMap.getTransform().setDepth(2.f);
+    flyMap.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    townCircle.create(engine, 5.f);
+    townCircle.setFillColor(sf::Color::Black);
+    townCircle.setOutlineColor(sf::Color::Red);
+    townCircle.setOutlineThickness(1.f);
+    townCircle.getTransform().setOrigin(5.f, 5.f);
+    townCircle.getTransform().setDepth(1.f);
+    townCircle.addToScene(scene, bl::rc::UpdateSpeed::Static);
+
+    const glm::vec2 halfSize = flymapTxtr->size() * 0.5f;
     window->pack(Label::create("Fly map position:"));
-    mapPosCanvas = Canvas::create(flymapTxtr->getSize().x / 2, flymapTxtr->getSize().y / 2);
+    mapPosCanvas = Canvas::create(halfSize.x, halfSize.y);
+    mapPosCanvas->setScene(scene);
+    auto* cam = mapPosCanvas->setCamera<bl::cam::Camera2D>(halfSize * 0.5f, halfSize);
     mapPosCanvas->getSignal(Event::LeftClicked)
         .willAlwaysCall(std::bind(&Towns::setMapPos, this, std::placeholders::_1));
     window->pack(mapPosCanvas, false, false);
@@ -211,16 +227,7 @@ void Towns::setMapPos(const Event& click) {
 }
 
 void Towns::refreshFlymapCanvas() {
-    // TODO - BLIB_UPGRADE - update town flymap indicator rendering
-    /* mapPosCanvas->getTexture().draw(flyMap);
-     sf::CircleShape dot(5.f);
-     dot.setPosition(sf::Vector2f(mapPos) * FlymapScale);
-     dot.setOrigin({5.f, 5.f});
-     dot.setFillColor(sf::Color::Red);
-     dot.setOutlineColor(sf::Color::Black);
-     dot.setOutlineThickness(1.f);
-     mapPosCanvas->getTexture().draw(dot);
-     mapPosCanvas->getTexture().display();*/
+    townCircle.getTransform().setPosition(glm::vec2(mapPos.x, mapPos.y) * FlymapScale);
 }
 
 } // namespace page
