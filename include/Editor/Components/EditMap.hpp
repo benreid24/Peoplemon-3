@@ -647,6 +647,7 @@ private:
         virtual void update(float dt) override;
         void reset(const sf::Vector2i& size);
         void zoom(float z);
+        void updateDepthPlanes();
 
         EditMap* owner;
         bool enabled;
@@ -716,6 +717,7 @@ private:
 
     void addSpawnGfx(const core::map::Spawn& spawn);
     void updateSpawnRotation(std::uint16_t id);
+    void updateAllDepths();
     void updateLevelDepths(unsigned int level);
     void swapRenderLevels(unsigned int i1, unsigned int i2);
     void updateLayerDepths(unsigned int level, unsigned int layer);

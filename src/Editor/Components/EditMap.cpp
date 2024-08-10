@@ -438,13 +438,17 @@ void EditMap::EditCameraController::update(float dt) {
 void EditMap::EditCameraController::reset(const sf::Vector2i& t) {
     mapSize = glm::vec2(t.x, t.y) * static_cast<float>(core::Properties::PixelsPerTile());
     camera().setCenter(mapSize * 0.5f);
-    camera().setNearAndFarPlanes(-owner->getMinDepth(), 0.f);
+    updateDepthPlanes();
     zoomAmount = 1.5f;
 }
 
 void EditMap::EditCameraController::zoom(float z) {
     zoomAmount += z;
     if (zoomAmount < 0.1f) { zoomAmount = 0.1f; }
+}
+
+void EditMap::EditCameraController::updateDepthPlanes() {
+    camera().setNearAndFarPlanes(-owner->getMinDepth(), 0.f);
 }
 
 sf::Vector2f EditMap::minimumRequisition() const { return {100.f, 100.f}; }
@@ -1236,29 +1240,32 @@ void EditMap::updateLayerDepths(unsigned int level, unsigned int li) {
 }
 
 void EditMap::updateLevelDepths(unsigned int level) {
-    for (unsigned int level = 0; level < levels.size(); ++level) {
-        for (unsigned int layer = 0; layer < levels[level].layerCount(); ++layer) {
-            updateLayerDepths(level, layer);
-        }
+    for (unsigned int layer = 0; layer < levels[level].layerCount(); ++layer) {
+        updateLayerDepths(level, layer);
     }
 }
 
-void EditMap::swapRenderLevels(unsigned int i1, unsigned int i2) {
-    updateLevelDepths(i1);
-    updateLevelDepths(i2);
+void EditMap::updateAllDepths() {
+    if (camera) { camera->updateDepthPlanes(); }
+    for (unsigned int level = 0; level < levels.size(); ++level) { updateLevelDepths(level); }
+}
 
+void EditMap::swapRenderLevels(unsigned int i1, unsigned int i2) {
     const bool isGt = i1 > i2;
     const auto it1  = std::next(renderLevels.begin(), i1);
     const auto it2  = std::next(renderLevels.begin(), i2);
     const auto s1   = isGt ? it1 : it2;
     const auto s2   = isGt ? it2 : it1;
     renderLevels.splice(s2, renderLevels, s1);
+
+    updateLevelDepths(i1);
+    updateLevelDepths(i2);
 }
 
 void EditMap::swapRenderLayers(unsigned int level, unsigned int l1, unsigned int l2) {
+    std::next(renderLevels.begin(), level)->swapLayers(l1, l2);
     updateLayerDepths(level, l1);
     updateLayerDepths(level, l2);
-    std::next(renderLevels.begin(), level)->swapLayers(l1, l2);
 }
 
 } // namespace component

@@ -858,11 +858,13 @@ bool EditMap::ShiftLevelAction::apply(EditMap& map) {
     if (up) {
         shiftLevelUp(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level - 1]);
         map.swapRenderLevels(level, level - 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level + 1]);
         map.swapRenderLevels(level, level + 1);
     }
     return true;
@@ -872,11 +874,13 @@ bool EditMap::ShiftLevelAction::undo(EditMap& map) {
     if (!up) {
         shiftLevelUp(map.levels, *map.tileset, level + 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level + 1]);
         map.swapRenderLevels(level, level + 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level - 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level - 1]);
         map.swapRenderLevels(level, level - 1);
     }
     return true;
@@ -891,13 +895,16 @@ bool EditMap::AppendLevelAction::apply(EditMap& map) {
     map.layerFilter.emplace_back(5, true);
     map.levels.emplace_back();
     map.levels.back().init(map.sizeTiles().x, map.sizeTiles().y, 2, 1, 1);
+    map.setupLevel(map.levels.size() - 1);
+    map.updateAllDepths();
     map.systems->position().editorPushLevel();
-    // TODO - BLIB_UPGRADE - reset render data
     return true;
 }
 
 bool EditMap::AppendLevelAction::undo(EditMap& map) {
+    map.renderLevels.pop_back();
     map.levels.pop_back();
+    map.updateAllDepths();
     map.levelFilter.pop_back();
     map.layerFilter.pop_back();
     map.systems->position().editorPopLevel();

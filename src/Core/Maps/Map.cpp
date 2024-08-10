@@ -616,22 +616,26 @@ void Map::prepareRender() {
     scene = systems->engine().renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
 
     tileset->activate(systems->engine());
-    for (unsigned int i = 0; i < levels.size(); ++i) {
-        auto& rl = renderLevels.emplace_back();
-        rl.create(systems->engine(),
-                  tileset->combinedTextures,
-                  levels[i].layerCount(),
-                  sf::Vector2u(size),
-                  scene);
-
-        for (unsigned int j = 0; j < levels[i].layerCount(); ++j) {
-            for (unsigned int x = 0; x < size.x; ++x) {
-                for (unsigned int y = 0; y < size.y; ++y) { setupTile(i, j, {x, y}); }
-            }
-        }
-    }
+    for (unsigned int i = 0; i < levels.size(); ++i) { setupLevel(i); }
 
     BL_LOG_INFO << "Map geometry generated";
+}
+
+void Map::setupLevel(unsigned int level) {
+    const auto pos = std::next(renderLevels.begin(), level);
+    auto& rl       = *renderLevels.emplace(pos);
+    rl.create(systems->engine(),
+              tileset->combinedTextures,
+              levels[level].layerCount(),
+              sf::Vector2u(size),
+              scene);
+    for (unsigned int j = 0; j < levels[level].layerCount(); ++j) { setupLayer(level, j); }
+}
+
+void Map::setupLayer(unsigned int level, unsigned int layer) {
+    for (unsigned int x = 0; x < size.x; ++x) {
+        for (unsigned int y = 0; y < size.y; ++y) { setupTile(level, layer, {x, y}); }
+    }
 }
 
 void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
