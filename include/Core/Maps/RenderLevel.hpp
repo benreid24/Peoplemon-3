@@ -37,6 +37,14 @@ struct RenderLevel {
     void create(bl::engine::Engine& engine, bl::rc::res::TextureRef tileset,
                 unsigned int layerCount, const sf::Vector2u& mapSize, bl::rc::Scene* scene);
 
+    /**
+     * @brief Swaps two render layers
+     *
+     * @param l1 Index of the first layer to swap
+     * @param l2 Index of the second layer to swap
+     */
+    void swapLayers(unsigned int l1, unsigned int l2);
+
 private:
     std::list<Zone> storage;
 };

@@ -811,13 +811,11 @@ EditMap::ShiftLayerAction::ShiftLayerAction(unsigned int level, unsigned int lay
 bool EditMap::ShiftLayerAction::apply(EditMap& map) {
     if (up) {
         shiftLayerUp(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
-        map.updateLayerDepths(level, layer);
-        map.updateLayerDepths(level, layer - 1);
+        map.swapRenderLayers(level, layer, layer - 1);
     }
     else {
         shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
-        map.updateLayerDepths(level, layer);
-        map.updateLayerDepths(level, layer + 1);
+        map.swapRenderLayers(level, layer, layer + 1);
     }
     return true;
 }
@@ -831,8 +829,7 @@ bool EditMap::ShiftLayerAction::undo(EditMap& map) {
             ay = layer;
         }
         shiftLayerDown(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
-        map.updateLayerDepths(level, ay);
-        map.updateLayerDepths(level, ay + 1);
+        map.swapRenderLayers(level, ay, ay + 1);
     }
     else {
         unsigned int ay = layer + 1;
@@ -842,8 +839,7 @@ bool EditMap::ShiftLayerAction::undo(EditMap& map) {
             ay = layer;
         }
         shiftLayerUp(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
-        map.updateLayerDepths(level, ay);
-        map.updateLayerDepths(level, ay - 1);
+        map.swapRenderLayers(level, ay, ay - 1);
     }
     return true;
 }
@@ -862,14 +858,12 @@ bool EditMap::ShiftLevelAction::apply(EditMap& map) {
     if (up) {
         shiftLevelUp(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
-        map.updateLevelDepths(level);
-        map.updateLevelDepths(level - 1);
+        map.swapRenderLevels(level, level - 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
-        map.updateLevelDepths(level);
-        map.updateLevelDepths(level + 1);
+        map.swapRenderLevels(level, level + 1);
     }
     return true;
 }
@@ -878,14 +872,12 @@ bool EditMap::ShiftLevelAction::undo(EditMap& map) {
     if (!up) {
         shiftLevelUp(map.levels, *map.tileset, level + 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
-        map.updateLevelDepths(level);
-        map.updateLevelDepths(level + 1);
+        map.swapRenderLevels(level, level + 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level - 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
-        map.updateLevelDepths(level);
-        map.updateLevelDepths(level - 1);
+        map.swapRenderLevels(level, level - 1);
     }
     return true;
 }

@@ -1243,5 +1243,23 @@ void EditMap::updateLevelDepths(unsigned int level) {
     }
 }
 
+void EditMap::swapRenderLevels(unsigned int i1, unsigned int i2) {
+    updateLevelDepths(i1);
+    updateLevelDepths(i2);
+
+    const bool isGt = i1 > i2;
+    const auto it1  = std::next(renderLevels.begin(), i1);
+    const auto it2  = std::next(renderLevels.begin(), i2);
+    const auto s1   = isGt ? it1 : it2;
+    const auto s2   = isGt ? it2 : it1;
+    renderLevels.splice(s2, renderLevels, s1);
+}
+
+void EditMap::swapRenderLayers(unsigned int level, unsigned int l1, unsigned int l2) {
+    updateLayerDepths(level, l1);
+    updateLayerDepths(level, l2);
+    std::next(renderLevels.begin(), level)->swapLayers(l1, l2);
+}
+
 } // namespace component
 } // namespace editor
