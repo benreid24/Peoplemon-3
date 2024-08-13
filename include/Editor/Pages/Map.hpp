@@ -25,7 +25,6 @@ namespace page
  * @brief Page for map editing. Tiles, levels, events, NPC's, weather, lighting, everything
  *
  * @ingroup Pages
- *
  */
 class Map : public Page {
 public:
@@ -38,7 +37,6 @@ public:
 
     /**
      * @brief Destroy the Page
-     *
      */
     virtual ~Map() = default;
 
@@ -51,7 +49,6 @@ public:
 
     /**
      * @brief Updates the GUI elements to sync with the data
-     *
      */
     void syncGui();
 

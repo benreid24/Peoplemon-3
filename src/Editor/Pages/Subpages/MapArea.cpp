@@ -58,6 +58,8 @@ MapArea::MapArea(const component::EditMap::PositionCb& cb,
     controlRow->pack(rightSide, true, false);
     content->pack(controlRow, true, false);
     content->pack(map, true, true);
+
+    bl::event::Dispatcher::subscribe(this);
 }
 
 component::EditMap& MapArea::editMap() { return *map; }
@@ -105,6 +107,16 @@ void MapArea::enableControls() {
 void MapArea::disableControls() {
     editMap().setControlsEnabled(false);
     enableBut->setValue(false);
+}
+
+void MapArea::observe(const event::MapRenderStarted&) {
+    enableBut->setActive(false);
+    enableBut->setForceFocus(true);
+}
+
+void MapArea::observe(const event::MapRenderCompleted&) {
+    enableBut->setActive(true);
+    enableBut->setForceFocus(false);
 }
 
 } // namespace page

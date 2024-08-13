@@ -648,6 +648,7 @@ private:
         void reset(const sf::Vector2i& size);
         void zoom(float z);
         void updateDepthPlanes();
+        bl::cam::Camera2D& getCamera() { return camera(); }
 
         EditMap* owner;
         bool enabled;
@@ -702,6 +703,31 @@ private:
     std::list<bl::gfx::Rectangle> eventsOverlay;
     sf::Color currentEventFillColor;
     float eventColorTime;
+
+    struct ExportState {
+        std::atomic_bool exportInProgress;
+        RenderOverlay prevRenderOverlay;
+        unsigned int prevOverlayLevel;
+        sf::IntRect prevSelection;
+        glm::vec2 prevCenter;
+        float prevZoom;
+        std::uint8_t prevAmbientLightLow;
+        std::uint8_t prevAmbientLightHigh;
+        bool entitiesHidden;
+        bool prevEnabled;
+        std::atomic_bool exportComplete;
+
+        std::string outputPath;
+        bl::rc::vk::RenderTexture::Handle renderTexture;
+        bl::cam::Camera2D* camera;
+        glm::u32vec2 center;
+        glm::u32vec2 size;
+        bl::rc::tfr::TextureExport* exportJob;
+
+        ExportState();
+    } exportState;
+
+    void exportRendering();
 
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;

@@ -48,9 +48,13 @@ void RenderMapWindow::close() {
 
 void RenderMapWindow::start() {
     const char* filters[] = {"*.png"};
-    output = bl::dialog::tinyfd_saveFileDialog("Save Map Rendering", "", 1, filters, "PNG files");
-    close();
-    trigger();
+    char* path =
+        bl::dialog::tinyfd_saveFileDialog("Save Map Rendering", "", 1, filters, "PNG files");
+    if (path) {
+        output = path;
+        close();
+        trigger();
+    }
 }
 
 } // namespace component

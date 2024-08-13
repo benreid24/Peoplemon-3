@@ -6,6 +6,7 @@
 #include <Core/Resources.hpp>
 #include <Core/Scripts/LegacyWarn.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <Editor/Events/MapRender.hpp>
 #include <Editor/Pages/Subpages/Catchables.hpp>
 #include <Editor/Pages/Subpages/Towns.hpp>
 
@@ -41,6 +42,15 @@ const std::initializer_list<std::string_view> LevelTransitionTextures{
     "EditorResources/LevelTransitions/horUpLeft.png",
     "EditorResources/LevelTransitions/vertUpUp.png",
     "EditorResources/LevelTransitions/vertUpDown.png"};
+
+unsigned int computePatchSize(unsigned int total, unsigned int maxPatch) {
+    if (total < maxPatch) { return total; }
+
+    unsigned int patch = maxPatch;
+    while (total % patch > 0 && patch > 0) { --patch; }
+    return patch;
+}
+
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
@@ -244,6 +254,39 @@ void EditMap::update(float dt) {
         currentEventFillColor = newEventColor;
         for (auto& rect : eventsOverlay) { rect.setFillColor(newEventColor); }
     }
+
+    if (exportState.exportComplete) {
+        exportState.exportComplete = false;
+
+        // reset render overlay and selection
+        setRenderOverlay(exportState.prevRenderOverlay, exportState.prevOverlayLevel);
+        showSelection(exportState.prevSelection);
+
+        // reset layer visibility
+        for (unsigned int level = 0; level < levels.size(); ++level) {
+            for (unsigned int layer = 0; layer < levels[level].layerCount(); ++layer) {
+                updateLayerVisibility(
+                    level, layer, !levelFilter[level] || !layerFilter[level][layer]);
+            }
+        }
+
+        // reset lighting
+        lighting.setAmbientLevel(exportState.prevAmbientLightLow, exportState.prevAmbientLightHigh);
+
+        // reset entities
+        if (exportState.entitiesHidden) {
+            // TODO - unhide
+        }
+
+        // reset camera and controls
+        camera->zoomAmount = exportState.prevZoom;
+        camera->getCamera().setCenter(exportState.prevCenter);
+        controlsEnabled = exportState.prevEnabled;
+        bl::event::Dispatcher::dispatch<event::MapRenderCompleted>({});
+
+        // release resources
+        exportState.renderTexture.release();
+    }
 }
 
 void EditMap::setControlsEnabled(bool e) {
@@ -292,6 +335,8 @@ void EditMap::updateLayerVisibility(unsigned int level, unsigned int layer, bool
 }
 
 void EditMap::setRenderOverlay(RenderOverlay ro, unsigned int l) {
+    if (exportState.exportInProgress && ro != RenderOverlay::None) { return; }
+
     if (renderOverlay != ro || overlayLevel != l) {
         renderOverlay = ro;
         overlayLevel  = l;
@@ -658,116 +703,66 @@ void EditMap::removeNpcSpawn(const core::map::CharacterSpawn* s) {
 }
 
 void EditMap::staticRender(const RenderMapWindow& params) {
-    /*constexpr int PatchSize = 100;
-    BL_LOG_INFO << "Rendering map to " << params.outputPath();
+    exportState.exportInProgress = true;
+    exportState.exportComplete   = false;
+    exportState.outputPath       = params.outputPath();
 
-    BL_LOG_DEBUG << "Creating RAM and VRAM buffers";
-    sf::Image result;
-    result.create(size.x * core::Properties::PixelsPerTile(),
-                  size.y * core::Properties::PixelsPerTile());
-    sf::RenderTexture patch;
-    patch.create(PatchSize * core::Properties::PixelsPerTile(),
-                 PatchSize * core::Properties::PixelsPerTile());
-
-    int pw = size.x / PatchSize;
-    if (size.x % PatchSize > 0) ++pw;
-    int ph = size.y / PatchSize;
-    if (size.y % PatchSize > 0) ++ph;
-    BL_LOG_DEBUG << "Performing render in " << (pw * ph) << " patches";
-
-    const std::uint8_t oldLow  = lighting.getMinLightLevel();
-    const std::uint8_t oldHigh = lighting.getMaxLightLevel();
-    lighting.setAmbientLevel(params.lightLevel(), params.lightLevel());
-
-    for (int px = 0; px < pw; ++px) {
-        for (int py = 0; py < ph; ++py) {
-            BL_LOG_DEBUG << "Rendering patch " << (px * ph + py);
-
-            const sf::View view(
-                sf::Vector2f{sf::Vector2i{px * PatchSize * core::Properties::PixelsPerTile() +
-                                              PatchSize * core::Properties::PixelsPerTile() / 2,
-                                          py * PatchSize * core::Properties::PixelsPerTile() +
-                                              PatchSize * core::Properties::PixelsPerTile() / 2}},
-                sf::Vector2f{sf::Vector2i{PatchSize * core::Properties::PixelsPerTile(),
-                                          PatchSize * core::Properties::PixelsPerTile()}});
-            patch.setView(view);
-            patch.clear(sf::Color::Black);
-
-            refreshRenderRange(view);
-
-            const auto renderRow = [&patch, this](const core::map::TileLayer& layer, int row) {
-                for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-                    layer.get(x, row).render(patch, 0.f);
-                }
-            };
-
-            const auto renderSorted = [&patch, this](const core::map::SortedLayer& layer, int row) {
-                for (int x = renderRange.left; x < renderRange.left + renderRange.width; ++x) {
-                    core::map::Tile* t = layer(x, row);
-                    if (t) t->render(patch, 0.f);
-                }
-            };
-
-            for (unsigned int i = 0; i < levels.size(); ++i) {
-                const core::map::LayerSet& level = levels[i];
-
-                for (const core::map::TileLayer& layer : level.bottomLayers()) {
-                    for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                        renderRow(layer, y);
-                    }
-                }
-                for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                    for (const core::map::SortedLayer& layer : level.renderSortedLayers()) {
-                        renderSorted(layer, y);
-                    }
-                    if (params.renderCharacters()) {
-                        systems->render().renderEntities(patch,
-                                                         0.f,
-                                                         i,
-                                                         y,
-                                                         renderRange.left,
-                                                         renderRange.left + renderRange.width);
-                    }
-                }
-                for (const core::map::TileLayer& layer : level.topLayers()) {
-                    for (int y = renderRange.top; y < renderRange.top + renderRange.height; ++y) {
-                        renderRow(layer, y);
-                    }
-                }
-            }
-
-            BL_LOG_DEBUG << "Rendering lighting for patch";
-            lighting.render(patch);
-
-            BL_LOG_DEBUG << "Copying patch to memory";
-            patch.display();
-            sf::Image rp = patch.getTexture().copyToImage();
-            result.copy(
-                rp,
-                renderRange.left * core::Properties::PixelsPerTile(),
-                renderRange.top * core::Properties::PixelsPerTile(),
-                {0,
-                 0,
-                 (renderRange.left + renderRange.width) * core::Properties::PixelsPerTile(),
-                 (renderRange.top + renderRange.height) * core::Properties::PixelsPerTile()});
+    // unhide all layers
+    for (unsigned int level = 0; level < levels.size(); ++level) {
+        for (unsigned int layer = 0; layer < levels[level].layerCount(); ++layer) {
+            updateLayerVisibility(level, layer, false);
         }
     }
-    BL_LOG_DEBUG << "Completed rendering, saving to file";
-    lighting.setAmbientLevel(oldLow, oldHigh);
 
-    std::string out = params.outputPath();
-    if (!result.saveToFile(out)) {
-        out = "properOutputFileBozo.png";
-        BL_LOG_DEBUG << "Failed to save, saving to " << out;
-        result.saveToFile(out);
+    // hide all overlays
+    exportState.prevRenderOverlay = renderOverlay;
+    exportState.prevOverlayLevel  = overlayLevel;
+    setRenderOverlay(RenderOverlay::None, 0);
+
+    // hide selection
+    exportState.prevSelection = selection;
+    showSelection({0, 0, 0, 0});
+
+    // set lighting
+    exportState.prevAmbientLightLow  = lighting.getMinLightLevel();
+    exportState.prevAmbientLightHigh = lighting.getMaxLightLevel();
+    lighting.setAmbientLevel(params.lightLevel(), params.lightLevel());
+
+    // create render texture
+    const sf::Vector2u sp(size * core::Properties::PixelsPerTile());
+    const unsigned int ms = systems->engine()
+                                .renderer()
+                                .vulkanState()
+                                .physicalDeviceProperties.limits.maxImageDimension2D;
+    exportState.size   = glm::u32vec2(computePatchSize(sp.x, ms), computePatchSize(sp.y, ms));
+    exportState.center = glm::u32vec2(exportState.size.x / 2, exportState.size.y / 2);
+    exportState.renderTexture = systems->engine().renderer().createRenderTexture(exportState.size);
+    exportState.renderTexture->pushScene(scene);
+    exportState.camera = exportState.renderTexture->setCamera<bl::cam::Camera2D>(
+        glm::vec2(exportState.center), glm::vec2(exportState.size));
+
+    // TODO - hide all entities if required
+    exportState.entitiesHidden = !params.renderCharacters();
+    if (exportState.entitiesHidden) {
+        // TODO - hide
     }
-    BL_LOG_INFO << "Map rendering complete";
 
-    bl::dialog::tinyfd_messageBox("Rendering Complete",
-                                  std::string("Rendered map saved to: " + out).c_str(),
-                                  "ok",
-                                  "info",
-                                  1);*/
+    // show entire map
+    const glm::vec2 spf(sp.x, sp.y);
+    exportState.prevCenter = camera->getCamera().getCenter();
+    exportState.prevZoom   = camera->zoomAmount;
+    camera->getCamera().setCenter(spf * 0.5f);
+    camera->zoomAmount = std::max(spf.x / getAcquisition().width, spf.y / getAcquisition().height);
+
+    // disable all controls
+    exportState.prevEnabled = controlsEnabled;
+    controlsEnabled         = false;
+    bl::event::Dispatcher::dispatch<event::MapRenderStarted>({});
+
+    // start initial export
+    exportState.exportJob = systems->engine().renderer().textureExporter().exportTexture(
+        exportState.renderTexture->getTexture());
+    systems->engine().longRunningThreadpool().queueTask([this]() { exportRendering(); });
 }
 
 void EditMap::createEvent(const core::map::Event& event) {
@@ -1266,6 +1261,74 @@ void EditMap::swapRenderLayers(unsigned int level, unsigned int l1, unsigned int
     std::next(renderLevels.begin(), level)->swapLayers(l1, l2);
     updateLayerDepths(level, l1);
     updateLayerDepths(level, l2);
+}
+
+EditMap::ExportState::ExportState()
+: exportInProgress(false)
+, exportJob(nullptr)
+, exportComplete(false) {}
+
+void EditMap::exportRendering() {
+    const sf::Vector2u sp(size * core::Properties::PixelsPerTile());
+
+    // create images while main thread renders
+    sf::Image patch;
+    sf::Image stitched;
+    patch.create(exportState.size.x, exportState.size.y, sf::Color::Transparent);
+    stitched.create(sp.x, sp.y, sf::Color::Transparent);
+
+    // determine how many rows & cols to render
+    const unsigned int rows = sp.x / exportState.size.x;
+    const unsigned int cols = sp.y / exportState.size.y;
+
+    // render each patch
+    bl::engine::Systems::TaskHandle queueTask;
+    for (unsigned int row = 0; row < rows; ++row) {
+        for (unsigned int col = 0; col < cols; ++col) {
+            const bool hasNext = row < rows || col < cols;
+
+            // wait for patch render to complete and copy to local memory
+            exportState.exportJob->wait();
+            exportState.exportJob->copyImage(patch);
+
+            // release and queue next export if there is one
+            exportState.exportJob->release();
+            if (hasNext) {
+                // update camera center
+                const bool sameRow   = col < cols - 1;
+                const unsigned int x = (sameRow ? row : (row + 1)) * exportState.size.x;
+                const unsigned int y = (sameRow ? (col + 1) : 0) * exportState.size.y;
+                exportState.camera->setCenter(glm::vec2(x, y));
+
+                // queue next export in sync with engine
+                queueTask = systems->engine().systems().addFrameTask(
+                    bl::engine::FrameStage::Update2, [this]() {
+                        exportState.exportJob =
+                            systems->engine().renderer().textureExporter().exportTexture(
+                                exportState.renderTexture->getTexture());
+                    });
+            }
+
+            // copy result into stitched image
+            stitched.copy(patch, row * exportState.size.x, col * exportState.size.y);
+
+            // wait for export queue if there is one
+            if (hasNext) { queueTask.wait(); }
+        }
+    }
+
+    // signal completion
+    exportState.exportComplete = true;
+
+    // save result
+    stitched.saveToFile(exportState.outputPath);
+
+    bl::dialog::tinyfd_messageBox(
+        "Rendering Complete",
+        std::string("Rendered map saved to: " + exportState.outputPath).c_str(),
+        "ok",
+        "info",
+        1);
 }
 
 } // namespace component
