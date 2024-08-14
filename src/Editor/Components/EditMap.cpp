@@ -50,7 +50,6 @@ unsigned int computePatchSize(unsigned int total, unsigned int maxPatch) {
     while (total % patch > 0 && patch > 0) { --patch; }
     return patch;
 }
-
 } // namespace
 
 EditMap::Ptr EditMap::create(const PositionCb& clickCb, const PositionCb& moveCb,
@@ -740,6 +739,7 @@ void EditMap::staticRender(const RenderMapWindow& params) {
     exportState.renderTexture->pushScene(scene);
     exportState.camera = exportState.renderTexture->setCamera<bl::cam::Camera2D>(
         glm::vec2(exportState.center), glm::vec2(exportState.size));
+    exportState.camera->setNearAndFarPlanes(-getMinDepth(), 0.f);
 
     // TODO - hide all entities if required
     exportState.entitiesHidden = !params.renderCharacters();
@@ -759,10 +759,14 @@ void EditMap::staticRender(const RenderMapWindow& params) {
     controlsEnabled         = false;
     bl::event::Dispatcher::dispatch<event::MapRenderStarted>({});
 
-    // start initial export
-    exportState.exportJob = systems->engine().renderer().textureExporter().exportTexture(
-        exportState.renderTexture->getTexture());
-    systems->engine().longRunningThreadpool().queueTask([this]() { exportRendering(); });
+    // start initial export (deferred for descriptors to update)
+    systems->engine().renderer().vulkanState().cleanupManager.add([this]() {
+        exportState.exportJob = systems->engine().renderer().textureExporter().exportTexture(
+            exportState.renderTexture->getTexture());
+        systems->engine().renderer().vulkanState().cleanupManager.add([this]() {
+            systems->engine().longRunningThreadpool().queueTask([this]() { exportRendering(); });
+        });
+    });
 }
 
 void EditMap::createEvent(const core::map::Event& event) {
