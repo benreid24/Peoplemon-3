@@ -1,6 +1,12 @@
 #include <Editor/States/MainEditor.hpp>
 
 #include <Core/Properties.hpp>
+#include <Editor/Components/ConversationTree.hpp>
+#include <Editor/Components/EditMap.hpp>
+#include <Editor/Components/HighlightRadioButton.hpp>
+#include <Editor/Components/Render/ConversationTreeComponent.hpp>
+#include <Editor/Components/Render/EditMapComponent.hpp>
+#include <Editor/Components/Render/HighlightRadioButtonComponent.hpp>
 
 namespace editor
 {
@@ -9,7 +15,7 @@ namespace state
 MainEditor::Ptr MainEditor::create(core::system::Systems& s) { return Ptr(new MainEditor(s)); }
 
 MainEditor::MainEditor(core::system::Systems& s)
-: State(bl::engine::StateMask::Paused)
+: State(bl::engine::StateMask::Editor)
 , systems(s)
 , mapPage(s)
 , variousEditorsPage(s)
@@ -25,10 +31,8 @@ MainEditor::MainEditor(core::system::Systems& s)
         bl::gui::LinePacker::create(bl::gui::LinePacker::Vertical, 4, bl::gui::LinePacker::Compact),
         {0.f,
          0.f,
-         static_cast<float>(core::Properties::WindowWidth()) + 350.f,
-         static_cast<float>(core::Properties::WindowHeight()) + 200.f});
-
-    // TODO - BLIB_UPGRADE - add custom gui components for rendering
+         static_cast<float>(s.engine().window().getSfWindow().getSize().x),
+         static_cast<float>(s.engine().window().getSfWindow().getSize().y)});
 
     mapPage.registerGui(gui.get());
     variousEditorsPage.registerGui(gui.get());
@@ -64,13 +68,16 @@ MainEditor::MainEditor(core::system::Systems& s)
 
 const char* MainEditor::name() const { return "MainEditor"; }
 
-void MainEditor::activate(bl::engine::Engine&) {
-    // gui->subscribe();
+void MainEditor::activate(bl::engine::Engine& engine) {
+    engine.renderer().getObserver().pushScene<bl::rc::Overlay>();
+    engine.renderer().getObserver().setClearColor(bl::sfcol(sf::Color{90, 90, 90}));
+    gui->addToOverlay();
     bl::event::Dispatcher::subscribe(this);
 }
 
-void MainEditor::deactivate(bl::engine::Engine&) {
-    bl::event::Dispatcher::unsubscribe(gui.get());
+void MainEditor::deactivate(bl::engine::Engine& engine) {
+    gui->removeFromScene();
+    engine.renderer().getObserver().popScene();
     bl::event::Dispatcher::unsubscribe(this);
 }
 
@@ -79,23 +86,22 @@ void MainEditor::update(bl::engine::Engine&, float dt, float) {
     currentPage->update(dt);
 }
 
-// void MainEditor::render(bl::engine::Engine& engine, float) {
-//     engine.window().clear();
-//     engine.window().draw(*gui);
-//     engine.window().display();
-// }
-
 void MainEditor::observe(const sf::Event& event) {
     if (event.type == sf::Event::Resized) {
-        /*systems.engine().window().setView(sf::View({0.f,
-                                                    0.f,
-                                                    static_cast<float>(event.size.width),
-                                                    static_cast<float>(event.size.height)}));*/
         gui->setRegion({0.f,
                         0.f,
                         static_cast<float>(event.size.width),
                         static_cast<float>(event.size.height)});
     }
+}
+
+void MainEditor::registerCustomGuiComponents() {
+    using namespace component;
+    auto& table = bl::gui::rdr::FactoryTable::getDefaultTable();
+
+    table.registerFactoryForElement<HighlightRadioButton, rdr::HighlightRadioButtonComponent>();
+    table.registerFactoryForElement<ConversationTree, rdr::ConversationTreeComponent>();
+    table.registerFactoryForElement<EditMap, rdr::EditMapComponent>();
 }
 
 } // namespace state

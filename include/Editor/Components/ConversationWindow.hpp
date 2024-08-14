@@ -14,7 +14,6 @@ namespace component
  * @brief A window for choosing and editing conversations
  *
  * @ingroup UIComponents
- *
  */
 class ConversationWindow {
 public:

@@ -49,9 +49,11 @@ struct Base {
      * @brief Start the weather using the initial area
      *
      * @param engine The game engine instance
+     * @param renderTarget The render target the weather will be rendered to
      * @param map The map the weather is in
      */
-    virtual void start(bl::engine::Engine& engine, Map& map) = 0;
+    virtual void start(bl::engine::Engine& engine, bl::rc::RenderTarget& renderTarget,
+                       Map& map) = 0;
 
     /**
      * @brief Stop the weather

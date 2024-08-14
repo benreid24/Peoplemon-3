@@ -142,6 +142,9 @@ public:
     static constexpr std::uint32_t WildIntroPipelineId            = 207;
     static constexpr std::uint32_t BattlePeoplemonSparkPipelineId = 208;
 
+    static constexpr std::uint32_t EditorConversationTreeShapePipelineId = 210;
+    static constexpr std::uint32_t EditorConversationTreeTextPipelineId  = 211;
+
     /**
      * @brief Loads from the config file and sets defaults. Must be called before using any
      *        properties

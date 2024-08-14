@@ -28,3 +28,5 @@ target_sources(PeoplemonEditor PUBLIC
     TypeSelector.hpp
     WeatherSelect.hpp
 )
+
+add_subdirectory(Render)

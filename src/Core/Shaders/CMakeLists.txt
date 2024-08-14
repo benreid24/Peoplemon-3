@@ -15,4 +15,5 @@ compile_shaders(
     Particles/sandSwirl.vert
     Particles/battleSpark.vert
     Particles/battleSpark.frag
+    Editor/conversationTree.vert
 )

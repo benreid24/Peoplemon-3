@@ -20,6 +20,7 @@ Renderable& Renderable::createFromSprite(bl::engine::Engine& engine, bl::ecs::En
     sprite.getTransform().setOrigin(sprite.getTexture()->size());
     sprite.addToScene(scene, bl::rc::UpdateSpeed::Static);
     rc.transform = &sprite.getTransform();
+    rc.drawable  = &sprite.component();
 
     return rc;
 }
@@ -37,6 +38,7 @@ Renderable& Renderable::createFromMoveAnims(bl::engine::Engine& engine, bl::ecs:
     slideshow.getTransform().setOrigin(
         slideshow.getLocalSize().x - static_cast<float>(Properties::PixelsPerTile()),
         slideshow.getLocalSize().y - static_cast<float>(Properties::PixelsPerTile()));
+    rc.drawable  = &slideshow.component();
     rc.transform = &slideshow.getTransform();
     rc.player    = &slideshow.getPlayer();
     rc.walkSrc   = data.get();
@@ -58,6 +60,7 @@ Renderable& Renderable::createFromFastMoveAnims(bl::engine::Engine& engine, bl::
     slideshow.getTransform().setOrigin(
         slideshow.getLocalSize().x - static_cast<float>(Properties::PixelsPerTile()),
         slideshow.getLocalSize().y - static_cast<float>(Properties::PixelsPerTile()));
+    rc.drawable  = &slideshow.component();
     rc.transform = &slideshow.getTransform();
     rc.player    = &slideshow.getPlayer();
     rc.runSrc    = data.get();
@@ -77,6 +80,7 @@ Renderable& Renderable::createFromAnimation(bl::engine::Engine& engine, bl::ecs:
         slideshow.createWithUniquePlayer(engine, entity, data);
         slideshow.deleteEntityOnDestroy(false);
         slideshow.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        rc.drawable  = &slideshow.component();
         rc.transform = &slideshow.getTransform();
         rc.player    = &slideshow.getPlayer();
     }
@@ -85,6 +89,7 @@ Renderable& Renderable::createFromAnimation(bl::engine::Engine& engine, bl::ecs:
         anim.createWithUniquePlayer(engine, entity, data);
         anim.deleteEntityOnDestroy(false);
         anim.addToScene(scene, bl::rc::UpdateSpeed::Static);
+        rc.drawable  = &anim.component();
         rc.transform = &anim.getTransform();
         rc.player    = &anim.getPlayer();
     }
@@ -134,6 +139,10 @@ void Renderable::notifyMoveState(bl::tmap::Direction dir, bool moving, bool runn
         else if (!moving) { player->stop(); }
         isMoving = moving;
     }
+}
+
+void Renderable::setHidden(bool hide) {
+    if (drawable) { drawable->setHidden(hide); }
 }
 
 } // namespace component

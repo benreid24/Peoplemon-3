@@ -61,9 +61,6 @@ CatchRegionWindow::CatchRegionWindow(const TriggerCb& cb)
 }
 
 void CatchRegionWindow::open(bl::gui::GUI* gui, const core::map::CatchRegion& v) {
-    for (auto& row : rows) { row.row->remove(); }
-    rows.clear();
-
     nameEntry->setInput(v.name);
     rows.reserve(v.wilds.size());
     for (const core::pplmn::WildPeoplemon& wild : v.wilds) {
@@ -101,6 +98,8 @@ const core::map::CatchRegion& CatchRegionWindow::getValue() {
 void CatchRegionWindow::close() {
     window->setForceFocus(false);
     window->remove();
+    for (auto& row : rows) { row.row->remove(); }
+    rows.clear();
 }
 
 CatchRegionWindow::Row::Row(const Callback& cb, const Callback& delcb) {

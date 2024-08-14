@@ -169,12 +169,14 @@ PeoplemonEditorWindow::PeoplemonEditorWindow(PeoplemonDB& db, const OnChange& on
     catchRateEntry->setRequisition({30.f, 1.f});
     catchRateEntry->getSignal(Event::TextEntered).willAlwaysCall(onEdit);
 
-    // TODO - BLIB_UPGRADE - update peoplemon editor window
-    /*thumbTxtr = playerTxtr = opTxtr =
-    TextureManager::load(Peoplemon::thumbnailImage(Id::Unknown)); thumbImg                        =
-    Image::create(*thumbTxtr); thumbImg->scaleToSize({100.f, 100.f}); playerImg =
-    Image::create(*playerTxtr); playerImg->scaleToSize({150.f, 150.f}); opImg =
-    Image::create(*opTxtr); opImg->scaleToSize({150.f, 150.f});*/
+    auto img =
+        bl::resource::ResourceManager<sf::Image>::load(Peoplemon::thumbnailImage(Id::Unknown));
+    thumbImg = Image::create(img);
+    thumbImg->scaleToSize({100.f, 100.f});
+    playerImg = Image::create(img);
+    playerImg->scaleToSize({150.f, 150.f});
+    opImg = Image::create(img);
+    opImg->scaleToSize({150.f, 150.f});
 
     Box::Ptr row    = Box::create(rowPack);
     Box::Ptr col    = Box::create(colPack);
@@ -339,12 +341,12 @@ void PeoplemonEditorWindow::open(GUI* parent, Id ppl) {
 
 void PeoplemonEditorWindow::reloadImages() {
     const Id ppl = parseInput<Id>(idEntry);
-    thumbTxtr    = TextureManager::load(Peoplemon::thumbnailImage(ppl));
-    playerTxtr   = TextureManager::load(Peoplemon::playerImage(ppl));
-    opTxtr       = TextureManager::load(Peoplemon::opponentImage(ppl));
-    /* thumbImg->setImage(thumbTxtr, false);
-     playerImg->setImage(playerTxtr, false);
-     opImg->setImage(opTxtr, false);*/
+    thumbImg->setImage(
+        bl::resource::ResourceManager<sf::Image>::load(Peoplemon::thumbnailImage(ppl)), false);
+    playerImg->setImage(bl::resource::ResourceManager<sf::Image>::load(Peoplemon::playerImage(ppl)),
+                        false);
+    opImg->setImage(bl::resource::ResourceManager<sf::Image>::load(Peoplemon::opponentImage(ppl)),
+                    false);
 }
 
 void PeoplemonEditorWindow::makeDirty() {

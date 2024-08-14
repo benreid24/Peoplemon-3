@@ -1,9 +1,11 @@
 #ifndef EDITOR_COMPONENTS_EDITMAP_HPP
 #define EDITOR_COMPONENTS_EDITMAP_HPP
 
+#include <BLIB/Cameras/2D/Camera2D.hpp>
 #include <BLIB/Interfaces/GUI.hpp>
 #include <Core/Items/Id.hpp>
 #include <Core/Maps/Map.hpp>
+#include <Editor/Components/Render/EditMapComponent.hpp>
 #include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
@@ -20,7 +22,6 @@ namespace component
  * @brief Wrapper over the core::Map class that is directly usable in a bl::gui::GUI
  *
  * @ingroup UIComponents
- *
  */
 class EditMap
 : public bl::gui::Element
@@ -37,7 +38,6 @@ public:
 
     /**
      * @brief Optional render overlays depending on editor state
-     *
      */
     enum struct RenderOverlay {
         /// No extra overlay
@@ -77,19 +77,16 @@ public:
 
     /**
      * @brief Destroy the Edit Map object
-     *
      */
-    virtual ~EditMap() = default;
+    virtual ~EditMap();
 
     /**
      * @brief Returns whether or not the map has been updated since last being saved
-     *
      */
     bool unsavedChanges() const;
 
     /**
      * @brief Returns the current file the map is saving to
-     *
      */
     const std::string& currentFile() const;
 
@@ -122,31 +119,26 @@ public:
 
     /**
      * @brief Returns the description of what action will be undone if undo is called
-     *
      */
     const char* undoDescription() const;
 
     /**
      * @brief Undoes the previous action in the edit history
-     *
      */
     void undo();
 
     /**
      * @brief Returns the description of what action will be redone if redo is called
-     *
      */
     const char* redoDescription() const;
 
     /**
      * @brief Reapplies the next action in the edit history
-     *
      */
     void redo();
 
     /**
      * @brief Enables or disables the map camera and click controls
-     *
      */
     void setControlsEnabled(bool enabled);
 
@@ -177,7 +169,6 @@ public:
 
     /**
      * @brief Set whether or not to render a grid between tiles
-     *
      */
     void showGrid(bool show);
 
@@ -230,7 +221,6 @@ public:
 
     /**
      * @brief Get the OnEnter script
-     *
      */
     const std::string& getOnEnterScript() const;
 
@@ -243,7 +233,6 @@ public:
 
     /**
      * @brief Get the OnExit script
-     *
      */
     const std::string& getOnExitScript() const;
 
@@ -258,7 +247,6 @@ public:
 
     /**
      * @brief Creates a new level
-     *
      */
     void appendLevel();
 
@@ -549,13 +537,11 @@ public:
 
     /**
      * @brief Adds a new catch region to the map
-     *
      */
     void addCatchRegion();
 
     /**
      * @brief Returns a reference to all catch regions
-     *
      */
     const std::vector<core::map::CatchRegion>& catchRegions() const;
 
@@ -576,7 +562,6 @@ public:
 
     /**
      * @brief Adds a town
-     *
      */
     void addTown();
 
@@ -643,8 +628,6 @@ public:
     void staticRender(const RenderMapWindow& params);
 
 private:
-    // TODO - BLIB_UPGRADE - update edit map rendering
-
     struct Action {
         using Ptr = std::shared_ptr<Action>;
 
@@ -658,18 +641,18 @@ private:
     unsigned int saveHead;
     void addAction(const Action::Ptr& action);
 
-    struct EditCamera {
-        using Ptr = std::shared_ptr<EditCamera>;
-
-        EditCamera();
-        void update(float dt, const sf::Vector2f& area);
+    struct EditCameraController : public bl::cam::CameraController2D {
+        EditCameraController(EditMap* owner);
+        virtual ~EditCameraController() = default;
+        virtual void update(float dt) override;
         void reset(const sf::Vector2i& size);
         void zoom(float z);
-        sf::FloatRect getArea() const;
-        void apply(sf::RenderTarget& target) const;
+        void updateDepthPlanes();
+        bl::cam::Camera2D& getCamera() { return camera(); }
 
+        EditMap* owner;
         bool enabled;
-        sf::Vector2f position;
+        glm::vec2 mapSize;
         float zoomAmount;
     };
 
@@ -677,25 +660,102 @@ private:
     const PositionCb moveCb;
     const ActionCb actionCb;
     const ActionCb syncCb;
-    EditCamera camera;
+    EditCameraController* camera;
     bool controlsEnabled;
     std::string savefile;
     std::vector<bool> levelFilter;
     std::vector<std::vector<bool>> layerFilter;
     sf::IntRect selection;
-    mutable sf::View renderView;
-    mutable sf::RectangleShape selectRect;
-    mutable sf::Sprite overlaySprite;
-    bool renderGrid;
-    // bl::gfx::VertexBuffer grid;
+
+    struct SpawnGraphics {
+        bl::gfx::Sprite arrow;
+        bl::gfx::Text label;
+    };
+
+    struct CatchTileLayerGraphics {
+        bl::gfx::BatchedShapes2D shapeBatch;
+        bl::ctr::Vector2D<bl::gfx::BatchRectangle> tiles;
+
+        ~CatchTileLayerGraphics();
+    };
+
+    struct BatchSpriteOverlayLayer {
+        bl::gfx::BatchedSprites batch;
+        bl::ctr::Vector2D<bl::gfx::BatchSprite> tiles;
+
+        ~BatchSpriteOverlayLayer();
+    };
+
+    bl::gfx::Rectangle selectRect;
+    bl::ctr::Vector2D<bl::gfx::BatchRectangle> townSquares;
+    bl::gfx::BatchedShapes2D townSquareBatch;
+    bl::gfx::VertexBuffer2D grid;
+    std::unordered_map<unsigned int, SpawnGraphics> spawnSprites;
+    std::list<CatchTileLayerGraphics> catchTileOverlay;
+    std::optional<bl::util::ImageStitcher> colStitcher;
+    bl::rc::res::TextureRef collisionTilesTexture;
+    std::vector<glm::vec2> collisionTextureCoords;
+    std::list<BatchSpriteOverlayLayer> collisionTileOverlay;
+    std::optional<bl::util::ImageStitcher> levelTransitionsStitcher;
+    bl::rc::res::TextureRef levelTransitionsTexture;
+    std::vector<glm::vec2> levelTransitionsTextureCoords;
+    std::optional<BatchSpriteOverlayLayer> levelTransitionsOverlay;
+    std::list<bl::gfx::Rectangle> eventsOverlay;
+    sf::Color currentEventFillColor;
+    float eventColorTime;
+
+    struct ExportState {
+        std::atomic_bool exportInProgress;
+        RenderOverlay prevRenderOverlay;
+        unsigned int prevOverlayLevel;
+        sf::IntRect prevSelection;
+        glm::vec2 prevCenter;
+        float prevZoom;
+        std::uint8_t prevAmbientLightLow;
+        std::uint8_t prevAmbientLightHigh;
+        bool entitiesHidden;
+        bool prevEnabled;
+        std::atomic_bool exportComplete;
+
+        std::string outputPath;
+        bl::rc::vk::RenderTexture::Handle renderTexture;
+        bl::cam::Camera2D* camera;
+        glm::u32vec2 center;
+        glm::u32vec2 size;
+        bl::rc::tfr::TextureExport* exportJob;
+
+        ExportState();
+    } exportState;
+
+    void exportRendering();
+
     RenderOverlay renderOverlay;
     unsigned int overlayLevel;
     unsigned int nextItemId;
+    bool setRenderTarget;
 
     EditMap(const PositionCb& cb, const PositionCb& moveCb, const ActionCb& actionCb,
             const ActionCb& syncCb, core::system::Systems& systems);
     bool doLoad(const std::string& file);
+    void stitchOverlayTextures();
     bool editorActivate();
+    void setupOverlay();
+
+    void addSpawnGfx(const core::map::Spawn& spawn);
+    void updateSpawnRotation(std::uint16_t id);
+    void updateAllDepths();
+    void updateLevelDepths(unsigned int level);
+    void swapRenderLevels(unsigned int i1, unsigned int i2);
+    void updateLayerDepths(unsigned int level, unsigned int layer);
+    void swapRenderLayers(unsigned int level, unsigned int l1, unsigned int l2);
+    void updateLayerVisibility(unsigned int level, unsigned int layer, bool hide);
+    void updateCatchTileColor(unsigned int level, unsigned int x, unsigned int y);
+    void updateTownTileColor(unsigned int x, unsigned int y);
+    void updateCollisionTileTexture(unsigned int level, unsigned int x, unsigned int y);
+    void updateLevelTransitionTexture(unsigned int x, unsigned int y);
+    void addEventGfx(unsigned int i);
+    void removeEventGfx(unsigned int i);
+    sf::Color nextEventFillColor(float dt);
 
     virtual sf::Vector2f minimumRequisition() const override;
     virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
@@ -704,6 +764,7 @@ private:
 
     friend class page::Map;
     friend class page::Towns;
+    friend class rdr::EditMapComponent;
 
     class SetNameAction;
     class SetPlaylistAction;

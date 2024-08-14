@@ -29,10 +29,10 @@ std::string makeCopyName(const std::string& dest, const std::string& file) {
 
 using namespace bl::gui;
 
-Tileset::Tileset(const DeleteCb& dcb, MapArea& map)
+Tileset::Tileset(bl::engine::Engine& engine, const DeleteCb& dcb, MapArea& map)
 : deleteCb(dcb)
 , catchables(map.editMap())
-, towns(map)
+, towns(engine, map)
 , tool(Active::Tiles)
 , activeTile(core::map::Tile::Blank)
 , activeAnim(core::map::Tile::Blank)
@@ -207,8 +207,7 @@ void Tileset::updateGui() {
     // tiles
     RadioButton::Group* group = nullptr;
     for (const auto& pair : tileset->getTiles()) {
-        // TODO - BLIB_UPGRADE - update tileset tile storage
-        /*Image::Ptr img = Image::create(pair->second);
+        Image::Ptr img = Image::create(pair->second);
         img->scaleToSize({56, 56});
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(img, group);
@@ -220,7 +219,7 @@ void Tileset::updateGui() {
             button->setValue(true);
         }
         group = button->getRadioGroup();
-        tilesBox->pack(button);*/
+        tilesBox->pack(button);
     }
 
     // animations
@@ -228,6 +227,7 @@ void Tileset::updateGui() {
     for (const auto& pair : tileset->getAnims()) {
         Animation::Ptr anim = Animation::create(pair->second);
         anim->scaleToSize({56, 56});
+        anim->setVerticalAlignment(RenderSettings::Top);
         component::HighlightRadioButton::Ptr button =
             component::HighlightRadioButton::create(anim, group);
         button->getSignal(Event::LeftClicked).willAlwaysCall([this, pair](const Event&, Element*) {

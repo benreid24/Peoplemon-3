@@ -133,7 +133,7 @@ private:
 
 class FogUpdater : public bl::pcl::MetaUpdater<fog::Particle> {
 public:
-    FogUpdater(bl::rc::Observer& observer, FogSink& sink)
+    FogUpdater(bl::rc::RenderTarget& observer, FogSink& sink)
     : observer(observer)
     , sink(sink)
     , prevArea(1.f, 1.f, 1.f, 1.f) {}
@@ -157,7 +157,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     FogSink& sink;
     sf::FloatRect prevArea;
 };
@@ -167,7 +167,7 @@ float wrapHeight = 600.f;
 
 class FogAffector : public bl::pcl::Affector<fog::Particle> {
 public:
-    FogAffector(bl::rc::Observer& observer)
+    FogAffector(bl::rc::RenderTarget& observer)
     : observer(observer) {}
 
     virtual ~FogAffector() = default;
@@ -193,12 +193,12 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
 };
 
 class FogEmitter : public bl::pcl::Emitter<fog::Particle> {
 public:
-    FogEmitter(bl::rc::Observer& observer, glm::vec2 txtrSize)
+    FogEmitter(bl::rc::RenderTarget& observer, glm::vec2 txtrSize)
     : observer(observer)
     , txtrHalfSize(txtrSize * 0.4f) {}
 
@@ -228,7 +228,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     const glm::vec2 txtrHalfSize;
 };
 
@@ -249,7 +249,7 @@ Weather::Type Fog::type() const {
     return maxOpacity == Properties::ThickFogAlpha() ? Weather::ThickFog : Weather::ThinFog;
 }
 
-void Fog::start(bl::engine::Engine& e, Map& map) {
+void Fog::start(bl::engine::Engine& e, bl::rc::RenderTarget& renderTarget, Map& map) {
     engine        = &e;
     targetOpacity = maxOpacity;
 
@@ -258,9 +258,9 @@ void Fog::start(bl::engine::Engine& e, Map& map) {
 
     particles          = &e.particleSystem().getUniqueSystem<fog::Particle>();
     fog::FogSink* sink = particles->addSink<fog::FogSink>();
-    particles->addUpdater<fog::FogUpdater>(std::ref(e.renderer().getObserver()), std::ref(*sink));
-    particles->addAffector<fog::FogAffector>(e.renderer().getObserver());
-    particles->addEmitter<fog::FogEmitter>(e.renderer().getObserver(), fogTxtr->size());
+    particles->addUpdater<fog::FogUpdater>(std::ref(renderTarget), std::ref(*sink));
+    particles->addAffector<fog::FogAffector>(renderTarget);
+    particles->addEmitter<fog::FogEmitter>(renderTarget, fogTxtr->size());
 
     particles->getRenderer().getGlobals().alpha = 0.f;
     particles->getRenderer().getGlobals().textureCenter =
@@ -268,7 +268,7 @@ void Fog::start(bl::engine::Engine& e, Map& map) {
     particles->getRenderer().getGlobals().textureId = fogTxtr.id();
     particles->getRenderer().getGlobals().radius    = glm::length(fogTxtr->size()) * 0.5f;
 
-    particles->addToScene(e.renderer().getObserver().getCurrentScene());
+    particles->addToScene(renderTarget.getCurrentScene());
     particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
 }
 

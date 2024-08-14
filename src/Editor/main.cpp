@@ -55,19 +55,23 @@ int main(int, char**) {
     core::pplmn::Peoplemon::setDataSource(ppldb);
     BL_LOG_INFO << "Game metadata loaded";
 
+    editor::state::MainEditor::registerCustomGuiComponents();
+    BL_LOG_INFO << "Registered factories for custom GUI elements";
+
     {
         BL_LOG_INFO << "Creating engine instance";
         const bl::engine::Settings engineSettings =
             bl::engine::Settings()
                 .withWindowParameters(
                     bl::engine::Settings::WindowParameters()
-                        .withVideoMode(sf::VideoMode(core::Properties::WindowWidth() + 350,
-                                                     core::Properties::WindowHeight() + 200,
+                        .withVideoMode(sf::VideoMode(core::Properties::WindowWidth() + 350.f,
+                                                     core::Properties::WindowHeight() + 200.f,
                                                      32))
                         .withStyle(sf::Style::Close | sf::Style::Titlebar | sf::Style::Resize)
                         .withTitle("Peoplemon Editor")
                         .withIcon("EditorResources/icon.png")
-                        .withLetterBoxOnResize(false))
+                        .withLetterBoxOnResize(false)
+                        .withSyncOverlaySizeToWindow(true))
                 .withAllowVariableTimestep(false);
         bl::engine::Engine engine(engineSettings);
         BL_LOG_INFO << "Created engine";
@@ -77,7 +81,7 @@ int main(int, char**) {
         BL_LOG_INFO << "Core game systems initialized";
 
         BL_LOG_INFO << "Running engine main loop";
-        if (!engine.run(editor::state::MainEditor::create(systems))) {
+        if (!engine.run(std::bind(&editor::state::MainEditor::create, std::ref(systems)))) {
             BL_LOG_ERROR << "Engine exited with error";
             bl::util::Waiter::unblockAll();
             return 1;

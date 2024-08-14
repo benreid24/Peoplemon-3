@@ -1,6 +1,7 @@
 #include <Editor/Components/AnimationWindow.hpp>
 
 #include "Helpers/OpenAnimationEditor.hpp"
+#include <Core/Properties.hpp>
 #include <Core/Resources.hpp>
 #include <cstdlib>
 #include <sstream>
@@ -21,6 +22,8 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
 , chooseCb(cb)
 , closeCb(ccb)
 , parent(nullptr) {
+    constexpr const char* DefaultAnim = "1/down.anim";
+
     window = Window::create(LinePacker::create(LinePacker::Vertical, 4), "Animation Picker");
     window->getSignal(Event::Closed).willAlwaysCall([this](const Event&, Element*) { hide(); });
 
@@ -38,7 +41,7 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
         window->setForceFocus(false);
         filePicker.value().open(FilePicker::PickExisting, "Select Animation", parent);
     });
-    fileLabel = Label::create("file here");
+    fileLabel = Label::create(DefaultAnim);
     fileLabel->setColor(sf::Color::Cyan, sf::Color::Transparent);
     row->pack(pickBut, false, true);
     row->pack(fileLabel, true, true);
@@ -50,10 +53,10 @@ AnimationWindow::AnimationWindow(bool cm, const ChooseCb& cb, const CloseCb& ccb
     });
     window->pack(editBut, false, false);
 
-    row       = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
-    auto src  = AnimationManager::load(bl::util::FileUtil::joinPath(path, "4/down.anim"));
+    row      = Box::create(LinePacker::create(LinePacker::Horizontal, 4));
+    auto src = AnimationManager::load(
+        bl::util::FileUtil::joinPath(core::Properties::CharacterAnimationPath(), DefaultAnim));
     animation = Animation::create(src);
-    animation->setRequisition({32, 45});
     row->pack(animation, true, true);
     window->pack(row, true, true);
 
@@ -84,7 +87,7 @@ void AnimationWindow::open(GUI* p, const std::string& pt, const std::string& fil
     path   = pt;
     parent = p;
     p->pack(window);
-    packAnim(file);
+    if (file != "<no anim selected>") { packAnim(file); }
     window->setForceFocus(true);
 }
 
@@ -93,7 +96,7 @@ void AnimationWindow::packAnim(const std::string& f) {
     const std::string vf = characterMode ? bl::util::FileUtil::joinPath(af, "down.anim") : af;
     fileLabel->setText(af);
     animSrc = AnimationManager::load(bl::util::FileUtil::joinPath(path, vf));
-    BL_LOG_INFO << bl::util::FileUtil::joinPath(path, vf);
+
     if (animSrc) {
         sf::Vector2f size = animSrc->getMaxSize();
         if (size.x > 400.f) {

@@ -336,6 +336,8 @@ protected:
 
     void prepareRender();
     void cleanupRender();
+    void setupLevel(unsigned int level);
+    void setupLayer(unsigned int level, unsigned int layer);
     void setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos);
 
     static std::vector<Town> flymapTowns;

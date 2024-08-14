@@ -158,7 +158,7 @@ private:
 
 class TimeEmitter : public bl::pcl::Emitter<Raindrop> {
 public:
-    TimeEmitter(bl::rc::Observer& observer, std::size_t target)
+    TimeEmitter(bl::rc::RenderTarget& observer, std::size_t target)
     : observer(observer)
     , target(target)
     , residual(0.f) {}
@@ -186,7 +186,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     std::size_t target;
     float residual;
 };
@@ -217,7 +217,7 @@ Rain::~Rain() {
 
 Weather::Type Rain::type() const { return _type; }
 
-void Rain::start(bl::engine::Engine& e, Map& map) {
+void Rain::start(bl::engine::Engine& e, bl::rc::RenderTarget& renderTarget, Map& map) {
     engine = &e;
 
     particles = &e.particleSystem().getUniqueSystem<rain::Raindrop>();
@@ -245,11 +245,10 @@ void Rain::start(bl::engine::Engine& e, Map& map) {
     }
     particles->getRenderer().getGlobals().rotation = rotation;
 
-    emitter =
-        particles->addEmitter<rain::TimeEmitter>(e.renderer().getObserver(), targetParticleCount);
+    emitter = particles->addEmitter<rain::TimeEmitter>(renderTarget, targetParticleCount);
     particles->addAffector<rain::GravityAffector>(velocity, fallSpeed);
     particles->addSink<rain::TimeSink>();
-    particles->addToScene(e.renderer().getObserver().getCurrentScene());
+    particles->addToScene(renderTarget.getCurrentScene());
     particles->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
 
     bl::audio::AudioSystem::playSound(rainSoundHandle, 1.5f, true);

@@ -2,6 +2,7 @@
 
 #include <Core/Properties.hpp>
 #include <Core/Systems/Systems.hpp>
+#include <Editor/Pages/Subpages/Towns.hpp>
 
 namespace editor
 {
@@ -31,7 +32,6 @@ const core::map::Tile& getTile(const std::vector<core::map::LayerSet>& levels, u
 void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset& tileset,
                    unsigned int level, unsigned int layer, const sf::Vector2i& pos,
                    core::map::Tile::IdType value, bool isAnim) {
-    // TODO - BLIB_UPGRADE - reset render data
     core::map::LayerSet& l = levels[level];
     core::map::Tile* tile;
     if (layer >= l.bottomLayers().size() + l.ysortLayers().size()) {
@@ -52,7 +52,6 @@ void setSingleTile(std::vector<core::map::LayerSet>& levels, core::map::Tileset&
 
 void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
                   std::vector<bool>& filter) {
-    // TODO - BLIB_UPGRADE - reset render data
     if (layer < level.bottomLayers().size()) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer - 1]);
         std::vector<bool>::swap(filter[layer], filter[layer - 1]);
@@ -85,8 +84,6 @@ void shiftLayerUp(core::map::LayerSet& level, unsigned int layer, core::map::Til
 
 void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::Tileset& tileset,
                     std::vector<bool>& filter) {
-    // TODO - BLIB_UPGRADE - reset render data
-
     if (layer < level.bottomLayers().size() - 1) {
         std::swap(level.bottomLayers()[layer], level.bottomLayers()[layer + 1]);
         std::vector<bool>::swap(filter[layer], filter[layer + 1]);
@@ -117,13 +114,11 @@ void shiftLayerDown(core::map::LayerSet& level, unsigned int layer, core::map::T
 
 void shiftLevelDown(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                     unsigned int i) {
-    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i + 1]);
 }
 
 void shiftLevelUp(std::vector<core::map::LayerSet>& levels, core::map::Tileset& ts,
                   unsigned int i) {
-    // TODO - BLIB_UPGRADE - reset render data
     std::swap(levels[i], levels[i - 1]);
 }
 
@@ -174,6 +169,7 @@ bool EditMap::SetTileAction::apply(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, updated, isAnim);
+                map.setupTile(level, layer, sf::Vector2u(position));
             }
         }
     }
@@ -187,6 +183,7 @@ bool EditMap::SetTileAction::undo(EditMap& map) {
             core::map::LayerSet& l = map.levels[level];
             if (layer < l.layerCount()) {
                 setSingleTile(map.levels, *map.tileset, level, layer, position, prev, wasAnim);
+                map.setupTile(level, layer, sf::Vector2u(position));
             }
         }
     }
@@ -256,6 +253,7 @@ bool EditMap::SetTileAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; x += w) {
         for (int y = area.top; y < area.top + area.height; y += h) {
             setSingleTile(map.levels, *map.tileset, level, layer, {x, y}, updated, isAnim);
+            map.setupTile(level, layer, sf::Vector2u(x, y));
         }
     }
     return false;
@@ -271,6 +269,7 @@ bool EditMap::SetTileAreaAction::undo(EditMap& map) {
                           {x, y},
                           prev(x - area.left, y - area.top),
                           wasAnim(x - area.left, y - area.top) == 1);
+            map.setupTile(level, layer, sf::Vector2u(x, y));
         }
     }
     return false;
@@ -332,6 +331,7 @@ EditMap::FillTileAction::FillTileAction(unsigned int level, unsigned int layer,
 bool EditMap::FillTileAction::apply(EditMap& map) {
     for (const auto& p : set) {
         setSingleTile(map.levels, *map.tileset, level, layer, p.position, id, isAnim);
+        map.setupTile(level, layer, sf::Vector2u(p.position));
     }
     return false;
 }
@@ -339,6 +339,7 @@ bool EditMap::FillTileAction::apply(EditMap& map) {
 bool EditMap::FillTileAction::undo(EditMap& map) {
     for (const auto& p : set) {
         setSingleTile(map.levels, *map.tileset, level, layer, p.position, p.id, p.isAnim);
+        map.setupTile(level, layer, sf::Vector2u(p.position));
     }
     return false;
 }
@@ -363,11 +364,13 @@ EditMap::SetCollisionAction::SetCollisionAction(unsigned int level, const sf::Ve
 
 bool EditMap::SetCollisionAction::apply(EditMap& map) {
     map.levels[level].collisionLayer().set(pos.x, pos.y, value);
+    map.updateCollisionTileTexture(level, pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetCollisionAction::undo(EditMap& map) {
     map.levels[level].collisionLayer().set(pos.x, pos.y, ogVal);
+    map.updateCollisionTileTexture(level, pos.x, pos.y);
     return false;
 }
 
@@ -399,6 +402,7 @@ bool EditMap::SetCollisionAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].collisionLayer().set(x, y, value);
+            map.updateCollisionTileTexture(level, x, y);
         }
     }
     return false;
@@ -408,6 +412,7 @@ bool EditMap::SetCollisionAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].collisionLayer().set(x, y, ogVals(x - area.left, y - area.top));
+            map.updateCollisionTileTexture(level, x, y);
         }
     }
     return false;
@@ -462,13 +467,17 @@ EditMap::FillCollisionAction::FillCollisionAction(
 , set(set) {}
 
 bool EditMap::FillCollisionAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.levels[level].collisionLayer().set(p.first.x, p.first.y, col); }
+    for (const auto& p : set) {
+        map.levels[level].collisionLayer().set(p.first.x, p.first.y, col);
+        map.updateCollisionTileTexture(level, p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillCollisionAction::undo(EditMap& map) {
     for (const auto& p : set) {
         map.levels[level].collisionLayer().set(p.first.x, p.first.y, p.second);
+        map.updateCollisionTileTexture(level, p.first.x, p.first.y);
     }
     return false;
 }
@@ -490,11 +499,13 @@ EditMap::SetCatchAction::SetCatchAction(unsigned int level, const sf::Vector2i& 
 
 bool EditMap::SetCatchAction::apply(EditMap& map) {
     map.levels[level].catchLayer().set(pos.x, pos.y, value);
+    map.updateCatchTileColor(level, pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetCatchAction::undo(EditMap& map) {
     map.levels[level].catchLayer().set(pos.x, pos.y, ogVal);
+    map.updateCatchTileColor(level, pos.x, pos.y);
     return false;
 }
 
@@ -525,6 +536,7 @@ bool EditMap::SetCatchAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].catchLayer().set(x, y, value);
+            map.updateCatchTileColor(level, x, y);
         }
     }
     return false;
@@ -534,6 +546,7 @@ bool EditMap::SetCatchAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.levels[level].catchLayer().set(x, y, ogVals(x - area.left, y - area.top));
+            map.updateCatchTileColor(level, x, y);
         }
     }
     return false;
@@ -585,13 +598,17 @@ EditMap::FillCatchAction::FillCatchAction(unsigned int level, std::uint8_t id,
 , set(set) {}
 
 bool EditMap::FillCatchAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.levels[level].catchLayer().set(p.first.x, p.first.y, id); }
+    for (const auto& p : set) {
+        map.levels[level].catchLayer().set(p.first.x, p.first.y, id);
+        map.updateCatchTileColor(level, p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillCatchAction::undo(EditMap& map) {
     for (const auto& p : set) {
         map.levels[level].catchLayer().set(p.first.x, p.first.y, p.second);
+        map.updateCatchTileColor(level, p.first.x, p.first.y);
     }
     return false;
 }
@@ -674,43 +691,55 @@ EditMap::AppendLayerAction::AppendLayerAction(unsigned int lv, Location l)
 bool EditMap::AppendLayerAction::apply(EditMap& map) {
     core::map::LayerSet& lv               = map.levels[level];
     std::vector<core::map::TileLayer>* ls = nullptr;
+    unsigned int offset                   = 0;
     switch (location) {
     case Bottom:
         ls = &lv.bottomLayers();
         break;
     case YSort:
-        ls = &lv.ysortLayers();
+        ls     = &lv.ysortLayers();
+        offset = lv.bottomLayers().size();
         break;
     default:
-        ls = &lv.topLayers();
+        ls     = &lv.topLayers();
+        offset = lv.bottomLayers().size() + lv.ysortLayers().size();
         break;
     }
-    const unsigned int i = ls->size();
+    const unsigned int i  = ls->size();
+    const unsigned int gi = i + offset;
 
     ls->emplace_back();
     ls->back().create(map.sizeTiles().x, map.sizeTiles().y, core::map::Tile::Blank);
-    // TODO - BLIB_UPGRADE - reset render data
-    map.layerFilter[level].insert(map.layerFilter[level].begin() + i, true);
+    std::next(map.renderLevels.begin(), level)->insertLayer(gi);
+    map.updateAllDepths();
+    map.layerFilter[level].insert(map.layerFilter[level].begin() + gi, true);
     return true;
 }
 
 bool EditMap::AppendLayerAction::undo(EditMap& map) {
     core::map::LayerSet& lv               = map.levels[level];
     std::vector<core::map::TileLayer>* ls = nullptr;
+    unsigned int offset                   = 0;
     switch (location) {
     case Bottom:
         ls = &lv.bottomLayers();
         break;
     case YSort:
-        ls = &lv.ysortLayers();
+        ls     = &lv.ysortLayers();
+        offset = lv.bottomLayers().size();
         break;
     default:
-        ls = &lv.topLayers();
+        ls     = &lv.topLayers();
+        offset = lv.bottomLayers().size() + lv.ysortLayers().size();
         break;
     }
+    const unsigned int i  = ls->size() - 1;
+    const unsigned int gi = i + offset;
 
     ls->pop_back();
-    map.layerFilter[level].pop_back();
+    std::next(map.renderLevels.begin(), level)->removeLayer(gi);
+    map.updateAllDepths();
+    map.layerFilter[level].erase(map.layerFilter[level].begin() + gi);
     return true;
 }
 
@@ -754,7 +783,8 @@ bool EditMap::RemoveLayerAction::apply(EditMap& map) {
     }
     set->erase(set->begin() + ay);
     map.layerFilter[level].erase(map.layerFilter[level].begin() + layer);
-    // TODO - BLIB_UPGRADE - reset render data
+    std::next(map.renderLevels.begin(), level)->removeLayer(layer);
+    map.updateAllDepths();
     return true;
 }
 
@@ -773,7 +803,9 @@ bool EditMap::RemoveLayerAction::undo(EditMap& map) {
     }
     set->insert(set->begin() + ay, removedLayer);
     map.layerFilter[level].insert(map.layerFilter[level].begin() + layer, true);
-    // TODO - BLIB_UPGRADE - reset render data
+    std::next(map.renderLevels.begin(), level)->insertLayer(layer);
+    map.setupLayer(level, layer);
+    map.updateAllDepths();
     return true;
 }
 
@@ -790,8 +822,14 @@ EditMap::ShiftLayerAction::ShiftLayerAction(unsigned int level, unsigned int lay
 , up(up) {}
 
 bool EditMap::ShiftLayerAction::apply(EditMap& map) {
-    if (up) { shiftLayerUp(map.levels[level], layer, *map.tileset, map.layerFilter[level]); }
-    else { shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]); }
+    if (up) {
+        shiftLayerUp(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
+        map.swapRenderLayers(level, layer, layer - 1);
+    }
+    else {
+        shiftLayerDown(map.levels[level], layer, *map.tileset, map.layerFilter[level]);
+        map.swapRenderLayers(level, layer, layer + 1);
+    }
     return true;
 }
 
@@ -804,6 +842,7 @@ bool EditMap::ShiftLayerAction::undo(EditMap& map) {
             ay = layer;
         }
         shiftLayerDown(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
+        map.swapRenderLayers(level, ay, ay + 1);
     }
     else {
         unsigned int ay = layer + 1;
@@ -813,6 +852,7 @@ bool EditMap::ShiftLayerAction::undo(EditMap& map) {
             ay = layer;
         }
         shiftLayerUp(map.levels[level], ay, *map.tileset, map.layerFilter[level]);
+        map.swapRenderLayers(level, ay, ay - 1);
     }
     return true;
 }
@@ -831,10 +871,14 @@ bool EditMap::ShiftLevelAction::apply(EditMap& map) {
     if (up) {
         shiftLevelUp(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level - 1]);
+        map.swapRenderLevels(level, level - 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level + 1]);
+        map.swapRenderLevels(level, level + 1);
     }
     return true;
 }
@@ -843,10 +887,14 @@ bool EditMap::ShiftLevelAction::undo(EditMap& map) {
     if (!up) {
         shiftLevelUp(map.levels, *map.tileset, level + 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level + 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level + 1]);
+        map.swapRenderLevels(level, level + 1);
     }
     else {
         shiftLevelDown(map.levels, *map.tileset, level - 1);
         std::vector<bool>::swap(map.levelFilter[level], map.levelFilter[level - 1]);
+        std::swap(map.layerFilter[level], map.layerFilter[level - 1]);
+        map.swapRenderLevels(level, level - 1);
     }
     return true;
 }
@@ -860,13 +908,16 @@ bool EditMap::AppendLevelAction::apply(EditMap& map) {
     map.layerFilter.emplace_back(5, true);
     map.levels.emplace_back();
     map.levels.back().init(map.sizeTiles().x, map.sizeTiles().y, 2, 1, 1);
+    map.setupLevel(map.levels.size() - 1);
+    map.updateAllDepths();
     map.systems->position().editorPushLevel();
-    // TODO - BLIB_UPGRADE - reset render data
     return true;
 }
 
 bool EditMap::AppendLevelAction::undo(EditMap& map) {
+    map.renderLevels.pop_back();
     map.levels.pop_back();
+    map.updateAllDepths();
     map.levelFilter.pop_back();
     map.layerFilter.pop_back();
     map.systems->position().editorPopLevel();
@@ -912,11 +963,13 @@ EditMap::AddEventAction::AddEventAction(const core::map::Event& e, unsigned int 
 
 bool EditMap::AddEventAction::apply(EditMap& map) {
     map.eventsField.emplace_back(event);
+    map.addEventGfx(i);
     return false;
 }
 
 bool EditMap::AddEventAction::undo(EditMap& map) {
     map.eventsField.erase(map.eventsField.begin() + i);
+    map.removeEventGfx(i);
     return false;
 }
 
@@ -955,11 +1008,13 @@ EditMap::RemoveEventAction::RemoveEventAction(const core::map::Event& e, unsigne
 
 bool EditMap::RemoveEventAction::apply(EditMap& map) {
     map.eventsField.erase(map.eventsField.begin() + i);
+    map.removeEventGfx(i);
     return false;
 }
 
 bool EditMap::RemoveEventAction::undo(EditMap& map) {
     map.eventsField.insert(map.eventsField.begin() + i, event);
+    map.addEventGfx(i);
     return false;
 }
 
@@ -978,13 +1033,16 @@ EditMap::AddSpawnAction::AddSpawnAction(unsigned int l, const sf::Vector2i& p, u
 , dir(dir) {}
 
 bool EditMap::AddSpawnAction::apply(EditMap& map) {
-    map.spawns[id] =
+    const auto spawn =
         core::map::Spawn(id, bl::tmap::Position(level, glm::i32vec2(pos.x, pos.y), dir));
+    map.spawns[id] = spawn;
+    map.addSpawnGfx(spawn);
     return false;
 }
 
 bool EditMap::AddSpawnAction::undo(EditMap& map) {
     map.spawns.erase(id);
+    map.spawnSprites.erase(id);
     return false;
 }
 
@@ -1015,6 +1073,7 @@ bool EditMap::RotateSpawnAction::apply(EditMap& map) {
     default:
         d = bl::tmap::Direction::Up;
     }
+    map.updateSpawnRotation(id);
     return false;
 }
 
@@ -1036,6 +1095,7 @@ bool EditMap::RotateSpawnAction::undo(EditMap& map) {
     default:
         d = bl::tmap::Direction::Down;
     }
+    map.updateSpawnRotation(id);
     return false;
 }
 
@@ -1052,11 +1112,13 @@ EditMap::RemoveSpawnAction::RemoveSpawnAction(unsigned int id, const core::map::
 
 bool EditMap::RemoveSpawnAction::apply(EditMap& map) {
     map.spawns.erase(id);
+    map.spawnSprites.erase(id);
     return false;
 }
 
 bool EditMap::RemoveSpawnAction::undo(EditMap& map) {
     map.spawns[id] = spawn;
+    map.addSpawnGfx(spawn);
     return false;
 }
 
@@ -1506,11 +1568,13 @@ EditMap::SetTownTileAction::SetTownTileAction(const sf::Vector2i& pos, std::uint
 
 bool EditMap::SetTownTileAction::apply(EditMap& map) {
     map.townTiles(pos.x, pos.y) = id;
+    map.updateTownTileColor(pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetTownTileAction::undo(EditMap& map) {
     map.townTiles(pos.x, pos.y) = orig;
+    map.updateTownTileColor(pos.x, pos.y);
     return false;
 }
 
@@ -1535,16 +1599,20 @@ EditMap::SetTownTileAreaAction::SetTownTileAreaAction(const sf::IntRect& area, s
 , orig(set) {}
 
 bool EditMap::SetTownTileAreaAction::apply(EditMap& map) {
-    for (int x = 0; x < area.width; ++x) {
-        for (int y = 0; y < area.height; ++y) { map.townTiles(area.left + x, area.top + y) = id; }
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.townTiles(x, y) = id;
+            map.updateTownTileColor(x, y);
+        }
     }
     return false;
 }
 
 bool EditMap::SetTownTileAreaAction::undo(EditMap& map) {
-    for (int x = 0; x < area.width; ++x) {
-        for (int y = 0; y < area.height; ++y) {
-            map.townTiles(area.left + x, area.top + y) = orig(x, y);
+    for (int x = area.left; x < area.left + area.width; ++x) {
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.townTiles(x, y) = orig(x - area.left, y - area.top);
+            map.updateTownTileColor(x, y);
         }
     }
     return false;
@@ -1594,12 +1662,18 @@ EditMap::FillTownTileAction::FillTownTileAction(
 , id(fill) {}
 
 bool EditMap::FillTownTileAction::apply(EditMap& map) {
-    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = id; }
+    for (const auto& p : set) {
+        map.townTiles(p.first.x, p.first.y) = id;
+        map.updateTownTileColor(p.first.x, p.first.y);
+    }
     return false;
 }
 
 bool EditMap::FillTownTileAction::undo(EditMap& map) {
-    for (const auto& p : set) { map.townTiles(p.first.x, p.first.y) = p.second; }
+    for (const auto& p : set) {
+        map.townTiles(p.first.x, p.first.y) = p.second;
+        map.updateTownTileColor(p.first.x, p.first.y);
+    }
     return false;
 }
 
@@ -1620,11 +1694,13 @@ EditMap::SetLevelTileAction::SetLevelTileAction(const sf::Vector2i& pos,
 
 bool EditMap::SetLevelTileAction::apply(EditMap& map) {
     map.transitionField(pos.x, pos.y) = lt;
+    map.updateLevelTransitionTexture(pos.x, pos.y);
     return false;
 }
 
 bool EditMap::SetLevelTileAction::undo(EditMap& map) {
     map.transitionField(pos.x, pos.y) = orig;
+    map.updateLevelTransitionTexture(pos.x, pos.y);
     return false;
 }
 
@@ -1653,7 +1729,10 @@ EditMap::SetLevelTileAreaAction::SetLevelTileAreaAction(
 
 bool EditMap::SetLevelTileAreaAction::apply(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
-        for (int y = area.top; y < area.top + area.height; ++y) { map.transitionField(x, y) = lt; }
+        for (int y = area.top; y < area.top + area.height; ++y) {
+            map.transitionField(x, y) = lt;
+            map.updateLevelTransitionTexture(x, y);
+        }
     }
     return false;
 }
@@ -1662,6 +1741,7 @@ bool EditMap::SetLevelTileAreaAction::undo(EditMap& map) {
     for (int x = area.left; x < area.left + area.width; ++x) {
         for (int y = area.top; y < area.top + area.height; ++y) {
             map.transitionField(x, y) = orig(x - area.left, y - area.top);
+            map.updateLevelTransitionTexture(x, y);
         }
     }
     return false;

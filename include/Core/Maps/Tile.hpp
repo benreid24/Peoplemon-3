@@ -7,6 +7,14 @@
 #include <functional>
 #include <variant>
 
+namespace editor
+{
+namespace component
+{
+class EditMap;
+}
+} // namespace editor
+
 namespace core
 {
 namespace map
@@ -94,6 +102,7 @@ private:
         renderObject;
 
     friend class Map;
+    friend class editor::component::EditMap;
     friend struct bl::serial::SerializableObject<Tile>;
 };
 

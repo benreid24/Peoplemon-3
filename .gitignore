@@ -1,4 +1,5 @@
 .vscode
+build
 build-debug
 build-release
 *.dll
@@ -11,3 +12,6 @@ out
 *.ilk
 .vs
 logs
+Bundler
+PeoplemonDebug
+PeoplemonEditorDebug

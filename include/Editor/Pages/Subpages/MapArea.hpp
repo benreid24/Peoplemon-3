@@ -2,6 +2,7 @@
 #define EDITOR_PAGES_SUBPAGES_MAPAREA_HPP
 
 #include <Editor/Components/EditMap.hpp>
+#include <Editor/Events/MapRender.hpp>
 
 namespace editor
 {
@@ -11,9 +12,8 @@ namespace page
  * @brief Section of the map area with the map itself and related controls
  *
  * @ingroup Pages
- *
  */
-class MapArea {
+class MapArea : public bl::event::Listener<event::MapRenderCompleted, event::MapRenderStarted> {
 public:
     /**
      * @brief Construct a new Map Area
@@ -27,25 +27,21 @@ public:
 
     /**
      * @brief Returns the contained map
-     *
      */
     component::EditMap& editMap();
 
     /**
      * @brief Returns the GUI element to pack
-     *
      */
     bl::gui::Element::Ptr getContent();
 
     /**
      * @brief Enables the map controls
-     *
      */
     void enableControls();
 
     /**
      * @brief Disables the map controls when a dialog is opened or the map tab is inactive
-     *
      */
     void disableControls();
 
@@ -62,6 +58,9 @@ private:
 
     void refreshButtons();
     void onMouseOver(const sf::Vector2f& pixels, const sf::Vector2i& tiles);
+
+    virtual void observe(const event::MapRenderStarted&) override;
+    virtual void observe(const event::MapRenderCompleted&) override;
 };
 
 } // namespace page

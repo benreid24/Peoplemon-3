@@ -49,8 +49,21 @@ public:
      */
     void removeShadow(bl::ecs::Entity entity);
 
+    /**
+     * @brief Returns the engine observer that the main game is rendering to
+     */
+    bl::rc::RenderTarget& getMainRenderTarget() { return *mainRenderTarget; }
+
+    /**
+     * @brief Sets the main render target. Used by the editor
+     *
+     * @param target The render target the world gets rendered to
+     */
+    void setMainRenderTarget(bl::rc::RenderTarget& target);
+
 private:
     Systems& owner;
+    bl::rc::RenderTarget* mainRenderTarget;
     bl::ecs::ComponentPool<component::Renderable>& pool;
     bl::ecs::ComponentPool<bl::com::Transform2D>& transformPool;
     std::vector<std::pair<bl::ecs::Entity, bl::tmap::Direction>> stopRm;

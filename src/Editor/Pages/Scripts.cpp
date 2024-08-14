@@ -78,9 +78,7 @@ void Scripts::refresh() {
         if (scripts[i].error.has_value()) {
             label->setColor(sf::Color::Red, sf::Color::Transparent);
         }
-        else {
-            label->setColor(sf::Color::Green, sf::Color::Transparent);
-        }
+        else { label->setColor(sf::Color::Green, sf::Color::Transparent); }
         label->getSignal(Event::LeftClicked)
             .willAlwaysCall(std::bind(&Scripts::openWindow, this, i));
         label->setHorizontalAlignment(RenderSettings::Left);
@@ -93,9 +91,7 @@ void Scripts::openWindow(unsigned int i) {
     source->setText(scripts[i].source);
     error->setText("Error: " + scripts[i].error.value_or("No errors detected"));
     if (scripts[i].error.has_value()) { error->setColor(sf::Color::Red, sf::Color::Transparent); }
-    else {
-        error->setColor(sf::Color::Green, sf::Color::Transparent);
-    }
+    else { error->setColor(sf::Color::Green, sf::Color::Transparent); }
     parent->pack(window);
     window->setForceFocus(true);
 }
@@ -105,9 +101,7 @@ bool Scripts::Script::operator<(const Script& rhs) const {
         if (rhs.error.has_value()) { return file < rhs.file; }
         return true;
     }
-    else if (rhs.error.has_value()) {
-        return true;
-    }
+    else if (rhs.error.has_value()) { return false; }
     return file < rhs.file;
 }
 

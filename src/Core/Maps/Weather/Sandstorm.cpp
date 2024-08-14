@@ -171,7 +171,7 @@ private:
 
 class SandUpdater : public bl::pcl::MetaUpdater<Sand> {
 public:
-    SandUpdater(bl::rc::Observer& observer, SandSink& sink)
+    SandUpdater(bl::rc::RenderTarget& observer, SandSink& sink)
     : observer(observer)
     , sink(sink)
     , prevArea(1.f, 1.f, 1.f, 1.f) {}
@@ -195,7 +195,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     SandSink& sink;
     sf::FloatRect prevArea;
 };
@@ -205,7 +205,7 @@ float wrapHeight = 600.f;
 
 class SandAffector : public bl::pcl::Affector<Sand> {
 public:
-    SandAffector(bl::rc::Observer& observer)
+    SandAffector(bl::rc::RenderTarget& observer)
     : observer(observer) {}
 
     virtual ~SandAffector() = default;
@@ -230,12 +230,12 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
 };
 
 class SandEmitter : public bl::pcl::Emitter<Sand> {
 public:
-    SandEmitter(bl::rc::Observer& observer, glm::vec2 txtrSize)
+    SandEmitter(bl::rc::RenderTarget& observer, glm::vec2 txtrSize)
     : observer(observer)
     , txtrHalfSize(txtrSize / 1.6f) {}
 
@@ -265,13 +265,13 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     const glm::vec2 txtrHalfSize;
 };
 
 class SwirlAffector : public bl::pcl::Affector<Swirl> {
 public:
-    SwirlAffector(bl::rc::Observer& observer)
+    SwirlAffector(bl::rc::RenderTarget& observer)
     : observer(observer) {}
 
     virtual ~SwirlAffector() = default;
@@ -298,12 +298,12 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
 };
 
 class SwirlEmitter : public bl::pcl::Emitter<Swirl> {
 public:
-    SwirlEmitter(bl::rc::Observer& observer, glm::vec2 txtrSize)
+    SwirlEmitter(bl::rc::RenderTarget& observer, glm::vec2 txtrSize)
     : observer(observer)
     , txtrHalfSize(txtrSize / 1.6f) {}
 
@@ -325,7 +325,7 @@ public:
     }
 
 private:
-    bl::rc::Observer& observer;
+    bl::rc::RenderTarget& observer;
     const glm::vec2 txtrHalfSize;
 };
 } // namespace sandstorm
@@ -347,7 +347,7 @@ void Sandstorm::stop() { targetAlpha = 0; }
 
 bool Sandstorm::stopped() const { return sand && sand->getRenderer().getGlobals().alpha <= 0.f; }
 
-void Sandstorm::start(bl::engine::Engine& e, Map& map) {
+void Sandstorm::start(bl::engine::Engine& e, bl::rc::RenderTarget& renderTarget, Map& map) {
     engine      = &e;
     targetAlpha = MaxAlpha;
     alpha       = 0.f;
@@ -359,29 +359,29 @@ void Sandstorm::start(bl::engine::Engine& e, Map& map) {
     // sand
     sand                      = &e.particleSystem().getUniqueSystem<sandstorm::Sand>();
     sandstorm::SandSink* sink = sand->addSink<sandstorm::SandSink>();
-    sand->addUpdater<sandstorm::SandUpdater>(std::ref(e.renderer().getObserver()), std::ref(*sink));
-    sand->addAffector<sandstorm::SandAffector>(e.renderer().getObserver());
-    sand->addEmitter<sandstorm::SandEmitter>(e.renderer().getObserver(), sandTxtr->size());
+    sand->addUpdater<sandstorm::SandUpdater>(std::ref(renderTarget), std::ref(*sink));
+    sand->addAffector<sandstorm::SandAffector>(renderTarget);
+    sand->addEmitter<sandstorm::SandEmitter>(renderTarget, sandTxtr->size());
 
     sand->getRenderer().getGlobals().textureCenter =
         sandTxtr->normalizeAndConvertCoord(sandTxtr->size() * 0.5f);
     sand->getRenderer().getGlobals().textureId = sandTxtr.id();
     sand->getRenderer().getGlobals().radius    = glm::length(sandTxtr->size()) * 0.5f;
 
-    sand->addToScene(e.renderer().getObserver().getCurrentScene());
+    sand->addToScene(renderTarget.getCurrentScene());
     sand->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth() + 0.3f;
 
     // swirls
     swirls = &e.particleSystem().getUniqueSystem<sandstorm::Swirl>();
-    swirls->addAffector<sandstorm::SwirlAffector>(e.renderer().getObserver());
-    swirls->addEmitter<sandstorm::SwirlEmitter>(e.renderer().getObserver(), sandTxtr->size());
+    swirls->addAffector<sandstorm::SwirlAffector>(renderTarget);
+    swirls->addEmitter<sandstorm::SwirlEmitter>(renderTarget, sandTxtr->size());
 
     swirls->getRenderer().getGlobals().textureCenter =
         swirlTxtr->normalizeAndConvertCoord(swirlTxtr->size() * 0.5f);
     swirls->getRenderer().getGlobals().textureId = swirlTxtr.id();
     swirls->getRenderer().getGlobals().radius    = glm::length(swirlTxtr->size()) * 0.5f;
 
-    swirls->addToScene(e.renderer().getObserver().getCurrentScene());
+    swirls->addToScene(renderTarget.getCurrentScene());
     swirls->getRenderer().getComponent()->vertexBuffer.vertices()[0].pos.z = map.getMinDepth();
 
     setAlpha();

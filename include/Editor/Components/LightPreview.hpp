@@ -11,7 +11,6 @@ namespace component
  * @brief Helper component that displays an image with a light level overlaid on it
  *
  * @ingroup Components
- *
  */
 class LightPreview : public bl::gui::Image {
 public:
@@ -27,15 +26,11 @@ public:
 
     /**
      * @brief Sets the light level to display
-     *
      */
     void setLightLevel(std::uint8_t level);
 
 private:
-    sf::RectangleShape cover;
-
     LightPreview(const sf::Vector2f& size);
-    virtual bl::gui::rdr::Component* doPrepareRender(bl::gui::rdr::Renderer& renderer) override;
 };
 
 } // namespace component

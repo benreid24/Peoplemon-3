@@ -7,6 +7,7 @@
 #include <Editor/Components/LightSlider.hpp>
 #include <Editor/Components/NewMapDialog.hpp>
 #include <Editor/Components/PlaylistEditorWindow.hpp>
+#include <Editor/Components/RenderMapWindow.hpp>
 #include <Editor/Components/ScriptSelector.hpp>
 #include <Editor/Components/WeatherSelect.hpp>
 #include <Editor/Pages/Page.hpp>
@@ -15,7 +16,6 @@
 #include <Editor/Pages/Subpages/Levels.hpp>
 #include <Editor/Pages/Subpages/MapArea.hpp>
 #include <Editor/Pages/Subpages/Tileset.hpp>
-#include <Editor/Components/RenderMapWindow.hpp>
 
 namespace editor
 {
@@ -25,7 +25,6 @@ namespace page
  * @brief Page for map editing. Tiles, levels, events, NPC's, weather, lighting, everything
  *
  * @ingroup Pages
- *
  */
 class Map : public Page {
 public:
@@ -38,7 +37,6 @@ public:
 
     /**
      * @brief Destroy the Page
-     *
      */
     virtual ~Map() = default;
 
@@ -51,7 +49,6 @@ public:
 
     /**
      * @brief Updates the GUI elements to sync with the data
-     *
      */
     void syncGui();
 
@@ -111,6 +108,7 @@ private:
 
     sf::IntRect selection;
     enum SelectionState { NoSelection, Selecting, SelectionMade } selectionState;
+    void setSelectionState(SelectionState newState);
 
     bl::gui::FilePicker mapPicker;
     bool makingNewMap;

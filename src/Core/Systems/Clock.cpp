@@ -26,7 +26,10 @@ void Clock::update(std::mutex&, float dt, float, float, float) {
     }
 }
 
-void Clock::set(const Time& n) { currentTime = n; }
+void Clock::set(const Time& n) {
+    currentTime = n;
+    bl::event::Dispatcher::dispatch<event::TimeChange>({currentTime});
+}
 
 Clock::Time::Time()
 : day(0)

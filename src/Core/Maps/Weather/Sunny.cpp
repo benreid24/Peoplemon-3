@@ -34,7 +34,7 @@ Sunny::Sunny()
 
 Weather::Type Sunny::type() const { return Weather::Sunny; }
 
-void Sunny::start(bl::engine::Engine&, Map& m) {
+void Sunny::start(bl::engine::Engine&, bl::rc::RenderTarget&, Map& m) {
     t        = 0.f;
     factor   = 0.f;
     stopping = false;

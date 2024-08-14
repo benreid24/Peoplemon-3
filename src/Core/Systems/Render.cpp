@@ -9,10 +9,12 @@ namespace system
 {
 Render::Render(Systems& o)
 : owner(o)
+, mainRenderTarget(nullptr)
 , pool(owner.engine().ecs().getAllComponents<component::Renderable>())
 , transformPool(owner.engine().ecs().getAllComponents<bl::com::Transform2D>()) {}
 
 void Render::update(std::mutex&, float, float, float, float) {
+    if (!mainRenderTarget) { mainRenderTarget = &owner.engine().renderer().getObserver(); }
     for (const auto& epair : stopRm) {
         component::Renderable* rc = pool.get(epair.first);
         if (rc) { rc->notifyMoveState(epair.second, false, false); }
@@ -99,6 +101,8 @@ void Render::removeShadow(bl::ecs::Entity entity) {
         rc->shadow = bl::ecs::InvalidEntity;
     }
 }
+
+void Render::setMainRenderTarget(bl::rc::RenderTarget& rt) { mainRenderTarget = &rt; }
 
 } // namespace system
 } // namespace core

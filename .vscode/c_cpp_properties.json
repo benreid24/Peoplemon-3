@@ -7,7 +7,12 @@
             "${workspaceFolder}/src",
             "${workspaceFolder}/tests",
             "${workspaceFolder}/lib/BLIB/lib/gtest/googletest/include",
-            "${workspaceFolder}/lib/BLIB/lib/gtest/googlemock/include"
+            "${workspaceFolder}/lib/BLIB/lib/gtest/googlemock/include",
+            "${workspaceFolder}/lib/BLIB/lib/glm",
+            "${workspaceFolder}/lib/BLIB/lib/plf_colony",
+            "${workspaceFolder}/lib/BLIB/lib/volk",
+            "${workspaceFolder}/lib/BLIB/lib/Vulkan-Headers/include",
+            "${workspaceFolder}/lib/BLIB/lib/VulkanMemoryAllocator/include"
         ],
         "compiler": "C:/MinGW/mingw64/bin/g++.exe"
     },

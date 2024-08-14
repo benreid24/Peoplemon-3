@@ -98,7 +98,7 @@ bool Map::enter(system::Systems& game, std::uint16_t spawnId, const std::string&
     enterTown(currentTown);
 
     // Activate camera and weather
-    weather.activate(game.engine(), *this);
+    weather.activate(game, *this);
 
     // Ensure lighting is updated for time
     lighting.subscribe();
@@ -186,7 +186,6 @@ LightingSystem& Map::lightingSystem() { return lighting; }
 void Map::update(float dt) {
     weather.update(dt);
     lighting.update(dt);
-    // TODO - refresh render range
 }
 
 std::string Map::getMapFile(const std::string& file) {
@@ -522,6 +521,9 @@ bool Map::interact(bl::ecs::Entity interactor, const bl::tmap::Position& pos) {
 }
 
 void Map::clear() {
+    // Clear batch buffers first for speedier cleanup than if tiles are destroyed first
+    renderLevels.clear();
+
     levels.clear();
     spawns.clear();
     characterField.clear();
@@ -534,7 +536,6 @@ void Map::clear() {
     weatherField = Weather::None;
     weather.set(Weather::None, true);
     cleanupRender();
-    // renderRange = sf::IntRect(0, 0, 1, 1);
 }
 
 Town* Map::getTown(const glm::i32vec2& pos) {
@@ -615,34 +616,43 @@ void Map::prepareRender() {
     scene = systems->engine().renderer().scenePool().allocateScene<bl::rc::scene::Scene2D>();
 
     tileset->activate(systems->engine());
-    for (unsigned int i = 0; i < levels.size(); ++i) {
-        auto& rl = renderLevels.emplace_back();
-        rl.create(systems->engine(),
-                  tileset->combinedTextures,
-                  levels[i].layerCount(),
-                  sf::Vector2u(size),
-                  scene);
-
-        for (unsigned int j = 0; j < levels[i].layerCount(); ++j) {
-            for (unsigned int x = 0; x < size.x; ++x) {
-                for (unsigned int y = 0; y < size.y; ++y) { setupTile(i, j, {x, y}); }
-            }
-        }
-    }
+    for (unsigned int i = 0; i < levels.size(); ++i) { setupLevel(i); }
 
     BL_LOG_INFO << "Map geometry generated";
 }
 
+void Map::setupLevel(unsigned int level) {
+    const auto pos = std::next(renderLevels.begin(), level);
+    auto& rl       = *renderLevels.emplace(pos);
+    rl.create(systems->engine(),
+              tileset->combinedTextures,
+              levels[level].layerCount(),
+              sf::Vector2u(size),
+              scene);
+    for (unsigned int j = 0; j < levels[level].layerCount(); ++j) { setupLayer(level, j); }
+}
+
+void Map::setupLayer(unsigned int level, unsigned int layer) {
+    for (unsigned int x = 0; x < size.x; ++x) {
+        for (unsigned int y = 0; y < size.y; ++y) { setupTile(level, layer, {x, y}); }
+    }
+}
+
 void Map::setupTile(unsigned int level, unsigned int layer, const sf::Vector2u& pos) {
     Tile& tile = levels[level].getLayer(layer).getRef(pos.x, pos.y);
-    if (tile.id() == Tile::Blank) { return; }
+    if (tile.id() == Tile::Blank) {
+        tile.renderObject.emplace<std::monostate>();
+        return;
+    }
     const glm::vec2 offset(pos.x * Properties::PixelsPerTile(),
                            pos.y * Properties::PixelsPerTile());
 
     auto it = renderLevels.begin();
     std::advance(it, level);
-    auto& zone         = it->getZone(levels[level], layer);
-    const bool isYsort = &zone == &it->zones[RenderLevel::Ysort];
+    auto& zone = *(it->zones[layer]);
+    const bool isYsort =
+        layer >= levels[level].bottomLayers().size() &&
+        layer < levels[level].bottomLayers().size() + levels[level].ysortLayers().size();
 
     const auto getBottomDepth = [this, &pos, layer, level, &tile]() {
         const unsigned int th = tileset->tileHeight(tile.id(), tile.isAnimation());

@@ -457,7 +457,7 @@ void PeoplemonAnimation::update(float dt) {
 
         case Animation::Type::Ailment:
         case Animation::Type::PassiveAilment:
-            if (!ailmentAnim.getPlayer().isPlaying) { state = State::Static; }
+            if (!ailmentAnim.getPlayer().playing()) { state = State::Static; }
             break;
 
         case Animation::Type::ThrowCloneBall:

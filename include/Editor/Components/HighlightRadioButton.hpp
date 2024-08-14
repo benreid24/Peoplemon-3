@@ -12,7 +12,6 @@ namespace component
  *        highlight when it is active
  *
  * @ingroup UIComponents
- *
  */
 class HighlightRadioButton : public bl::gui::RadioButton {
 public:
@@ -30,13 +29,10 @@ public:
 
     /**
      * @brief Destroy the Highlight Radio Button
-     *
      */
     virtual ~HighlightRadioButton() = default;
 
 private:
-    mutable sf::RectangleShape highlight;
-
     HighlightRadioButton(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group* group);
 
     virtual void onAcquisition() override;

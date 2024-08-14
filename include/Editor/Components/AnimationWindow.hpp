@@ -14,7 +14,6 @@ namespace component
  * @brief A basic window to choose and view animations
  *
  * @ingroup UIComponents
- *
  */
 class AnimationWindow {
 public:
@@ -44,12 +43,10 @@ public:
 
     /**
      * @brief Removes the window from view
-     *
      */
     void hide();
 
 private:
-    // TODO - BLIB_UPGRADE - update animation window
     const bool characterMode;
     const ChooseCb chooseCb;
     const CloseCb closeCb;
