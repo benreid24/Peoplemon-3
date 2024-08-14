@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/State.cpp Source File</title>
+<title>Peoplemon: include/Core/Systems/Scripts.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,37 +66,66 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">State.cpp</div>  </div>
+<div class="title">Scripts.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03394.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03304.html">Game/States/State.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02453.html#a39e069c6f70b4af602662b1256d29972">    7</a></span>&#160;<a class="code" href="a02453.html#a39e069c6f70b4af602662b1256d29972">State::State</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; s, bl::engine::StateMask::V mask)</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: <a class="code" href="a01107.html">bl</a>::engine::<a class="code" href="a02453.html">State</a>(mask)</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;, systems(s) {}</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02453_html_a39e069c6f70b4af602662b1256d29972"><div class="ttname"><a href="a02453.html#a39e069c6f70b4af602662b1256d29972">game::state::State::State</a></div><div class="ttdeci">State(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</div><div class="ttdoc">Initialize the state.</div><div class="ttdef"><b>Definition:</b> <a href="a03394_source.html#l00007">State.cpp:7</a></div></div>
-<div class="ttc" id="aa03304_html"><div class="ttname"><a href="a03304.html">State.hpp</a></div></div>
+<a href="a03394.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_SCRIPTS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_SCRIPTS_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03313.html">Core/Events/GameSave.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Systems;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02105.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02105.html">Scripts</a> : <span class="keyword">public</span> bl::event::Listener&lt;event::GameSaveInitializing&gt; {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a02105.html#acd5823a50ebc893def97feab9547844c">Scripts</a>(<a class="code" href="a02109.html">Systems</a>&amp; owner);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02105.html#a6a89c17e45218a569c2af20321e2089c">init</a>();</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> bl::script::Value* <a class="code" href="a02105.html#a011aba1e228d5fdb9b2400e490bb0f70">getEntry</a>(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02105.html#a388763697fcf3166e10d634183978787">setEntry</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> bl::script::Value&amp; val);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02109.html">Systems</a>&amp; owner;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unordered_map&lt;std::string, bl::script::Value&gt; entries;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02105.html#ad907317ce8f0753ec6b1cd9fee2276de">   57</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01489.html">event::GameSaveInitializing</a>&amp; save) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span>bl::serial::SerializableObject&lt;<a class="code" href="a02105.html">Scripts</a>&gt;;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01489_html"><div class="ttname"><a href="a01489.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa02105_html"><div class="ttname"><a href="a02105.html">core::system::Scripts</a></div><div class="ttdoc">System that stores and handles saving/loading of save entries for scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a03394_source.html#l00022">Scripts.hpp:22</a></div></div>
+<div class="ttc" id="aa02105_html_a011aba1e228d5fdb9b2400e490bb0f70"><div class="ttname"><a href="a02105.html#a011aba1e228d5fdb9b2400e490bb0f70">core::system::Scripts::getEntry</a></div><div class="ttdeci">const bl::script::Value * getEntry(const std::string &amp;name) const</div><div class="ttdoc">Returns the save entry with the given name. May be null if not found.</div><div class="ttdef"><b>Definition:</b> <a href="a03490_source.html#l00015">Scripts.cpp:15</a></div></div>
+<div class="ttc" id="aa02105_html_a388763697fcf3166e10d634183978787"><div class="ttname"><a href="a02105.html#a388763697fcf3166e10d634183978787">core::system::Scripts::setEntry</a></div><div class="ttdeci">void setEntry(const std::string &amp;name, const bl::script::Value &amp;val)</div><div class="ttdoc">Sets a save entry.</div><div class="ttdef"><b>Definition:</b> <a href="a03490_source.html#l00020">Scripts.cpp:20</a></div></div>
+<div class="ttc" id="aa02105_html_a6a89c17e45218a569c2af20321e2089c"><div class="ttname"><a href="a02105.html#a6a89c17e45218a569c2af20321e2089c">core::system::Scripts::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Subscribes to the game event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a03490_source.html#l00013">Scripts.cpp:13</a></div></div>
+<div class="ttc" id="aa02105_html_acd5823a50ebc893def97feab9547844c"><div class="ttname"><a href="a02105.html#acd5823a50ebc893def97feab9547844c">core::system::Scripts::Scripts</a></div><div class="ttdeci">Scripts(Systems &amp;owner)</div><div class="ttdoc">Initializes the scripting system.</div><div class="ttdef"><b>Definition:</b> <a href="a03490_source.html#l00010">Scripts.cpp:10</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa03313_html"><div class="ttname"><a href="a03313.html">GameSave.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

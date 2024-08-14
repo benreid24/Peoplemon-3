@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Editor/Pages/Subpages/GameTesting.hpp Source File</title>
+<title>Peoplemon: include/Editor/Pages/Moves.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,71 +66,74 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li><li class="navelem"><a class="el" href="dir_b6b01b8144a0efb3e8967a6211dc706f.html">Subpages</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">GameTesting.hpp</div>  </div>
+<div class="title">Moves.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00470.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_PAGES_SUBPAGES_GAMETESTING_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_PAGES_SUBPAGES_GAMETESTING_HPP</span></div>
+<a href="a00470.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_PAGES_MOVES_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_PAGES_MOVES_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03229.html">Core/Files/GameSave.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00392.html">Editor/Components/GameTestingWindow.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>page</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02285.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02285.html">GameTesting</a> {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <a class="code" href="a02285.html#a725db21870dfcb4ce5e7c792bc12a6f0">GameTesting</a>();</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02285.html#a9b96d16d1e2cfc9e9822a4a335fab990">registerGUI</a>(bl::gui::GUI* gui);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02285.html#a3c72be7f4a00c84d25f4edebf6d41d43">notifyClick</a>(<span class="keyword">const</span> std::string&amp; map, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level, <span class="keyword">const</span> sf::Vector2i&amp; pos);</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00473.html">Editor/Pages/Page.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00410.html">Editor/Components/MoveEditorWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01139.html">editor</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>page</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02325.html">   20</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02325.html">Moves</a> : <span class="keyword">public</span> <a class="code" href="a02329.html">Page</a> {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <a class="code" href="a02325.html#abf738c5bf02987f524f7710960a2d70d">Moves</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02325.html#a4c74714f21921fb4c8a416489afc9839">   33</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02325.html#a4c74714f21921fb4c8a416489afc9839">~Moves</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02325.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">const</span> bl::gui::Box::Ptr&amp; <a class="code" href="a02285.html#a8fc8cab441ff6c68a4f192bd1e289856">getContent</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a01705.html">core::file::MoveDB</a> moveDb;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a02233.html">component::MoveEditorWindow</a> moveWindow;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    bl::gui::Button::Ptr saveBut;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    bl::gui::ScrollArea::Ptr rowArea;</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    std::vector&lt;core::file::GameSave&gt; saves;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a01613.html">core::file::GameSave</a> newSave;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    bl::gui::GUI* gui;</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    bl::gui::Box::Ptr content;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    bl::gui::ComboBox::Ptr saveSelector;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    bl::gui::Label::Ptr posLabel;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="a02165.html">component::GameTestingWindow</a> window;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> onChange();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> makeDirty();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> save();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> newMove();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordtype">void</span> editMove(<a class="code" href="a01112.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordtype">void</span> deleteMove(<a class="code" href="a01112.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> move);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordtype">void</span> sync();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordtype">void</span> reset();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;};</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">void</span> sync();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> updatePosLabel(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> level, <span class="keyword">const</span> glm::i32vec2&amp; pos);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordtype">void</span> launchGame();</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace page</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa00392_html"><div class="ttname"><a href="a00392.html">GameTestingWindow.hpp</a></div></div>
-<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01613_html"><div class="ttname"><a href="a01613.html">core::file::GameSave</a></div><div class="ttdoc">Represents a game save and provides functionality to load and save.</div><div class="ttdef"><b>Definition:</b> <a href="a03229_source.html#l00024">GameSave.hpp:24</a></div></div>
-<div class="ttc" id="aa02165_html"><div class="ttname"><a href="a02165.html">editor::component::GameTestingWindow</a></div><div class="ttdef"><b>Definition:</b> <a href="a00392_source.html#l00013">GameTestingWindow.hpp:13</a></div></div>
-<div class="ttc" id="aa02285_html"><div class="ttname"><a href="a02285.html">editor::page::GameTesting</a></div><div class="ttdoc">Subpage in the map editor for creating and testing game saves.</div><div class="ttdef"><b>Definition:</b> <a href="a00470_source.html#l00019">GameTesting.hpp:19</a></div></div>
-<div class="ttc" id="aa02285_html_a3c72be7f4a00c84d25f4edebf6d41d43"><div class="ttname"><a href="a02285.html#a3c72be7f4a00c84d25f4edebf6d41d43">editor::page::GameTesting::notifyClick</a></div><div class="ttdeci">void notifyClick(const std::string &amp;map, unsigned int level, const sf::Vector2i &amp;pos)</div><div class="ttdoc">Notifies of the spawn being set.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00086">GameTesting.cpp:86</a></div></div>
-<div class="ttc" id="aa02285_html_a725db21870dfcb4ce5e7c792bc12a6f0"><div class="ttname"><a href="a02285.html#a725db21870dfcb4ce5e7c792bc12a6f0">editor::page::GameTesting::GameTesting</a></div><div class="ttdeci">GameTesting()</div><div class="ttdoc">Construct a new Game Testing page.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00009">GameTesting.cpp:9</a></div></div>
-<div class="ttc" id="aa02285_html_a8fc8cab441ff6c68a4f192bd1e289856"><div class="ttname"><a href="a02285.html#a8fc8cab441ff6c68a4f192bd1e289856">editor::page::GameTesting::getContent</a></div><div class="ttdeci">const bl::gui::Box::Ptr &amp; getContent() const</div><div class="ttdoc">Returns the content to pack.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00075">GameTesting.cpp:75</a></div></div>
-<div class="ttc" id="aa02285_html_a9b96d16d1e2cfc9e9822a4a335fab990"><div class="ttname"><a href="a02285.html#a9b96d16d1e2cfc9e9822a4a335fab990">editor::page::GameTesting::registerGUI</a></div><div class="ttdeci">void registerGUI(bl::gui::GUI *gui)</div><div class="ttdoc">Sets the primary GUI object.</div><div class="ttdef"><b>Definition:</b> <a href="a00977_source.html#l00073">GameTesting.cpp:73</a></div></div>
-<div class="ttc" id="aa03229_html"><div class="ttname"><a href="a03229.html">GameSave.hpp</a></div></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace page</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">MoveDB.hpp</a></div></div>
+<div class="ttc" id="aa00410_html"><div class="ttname"><a href="a00410.html">MoveEditorWindow.hpp</a></div></div>
+<div class="ttc" id="aa00473_html"><div class="ttname"><a href="a00473.html">Page.hpp</a></div></div>
+<div class="ttc" id="aa01112_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01112.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00239_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00010">Tile.hpp:11</a></div></div>
+<div class="ttc" id="aa01705_html"><div class="ttname"><a href="a01705.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00022">MoveDB.hpp:22</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02233_html"><div class="ttname"><a href="a02233.html">editor::component::MoveEditorWindow</a></div><div class="ttdoc">Editor window to edit moves in the move database.</div><div class="ttdef"><b>Definition:</b> <a href="a00410_source.html#l00020">MoveEditorWindow.hpp:20</a></div></div>
+<div class="ttc" id="aa02325_html"><div class="ttname"><a href="a02325.html">editor::page::Moves</a></div><div class="ttdoc">Page for editing move metadata.</div><div class="ttdef"><b>Definition:</b> <a href="a00470_source.html#l00020">Moves.hpp:20</a></div></div>
+<div class="ttc" id="aa02325_html_a4c74714f21921fb4c8a416489afc9839"><div class="ttname"><a href="a02325.html#a4c74714f21921fb4c8a416489afc9839">editor::page::Moves::~Moves</a></div><div class="ttdeci">virtual ~Moves()=default</div><div class="ttdoc">Destroy the Page.</div></div>
+<div class="ttc" id="aa02325_html_ab0d136d0393e72bd6c0a18a3ec9fcd21"><div class="ttname"><a href="a02325.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">editor::page::Moves::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00124">Moves.cpp:124</a></div></div>
+<div class="ttc" id="aa02325_html_abf738c5bf02987f524f7710960a2d70d"><div class="ttname"><a href="a02325.html#abf738c5bf02987f524f7710960a2d70d">editor::page::Moves::Moves</a></div><div class="ttdeci">Moves(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Moves page.</div><div class="ttdef"><b>Definition:</b> <a href="a00986_source.html#l00022">Moves.cpp:22</a></div></div>
+<div class="ttc" id="aa02329_html"><div class="ttname"><a href="a02329.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00473_source.html#l00032">Page.hpp:32</a></div></div>
+<div class="ttc" id="aa02329_html_af7278d27f56dbefc4a2843d9541a92cc"><div class="ttname"><a href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">editor::page::Page::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a00473_source.html#l00068">Page.hpp:68</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

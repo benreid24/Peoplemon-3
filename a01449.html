@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::BattleCompleted Struct Reference</title>
+<title>Peoplemon: core::component::Trainer Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,136 +66,336 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01110.html">event</a></li><li class="navelem"><a class="el" href="a01449.html">BattleCompleted</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01131.html">component</a></li><li class="navelem"><a class="el" href="a01449.html">Trainer</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01446.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::BattleCompleted Struct Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01086.html">Events</a></div></div>  </div>
+<div class="title">core::component::Trainer Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a battle finishes.  
+<p>Adding this to an entity will make it a trainer that can battle.  
  <a href="a01449.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03175_source.html">Battle.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03301_source.html">Trainer.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aa8737c9ee156f6d7460fb423693573f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#aa8737c9ee156f6d7460fb423693573f7">BattleCompleted</a> (<a class="el" href="a01241.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> <a class="el" href="a01449.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a>, <a class="el" href="a01313.html">battle::Result</a> &amp;&amp;<a class="el" href="a01449.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a>)</td></tr>
-<tr class="memdesc:aa8737c9ee156f6d7460fb423693573f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Battle Completed event.  <a href="a01449.html#aa8737c9ee156f6d7460fb423693573f7">More...</a><br /></td></tr>
-<tr class="separator:aa8737c9ee156f6d7460fb423693573f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:aab63742f1a9bebdc5bb01ab43aa31198"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01241.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#aab63742f1a9bebdc5bb01ab43aa31198">type</a></td></tr>
-<tr class="memdesc:aab63742f1a9bebdc5bb01ab43aa31198"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of battle that was completed.  <a href="a01449.html#aab63742f1a9bebdc5bb01ab43aa31198">More...</a><br /></td></tr>
-<tr class="separator:aab63742f1a9bebdc5bb01ab43aa31198"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01313.html">battle::Result</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#ae44f51c4e36f0fe2c7b7d167da6cb154">result</a></td></tr>
-<tr class="memdesc:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="mdescLeft">&#160;</td><td class="mdescRight">The result of the battle.  <a href="a01449.html#ae44f51c4e36f0fe2c7b7d167da6cb154">More...</a><br /></td></tr>
-<tr class="separator:ae44f51c4e36f0fe2c7b7d167da6cb154"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a27e8780cf9c64312a6ff8bd642a3c0a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a27e8780cf9c64312a6ff8bd642a3c0a3">Trainer</a> (<a class="el" href="a01729.html">file::Trainer</a> &amp;&amp;trainer)</td></tr>
+<tr class="memdesc:a27e8780cf9c64312a6ff8bd642a3c0a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01449.html" title="Adding this to an entity will make it a trainer that can battle.">Trainer</a> component.  <a href="a01449.html#a27e8780cf9c64312a6ff8bd642a3c0a3">More...</a><br /></td></tr>
+<tr class="separator:a27e8780cf9c64312a6ff8bd642a3c0a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a794529c07729f3c471bb5a5e5d2b560b"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a794529c07729f3c471bb5a5e5d2b560b">file</a> () const</td></tr>
+<tr class="memdesc:a794529c07729f3c471bb5a5e5d2b560b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the file the trainer was spawned from.  <a href="a01449.html#a794529c07729f3c471bb5a5e5d2b560b">More...</a><br /></td></tr>
+<tr class="separator:a794529c07729f3c471bb5a5e5d2b560b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4414a28101c01d338015a112db902b47"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a4414a28101c01d338015a112db902b47">name</a> () const</td></tr>
+<tr class="memdesc:a4414a28101c01d338015a112db902b47"><td class="mdescLeft">&#160;</td><td class="mdescRight">The name of the <a class="el" href="a01421.html" title="Adding this to an entity will allow it to be interacted with and talked to.">NPC</a>.  <a href="a01449.html#a4414a28101c01d338015a112db902b47">More...</a><br /></td></tr>
+<tr class="separator:a4414a28101c01d338015a112db902b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e40db797085e00b953c9467f69f8409"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01613.html">file::Conversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a5e40db797085e00b953c9467f69f8409">beforeBattleConversation</a> () const</td></tr>
+<tr class="memdesc:a5e40db797085e00b953c9467f69f8409"><td class="mdescLeft">&#160;</td><td class="mdescRight">The conversation before battle is entered.  <a href="a01449.html#a5e40db797085e00b953c9467f69f8409">More...</a><br /></td></tr>
+<tr class="separator:a5e40db797085e00b953c9467f69f8409"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe089b03f79f5bf1e7eae66c69ae7599"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01613.html">file::Conversation</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#abe089b03f79f5bf1e7eae66c69ae7599">afterBattleConversation</a> () const</td></tr>
+<tr class="memdesc:abe089b03f79f5bf1e7eae66c69ae7599"><td class="mdescLeft">&#160;</td><td class="mdescRight">The conversation used after battle if interacted again.  <a href="a01449.html#abe089b03f79f5bf1e7eae66c69ae7599">More...</a><br /></td></tr>
+<tr class="separator:abe089b03f79f5bf1e7eae66c69ae7599"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a35f95e925bf889d6248253ecd73df201"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a35f95e925bf889d6248253ecd73df201">loseBattleDialog</a> () const</td></tr>
+<tr class="memdesc:a35f95e925bf889d6248253ecd73df201"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dialog line said in battle screen when battle is lost.  <a href="a01449.html#a35f95e925bf889d6248253ecd73df201">More...</a><br /></td></tr>
+<tr class="separator:a35f95e925bf889d6248253ecd73df201"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a61a35c91697c53afa38261721adecc07"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a61a35c91697c53afa38261721adecc07">range</a> () const</td></tr>
+<tr class="memdesc:a61a35c91697c53afa38261721adecc07"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns how far the trainer can see in tiles.  <a href="a01449.html#a61a35c91697c53afa38261721adecc07">More...</a><br /></td></tr>
+<tr class="separator:a61a35c91697c53afa38261721adecc07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af59f703558a8cc846a816b7706f0ed78"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a01885.html">pplmn::OwnedPeoplemon</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#af59f703558a8cc846a816b7706f0ed78">team</a> () const</td></tr>
+<tr class="memdesc:af59f703558a8cc846a816b7706f0ed78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the team of peoplemon the trainer has.  <a href="a01449.html#af59f703558a8cc846a816b7706f0ed78">More...</a><br /></td></tr>
+<tr class="separator:af59f703558a8cc846a816b7706f0ed78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6c5123090e68b199d9e54ec23e41d126"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a6c5123090e68b199d9e54ec23e41d126">items</a> () const</td></tr>
+<tr class="memdesc:a6c5123090e68b199d9e54ec23e41d126"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the items the trainer has.  <a href="a01449.html#a6c5123090e68b199d9e54ec23e41d126">More...</a><br /></td></tr>
+<tr class="separator:a6c5123090e68b199d9e54ec23e41d126"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4c1912a8764e9dbd46262c74ebdb3dd2"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#a4c1912a8764e9dbd46262c74ebdb3dd2">defeated</a> () const</td></tr>
+<tr class="memdesc:a4c1912a8764e9dbd46262c74ebdb3dd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this trainer was defeated.  <a href="a01449.html#a4c1912a8764e9dbd46262c74ebdb3dd2">More...</a><br /></td></tr>
+<tr class="separator:a4c1912a8764e9dbd46262c74ebdb3dd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7c48076f937bdd565885bc95085b416"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#af7c48076f937bdd565885bc95085b416">setDefeated</a> ()</td></tr>
+<tr class="memdesc:af7c48076f937bdd565885bc95085b416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Marks this trainer as defeated.  <a href="a01449.html#af7c48076f937bdd565885bc95085b416">More...</a><br /></td></tr>
+<tr class="separator:af7c48076f937bdd565885bc95085b416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc9ea3142b27c26d98b2404b86add165"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01449.html#afc9ea3142b27c26d98b2404b86add165">basePayout</a> () const</td></tr>
+<tr class="memdesc:afc9ea3142b27c26d98b2404b86add165"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the base payout of the trainer.  <a href="a01449.html#afc9ea3142b27c26d98b2404b86add165">More...</a><br /></td></tr>
+<tr class="separator:afc9ea3142b27c26d98b2404b86add165"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a battle finishes. </p>
+<div class="textblock"><p>Adding this to an entity will make it a trainer that can battle. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00036">36</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00018">18</a> of file <a class="el" href="a03301_source.html">Trainer.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aa8737c9ee156f6d7460fb423693573f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa8737c9ee156f6d7460fb423693573f7">&#9670;&nbsp;</a></span>BattleCompleted()</h2>
+<a id="a27e8780cf9c64312a6ff8bd642a3c0a3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a27e8780cf9c64312a6ff8bd642a3c0a3">&#9670;&nbsp;</a></span>Trainer()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::BattleCompleted::BattleCompleted </td>
+          <td class="memname">core::component::Trainer::Trainer </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a01241.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a>&#160;</td>
-          <td class="paramname"><em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype"><a class="el" href="a01729.html">file::Trainer</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>trainer</em></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01313.html">battle::Result</a> &amp;&amp;&#160;</td>
-          <td class="paramname"><em>result</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Battle Completed event. </p>
+<p>Construct a new <a class="el" href="a01449.html" title="Adding this to an entity will make it a trainer that can battle.">Trainer</a> component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>The type of battle that was completed </td></tr>
-    <tr><td class="paramname">result</td><td>The result of the battle </td></tr>
+    <tr><td class="paramname">trainer</td><td>The trainer data to create from </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00043">43</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00016">16</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="ae44f51c4e36f0fe2c7b7d167da6cb154"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae44f51c4e36f0fe2c7b7d167da6cb154">&#9670;&nbsp;</a></span>result</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="abe089b03f79f5bf1e7eae66c69ae7599"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe089b03f79f5bf1e7eae66c69ae7599">&#9670;&nbsp;</a></span>afterBattleConversation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01313.html">battle::Result</a> core::event::BattleCompleted::result</td>
+          <td class="memname">const <a class="el" href="a01613.html">file::Conversation</a> &amp; core::component::Trainer::afterBattleConversation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The result of the battle. </p>
+<p>The conversation used after battle if interacted again. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00051">51</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00047">47</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aab63742f1a9bebdc5bb01ab43aa31198"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab63742f1a9bebdc5bb01ab43aa31198">&#9670;&nbsp;</a></span>type</h2>
+<a id="afc9ea3142b27c26d98b2404b86add165"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc9ea3142b27c26d98b2404b86add165">&#9670;&nbsp;</a></span>basePayout()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01241.html#a5c4138656c418031327b3958cc6e8c62">battle::Battle::Type</a> core::event::BattleCompleted::type</td>
+          <td class="memname">std::uint8_t core::component::Trainer::basePayout </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The type of battle that was completed. </p>
+<p>Returns the base payout of the trainer. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00048">48</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00061">61</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a03175_source.html">Battle.hpp</a></li>
+<a id="a5e40db797085e00b953c9467f69f8409"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e40db797085e00b953c9467f69f8409">&#9670;&nbsp;</a></span>beforeBattleConversation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="a01613.html">file::Conversation</a> &amp; core::component::Trainer::beforeBattleConversation </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The conversation before battle is entered. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00045">45</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4c1912a8764e9dbd46262c74ebdb3dd2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4c1912a8764e9dbd46262c74ebdb3dd2">&#9670;&nbsp;</a></span>defeated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::component::Trainer::defeated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not this trainer was defeated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00057">57</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a794529c07729f3c471bb5a5e5d2b560b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a794529c07729f3c471bb5a5e5d2b560b">&#9670;&nbsp;</a></span>file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::component::Trainer::file </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the file the trainer was spawned from. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00041">41</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6c5123090e68b199d9e54ec23e41d126"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c5123090e68b199d9e54ec23e41d126">&#9670;&nbsp;</a></span>items()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> &gt; &amp; core::component::Trainer::items </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the items the trainer has. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00055">55</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a35f95e925bf889d6248253ecd73df201"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a35f95e925bf889d6248253ecd73df201">&#9670;&nbsp;</a></span>loseBattleDialog()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::component::Trainer::loseBattleDialog </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Dialog line said in battle screen when battle is lost. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00049">49</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4414a28101c01d338015a112db902b47"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4414a28101c01d338015a112db902b47">&#9670;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::component::Trainer::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The name of the <a class="el" href="a01421.html" title="Adding this to an entity will allow it to be interacted with and talked to.">NPC</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00043">43</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a61a35c91697c53afa38261721adecc07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a61a35c91697c53afa38261721adecc07">&#9670;&nbsp;</a></span>range()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::uint8_t core::component::Trainer::range </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns how far the trainer can see in tiles. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00051">51</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af7c48076f937bdd565885bc95085b416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7c48076f937bdd565885bc95085b416">&#9670;&nbsp;</a></span>setDefeated()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::component::Trainer::setDefeated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Marks this trainer as defeated. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00059">59</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af59f703558a8cc846a816b7706f0ed78"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af59f703558a8cc846a816b7706f0ed78">&#9670;&nbsp;</a></span>team()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt; <a class="el" href="a01885.html">pplmn::OwnedPeoplemon</a> &gt; &amp; core::component::Trainer::team </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the team of peoplemon the trainer has. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03442_source.html#l00053">53</a> of file <a class="el" href="a03442_source.html">Trainer.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a03301_source.html">Trainer.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a03442_source.html">Trainer.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

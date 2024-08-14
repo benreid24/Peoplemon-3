@@ -66,27 +66,27 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01109.html">component</a></li><li class="navelem"><a class="el" href="a01405.html">PlayerControlled</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01131.html">component</a></li><li class="navelem"><a class="el" href="a01405.html">Controllable</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::component::PlayerControlled Member List</div>  </div>
+<div class="title">core::component::Controllable Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01405.html">core::component::PlayerControlled</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01405.html">core::component::Controllable</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01405.html#ab1b91abc97ced56a36ac0dd099f68256">observe</a>(const bl::input::Actor &amp;, unsigned int ctrl, bl::input::DispatchType, bool) override</td><td class="entry"><a class="el" href="a01405.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a01405.html#a3d4dc978d582996f23d703e490ad0d31">PlayerControlled</a>(system::Systems &amp;systems, Controllable &amp;controllable)</td><td class="entry"><a class="el" href="a01405.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01405.html#a4662aa3e001cd654705c5f6143bd0ae0">start</a>()</td><td class="entry"><a class="el" href="a01405.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01405.html#adcfc7ef92c1e0887403dbebbcb634a75">stop</a>()</td><td class="entry"><a class="el" href="a01405.html">core::component::PlayerControlled</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01405.html#a3aa77115bf14ca40a94fab4bc848dc37">~PlayerControlled</a>()=default</td><td class="entry"><a class="el" href="a01405.html">core::component::PlayerControlled</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01405.html#ad5c69ad1bfc12501c4fd137687998202">Controllable</a>(system::Systems &amp;systems, bl::ecs::Entity owner)</td><td class="entry"><a class="el" href="a01405.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01405.html#acbfff4cda8b1e9a4a32efcb4f10e01e4">isLocked</a>() const</td><td class="entry"><a class="el" href="a01405.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01405.html#aac5a104c992db0ec180408c2c84ef240">processControl</a>(input::EntityControl command, bool sprint=false, bool overrideLock=false)</td><td class="entry"><a class="el" href="a01405.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01405.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a>()</td><td class="entry"><a class="el" href="a01405.html">core::component::Controllable</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01405.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a>(bool lock, bool preserve=true)</td><td class="entry"><a class="el" href="a01405.html">core::component::Controllable</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

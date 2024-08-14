@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::system::Clock Class Reference</title>
+<title>Peoplemon: core::script::ConversationContext Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,25 +66,26 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01102.html">system</a></li><li class="navelem"><a class="el" href="a01989.html">Clock</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01146.html">script</a></li><li class="navelem"><a class="el" href="a01989.html">ConversationContext</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a01986.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::system::Clock Class Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01096.html">Systems</a></div></div>  </div>
+<div class="title">core::script::ConversationContext Class Reference<div class="ingroups"><a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01115.html">Scripts</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Simple time keeping systems. Tracks in game time and date based on real elapsed play time.  
+<p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins.  
  <a href="a01989.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00320_source.html">Clock.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00302_source.html">ConversationContext.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::system::Clock:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::script::ConversationContext:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
@@ -92,213 +93,138 @@ $(function() {
   <img src="a01989.png" alt=""/>
  </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01993.html">Time</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Simple struct representing a point in time.  <a href="a01993.html#details">More...</a><br /></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ad83a8b8c6af467ac8b79fb88cb8d1127"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#ad83a8b8c6af467ac8b79fb88cb8d1127">StatusCb</a> = std::function&lt; bool(bl::ecs::Entity)&gt;</td></tr>
+<tr class="memdesc:ad83a8b8c6af467ac8b79fb88cb8d1127"><td class="mdescLeft">&#160;</td><td class="mdescRight">Special callback type for reporting conversation state.  <a href="a01989.html#ad83a8b8c6af467ac8b79fb88cb8d1127">More...</a><br /></td></tr>
+<tr class="separator:ad83a8b8c6af467ac8b79fb88cb8d1127"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f2156d7456cce38f0c8b5e6a71ee793"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#a8f2156d7456cce38f0c8b5e6a71ee793">Clock</a> (<a class="el" href="a02085.html">Systems</a> &amp;owner)</td></tr>
-<tr class="memdesc:a8f2156d7456cce38f0c8b5e6a71ee793"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the clock system.  <a href="a01989.html#a8f2156d7456cce38f0c8b5e6a71ee793">More...</a><br /></td></tr>
-<tr class="separator:a8f2156d7456cce38f0c8b5e6a71ee793"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7f4d25c467026b15598333fd26ae705e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#a7f4d25c467026b15598333fd26ae705e">~Clock</a> ()=default</td></tr>
-<tr class="memdesc:a7f4d25c467026b15598333fd26ae705e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the system.  <a href="a01989.html#a7f4d25c467026b15598333fd26ae705e">More...</a><br /></td></tr>
-<tr class="separator:a7f4d25c467026b15598333fd26ae705e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a778cc44bba610c75b6401a6b2465bd7e"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01993.html">Time</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#a778cc44bba610c75b6401a6b2465bd7e">now</a> () const</td></tr>
-<tr class="memdesc:a778cc44bba610c75b6401a6b2465bd7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current in game time.  <a href="a01989.html#a778cc44bba610c75b6401a6b2465bd7e">More...</a><br /></td></tr>
-<tr class="separator:a778cc44bba610c75b6401a6b2465bd7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c6a0731f099a28c8b5ded37cf010d74"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#a9c6a0731f099a28c8b5ded37cf010d74">set</a> (const <a class="el" href="a01993.html">Time</a> &amp;time)</td></tr>
-<tr class="memdesc:a9c6a0731f099a28c8b5ded37cf010d74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current time.  <a href="a01989.html#a9c6a0731f099a28c8b5ded37cf010d74">More...</a><br /></td></tr>
-<tr class="separator:a9c6a0731f099a28c8b5ded37cf010d74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a78a77f8dd85455cedad4fc88af98a1d2"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#a78a77f8dd85455cedad4fc88af98a1d2">observe</a> (const <a class="el" href="a01465.html">event::GameSaveInitializing</a> &amp;save) override</td></tr>
-<tr class="memdesc:a78a77f8dd85455cedad4fc88af98a1d2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds saved clock data to the save file.  <a href="a01989.html#a78a77f8dd85455cedad4fc88af98a1d2">More...</a><br /></td></tr>
-<tr class="separator:a78a77f8dd85455cedad4fc88af98a1d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa12616bc7ed0b2e6b77d486682d4d1b9"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#aa12616bc7ed0b2e6b77d486682d4d1b9">observe</a> (const <a class="el" href="a01469.html">event::GameSaveLoaded</a> &amp;load) override</td></tr>
-<tr class="memdesc:aa12616bc7ed0b2e6b77d486682d4d1b9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes clock state from the loading game save.  <a href="a01989.html#aa12616bc7ed0b2e6b77d486682d4d1b9">More...</a><br /></td></tr>
-<tr class="separator:aa12616bc7ed0b2e6b77d486682d4d1b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9a78dbce148e8e3415a9eb313a9277a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#ae9a78dbce148e8e3415a9eb313a9277a">ConversationContext</a> (<a class="el" href="a02109.html">system::Systems</a> &amp;systems, bl::ecs::Entity entity, const <a class="el" href="a01989.html#ad83a8b8c6af467ac8b79fb88cb8d1127">StatusCb</a> &amp;cb)</td></tr>
+<tr class="memdesc:ae9a78dbce148e8e3415a9eb313a9277a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01989.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>.  <a href="a01989.html#ae9a78dbce148e8e3415a9eb313a9277a">More...</a><br /></td></tr>
+<tr class="separator:ae9a78dbce148e8e3415a9eb313a9277a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:aba09b02aa08c120e30e5fb011bd90801"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01989.html#aba09b02aa08c120e30e5fb011bd90801">addCustomSymbols</a> (bl::script::SymbolTable &amp;table) const override</td></tr>
+<tr class="separator:aba09b02aa08c120e30e5fb011bd90801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Simple time keeping systems. Tracks in game time and date based on real elapsed play time. </p>
+<div class="textblock"><p>Special script context for conversation scripts. Adds the default Peoplemon built-ins and the conversation dependent built-ins. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00320_source.html#l00022">22</a> of file <a class="el" href="a00320_source.html">Clock.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8f2156d7456cce38f0c8b5e6a71ee793"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f2156d7456cce38f0c8b5e6a71ee793">&#9670;&nbsp;</a></span>Clock()</h2>
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00023">23</a> of file <a class="el" href="a00302_source.html">ConversationContext.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="ad83a8b8c6af467ac8b79fb88cb8d1127"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad83a8b8c6af467ac8b79fb88cb8d1127">&#9670;&nbsp;</a></span>StatusCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::system::Clock::Clock </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02085.html">Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a01989.html#ad83a8b8c6af467ac8b79fb88cb8d1127">core::script::ConversationContext::StatusCb</a> =  std::function&lt;bool(bl::ecs::Entity)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes the clock system. </p>
+<p>Special callback type for reporting conversation state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">owner</td><td>The owner of this system </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity to check status for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool True if conversation completed, false if ongoing </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a00302_source.html#l00032">32</a> of file <a class="el" href="a00302_source.html">ConversationContext.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ae9a78dbce148e8e3415a9eb313a9277a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae9a78dbce148e8e3415a9eb313a9277a">&#9670;&nbsp;</a></span>ConversationContext()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::script::ConversationContext::ConversationContext </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02109.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::ecs::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01989.html#ad83a8b8c6af467ac8b79fb88cb8d1127">StatusCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>cb</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a01989.html" title="Special script context for conversation scripts. Adds the default Peoplemon built-ins and the convers...">ConversationContext</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity being conversed with </td></tr>
+    <tr><td class="paramname">cb</td><td>Callback that can be used to query the conversation state </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00815_source.html#l00012">12</a> of file <a class="el" href="a00815_source.html">Clock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7f4d25c467026b15598333fd26ae705e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7f4d25c467026b15598333fd26ae705e">&#9670;&nbsp;</a></span>~Clock()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual core::system::Clock::~Clock </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destroys the system. </p>
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00033">33</a> of file <a class="el" href="a00812_source.html">ConversationContext.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a778cc44bba610c75b6401a6b2465bd7e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a778cc44bba610c75b6401a6b2465bd7e">&#9670;&nbsp;</a></span>now()</h2>
+<a id="aba09b02aa08c120e30e5fb011bd90801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba09b02aa08c120e30e5fb011bd90801">&#9670;&nbsp;</a></span>addCustomSymbols()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01993.html">Clock::Time</a> &amp; core::system::Clock::now </td>
+          <td class="memname">void core::script::ConversationContext::addCustomSymbols </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bl::script::SymbolTable &amp;&#160;</td>
+          <td class="paramname"><em>table</em></td><td>)</td>
           <td> const</td>
         </tr>
       </table>
-</div><div class="memdoc">
-
-<p>Returns the current in game time. </p>
-<dl class="section return"><dt>Returns</dt><dd>const <a class="el" href="a01993.html" title="Simple struct representing a point in time.">Time</a>&amp; The current in game time </dd></dl>
-
-<p class="definition">Definition at line <a class="el" href="a00815_source.html#l00017">17</a> of file <a class="el" href="a00815_source.html">Clock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a78a77f8dd85455cedad4fc88af98a1d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a78a77f8dd85455cedad4fc88af98a1d2">&#9670;&nbsp;</a></span>observe() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::system::Clock::observe </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01465.html">event::GameSaveInitializing</a> &amp;&#160;</td>
-          <td class="paramname"><em>save</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Adds saved clock data to the save file. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00815_source.html#l00084">84</a> of file <a class="el" href="a00815_source.html">Clock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa12616bc7ed0b2e6b77d486682d4d1b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa12616bc7ed0b2e6b77d486682d4d1b9">&#9670;&nbsp;</a></span>observe() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::system::Clock::observe </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01469.html">event::GameSaveLoaded</a> &amp;&#160;</td>
-          <td class="paramname"><em>load</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initializes clock state from the loading game save. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00815_source.html#l00088">88</a> of file <a class="el" href="a00815_source.html">Clock.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a9c6a0731f099a28c8b5ded37cf010d74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c6a0731f099a28c8b5ded37cf010d74">&#9670;&nbsp;</a></span>set()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::system::Clock::set </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01993.html">Time</a> &amp;&#160;</td>
-          <td class="paramname"><em>time</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the current time. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">time</td><td>The new current time </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00815_source.html#l00029">29</a> of file <a class="el" href="a00815_source.html">Clock.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00812_source.html#l00039">39</a> of file <a class="el" href="a00812_source.html">ConversationContext.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Systems/<a class="el" href="a00320_source.html">Clock.hpp</a></li>
-<li>src/Core/Systems/<a class="el" href="a00815_source.html">Clock.cpp</a></li>
+<li>include/Core/Scripts/<a class="el" href="a00302_source.html">ConversationContext.hpp</a></li>
+<li>src/Core/Scripts/<a class="el" href="a00812_source.html">ConversationContext.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

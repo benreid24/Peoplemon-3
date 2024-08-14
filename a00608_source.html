@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Battles/View/MoveAnimation.cpp Source File</title>
+<title>Peoplemon: src/Core/Battles/Commands/Animation.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,159 +66,115 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_f1cf2b57ee8bdcca98640d5a23e68a32.html">Battles</a></li><li class="navelem"><a class="el" href="dir_3adeae034aa8f7891c9158350b551ddc.html">View</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_f1cf2b57ee8bdcca98640d5a23e68a32.html">Battles</a></li><li class="navelem"><a class="el" href="dir_18afaeb035c7fee463bd9180653ee375.html">Commands</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">MoveAnimation.cpp</div>  </div>
+<div class="title">Animation.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00608.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00059.html">Core/Battles/View/MoveAnimation.hpp</a>&gt;</span></div>
+<a href="a00608.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00041.html">Core/Battles/Commands/Animation.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00233.html">Core/Peoplemon/Move.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>battle</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>view</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;std::string getMoveForeground(<a class="code" href="a01321.html#a70d6912cb7b5e9fcaa00701443e9ad30">MoveAnimation::User</a> user, <a class="code" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> mid) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> user == MoveAnimation::User::Player ? <a class="code" href="a01845.html#a49d3b4d54b469f9b217993567c6dc814">pplmn::Move::playerAnimationForeground</a>(mid) :</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;                                                 pplmn::Move::opponentAnimationForeground(mid);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>battle</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>cmd</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">    9</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp)</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: forHost(true)</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, data(Empty()) {}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01313.html#a577ea44c380da180224e7bf41934b1d1">   14</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;, data(Empty()) {}</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;std::string getMoveBackground(<a class="code" href="a01321.html#a70d6912cb7b5e9fcaa00701443e9ad30">MoveAnimation::User</a> user, <a class="code" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> mid) {</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">return</span> user == MoveAnimation::User::Player ? <a class="code" href="a01845.html#a2bba3aaba141c792b45a7a687e655420">pplmn::Move::playerAnimationBackground</a>(mid) :</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;                                                 pplmn::Move::opponentAnimationBackground(mid);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a01321.html#a44f1c3ca9006ecb36a195af9578261a3">   25</a></span>&#160;<a class="code" href="a01321.html#a44f1c3ca9006ecb36a195af9578261a3">MoveAnimation::MoveAnimation</a>(bl::engine::Engine&amp; engine)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: engine(engine)</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, scene(nullptr)</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;, playing(nullptr) {}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a01321.html#a5ba95a4d5202a490966925e16e9352d4">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01321.html#a5ba95a4d5202a490966925e16e9352d4">MoveAnimation::init</a>(bl::rc::scene::CodeScene* s) { scene = s; }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a01321.html#a31e736c349fe91309f1e31aea420bc17">   32</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01321.html#a31e736c349fe91309f1e31aea420bc17">MoveAnimation::ensureLoaded</a>(<span class="keyword">const</span> <a class="code" href="a01837.html">pplmn::BattlePeoplemon</a>&amp; lp,</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;                                 <span class="keyword">const</span> <a class="code" href="a01837.html">pplmn::BattlePeoplemon</a>&amp; op) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> mid = lp.<a class="code" href="a01837.html#a67d01ec10b70b49f91f5805c57aab4b5">base</a>().<a class="code" href="a01861.html#ac6aa013d73d67cffbc25c8f353239028">knownMoves</a>()[i].<a class="code" href="a01849.html#ad1535f09b088c7be3e505c29524b6e98">id</a>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keywordflow">if</span> (mid != <a class="code" href="a01091.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">pplmn::MoveId::Unknown</a> &amp;&amp; mid != playerAnims[i].move) {</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;            playerAnims[i].init(engine, scene, User::Player, mid);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    }</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> mid = op.<a class="code" href="a01837.html#a67d01ec10b70b49f91f5805c57aab4b5">base</a>().<a class="code" href="a01861.html#ac6aa013d73d67cffbc25c8f353239028">knownMoves</a>()[i].<a class="code" href="a01849.html#ad1535f09b088c7be3e505c29524b6e98">id</a>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">if</span> (mid != <a class="code" href="a01091.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">pplmn::MoveId::Unknown</a> &amp;&amp; mid != opponentAnims-&gt;move) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            opponentAnims[i].init(engine, scene, User::Opponent, mid);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        }</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a01321.html#a47eb6185d16a8ad356e129382bb71db6">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01321.html#a47eb6185d16a8ad356e129382bb71db6">MoveAnimation::playAnimation</a>(<a class="code" href="a01321.html#a70d6912cb7b5e9fcaa00701443e9ad30">User</a> user, <a class="code" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> move) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    playing        = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">auto</span>&amp; toSearch = user == User::Player ? playerAnims : opponentAnims;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> (toSearch[i].move == move &amp;&amp; toSearch[i].valid) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            playing = &amp;toSearch[i];</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">if</span> (!playing) {</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        <span class="keywordflow">if</span> (extraMove.init(engine, scene, user, move)) { playing = &amp;extraMove; }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Missing animation for move &quot;</span> &lt;&lt; move;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    playing-&gt;play();</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a01321.html#a489df12c9f2cccf54f0ac2b2041c5e3c">   69</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01321.html#a489df12c9f2cccf54f0ac2b2041c5e3c">MoveAnimation::completed</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> !playing || playing-&gt;finished(); }</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="a01321.html#a03ffa60bd40e6eb9060d544749cfb9dc">   71</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01321.html#a03ffa60bd40e6eb9060d544749cfb9dc">MoveAnimation::renderBackground</a>(bl::rc::scene::CodeScene::RenderContext&amp; ctx) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">if</span> (playing) {</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        <span class="keywordflow">if</span> (playing-&gt;background.getPlayer().isPlaying) { playing-&gt;background.draw(ctx); }</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="a01321.html#aea39a815955cc2d40a6536128411afac">   77</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01321.html#aea39a815955cc2d40a6536128411afac">MoveAnimation::renderForeground</a>(bl::rc::scene::CodeScene::RenderContext&amp; ctx) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordflow">if</span> (playing) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">if</span> (playing-&gt;foreground.getPlayer().isPlaying) { playing-&gt;foreground.draw(ctx); }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;}</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;MoveAnimation::Anim::Anim()</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;: move(pplmn::<a class="code" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">MoveId</a>::Unknown)</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;, valid(false) {}</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="keywordtype">bool</span> MoveAnimation::Anim::init(bl::engine::Engine&amp; engine, bl::rc::scene::CodeScene* scene,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                               User user, <a class="code" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> mid) {</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    move = mid;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">auto</span> bgSrc = AnimationManager::load(getMoveBackground(user, mid));</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">auto</span> fgSrc = AnimationManager::load(getMoveForeground(user, mid));</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">if</span> (bgSrc-&gt;frameCount() == 0 || fgSrc-&gt;frameCount() == 0) {</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        valid = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    background.createWithUniquePlayer(engine, bgSrc);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    foreground.createWithUniquePlayer(engine, fgSrc);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    background.addToScene(scene, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    foreground.addToScene(scene, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    valid = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;}</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="keywordtype">void</span> MoveAnimation::Anim::play() {</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span> (valid) {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        background.getPlayer().play(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        foreground.getPlayer().play(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="keywordtype">bool</span> MoveAnimation::Anim::finished()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">return</span> !valid || (!background.getPlayer().isPlaying &amp;&amp; !foreground.getPlayer().isPlaying);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;} <span class="comment">// namespace view</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;} <span class="comment">// namespace battle</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00059_html"><div class="ttname"><a href="a00059.html">MoveAnimation.hpp</a></div></div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">Move.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01091_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01091.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00239_source.html#l00016">MoveId.hpp:16</a></div></div>
-<div class="ttc" id="aa01091_html_ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01091.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::MoveId::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01321_html_a03ffa60bd40e6eb9060d544749cfb9dc"><div class="ttname"><a href="a01321.html#a03ffa60bd40e6eb9060d544749cfb9dc">core::battle::view::MoveAnimation::renderBackground</a></div><div class="ttdeci">void renderBackground(bl::rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Renders the move animation background.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00071">MoveAnimation.cpp:71</a></div></div>
-<div class="ttc" id="aa01321_html_a31e736c349fe91309f1e31aea420bc17"><div class="ttname"><a href="a01321.html#a31e736c349fe91309f1e31aea420bc17">core::battle::view::MoveAnimation::ensureLoaded</a></div><div class="ttdeci">void ensureLoaded(const pplmn::BattlePeoplemon &amp;player, const pplmn::BattlePeoplemon &amp;opponent)</div><div class="ttdoc">Loads the move animations into the resource manager for the given peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00032">MoveAnimation.cpp:32</a></div></div>
-<div class="ttc" id="aa01321_html_a44f1c3ca9006ecb36a195af9578261a3"><div class="ttname"><a href="a01321.html#a44f1c3ca9006ecb36a195af9578261a3">core::battle::view::MoveAnimation::MoveAnimation</a></div><div class="ttdeci">MoveAnimation(bl::engine::Engine &amp;engine)</div><div class="ttdoc">Construct a new Move Animation helper.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00025">MoveAnimation.cpp:25</a></div></div>
-<div class="ttc" id="aa01321_html_a47eb6185d16a8ad356e129382bb71db6"><div class="ttname"><a href="a01321.html#a47eb6185d16a8ad356e129382bb71db6">core::battle::view::MoveAnimation::playAnimation</a></div><div class="ttdeci">void playAnimation(User user, pplmn::MoveId move)</div><div class="ttdoc">Begins playing the given move animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00049">MoveAnimation.cpp:49</a></div></div>
-<div class="ttc" id="aa01321_html_a489df12c9f2cccf54f0ac2b2041c5e3c"><div class="ttname"><a href="a01321.html#a489df12c9f2cccf54f0ac2b2041c5e3c">core::battle::view::MoveAnimation::completed</a></div><div class="ttdeci">bool completed() const</div><div class="ttdoc">Returns whether or not the animation has completed playing.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00069">MoveAnimation.cpp:69</a></div></div>
-<div class="ttc" id="aa01321_html_a5ba95a4d5202a490966925e16e9352d4"><div class="ttname"><a href="a01321.html#a5ba95a4d5202a490966925e16e9352d4">core::battle::view::MoveAnimation::init</a></div><div class="ttdeci">void init(bl::rc::scene::CodeScene *scene)</div><div class="ttdoc">Initializes the animations.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00030">MoveAnimation.cpp:30</a></div></div>
-<div class="ttc" id="aa01321_html_a70d6912cb7b5e9fcaa00701443e9ad30"><div class="ttname"><a href="a01321.html#a70d6912cb7b5e9fcaa00701443e9ad30">core::battle::view::MoveAnimation::User</a></div><div class="ttdeci">User</div><div class="ttdoc">Which peoplemon is using the move.</div><div class="ttdef"><b>Definition:</b> <a href="a00059_source.html#l00026">MoveAnimation.hpp:26</a></div></div>
-<div class="ttc" id="aa01321_html_aea39a815955cc2d40a6536128411afac"><div class="ttname"><a href="a01321.html#aea39a815955cc2d40a6536128411afac">core::battle::view::MoveAnimation::renderForeground</a></div><div class="ttdeci">void renderForeground(bl::rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Renders the move animation foreground.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00077">MoveAnimation.cpp:77</a></div></div>
-<div class="ttc" id="aa01837_html"><div class="ttname"><a href="a01837.html">core::pplmn::BattlePeoplemon</a></div><div class="ttdoc">Represents a Peoplemon in battle. Stores some extra state that only exists in battle....</div><div class="ttdef"><b>Definition:</b> <a href="a00227_source.html#l00025">BattlePeoplemon.hpp:25</a></div></div>
-<div class="ttc" id="aa01837_html_a67d01ec10b70b49f91f5805c57aab4b5"><div class="ttname"><a href="a01837.html#a67d01ec10b70b49f91f5805c57aab4b5">core::pplmn::BattlePeoplemon::base</a></div><div class="ttdeci">OwnedPeoplemon &amp; base()</div><div class="ttdoc">Returns the wrapped peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00746_source.html#l00019">BattlePeoplemon.cpp:19</a></div></div>
-<div class="ttc" id="aa01845_html_a2bba3aaba141c792b45a7a687e655420"><div class="ttname"><a href="a01845.html#a2bba3aaba141c792b45a7a687e655420">core::pplmn::Move::playerAnimationBackground</a></div><div class="ttdeci">static std::string playerAnimationBackground(MoveId move)</div><div class="ttdoc">Returns the path to the animation for when the local player uses the move.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00136">Move.cpp:136</a></div></div>
-<div class="ttc" id="aa01845_html_a49d3b4d54b469f9b217993567c6dc814"><div class="ttname"><a href="a01845.html#a49d3b4d54b469f9b217993567c6dc814">core::pplmn::Move::playerAnimationForeground</a></div><div class="ttdeci">static std::string playerAnimationForeground(MoveId move)</div><div class="ttdoc">Returns the path to the animation for when the local player uses the move.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00142">Move.cpp:142</a></div></div>
-<div class="ttc" id="aa01849_html_ad1535f09b088c7be3e505c29524b6e98"><div class="ttname"><a href="a01849.html#ad1535f09b088c7be3e505c29524b6e98">core::pplmn::OwnedMove::id</a></div><div class="ttdeci">MoveId id</div><div class="ttdoc">The id of the move.</div><div class="ttdef"><b>Definition:</b> <a href="a00242_source.html#l00019">OwnedMove.hpp:19</a></div></div>
-<div class="ttc" id="aa01861_html_ac6aa013d73d67cffbc25c8f353239028"><div class="ttname"><a href="a01861.html#ac6aa013d73d67cffbc25c8f353239028">core::pplmn::OwnedPeoplemon::knownMoves</a></div><div class="ttdeci">const OwnedMove * knownMoves() const</div><div class="ttdoc">Returns the moves known by this Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00758_source.html#l00211">OwnedPeoplemon.cpp:211</a></div></div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01313.html#a23ff73aa95d96bce3f7a366bbb9e4cb8">   19</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01112.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a> m)</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, type(<a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::UseMove)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, data(m) {}</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01313.html#a86b1ab6d0d4742f571eda7101d00f789">   24</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp, <a class="code" href="a01112.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> stat)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;, data(stat) {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a01313.html#a509d6911b54efb19bd156e4194cd2159">   29</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01112.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> ail)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;, type(<a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::<a class="code" href="a01112.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">Ailment</a>)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;, data(ail) {}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01313.html#accfc6d5ff0d6d7c487a9087722c41985">   34</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01112.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> ail)</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;, type(<a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a>::<a class="code" href="a01112.html#ga1e8c161a804d51a4a4eec572dc0e4a46">PassiveAilment</a>)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;, data(ail) {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a01313.html#aca97c0835fe5297683e6f5fbdff6727c">   39</a></span>&#160;<a class="code" href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">Animation::Animation</a>(<span class="keywordtype">bool</span> fa, <a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Type</a> tp, <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> pb)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;: forHost(fa)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;, type(tp)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;, data(pb) {}</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a01313.html#a8a7be19cfb5b95a3d9039dd4232927cf">   44</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01313.html#a8a7be19cfb5b95a3d9039dd4232927cf">Animation::forHostBattler</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> forHost; }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a01313.html#a9d1b6097fa7e18af47b5f7bdac028798">   46</a></span>&#160;<a class="code" href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">Animation::Type</a> <a class="code" href="a01313.html#a9d1b6097fa7e18af47b5f7bdac028798">Animation::getType</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> type; }</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01313.html#a1301fc3b184ad1918eb3440da71bc363">   48</a></span>&#160;<a class="code" href="a01112.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a> <a class="code" href="a01313.html#a1301fc3b184ad1918eb3440da71bc363">Animation::getMove</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01112.html#gab39f21e54ca605725b382bd7848530b3">pplmn::MoveId</a>* m = std::get_if&lt;pplmn::MoveId&gt;(&amp;data);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">return</span> m ? *m : <a class="code" href="a01112.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">pplmn::MoveId::Unknown</a>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a01313.html#ac980eb577fa93cc581ae827f1d84225c">   53</a></span>&#160;<a class="code" href="a01112.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a> <a class="code" href="a01313.html#ac980eb577fa93cc581ae827f1d84225c">Animation::getStat</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01112.html#ga618b96b522bdec7042a5ff5b04672317">pplmn::Stat</a>* s = std::get_if&lt;pplmn::Stat&gt;(&amp;data);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">return</span> s ? *s : <a class="code" href="a01112.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">pplmn::Stat::Attack</a>;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a01313.html#aa76f05c198a892636268ec0a8dfed634">   58</a></span>&#160;<a class="code" href="a01112.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a> <a class="code" href="a01313.html#aa76f05c198a892636268ec0a8dfed634">Animation::getAilment</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01112.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">pplmn::Ailment</a>* a = std::get_if&lt;pplmn::Ailment&gt;(&amp;data);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> a ? *a : <a class="code" href="a01112.html#gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c">pplmn::Ailment::Annoyed</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01313.html#a9468e5ae8445b923a838adf51db9c8ec">   63</a></span>&#160;<a class="code" href="a01112.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a> <a class="code" href="a01313.html#a9468e5ae8445b923a838adf51db9c8ec">Animation::getPassiveAilment</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01112.html#ga1e8c161a804d51a4a4eec572dc0e4a46">pplmn::PassiveAilment</a>* a = std::get_if&lt;pplmn::PassiveAilment&gt;(&amp;data);</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> a ? *a : <a class="code" href="a01112.html#gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae">pplmn::PassiveAilment::Confused</a>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a01313.html#ad7145eb01a97628028538c78bfdaab26">   68</a></span>&#160;<a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> <a class="code" href="a01313.html#ad7145eb01a97628028538c78bfdaab26">Animation::getPeopleball</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>* i = std::get_if&lt;item::Id&gt;(&amp;data);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">return</span> i ? *i : <a class="code" href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4">item::Id::Peopleball</a>;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;}</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace cmd</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;} <span class="comment">// namespace battle</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00041_html"><div class="ttname"><a href="a00041.html">Animation.hpp</a></div></div>
+<div class="ttc" id="aa01110_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03340_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01110_html_ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4"><div class="ttname"><a href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa82f60caea0455676d244117d3ef104e4">core::item::Id::Peopleball</a></div><div class="ttdeci">@ Peopleball</div></div>
+<div class="ttc" id="aa01112_html_ga1e8c161a804d51a4a4eec572dc0e4a46"><div class="ttname"><a href="a01112.html#ga1e8c161a804d51a4a4eec572dc0e4a46">core::pplmn::PassiveAilment</a></div><div class="ttdeci">PassiveAilment</div><div class="ttdoc">Represents a passive ailment a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00248_source.html#l00016">PassiveAilment.hpp:16</a></div></div>
+<div class="ttc" id="aa01112_html_ga618b96b522bdec7042a5ff5b04672317"><div class="ttname"><a href="a01112.html#ga618b96b522bdec7042a5ff5b04672317">core::pplmn::Stat</a></div><div class="ttdeci">Stat</div><div class="ttdoc">Represents a single stat. Used as an offset to access Stats as an array.</div><div class="ttdef"><b>Definition:</b> <a href="a00257_source.html#l00016">Stat.hpp:16</a></div></div>
+<div class="ttc" id="aa01112_html_ga87b817cbcbbfc0b9a1328d55e1624fa3"><div class="ttname"><a href="a01112.html#ga87b817cbcbbfc0b9a1328d55e1624fa3">core::pplmn::Ailment</a></div><div class="ttdeci">Ailment</div><div class="ttdoc">Represents an ailment that a Peoplemon can have.</div><div class="ttdef"><b>Definition:</b> <a href="a00224_source.html#l00016">Ailment.hpp:16</a></div></div>
+<div class="ttc" id="aa01112_html_gab39f21e54ca605725b382bd7848530b3"><div class="ttname"><a href="a01112.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></div><div class="ttdeci">MoveId</div><div class="ttdoc">The id of a move.</div><div class="ttdef"><b>Definition:</b> <a href="a00239_source.html#l00016">MoveId.hpp:16</a></div></div>
+<div class="ttc" id="aa01112_html_gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae"><div class="ttname"><a href="a01112.html#gga1e8c161a804d51a4a4eec572dc0e4a46a823705dd3e6c08cf2c477d2ee1d364ae">core::pplmn::PassiveAilment::Confused</a></div><div class="ttdeci">@ Confused</div></div>
+<div class="ttc" id="aa01112_html_gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a"><div class="ttname"><a href="a01112.html#gga618b96b522bdec7042a5ff5b04672317adcfafcb4323b102c7e204555d313ba0a">core::pplmn::Stat::Attack</a></div><div class="ttdeci">@ Attack</div></div>
+<div class="ttc" id="aa01112_html_gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c"><div class="ttname"><a href="a01112.html#gga87b817cbcbbfc0b9a1328d55e1624fa3acf83d6949ef189a6a77369fb71a3e37c">core::pplmn::Ailment::Annoyed</a></div><div class="ttdeci">@ Annoyed</div></div>
+<div class="ttc" id="aa01112_html_ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01112.html#ggab39f21e54ca605725b382bd7848530b3a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::MoveId::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01313_html_a1301fc3b184ad1918eb3440da71bc363"><div class="ttname"><a href="a01313.html#a1301fc3b184ad1918eb3440da71bc363">core::battle::cmd::Animation::getMove</a></div><div class="ttdeci">pplmn::MoveId getMove() const</div><div class="ttdoc">Returns the move for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00048">Animation.cpp:48</a></div></div>
+<div class="ttc" id="aa01313_html_a49ccd22efcd433e8c59876b456c9e238"><div class="ttname"><a href="a01313.html#a49ccd22efcd433e8c59876b456c9e238">core::battle::cmd::Animation::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of animation to play.</div><div class="ttdef"><b>Definition:</b> <a href="a00041_source.html#l00030">Animation.hpp:30</a></div></div>
+<div class="ttc" id="aa01313_html_a8a7be19cfb5b95a3d9039dd4232927cf"><div class="ttname"><a href="a01313.html#a8a7be19cfb5b95a3d9039dd4232927cf">core::battle::cmd::Animation::forHostBattler</a></div><div class="ttdeci">bool forHostBattler() const</div><div class="ttdoc">Returns whether or not this animation is for the host or not.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00044">Animation.cpp:44</a></div></div>
+<div class="ttc" id="aa01313_html_a9468e5ae8445b923a838adf51db9c8ec"><div class="ttname"><a href="a01313.html#a9468e5ae8445b923a838adf51db9c8ec">core::battle::cmd::Animation::getPassiveAilment</a></div><div class="ttdeci">pplmn::PassiveAilment getPassiveAilment() const</div><div class="ttdoc">Get the ailment for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00063">Animation.cpp:63</a></div></div>
+<div class="ttc" id="aa01313_html_a9d1b6097fa7e18af47b5f7bdac028798"><div class="ttname"><a href="a01313.html#a9d1b6097fa7e18af47b5f7bdac028798">core::battle::cmd::Animation::getType</a></div><div class="ttdeci">Type getType() const</div><div class="ttdoc">Returns the type of animation to play.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00046">Animation.cpp:46</a></div></div>
+<div class="ttc" id="aa01313_html_aa76f05c198a892636268ec0a8dfed634"><div class="ttname"><a href="a01313.html#aa76f05c198a892636268ec0a8dfed634">core::battle::cmd::Animation::getAilment</a></div><div class="ttdeci">pplmn::Ailment getAilment() const</div><div class="ttdoc">Get the ailment for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00058">Animation.cpp:58</a></div></div>
+<div class="ttc" id="aa01313_html_ac980eb577fa93cc581ae827f1d84225c"><div class="ttname"><a href="a01313.html#ac980eb577fa93cc581ae827f1d84225c">core::battle::cmd::Animation::getStat</a></div><div class="ttdeci">pplmn::Stat getStat() const</div><div class="ttdoc">Returns the stat for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00053">Animation.cpp:53</a></div></div>
+<div class="ttc" id="aa01313_html_ad7145eb01a97628028538c78bfdaab26"><div class="ttname"><a href="a01313.html#ad7145eb01a97628028538c78bfdaab26">core::battle::cmd::Animation::getPeopleball</a></div><div class="ttdeci">item::Id getPeopleball() const</div><div class="ttdoc">Get the Peopleball for this animation.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00068">Animation.cpp:68</a></div></div>
+<div class="ttc" id="aa01313_html_ae2588bbb77b2bff9773cd621a62443d1"><div class="ttname"><a href="a01313.html#ae2588bbb77b2bff9773cd621a62443d1">core::battle::cmd::Animation::Animation</a></div><div class="ttdeci">Animation(Type type)</div><div class="ttdoc">For animations that are not specific to either battler.</div><div class="ttdef"><b>Definition:</b> <a href="a00608_source.html#l00009">Animation.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

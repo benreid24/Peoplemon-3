@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::EventEditor Class Reference</title>
+<title>Peoplemon: editor::component::ConversationTree Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,147 +66,538 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01120.html">editor</a></li><li class="navelem"><a class="el" href="a01121.html">component</a></li><li class="navelem"><a class="el" href="a02161.html">EventEditor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01140.html">component</a></li><li class="navelem"><a class="el" href="a02161.html">ConversationTree</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a02158.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::EventEditor Class Reference</div>  </div>
+<div class="title">editor::component::ConversationTree Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Map event editor dialog.  
+<p>Special component that renders a clickable tree view of a conversation.  
  <a href="a02161.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00389_source.html">EventEditor.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00380_source.html">ConversationTree.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::component::ConversationTree:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02161.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02169.html">Edge</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02165.html">Node</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a6a9c160db875812b0aa70d32d9551b81"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a> = std::function&lt; void(const <a class="el" href="a01733.html">core::map::Event</a> *, const <a class="el" href="a01733.html">core::map::Event</a> &amp;)&gt;</td></tr>
-<tr class="memdesc:a6a9c160db875812b0aa70d32d9551b81"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback called when an event is created or modified.  <a href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">More...</a><br /></td></tr>
-<tr class="separator:a6a9c160db875812b0aa70d32d9551b81"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad20c24ad19ae5ba1fba3d6766c9ab60e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02161.html">ConversationTree</a> &gt;</td></tr>
+<tr class="separator:ad20c24ad19ae5ba1fba3d6766c9ab60e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a769013b69c1f54d742da45121f1e0432"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> = std::function&lt; void(unsigned int)&gt;</td></tr>
+<tr class="memdesc:a769013b69c1f54d742da45121f1e0432"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a node is clicked.  <a href="a02161.html#a769013b69c1f54d742da45121f1e0432">More...</a><br /></td></tr>
+<tr class="separator:a769013b69c1f54d742da45121f1e0432"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad318430737b91fac29b4d9d02355ec58"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#ad318430737b91fac29b4d9d02355ec58">EventEditor</a> (const <a class="el" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a> &amp;onEdit)</td></tr>
-<tr class="memdesc:ad318430737b91fac29b4d9d02355ec58"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Event Editor dialog.  <a href="a02161.html#ad318430737b91fac29b4d9d02355ec58">More...</a><br /></td></tr>
-<tr class="separator:ad318430737b91fac29b4d9d02355ec58"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d9888654cb5941067c465b26a9e40c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a6d9888654cb5941067c465b26a9e40c8">open</a> (bl::gui::GUI *parent, const <a class="el" href="a01733.html">core::map::Event</a> *source, const sf::Vector2i &amp;pos)</td></tr>
-<tr class="memdesc:a6d9888654cb5941067c465b26a9e40c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the dialog window and optionally populates with event info.  <a href="a02161.html#a6d9888654cb5941067c465b26a9e40c8">More...</a><br /></td></tr>
-<tr class="separator:a6d9888654cb5941067c465b26a9e40c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a8d870f9e3fef109c8e81d453a0eb6d1f">update</a> (const std::vector&lt; <a class="el" href="a01617.html">core::file::Conversation::Node</a> &gt; &amp;nodes)</td></tr>
+<tr class="memdesc:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the rendered tree with the new nodes.  <a href="a02161.html#a8d870f9e3fef109c8e81d453a0eb6d1f">More...</a><br /></td></tr>
+<tr class="separator:a8d870f9e3fef109c8e81d453a0eb6d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03345c04e790970f8b48069fb8612056"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a03345c04e790970f8b48069fb8612056">setSelected</a> (unsigned int i)</td></tr>
+<tr class="memdesc:a03345c04e790970f8b48069fb8612056"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the selected node index.  <a href="a02161.html#a03345c04e790970f8b48069fb8612056">More...</a><br /></td></tr>
+<tr class="separator:a03345c04e790970f8b48069fb8612056"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af32d01f0051894bea1203f12ff8a3386"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a02165.html">Node</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#af32d01f0051894bea1203f12ff8a3386">getNodes</a> () const</td></tr>
+<tr class="memdesc:af32d01f0051894bea1203f12ff8a3386"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#af32d01f0051894bea1203f12ff8a3386">More...</a><br /></td></tr>
+<tr class="separator:af32d01f0051894bea1203f12ff8a3386"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0dabc2962347ba61428268292d1cd1e6"><td class="memItemLeft" align="right" valign="top">const std::vector&lt; <a class="el" href="a02169.html">Edge</a> &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a0dabc2962347ba61428268292d1cd1e6">getEdges</a> () const</td></tr>
+<tr class="memdesc:a0dabc2962347ba61428268292d1cd1e6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#a0dabc2962347ba61428268292d1cd1e6">More...</a><br /></td></tr>
+<tr class="separator:a0dabc2962347ba61428268292d1cd1e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a49579e96bde6b5df62f7170e897c2924"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a49579e96bde6b5df62f7170e897c2924">getSelectedNode</a> () const</td></tr>
+<tr class="memdesc:a49579e96bde6b5df62f7170e897c2924"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#a49579e96bde6b5df62f7170e897c2924">More...</a><br /></td></tr>
+<tr class="separator:a49579e96bde6b5df62f7170e897c2924"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3b6be5b0bfc5017aba91ac87491ebf44"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a3b6be5b0bfc5017aba91ac87491ebf44">getTreeVersion</a> () const</td></tr>
+<tr class="memdesc:a3b6be5b0bfc5017aba91ac87491ebf44"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#a3b6be5b0bfc5017aba91ac87491ebf44">More...</a><br /></td></tr>
+<tr class="separator:a3b6be5b0bfc5017aba91ac87491ebf44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e8caeff94f26ab50aa425329920d701"><td class="memItemLeft" align="right" valign="top">const glm::vec2 &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a5e8caeff94f26ab50aa425329920d701">getCamCenter</a> () const</td></tr>
+<tr class="memdesc:a5e8caeff94f26ab50aa425329920d701"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#a5e8caeff94f26ab50aa425329920d701">More...</a><br /></td></tr>
+<tr class="separator:a5e8caeff94f26ab50aa425329920d701"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac16215fd69300979f22b06d1009aa20d"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#ac16215fd69300979f22b06d1009aa20d">getCamZoom</a> () const</td></tr>
+<tr class="memdesc:ac16215fd69300979f22b06d1009aa20d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#ac16215fd69300979f22b06d1009aa20d">More...</a><br /></td></tr>
+<tr class="separator:ac16215fd69300979f22b06d1009aa20d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a80bdfd523231244e13641b269cbd2142"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a80bdfd523231244e13641b269cbd2142">shouldHighlightSelectedNode</a> () const</td></tr>
+<tr class="memdesc:a80bdfd523231244e13641b269cbd2142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Used by the renderer component.  <a href="a02161.html#a80bdfd523231244e13641b269cbd2142">More...</a><br /></td></tr>
+<tr class="separator:a80bdfd523231244e13641b269cbd2142"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ad1c9963639fbb50756aa04f2dae75d22"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02161.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#ad1c9963639fbb50756aa04f2dae75d22">create</a> (const <a class="el" href="a02161.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> &amp;clickCb)</td></tr>
+<tr class="memdesc:ad1c9963639fbb50756aa04f2dae75d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Conversation Tree component.  <a href="a02161.html#ad1c9963639fbb50756aa04f2dae75d22">More...</a><br /></td></tr>
+<tr class="separator:ad1c9963639fbb50756aa04f2dae75d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:af39ee60ab1e7474975d87d5e3fa32ca2"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a> = 60.f</td></tr>
+<tr class="separator:af39ee60ab1e7474975d87d5e3fa32ca2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3d6647b15058e7a90ebd509c885fd015"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a3d6647b15058e7a90ebd509c885fd015">NodeRadiusSquared</a> = <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a> * <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a></td></tr>
+<tr class="separator:a3d6647b15058e7a90ebd509c885fd015"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae04445dc5789920aa61d1ef962567d4f"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#ae04445dc5789920aa61d1ef962567d4f">NodePadding</a> = 100.f</td></tr>
+<tr class="separator:ae04445dc5789920aa61d1ef962567d4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87516deb74829d7e795a7b226880dc93"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02161.html#a87516deb74829d7e795a7b226880dc93">Spacing</a> = <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a> * 2.f + <a class="el" href="a02161.html#ae04445dc5789920aa61d1ef962567d4f">NodePadding</a></td></tr>
+<tr class="separator:a87516deb74829d7e795a7b226880dc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Map event editor dialog. </p>
+<div class="textblock"><p>Special component that renders a clickable tree view of a conversation. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00018">18</a> of file <a class="el" href="a00389_source.html">EventEditor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00018">18</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a6a9c160db875812b0aa70d32d9551b81"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6a9c160db875812b0aa70d32d9551b81">&#9670;&nbsp;</a></span>OnEdit</h2>
+<a id="a769013b69c1f54d742da45121f1e0432"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a769013b69c1f54d742da45121f1e0432">&#9670;&nbsp;</a></span>ClickCb</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">editor::component::EventEditor::OnEdit</a> =  std::function&lt;void(const <a class="el" href="a01733.html">core::map::Event</a>*, const <a class="el" href="a01733.html">core::map::Event</a>&amp;)&gt;</td>
+          <td class="memname">using <a class="el" href="a02161.html#a769013b69c1f54d742da45121f1e0432">editor::component::ConversationTree::ClickCb</a> =  std::function&lt;void(unsigned int)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback called when an event is created or modified. </p>
+<p>Called when a node is clicked. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00389_source.html#l00021">21</a> of file <a class="el" href="a00389_source.html">EventEditor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00046">46</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad318430737b91fac29b4d9d02355ec58"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad318430737b91fac29b4d9d02355ec58">&#9670;&nbsp;</a></span>EventEditor()</h2>
+<a id="ad20c24ad19ae5ba1fba3d6766c9ab60e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad20c24ad19ae5ba1fba3d6766c9ab60e">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::component::EventEditor::EventEditor </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02161.html#a6a9c160db875812b0aa70d32d9551b81">OnEdit</a> &amp;&#160;</td>
-          <td class="paramname"><em>onEdit</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a02161.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">editor::component::ConversationTree::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02161.html">ConversationTree</a>&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Event Editor dialog. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">onEdit</td><td>Callback to call when an event is created or modified </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00009">9</a> of file <a class="el" href="a00884_source.html">EventEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00020">20</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a6d9888654cb5941067c465b26a9e40c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d9888654cb5941067c465b26a9e40c8">&#9670;&nbsp;</a></span>open()</h2>
+<a id="ad1c9963639fbb50756aa04f2dae75d22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c9963639fbb50756aa04f2dae75d22">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02161.html#ad20c24ad19ae5ba1fba3d6766c9ab60e">ConversationTree::Ptr</a> editor::component::ConversationTree::create </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a02161.html#a769013b69c1f54d742da45121f1e0432">ClickCb</a> &amp;&#160;</td>
+          <td class="paramname"><em>clickCb</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Construct a new Conversation Tree component. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">clickCb</td><td>Callback for when a node is clicked </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00887_source.html#l00030">30</a> of file <a class="el" href="a00887_source.html">ConversationTree.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5e8caeff94f26ab50aa425329920d701"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e8caeff94f26ab50aa425329920d701">&#9670;&nbsp;</a></span>getCamCenter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const glm::vec2&amp; editor::component::ConversationTree::getCamCenter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00092">92</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ac16215fd69300979f22b06d1009aa20d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac16215fd69300979f22b06d1009aa20d">&#9670;&nbsp;</a></span>getCamZoom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">float editor::component::ConversationTree::getCamZoom </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00097">97</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0dabc2962347ba61428268292d1cd1e6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0dabc2962347ba61428268292d1cd1e6">&#9670;&nbsp;</a></span>getEdges()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;<a class="el" href="a02169.html">Edge</a>&gt;&amp; editor::component::ConversationTree::getEdges </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00077">77</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af32d01f0051894bea1203f12ff8a3386"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af32d01f0051894bea1203f12ff8a3386">&#9670;&nbsp;</a></span>getNodes()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::vector&lt;<a class="el" href="a02165.html">Node</a>&gt;&amp; editor::component::ConversationTree::getNodes </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00072">72</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a49579e96bde6b5df62f7170e897c2924"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a49579e96bde6b5df62f7170e897c2924">&#9670;&nbsp;</a></span>getSelectedNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int editor::component::ConversationTree::getSelectedNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00082">82</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3b6be5b0bfc5017aba91ac87491ebf44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b6be5b0bfc5017aba91ac87491ebf44">&#9670;&nbsp;</a></span>getTreeVersion()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int editor::component::ConversationTree::getTreeVersion </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00087">87</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a03345c04e790970f8b48069fb8612056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03345c04e790970f8b48069fb8612056">&#9670;&nbsp;</a></span>setSelected()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::component::EventEditor::open </td>
+          <td class="memname">void editor::component::ConversationTree::setSelected </td>
           <td>(</td>
-          <td class="paramtype">bl::gui::GUI *&#160;</td>
-          <td class="paramname"><em>parent</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a01733.html">core::map::Event</a> *&#160;</td>
-          <td class="paramname"><em>source</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Opens the dialog window and optionally populates with event info. </p>
+<p>Set the selected node index. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
-    <tr><td class="paramname">source</td><td>Optional event to populate from </td></tr>
-    <tr><td class="paramname">pos</td><td>The position to populate if not editing an existing event </td></tr>
+    <tr><td class="paramname">i</td><td>Index of the selected node </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00884_source.html#l00084">84</a> of file <a class="el" href="a00884_source.html">EventEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00887_source.html#l00075">75</a> of file <a class="el" href="a00887_source.html">ConversationTree.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a80bdfd523231244e13641b269cbd2142"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a80bdfd523231244e13641b269cbd2142">&#9670;&nbsp;</a></span>shouldHighlightSelectedNode()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool editor::component::ConversationTree::shouldHighlightSelectedNode </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Used by the renderer component. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00102">102</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a8d870f9e3fef109c8e81d453a0eb6d1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8d870f9e3fef109c8e81d453a0eb6d1f">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::component::ConversationTree::update </td>
+          <td>(</td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="a01617.html">core::file::Conversation::Node</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>nodes</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the rendered tree with the new nodes. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">nodes</td><td>The new tree to render </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00887_source.html#l00116">116</a> of file <a class="el" href="a00887_source.html">ConversationTree.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ae04445dc5789920aa61d1ef962567d4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae04445dc5789920aa61d1ef962567d4f">&#9670;&nbsp;</a></span>NodePadding</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float editor::component::ConversationTree::NodePadding = 100.f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00024">24</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af39ee60ab1e7474975d87d5e3fa32ca2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af39ee60ab1e7474975d87d5e3fa32ca2">&#9670;&nbsp;</a></span>NodeRadius</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float editor::component::ConversationTree::NodeRadius = 60.f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00022">22</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a3d6647b15058e7a90ebd509c885fd015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d6647b15058e7a90ebd509c885fd015">&#9670;&nbsp;</a></span>NodeRadiusSquared</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float editor::component::ConversationTree::NodeRadiusSquared = <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a> * <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00023">23</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a87516deb74829d7e795a7b226880dc93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87516deb74829d7e795a7b226880dc93">&#9670;&nbsp;</a></span>Spacing</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float editor::component::ConversationTree::Spacing = <a class="el" href="a02161.html#af39ee60ab1e7474975d87d5e3fa32ca2">NodeRadius</a> * 2.f + <a class="el" href="a02161.html#ae04445dc5789920aa61d1ef962567d4f">NodePadding</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00380_source.html#l00025">25</a> of file <a class="el" href="a00380_source.html">ConversationTree.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00389_source.html">EventEditor.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00884_source.html">EventEditor.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00380_source.html">ConversationTree.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00887_source.html">ConversationTree.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

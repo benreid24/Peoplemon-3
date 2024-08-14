@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::battle::view::StatBoxes Class Reference</title>
+<title>Peoplemon: bl::pcl::RenderConfigMap&lt; PeoplemonSpark &gt; Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,282 +66,288 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01104.html">battle</a></li><li class="navelem"><a class="el" href="a01105.html">view</a></li><li class="navelem"><a class="el" href="a01373.html">StatBoxes</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01129.html">bl</a></li><li class="navelem"><a class="el" href="a01130.html">pcl</a></li><li class="navelem"><a class="el" href="a01373.html">RenderConfigMap&lt; PeoplemonSpark &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a01370.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::view::StatBoxes Class Reference</div>  </div>
+<div class="title">bl::pcl::RenderConfigMap&lt; PeoplemonSpark &gt; Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Renders both the player and opponent stat boxes.  
- <a href="a01373.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a00071_source.html">StatBoxes.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>&gt;</code></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
-Public Member Functions</h2></td></tr>
-<tr class="memitem:a33c0485c9b5d7a13920be33de4d68fa7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a33c0485c9b5d7a13920be33de4d68fa7">StatBoxes</a> (bl::engine::Engine &amp;engine)</td></tr>
-<tr class="memdesc:a33c0485c9b5d7a13920be33de4d68fa7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Stat Boxes component.  <a href="a01373.html#a33c0485c9b5d7a13920be33de4d68fa7">More...</a><br /></td></tr>
-<tr class="separator:a33c0485c9b5d7a13920be33de4d68fa7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a67bbc3f54360573eff876da16b129265"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a67bbc3f54360573eff876da16b129265">init</a> (bl::rc::scene::CodeScene *scene)</td></tr>
-<tr class="memdesc:a67bbc3f54360573eff876da16b129265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates entities and adds them to the scene.  <a href="a01373.html#a67bbc3f54360573eff876da16b129265">More...</a><br /></td></tr>
-<tr class="separator:a67bbc3f54360573eff876da16b129265"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad577fc6267354cc9f56ce2bade20a858"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#ad577fc6267354cc9f56ce2bade20a858">setOpponent</a> (<a class="el" href="a01837.html">pplmn::BattlePeoplemon</a> *ppl)</td></tr>
-<tr class="memdesc:ad577fc6267354cc9f56ce2bade20a858"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the opponent's peoplemon. Syncs right away.  <a href="a01373.html#ad577fc6267354cc9f56ce2bade20a858">More...</a><br /></td></tr>
-<tr class="separator:ad577fc6267354cc9f56ce2bade20a858"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adc3159457f970df1347b56ac69d57a70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#adc3159457f970df1347b56ac69d57a70">setPlayer</a> (<a class="el" href="a01837.html">pplmn::BattlePeoplemon</a> *ppl)</td></tr>
-<tr class="memdesc:adc3159457f970df1347b56ac69d57a70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the player's peoplemon. Syncs right away.  <a href="a01373.html#adc3159457f970df1347b56ac69d57a70">More...</a><br /></td></tr>
-<tr class="separator:adc3159457f970df1347b56ac69d57a70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a66f41a688e188d7feabcf0f663acf6f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a66f41a688e188d7feabcf0f663acf6f4">sync</a> (bool fromSwitch=false)</td></tr>
-<tr class="memdesc:a66f41a688e188d7feabcf0f663acf6f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the UI to reflect the current peoplemon state.  <a href="a01373.html#a66f41a688e188d7feabcf0f663acf6f4">More...</a><br /></td></tr>
-<tr class="separator:a66f41a688e188d7feabcf0f663acf6f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abe38618978d23a3f2da52f30e7f0ac89"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#abe38618978d23a3f2da52f30e7f0ac89">update</a> (float dt)</td></tr>
-<tr class="memdesc:abe38618978d23a3f2da52f30e7f0ac89"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates bar sizes if they need to change.  <a href="a01373.html#abe38618978d23a3f2da52f30e7f0ac89">More...</a><br /></td></tr>
-<tr class="separator:abe38618978d23a3f2da52f30e7f0ac89"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfc8ca365a300fe6ec6540afb8e178b1"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#adfc8ca365a300fe6ec6540afb8e178b1">synced</a> () const</td></tr>
-<tr class="memdesc:adfc8ca365a300fe6ec6540afb8e178b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if the view is in sync, false if an animation is in progress.  <a href="a01373.html#adfc8ca365a300fe6ec6540afb8e178b1">More...</a><br /></td></tr>
-<tr class="separator:adfc8ca365a300fe6ec6540afb8e178b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af332a2050daf47b0bdb37e77dead5d1f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#af332a2050daf47b0bdb37e77dead5d1f">render</a> (bl::rc::scene::CodeScene::RenderContext &amp;ctx)</td></tr>
-<tr class="memdesc:af332a2050daf47b0bdb37e77dead5d1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the boxes.  <a href="a01373.html#af332a2050daf47b0bdb37e77dead5d1f">More...</a><br /></td></tr>
-<tr class="separator:af332a2050daf47b0bdb37e77dead5d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:ae0a49cc4230096b116c870d1a33dccc6"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#ae0a49cc4230096b116c870d1a33dccc6">GlobalShaderPayload</a> = <a class="el" href="a01130.html#aeb5ac8ff54aa7315678a85562b72a78d">GlobalShaderStruct</a></td></tr>
+<tr class="separator:ae0a49cc4230096b116c870d1a33dccc6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3faacba73ecdf6aa9fa265a497b45720"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a3faacba73ecdf6aa9fa265a497b45720">DescriptorSets</a> = RenderConfigDescriptorList&lt; rc::ds::Scene2DFactory, DescriptorSetFactory&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a>, <a class="el" href="a01130.html#a7645fc70a85abd32006fe654d49c9d31">GpuPeoplemonSpark</a> &gt; &gt;</td></tr>
+<tr class="separator:a3faacba73ecdf6aa9fa265a497b45720"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:ac680a8da405ca008277dccdddc4bbede"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#ac680a8da405ca008277dccdddc4bbede">PipelineId</a> = <a class="el" href="a01957.html#a704a0695b7b5952139a97812cd752b76">core::Properties::BattlePeoplemonSparkPipelineId</a></td></tr>
+<tr class="separator:ac680a8da405ca008277dccdddc4bbede"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9de54d96a46cb20a46e8628d965a547"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#ab9de54d96a46cb20a46e8628d965a547">ContainsTransparency</a> = true</td></tr>
+<tr class="separator:ab9de54d96a46cb20a46e8628d965a547"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e86a9cbea1a9cd6b73e9488ce39e76b"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a0e86a9cbea1a9cd6b73e9488ce39e76b">CreateRenderPipeline</a> = true</td></tr>
+<tr class="separator:a0e86a9cbea1a9cd6b73e9488ce39e76b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade6bfda70ec4604e2e55c6e00aa96259"><td class="memItemLeft" align="right" valign="top">static constexpr std::initializer_list&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#ade6bfda70ec4604e2e55c6e00aa96259">RenderPassIds</a></td></tr>
+<tr class="separator:ade6bfda70ec4604e2e55c6e00aa96259"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5386551059ddff588fa957ac53d30f14"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a5386551059ddff588fa957ac53d30f14">EnableDepthTesting</a> = false</td></tr>
+<tr class="separator:a5386551059ddff588fa957ac53d30f14"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a564380de74d991ca25c879ed644d137e"><td class="memItemLeft" align="right" valign="top">static constexpr VkPrimitiveTopology&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a564380de74d991ca25c879ed644d137e">Topology</a> = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td></tr>
+<tr class="separator:a564380de74d991ca25c879ed644d137e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a41536794c492014cfd10d2d60ffb6eda"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a41536794c492014cfd10d2d60ffb6eda">VertexShader</a> = &quot;Resources/Shaders/Particles/battleSpark.vert.spv&quot;</td></tr>
+<tr class="separator:a41536794c492014cfd10d2d60ffb6eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5cf490156c43c753aa75087a08d0e70d"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01373.html#a5cf490156c43c753aa75087a08d0e70d">FragmentShader</a></td></tr>
+<tr class="separator:a5cf490156c43c753aa75087a08d0e70d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Renders both the player and opponent stat boxes. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00071_source.html#l00021">21</a> of file <a class="el" href="a00071_source.html">StatBoxes.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a33c0485c9b5d7a13920be33de4d68fa7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a33c0485c9b5d7a13920be33de4d68fa7">&#9670;&nbsp;</a></span>StatBoxes()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">core::battle::view::StatBoxes::StatBoxes </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Construct a new Stat Boxes component. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00039">39</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a67bbc3f54360573eff876da16b129265"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a67bbc3f54360573eff876da16b129265">&#9670;&nbsp;</a></span>init()</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00072">72</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a3faacba73ecdf6aa9fa265a497b45720"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3faacba73ecdf6aa9fa265a497b45720">&#9670;&nbsp;</a></span>DescriptorSets</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::init </td>
-          <td>(</td>
-          <td class="paramtype">bl::rc::scene::CodeScene *&#160;</td>
-          <td class="paramname"><em>scene</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::<a class="el" href="a01373.html#a3faacba73ecdf6aa9fa265a497b45720">DescriptorSets</a> =  RenderConfigDescriptorList&lt;rc::ds::Scene2DFactory, DescriptorSetFactory&lt;<a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a>, <a class="el" href="a01130.html#a7645fc70a85abd32006fe654d49c9d31">GpuPeoplemonSpark</a>&gt; &gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates entities and adds them to the scene. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00049">49</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00082">82</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="af332a2050daf47b0bdb37e77dead5d1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af332a2050daf47b0bdb37e77dead5d1f">&#9670;&nbsp;</a></span>render()</h2>
+<a id="ae0a49cc4230096b116c870d1a33dccc6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0a49cc4230096b116c870d1a33dccc6">&#9670;&nbsp;</a></span>GlobalShaderPayload</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::render </td>
-          <td>(</td>
-          <td class="paramtype">bl::rc::scene::CodeScene::RenderContext &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
+          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::<a class="el" href="a01373.html#ae0a49cc4230096b116c870d1a33dccc6">GlobalShaderPayload</a> =  <a class="el" href="a01130.html#aeb5ac8ff54aa7315678a85562b72a78d">GlobalShaderStruct</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Renders the boxes. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ctx</td><td>The render context </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00246">246</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00081">81</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ad577fc6267354cc9f56ce2bade20a858"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad577fc6267354cc9f56ce2bade20a858">&#9670;&nbsp;</a></span>setOpponent()</h2>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="ab9de54d96a46cb20a46e8628d965a547"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9de54d96a46cb20a46e8628d965a547">&#9670;&nbsp;</a></span>ContainsTransparency</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::setOpponent </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01837.html">pplmn::BattlePeoplemon</a> *&#160;</td>
-          <td class="paramname"><em>ppl</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::ContainsTransparency = true</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Sets the opponent's peoplemon. Syncs right away. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ppl</td><td>The opponent's peoplemon </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00124">124</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00074">74</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adc3159457f970df1347b56ac69d57a70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adc3159457f970df1347b56ac69d57a70">&#9670;&nbsp;</a></span>setPlayer()</h2>
+<a id="a0e86a9cbea1a9cd6b73e9488ce39e76b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e86a9cbea1a9cd6b73e9488ce39e76b">&#9670;&nbsp;</a></span>CreateRenderPipeline</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::setPlayer </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01837.html">pplmn::BattlePeoplemon</a> *&#160;</td>
-          <td class="paramname"><em>ppl</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::CreateRenderPipeline = true</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Sets the player's peoplemon. Syncs right away. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">ppl</td><td>The player's peoplemon </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00131">131</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00076">76</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a66f41a688e188d7feabcf0f663acf6f4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a66f41a688e188d7feabcf0f663acf6f4">&#9670;&nbsp;</a></span>sync()</h2>
+<a id="a5386551059ddff588fa957ac53d30f14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5386551059ddff588fa957ac53d30f14">&#9670;&nbsp;</a></span>EnableDepthTesting</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::sync </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fromSwitch</em> = <code>false</code></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::EnableDepthTesting = false</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Updates the UI to reflect the current peoplemon state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">fromSwitch</td><td>True to sync from switch, false for regular sync </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00139">139</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00086">86</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="adfc8ca365a300fe6ec6540afb8e178b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfc8ca365a300fe6ec6540afb8e178b1">&#9670;&nbsp;</a></span>synced()</h2>
+<a id="a5cf490156c43c753aa75087a08d0e70d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5cf490156c43c753aa75087a08d0e70d">&#9670;&nbsp;</a></span>FragmentShader</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::battle::view::StatBoxes::synced </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::FragmentShader</td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-
-<p>Returns true if the view is in sync, false if an animation is in progress. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00241">241</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">        <span class="stringliteral">&quot;Resources/Shaders/Particles/battleSpark.frag.spv&quot;</span></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00089">89</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<a id="abe38618978d23a3f2da52f30e7f0ac89"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abe38618978d23a3f2da52f30e7f0ac89">&#9670;&nbsp;</a></span>update()</h2>
+<a id="ac680a8da405ca008277dccdddc4bbede"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac680a8da405ca008277dccdddc4bbede">&#9670;&nbsp;</a></span>PipelineId</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::view::StatBoxes::update </td>
-          <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
-          <td></td>
+          <td class="memname">constexpr std::uint32_t bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::PipelineId = <a class="el" href="a01957.html#a704a0695b7b5952139a97812cd752b76">core::Properties::BattlePeoplemonSparkPipelineId</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Updates bar sizes if they need to change. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00176">176</a> of file <a class="el" href="a00617_source.html">StatBoxes.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00073">73</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Battles/View/<a class="el" href="a00071_source.html">StatBoxes.hpp</a></li>
-<li>src/Core/Battles/View/<a class="el" href="a00617_source.html">StatBoxes.cpp</a></li>
+<a id="ade6bfda70ec4604e2e55c6e00aa96259"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade6bfda70ec4604e2e55c6e00aa96259">&#9670;&nbsp;</a></span>RenderPassIds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr std::initializer_list&lt;std::uint32_t&gt; bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::RenderPassIds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">=</div>
+<div class="line">        RenderConfigDefaults&lt;PeoplemonSpark&gt;::RenderPassIds</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00078">78</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a564380de74d991ca25c879ed644d137e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a564380de74d991ca25c879ed644d137e">&#9670;&nbsp;</a></span>Topology</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr VkPrimitiveTopology bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00087">87</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a41536794c492014cfd10d2d60ffb6eda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a41536794c492014cfd10d2d60ffb6eda">&#9670;&nbsp;</a></span>VertexShader</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a01130.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> &gt;::VertexShader = &quot;Resources/Shaders/Particles/battleSpark.vert.spv&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00088">88</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Battles/View/<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/BattleState.cpp Source File</title>
+<title>Peoplemon: include/Game/States/StorageSystem.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,159 +66,171 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_63f60c6c182692e62620af266969e641.html">States</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">BattleState.cpp</div>  </div>
+<div class="title">StorageSystem.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03331.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03181.html">Game/States/BattleState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00113.html">Core/Debug/DebugBanner.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03175.html">Core/Events/Battle.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03223.html">Game/States/BagMenu.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03235.html">Game/States/PeoplemonMenu.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">class </span>DummyController : <span class="keyword">public</span> <a class="code" href="a01245.html">core::battle::BattleController</a> {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    DummyController()          = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> ~DummyController() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    sf::Clock timer;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onCommandQueued(<span class="keyword">const</span> <a class="code" href="a01297.html">core::battle::Command</a>&amp;)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onCommandProcessed(<span class="keyword">const</span> <a class="code" href="a01297.html">core::battle::Command</a>&amp;)<span class="keyword"> override </span>{}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> onUpdate(<span class="keywordtype">bool</span>, <span class="keywordtype">bool</span>)<span class="keyword"> override </span>{</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keywordflow">if</span> (timer.getElapsedTime().asSeconds() &gt;= 3.f) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;            state-&gt;setStage(<a class="code" href="a01281.html#ae57ad5ba635dfeb78ac751c91a1070e8a07ca5050e697392c9ed47e6453f1453f">core::battle::BattleState::Stage::Completed</a>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;};</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02365.html#ac3a956f6de8e41202a322f0a75154836">   34</a></span>&#160;bl::engine::State::Ptr <a class="code" href="a02365.html#ac3a956f6de8e41202a322f0a75154836">BattleState::create</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems,</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;                                           std::unique_ptr&lt;core::battle::Battle&gt;&amp;&amp; battle) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keywordflow">return</span> bl::engine::State::Ptr(</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">new</span> <a class="code" href="a02365.html">BattleState</a>(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, std::forward&lt;std::unique_ptr&lt;core::battle::Battle&gt;&gt;(battle)));</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;BattleState::BattleState(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems,</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;                         std::unique_ptr&lt;core::battle::Battle&gt;&amp;&amp; battle)</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;: <a class="code" href="a02453.html">State</a>(systems, <a class="code" href="a01107.html">bl</a>::engine::StateMask::Menu)</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;, battle(std::forward&lt;std::unique_ptr&lt;<a class="code" href="a01101.html">core</a>::battle::Battle&gt;&gt;(battle)) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keywordflow">if</span> (!this-&gt;battle-&gt;controller) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Invalid battle controller, using dummy&quot;</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        this-&gt;battle-&gt;setController(std::make_unique&lt;DummyController&gt;());</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="a02365.html#a9a1dca10c3b3db641c3d987b0bd42700">   50</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02365.html#a9a1dca10c3b3db641c3d987b0bd42700">BattleState::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;BattleState&quot;</span>; }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a02365.html#ac69782ff4f2c8666907e5b05cb74832a">   52</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02365.html#ac69782ff4f2c8666907e5b05cb74832a">BattleState::activate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">if</span> (!scene) {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        scene = engine.renderer().getObserver().pushScene&lt;bl::rc::scene::CodeScene&gt;(</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            std::bind(&amp;<a class="code" href="a01285.html#a0837284f5efce71c07fe8d44f630f8a0">core::battle::BattleView::render</a>, &amp;battle-&gt;view, std::placeholders::_1));</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        battle-&gt;view.init(<span class="keyword">static_cast&lt;</span>bl::rc::scene::CodeScene*<span class="keyword">&gt;</span>(scene.get()));</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">else</span> { engine.renderer().getObserver().pushScene(scene); }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().inputSystem().getActor().addListener(battle-&gt;view);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    bl::event::Dispatcher::subscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<a href="a03331.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_STORAGESYSTEM_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_STORAGESYSTEM_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00263.html">Core/Peoplemon/StoredPeoplemon.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00518.html">Game/Menus/StorageCursor.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00521.html">Game/Menus/StorageGrid.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03391.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01153.html">game</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02525.html">   19</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02525.html">StorageSystem</a></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02521.html">State</a></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, <span class="keyword">public</span> bl::input::Listener {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02525.html#af369086150e904b871a0db48fba729c4">create</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02525.html#a1e7d8555d1bd29469f7064bf8e2ffd6a">   34</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02525.html#a1e7d8555d1bd29469f7064bf8e2ffd6a">~StorageSystem</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02525.html#a713da8263d0725dfd90f7c4c7a4a46ac">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02525.html#ac00cd37b76a57e2ae8144a372c88dc3b">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02525.html#ad25552a856ad3e533573823b443bbc78">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02525.html#abd2c499e2ceda1d22fadfce55570da30">update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02365.html#ab95dba1cbd60568f78e439ca10dc0ebd">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02365.html#ab95dba1cbd60568f78e439ca10dc0ebd">BattleState::deactivate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    engine.renderer().getObserver().popScene();</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().inputSystem().getActor().removeListener(battle-&gt;view);</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    bl::event::Dispatcher::unsubscribe(<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    bl::audio::AudioSystem::popPlaylist();</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">enum struct</span> MenuState {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="comment">// entry states</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        ChooseAction,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        PlacingPeoplemon,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        WaitingHudMessage,</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno"><a class="line" href="a02365.html#af1280f7c8af0e255121eeb3eec92e628">   70</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02365.html#af1280f7c8af0e255121eeb3eec92e628">BattleState::update</a>(bl::engine::Engine&amp; engine, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    battle-&gt;controller-&gt;update();</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    battle-&gt;view.update(dt);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    battle-&gt;state.localPlayer().refresh();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    battle-&gt;state.enemy().refresh();</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (battle-&gt;state.currentStage() == <a class="code" href="a01281.html#ae57ad5ba635dfeb78ac751c91a1070e8a07ca5050e697392c9ed47e6453f1453f">core::battle::BattleState::Stage::Completed</a>) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        engine.popState();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (battle-&gt;type == <a class="code" href="a01241.html#a5c4138656c418031327b3958cc6e8c62a54f664c70c22054ea0d8d26fc3997ce7">core::battle::Battle::Type::Online</a>) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;            <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02065.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01925.html#a7302f504bae7459e2a758bfe0da54e57">healPeoplemon</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;            <span class="keywordflow">if</span> (!<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02065.html#a1ae5c4b4208e1adf18f0755baed9ae31">state</a>().<a class="code" href="a01925.html#a3914ec2a7d6dc4bbe95d029e065d69d6">hasLivingPeoplemon</a>()) { <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02065.html#a7a59c971c5fb74f393f88a90b0499a04">whiteout</a>(); }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        bl::event::Dispatcher::dispatch&lt;core::event::BattleCompleted&gt;(</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            {battle-&gt;type, std::move(battle-&gt;result)});</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;}</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="keywordtype">void</span> BattleState::observe(<span class="keyword">const</span> <a class="code" href="a01497.html">core::event::OpenPeoplemonMenu</a>&amp; event) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().pushState(</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="a02441.html#aee15106459f57eb6ce63160a3b1139dd">PeoplemonMenu::create</a>(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, event.<a class="code" href="a01497.html#a2b4cf647ca218e4b3d1d016be88f16d7">context</a>, event.<a class="code" href="a01497.html#a9a2ae4c43e3bc50c64b1d46baece0a54">outNow</a>, event.<a class="code" href="a01497.html#ad3a0d1897216e15d9672aaf0bf8367d0">chosen</a>));</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> BattleState::observe(<span class="keyword">const</span> <a class="code" href="a01441.html">core::event::OpenBagMenu</a>&amp; event) {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().pushState(</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <a class="code" href="a02361.html#a65e0da150c8e36094303fe48d0fa2328">BagMenu::create</a>(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, event.<a class="code" href="a01441.html#a468a5356eb66f28874362be4be3cd83d">context</a>, event.<a class="code" href="a01441.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a>, event.<a class="code" href="a01441.html#a6cab0173c23c7808e82a85825bebd590">outNow</a>, event.<a class="code" href="a01441.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a>));</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="ttc" id="aa00113_html"><div class="ttname"><a href="a00113.html">DebugBanner.hpp</a></div></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01241_html_a5c4138656c418031327b3958cc6e8c62a54f664c70c22054ea0d8d26fc3997ce7"><div class="ttname"><a href="a01241.html#a5c4138656c418031327b3958cc6e8c62a54f664c70c22054ea0d8d26fc3997ce7">core::battle::Battle::Type::Online</a></div><div class="ttdeci">@ Online</div></div>
-<div class="ttc" id="aa01245_html"><div class="ttname"><a href="a01245.html">core::battle::BattleController</a></div><div class="ttdoc">Interface for battle controllers. Battle controllers manage the flow of state and interaction for bat...</div><div class="ttdef"><b>Definition:</b> <a href="a00011_source.html#l00023">BattleController.hpp:23</a></div></div>
-<div class="ttc" id="aa01281_html_ae57ad5ba635dfeb78ac751c91a1070e8a07ca5050e697392c9ed47e6453f1453f"><div class="ttname"><a href="a01281.html#ae57ad5ba635dfeb78ac751c91a1070e8a07ca5050e697392c9ed47e6453f1453f">core::battle::BattleState::Stage::Completed</a></div><div class="ttdeci">@ Completed</div></div>
-<div class="ttc" id="aa01285_html_a0837284f5efce71c07fe8d44f630f8a0"><div class="ttname"><a href="a01285.html#a0837284f5efce71c07fe8d44f630f8a0">core::battle::BattleView::render</a></div><div class="ttdeci">void render(bl::rc::scene::CodeScene::RenderContext &amp;ctx)</div><div class="ttdoc">Renders the battle view.</div><div class="ttdef"><b>Definition:</b> <a href="a00593_source.html#l00126">BattleView.cpp:126</a></div></div>
-<div class="ttc" id="aa01297_html"><div class="ttname"><a href="a01297.html">core::battle::Command</a></div><div class="ttdoc">Emitted by the BattleFSM. All UI is handled via a queue of commands. Commands are resolved in the ord...</div><div class="ttdef"><b>Definition:</b> <a href="a00044_source.html#l00022">Command.hpp:22</a></div></div>
-<div class="ttc" id="aa01441_html"><div class="ttname"><a href="a01441.html">core::event::OpenBagMenu</a></div><div class="ttdoc">Event that is fired when the bag menu should be opened.</div><div class="ttdef"><b>Definition:</b> <a href="a03220_source.html#l00016">BagMenu.hpp:16</a></div></div>
-<div class="ttc" id="aa01441_html_a2c291e9ea2d046b1e465d55660efd5dd"><div class="ttname"><a href="a01441.html#a2c291e9ea2d046b1e465d55660efd5dd">core::event::OpenBagMenu::result</a></div><div class="ttdeci">item::Id *const result</div><div class="ttdef"><b>Definition:</b> <a href="a03220_source.html#l00036">BagMenu.hpp:36</a></div></div>
-<div class="ttc" id="aa01441_html_a468a5356eb66f28874362be4be3cd83d"><div class="ttname"><a href="a01441.html#a468a5356eb66f28874362be4be3cd83d">core::event::OpenBagMenu::context</a></div><div class="ttdeci">const Context context</div><div class="ttdef"><b>Definition:</b> <a href="a03220_source.html#l00035">BagMenu.hpp:35</a></div></div>
-<div class="ttc" id="aa01441_html_a4ac3a8885434cf2f3c7682d6a6f4a3f2"><div class="ttname"><a href="a01441.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">core::event::OpenBagMenu::chosenPeoplemon</a></div><div class="ttdeci">int *const chosenPeoplemon</div><div class="ttdef"><b>Definition:</b> <a href="a03220_source.html#l00038">BagMenu.hpp:38</a></div></div>
-<div class="ttc" id="aa01441_html_a6cab0173c23c7808e82a85825bebd590"><div class="ttname"><a href="a01441.html#a6cab0173c23c7808e82a85825bebd590">core::event::OpenBagMenu::outNow</a></div><div class="ttdeci">const int outNow</div><div class="ttdef"><b>Definition:</b> <a href="a03220_source.html#l00037">BagMenu.hpp:37</a></div></div>
-<div class="ttc" id="aa01497_html"><div class="ttname"><a href="a01497.html">core::event::OpenPeoplemonMenu</a></div><div class="ttdoc">Special event to trigger the opening of the peoplemon menu.</div><div class="ttdef"><b>Definition:</b> <a href="a03232_source.html#l00014">PeoplemonMenu.hpp:14</a></div></div>
-<div class="ttc" id="aa01497_html_a2b4cf647ca218e4b3d1d016be88f16d7"><div class="ttname"><a href="a01497.html#a2b4cf647ca218e4b3d1d016be88f16d7">core::event::OpenPeoplemonMenu::context</a></div><div class="ttdeci">const Context context</div><div class="ttdef"><b>Definition:</b> <a href="a03232_source.html#l00043">PeoplemonMenu.hpp:43</a></div></div>
-<div class="ttc" id="aa01497_html_a9a2ae4c43e3bc50c64b1d46baece0a54"><div class="ttname"><a href="a01497.html#a9a2ae4c43e3bc50c64b1d46baece0a54">core::event::OpenPeoplemonMenu::outNow</a></div><div class="ttdeci">const int outNow</div><div class="ttdef"><b>Definition:</b> <a href="a03232_source.html#l00044">PeoplemonMenu.hpp:44</a></div></div>
-<div class="ttc" id="aa01497_html_ad3a0d1897216e15d9672aaf0bf8367d0"><div class="ttname"><a href="a01497.html#ad3a0d1897216e15d9672aaf0bf8367d0">core::event::OpenPeoplemonMenu::chosen</a></div><div class="ttdeci">int * chosen</div><div class="ttdef"><b>Definition:</b> <a href="a03232_source.html#l00045">PeoplemonMenu.hpp:45</a></div></div>
-<div class="ttc" id="aa01925_html_a3914ec2a7d6dc4bbe95d029e065d69d6"><div class="ttname"><a href="a01925.html#a3914ec2a7d6dc4bbe95d029e065d69d6">core::player::State::hasLivingPeoplemon</a></div><div class="ttdeci">bool hasLivingPeoplemon() const</div><div class="ttdoc">Returns whether or not the player has any living peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00027">State.cpp:27</a></div></div>
-<div class="ttc" id="aa01925_html_a7302f504bae7459e2a758bfe0da54e57"><div class="ttname"><a href="a01925.html#a7302f504bae7459e2a758bfe0da54e57">core::player::State::healPeoplemon</a></div><div class="ttdeci">void healPeoplemon()</div><div class="ttdoc">Restores HP and removes all ailments.</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00016">State.cpp:16</a></div></div>
-<div class="ttc" id="aa02065_html_a1ae5c4b4208e1adf18f0755baed9ae31"><div class="ttname"><a href="a02065.html#a1ae5c4b4208e1adf18f0755baed9ae31">core::system::Player::state</a></div><div class="ttdeci">player::State &amp; state()</div><div class="ttdoc">Returns the state of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00154">Player.cpp:154</a></div></div>
-<div class="ttc" id="aa02065_html_a7a59c971c5fb74f393f88a90b0499a04"><div class="ttname"><a href="a02065.html#a7a59c971c5fb74f393f88a90b0499a04">core::system::Player::whiteout</a></div><div class="ttdeci">void whiteout()</div><div class="ttdoc">Heals all Peoplemon and respawns at the last PC center.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00097">Player.cpp:97</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02085_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00035">Systems.cpp:35</a></div></div>
-<div class="ttc" id="aa02085_html_a614eb9bb163de0567a30da6c215835af"><div class="ttname"><a href="a02085.html#a614eb9bb163de0567a30da6c215835af">core::system::Systems::player</a></div><div class="ttdeci">Player &amp; player()</div><div class="ttdoc">Returns the player system.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00059">Systems.cpp:59</a></div></div>
-<div class="ttc" id="aa02361_html_a65e0da150c8e36094303fe48d0fa2328"><div class="ttname"><a href="a02361.html#a65e0da150c8e36094303fe48d0fa2328">game::state::BagMenu::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, Context ctx, core::item::Id *result=nullptr, int outNow=-1, int *chosenPeoplemon=nullptr, bool *unpause=nullptr)</div><div class="ttdoc">Creates a new BagMenu.</div><div class="ttdef"><b>Definition:</b> <a href="a01022_source.html#l00073">BagMenu.cpp:73</a></div></div>
-<div class="ttc" id="aa02365_html"><div class="ttname"><a href="a02365.html">game::state::BattleState</a></div><div class="ttdoc">This game state does all battling. When the battle is complete it will pop itself from the engine sta...</div><div class="ttdef"><b>Definition:</b> <a href="a03181_source.html#l00020">BattleState.hpp:22</a></div></div>
-<div class="ttc" id="aa02365_html_a9a1dca10c3b3db641c3d987b0bd42700"><div class="ttname"><a href="a02365.html#a9a1dca10c3b3db641c3d987b0bd42700">game::state::BattleState::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;BattleState&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00050">BattleState.cpp:50</a></div></div>
-<div class="ttc" id="aa02365_html_ab95dba1cbd60568f78e439ca10dc0ebd"><div class="ttname"><a href="a02365.html#ab95dba1cbd60568f78e439ca10dc0ebd">game::state::BattleState::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00063">BattleState.cpp:63</a></div></div>
-<div class="ttc" id="aa02365_html_ac3a956f6de8e41202a322f0a75154836"><div class="ttname"><a href="a02365.html#ac3a956f6de8e41202a322f0a75154836">game::state::BattleState::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, std::unique_ptr&lt; core::battle::Battle &gt; &amp;&amp;battle)</div><div class="ttdoc">Creates a new BattleState.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00034">BattleState.cpp:34</a></div></div>
-<div class="ttc" id="aa02365_html_ac69782ff4f2c8666907e5b05cb74832a"><div class="ttname"><a href="a02365.html#ac69782ff4f2c8666907e5b05cb74832a">game::state::BattleState::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00052">BattleState.cpp:52</a></div></div>
-<div class="ttc" id="aa02365_html_af1280f7c8af0e255121eeb3eec92e628"><div class="ttname"><a href="a02365.html#af1280f7c8af0e255121eeb3eec92e628">game::state::BattleState::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;, float dt, float) override</div><div class="ttdoc">Calls into the battle's update method.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00070">BattleState.cpp:70</a></div></div>
-<div class="ttc" id="aa02441_html_aee15106459f57eb6ce63160a3b1139dd"><div class="ttname"><a href="a02441.html#aee15106459f57eb6ce63160a3b1139dd">game::state::PeoplemonMenu::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, Context ctx, int outNow=-1, int *chosen=nullptr, core::item::Id item=core::item::Id::None)</div><div class="ttdoc">Creates a new PeoplemonMenu state.</div><div class="ttdef"><b>Definition:</b> <a href="a01070_source.html#l00039">PeoplemonMenu.cpp:39</a></div></div>
-<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02453_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00066">State.hpp:66</a></div></div>
-<div class="ttc" id="aa03175_html"><div class="ttname"><a href="a03175.html">Battle.hpp</a></div></div>
-<div class="ttc" id="aa03181_html"><div class="ttname"><a href="a03181.html">BattleState.hpp</a></div></div>
-<div class="ttc" id="aa03223_html"><div class="ttname"><a href="a03223.html">BagMenu.hpp</a></div></div>
-<div class="ttc" id="aa03235_html"><div class="ttname"><a href="a03235.html">PeoplemonMenu.hpp</a></div></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="comment">// browse states</span></div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        BrowsingBox,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        BoxSliding,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        CursorMoving,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="comment">// context menu states</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        BrowseMenuOpen,</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        MovingPeoplemon,</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        WaitingContextMessage,</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        WaitingReleaseConfirm,</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="comment">// Waiting on other states</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        WaitingDeposit</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    };</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    MenuState state;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    MenuState prevState;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordtype">int</span> currentBox;</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <a class="code" href="a01909.html">core::pplmn::StoredPeoplemon</a>* hovered;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    sf::Vector2i selectPos;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordtype">bool</span> closeMenuAfterMessage;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    bl::rc::Scene* overlay;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160; </div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    bl::rc::res::TextureRef backgroundTxtr;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <a class="code" href="a01109.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> menuDriver;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <a class="code" href="a02421.html">menu::StorageGrid</a> grids[2];</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="a02421.html">menu::StorageGrid</a>* activeGrid;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="a02421.html">menu::StorageGrid</a>* slidingOutGrid;</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02417.html">menu::StorageCursor</a> cursor;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordtype">float</span> slideOffset;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordtype">float</span> slideVel;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    bl::audio::AudioSystem::Handle cursorMoveSound;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    bl::audio::AudioSystem::Handle pageSlideSound;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    bl::audio::AudioSystem::Handle pageSlideFailSound;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    bl::rc::res::TextureRef leftArrowTxtr;</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    bl::rc::res::TextureRef rightArrowTxtr;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    bl::gfx::Sprite leftArrow;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    bl::gfx::Sprite rightArrow;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    bl::gfx::Text boxTitle;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    bl::rc::res::TextureRef thumbTxtr;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    bl::gfx::Sprite thumbnail;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    bl::gfx::Text nickname;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    bl::gfx::Text level;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    bl::gfx::Text itemLabel;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    bl::menu::Menu actionMenu;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    bl::menu::Item::Ptr withdrawActionItem;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    bl::menu::Menu contextMenu;</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordtype">int</span> depositedPeoplemon;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;    sf::Vector2i ogMovePos;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="a02525.html">StorageSystem</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="comment">// entry actions</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordtype">void</span> startDeposit();</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordtype">void</span> startBrowse();</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">void</span> close();</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="comment">// browse actions</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> onCursor(<span class="keyword">const</span> sf::Vector2i&amp; pos);</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordtype">void</span> onHover(<a class="code" href="a01909.html">core::pplmn::StoredPeoplemon</a>* peoplemon);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> onSelect(<span class="keyword">const</span> sf::Vector2i&amp; position);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> boxLeft();</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> boxRight();</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment">// context actions</span></div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordtype">void</span> onWithdraw();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordtype">void</span> onStartMove();</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordtype">void</span> onTakeItem();</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    <span class="keywordtype">void</span> onRelease();</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    <span class="keywordtype">void</span> onCloseContextMenu();</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160; </div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl,</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;                         bl::input::DispatchType, <span class="keywordtype">bool</span> eventTriggered) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordtype">void</span> enterState(MenuState state);</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="keywordtype">void</span> finishBoxChange();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordtype">void</span> onReleaseConfirm(<span class="keyword">const</span> std::string&amp; choice);</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordtype">void</span> onMessageDone();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordtype">void</span> updatePeoplemonInfo(<span class="keyword">const</span> <a class="code" href="a01885.html">core::pplmn::OwnedPeoplemon</a>&amp; ppl);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordtype">void</span> showPeoplemonInfo(<span class="keywordtype">bool</span> show);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordtype">void</span> updateThumbnail(<span class="keyword">const</span> std::string&amp; src);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordtype">void</span> showContextMessage(<span class="keyword">const</span> std::string&amp; msg, <span class="keywordtype">bool</span> closeMenu = <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">void</span> positionContextMenu();</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;};</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160; </div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00263_html"><div class="ttname"><a href="a00263.html">StoredPeoplemon.hpp</a></div></div>
+<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">StorageCursor.hpp</a></div></div>
+<div class="ttc" id="aa00521_html"><div class="ttname"><a href="a00521.html">StorageGrid.hpp</a></div></div>
+<div class="ttc" id="aa01109_html_ga4177a2fb4c67d583c7ea3ab587db8791"><div class="ttname"><a href="a01109.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a></div><div class="ttdeci">bl::menu::TriggerDriver&lt; Control::MoveUp, Control::MoveRight, Control::MoveDown, Control::MoveLeft, Control::Interact &gt; MenuDriver</div><div class="ttdoc">Helper typedef for Peoplemon specific menu driving.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00017">MenuDriver.hpp:18</a></div></div>
+<div class="ttc" id="aa01153_html"><div class="ttname"><a href="a01153.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00506_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01885_html"><div class="ttname"><a href="a01885.html">core::pplmn::OwnedPeoplemon</a></div><div class="ttdoc">Represents an instance of a peoplemon. Can be a wild peoplemon, trainer, or player peoplemon....</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00044">OwnedPeoplemon.hpp:44</a></div></div>
+<div class="ttc" id="aa01909_html"><div class="ttname"><a href="a01909.html">core::pplmn::StoredPeoplemon</a></div><div class="ttdoc">Represents a Peoplemon in storage.</div><div class="ttdef"><b>Definition:</b> <a href="a00263_source.html#l00018">StoredPeoplemon.hpp:18</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02417_html"><div class="ttname"><a href="a02417.html">game::menu::StorageCursor</a></div><div class="ttdoc">Cursor that is used to navigate the storage system boxes.</div><div class="ttdef"><b>Definition:</b> <a href="a00518_source.html#l00019">StorageCursor.hpp:19</a></div></div>
+<div class="ttc" id="aa02421_html"><div class="ttname"><a href="a02421.html">game::menu::StorageGrid</a></div><div class="ttdoc">Renderer for the grid of peoplemon in a storage box.</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00020">StorageGrid.hpp:20</a></div></div>
+<div class="ttc" id="aa02521_html"><div class="ttname"><a href="a02521.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02521_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa02525_html"><div class="ttname"><a href="a02525.html">game::state::StorageSystem</a></div><div class="ttdoc">Game state for the peoplemon storage system menu.</div><div class="ttdef"><b>Definition:</b> <a href="a03331_source.html#l00019">StorageSystem.hpp:21</a></div></div>
+<div class="ttc" id="aa02525_html_a1e7d8555d1bd29469f7064bf8e2ffd6a"><div class="ttname"><a href="a02525.html#a1e7d8555d1bd29469f7064bf8e2ffd6a">game::state::StorageSystem::~StorageSystem</a></div><div class="ttdeci">virtual ~StorageSystem()=default</div><div class="ttdoc">Destroy the Storage System object.</div></div>
+<div class="ttc" id="aa02525_html_a713da8263d0725dfd90f7c4c7a4a46ac"><div class="ttname"><a href="a02525.html#a713da8263d0725dfd90f7c4c7a4a46ac">game::state::StorageSystem::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;StorageSystem&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a03487_source.html#l00140">StorageSystem.cpp:140</a></div></div>
+<div class="ttc" id="aa02525_html_abd2c499e2ceda1d22fadfce55570da30"><div class="ttname"><a href="a02525.html#abd2c499e2ceda1d22fadfce55570da30">game::state::StorageSystem::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the menu state.</div><div class="ttdef"><b>Definition:</b> <a href="a03487_source.html#l00198">StorageSystem.cpp:198</a></div></div>
+<div class="ttc" id="aa02525_html_ac00cd37b76a57e2ae8144a372c88dc3b"><div class="ttname"><a href="a02525.html#ac00cd37b76a57e2ae8144a372c88dc3b">game::state::StorageSystem::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Initializes the menu and subscribes to event buses.</div><div class="ttdef"><b>Definition:</b> <a href="a03487_source.html#l00142">StorageSystem.cpp:142</a></div></div>
+<div class="ttc" id="aa02525_html_ad25552a856ad3e533573823b443bbc78"><div class="ttname"><a href="a02525.html#ad25552a856ad3e533573823b443bbc78">game::state::StorageSystem::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Unsubscribes from event buses and fires a StorageSystemClosed event.</div><div class="ttdef"><b>Definition:</b> <a href="a03487_source.html#l00189">StorageSystem.cpp:189</a></div></div>
+<div class="ttc" id="aa02525_html_af369086150e904b871a0db48fba729c4"><div class="ttname"><a href="a02525.html#af369086150e904b871a0db48fba729c4">game::state::StorageSystem::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Create a new storage system menu.</div><div class="ttdef"><b>Definition:</b> <a href="a03487_source.html#l00028">StorageSystem.cpp:28</a></div></div>
+<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

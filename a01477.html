@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::MapSwitch Struct Reference</title>
+<title>Peoplemon: core::event::EntityMoved Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01110.html">event</a></li><li class="navelem"><a class="el" href="a01477.html">MapSwitch</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01132.html">event</a></li><li class="navelem"><a class="el" href="a01477.html">EntityMoved</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,34 +75,43 @@ $(function() {
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01474.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::MapSwitch Struct Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01086.html">Events</a></div></div>  </div>
+<div class="title">core::event::EntityMoved Struct Reference<div class="ingroups"><a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01107.html">Events</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired right before a map is entered. Use this event for initializing data structures that depend on map size that need to be initialized before entities are spawned.  
+<p>Fired after an entity begins moving from one position to another.  
  <a href="a01477.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00128_source.html">Maps.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00122_source.html">EntityMoved.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a523e5c5b903e672e08b9fda365be64bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#a523e5c5b903e672e08b9fda365be64bc">MapSwitch</a> (const <a class="el" href="a01781.html">map::Map</a> &amp;<a class="el" href="a01477.html#aad55f26e8decefb28139ad792f768091">map</a>)</td></tr>
-<tr class="memdesc:a523e5c5b903e672e08b9fda365be64bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01477.html" title="Fired right before a map is entered. Use this event for initializing data structures that depend on m...">MapSwitch</a> event.  <a href="a01477.html#a523e5c5b903e672e08b9fda365be64bc">More...</a><br /></td></tr>
-<tr class="separator:a523e5c5b903e672e08b9fda365be64bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#a676b6f5aba893b3b05a9fdd7d3d821cb">EntityMoved</a> (bl::ecs::Entity <a class="el" href="a01477.html#a6bc4cf3380f910db6882963c753d9737">entity</a>, const bl::tmap::Position &amp;oldPos, const bl::tmap::Position &amp;pos, bool <a class="el" href="a01477.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a>=false)</td></tr>
+<tr class="memdesc:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01477.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event.  <a href="a01477.html#a676b6f5aba893b3b05a9fdd7d3d821cb">More...</a><br /></td></tr>
+<tr class="separator:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aad55f26e8decefb28139ad792f768091"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="a01781.html">map::Map</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#aad55f26e8decefb28139ad792f768091">map</a></td></tr>
-<tr class="memdesc:aad55f26e8decefb28139ad792f768091"><td class="mdescLeft">&#160;</td><td class="mdescRight">The map that is going to be entered.  <a href="a01477.html#aad55f26e8decefb28139ad792f768091">More...</a><br /></td></tr>
-<tr class="separator:aad55f26e8decefb28139ad792f768091"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6bc4cf3380f910db6882963c753d9737"><td class="memItemLeft" align="right" valign="top">const bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#a6bc4cf3380f910db6882963c753d9737">entity</a></td></tr>
+<tr class="memdesc:a6bc4cf3380f910db6882963c753d9737"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="a01477.html#a6bc4cf3380f910db6882963c753d9737">More...</a><br /></td></tr>
+<tr class="separator:a6bc4cf3380f910db6882963c753d9737"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a210093d307dd7fec324edbbee4be76c8"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#a210093d307dd7fec324edbbee4be76c8">previousPosition</a></td></tr>
+<tr class="memdesc:a210093d307dd7fec324edbbee4be76c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous position of the entity.  <a href="a01477.html#a210093d307dd7fec324edbbee4be76c8">More...</a><br /></td></tr>
+<tr class="separator:a210093d307dd7fec324edbbee4be76c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4812816633bea3298a323a69b2c53327"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#a4812816633bea3298a323a69b2c53327">position</a></td></tr>
+<tr class="memdesc:a4812816633bea3298a323a69b2c53327"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="a01477.html#a4812816633bea3298a323a69b2c53327">More...</a><br /></td></tr>
+<tr class="separator:a4812816633bea3298a323a69b2c53327"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01477.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a></td></tr>
+<tr class="memdesc:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the entity is running.  <a href="a01477.html#ab7d6aa90c92e672054f09cf32b1dcdb3">More...</a><br /></td></tr>
+<tr class="separator:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired right before a map is entered. Use this event for initializing data structures that depend on map size that need to be initialized before entities are spawned. </p>
+<div class="textblock"><p>Fired after an entity begins moving from one position to another. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00022">22</a> of file <a class="el" href="a00128_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00018">18</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a523e5c5b903e672e08b9fda365be64bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a523e5c5b903e672e08b9fda365be64bc">&#9670;&nbsp;</a></span>MapSwitch()</h2>
+<a id="a676b6f5aba893b3b05a9fdd7d3d821cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a676b6f5aba893b3b05a9fdd7d3d821cb">&#9670;&nbsp;</a></span>EntityMoved()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -111,11 +120,33 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::MapSwitch::MapSwitch </td>
+          <td class="memname">core::event::EntityMoved::EntityMoved </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01781.html">map::Map</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
+          <td class="paramtype">bl::ecs::Entity&#160;</td>
+          <td class="paramname"><em>entity</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
+          <td class="paramname"><em>oldPos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>running</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -125,45 +156,101 @@ Public Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01477.html" title="Fired right before a map is entered. Use this event for initializing data structures that depend on m...">MapSwitch</a> event. </p>
+<p>Construct a new <a class="el" href="a01477.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The map that is going to be entered </td></tr>
+    <tr><td class="paramname">entity</td><td>The entity that moved </td></tr>
+    <tr><td class="paramname">oldPos</td><td>The old position </td></tr>
+    <tr><td class="paramname">pos</td><td>The current position </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00028">28</a> of file <a class="el" href="a00128_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00038">38</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="aad55f26e8decefb28139ad792f768091"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad55f26e8decefb28139ad792f768091">&#9670;&nbsp;</a></span>map</h2>
+<a id="a6bc4cf3380f910db6882963c753d9737"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6bc4cf3380f910db6882963c753d9737">&#9670;&nbsp;</a></span>entity</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const <a class="el" href="a01781.html">map::Map</a>&amp; core::event::MapSwitch::map</td>
+          <td class="memname">const bl::ecs::Entity core::event::EntityMoved::entity</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The map that is going to be entered. </p>
+<p>The entity that moved. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00128_source.html#l00032">32</a> of file <a class="el" href="a00128_source.html">Maps.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00020">20</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a4812816633bea3298a323a69b2c53327"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4812816633bea3298a323a69b2c53327">&#9670;&nbsp;</a></span>position</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bl::tmap::Position&amp; core::event::EntityMoved::position</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The current position of the entity. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00026">26</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a210093d307dd7fec324edbbee4be76c8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a210093d307dd7fec324edbbee4be76c8">&#9670;&nbsp;</a></span>previousPosition</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bl::tmap::Position core::event::EntityMoved::previousPosition</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>The previous position of the entity. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00023">23</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+
+</div>
+</div>
+<a id="ab7d6aa90c92e672054f09cf32b1dcdb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab7d6aa90c92e672054f09cf32b1dcdb3">&#9670;&nbsp;</a></span>running</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const bool core::event::EntityMoved::running</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether or not the entity is running. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00029">29</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00128_source.html">Maps.hpp</a></li>
+<li>include/Core/Events/<a class="el" href="a00122_source.html">EntityMoved.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

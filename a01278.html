@@ -66,35 +66,50 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01104.html">battle</a></li><li class="navelem"><a class="el" href="a01281.html">BattleState</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01126.html">battle</a></li><li class="navelem"><a class="el" href="a01281.html">AIController</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::battle::BattleState Member List</div>  </div>
+<div class="title">core::battle::AIController Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a01281.html">core::battle::BattleState</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a01281.html">core::battle::AIController</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#aca4eb6909792f199f4754dcbe872fe14">activeBattler</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#acce32a661d855ca745587474382d170b">BattleState</a>(Stage initialState)</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#aa38af1b91d17c0bb3c9a690330d83551">beginRound</a>(bool playerIsFirst)</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#a755c2b68d137622d05b41843e668fb3d">currentStage</a>() const</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#a7b2b61763766419e4be1fd554e34220c">enemy</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#a75e520d8c38d09031af897b32b151140">hostBattler</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#a65bda183a7b2cd28c7a2de11c388f8e7">inactiveBattler</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#abc1d96dbcc5852ecb401e3429d894c38">isFirstMover</a>() const</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#adb5782eb7e43088b812a13b2f3fa5d01">localPlayer</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#ade3b128fe1899b9df2d4ab0f3629df45">nextTurn</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#af4785ccd761ddd7f68820f7e0a2e7797">nonHostBattler</a>()</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a01281.html#a9a8f4017927ab9cfe1d16045635202bc">setStage</a>(Stage stage)</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a01281.html#ae57ad5ba635dfeb78ac751c91a1070e8">Stage</a> enum name</td><td class="entry"><a class="el" href="a01281.html">core::battle::BattleState</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a808605c9858744ae6be2848244c27f3b">actionSelected</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01281.html#a03a7b9e6603ed7fb72b7e7de752f8ba4">AIController</a>(pplmn::Id wildId)</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01281.html#a45ea655cdf67ef8e4b0a530240bcb831">AIController</a>(const std::string &amp;trainerName, const std::vector&lt; item::Id &gt; &amp;items)</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#ae883bb934c63e251765131e87f569cd4">BattlerController</a>()</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a7bc43a137d4d03b1751dc8c9ce701e7b">chooseGiveUp</a>(bool yes)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#ac820b93d846f7e391de716dee326e861">chooseItem</a>(std::uint8_t pplIndex, core::item::Id item)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a8236091b722e7e449b78bdc5a831edba">chooseMove</a>(int move)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#a938aaca275d1a8129f57f533c30c2226">choosePeoplemon</a>(std::uint8_t i)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#ad794ddae47cbc1dc87e17de56edc0270">chooseRun</a>()</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#adea0f6c53431e16b73dfa1b8152e659b">chooseToContinue</a>()</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a415ebfc872aa9b15da5fee4c989096dd">chosenAction</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#ae87d1d0b805840d6f73f043aa3c07953">chosenItem</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a19d41a19506b3788829a00374a1e8b28">chosenMove</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#abf60a47aa1ae05eb04eafb8f0345557c">chosenPeoplemon</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#ab2ed2ebbee075f35ec07d72d9ac4c18e">dontGiveUp</a></td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01281.html#a7cd12e0043db7e5212754cdebdd44679">isHost</a>() const override</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a65434ef8e3c2c92c02e1cfac6ae3ea20">move</a></td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01281.html#a4a21049986c4ff4b0dfa93fff01344e2">name</a>() const override</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a57118c2627b0d8560cbb3dbdd615f3a3">owner</a></td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#a453b7bba08d4a09a7241913a11cbe6f8">pickAction</a>()</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#af255efbb68bb847af0784c8cf8c0f371">pickPeoplemon</a>(bool fromFaint, bool reviveOnly)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01281.html#a052a0e7c0b37fc01b74513ec09b96c68">refresh</a>() override</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01281.html#a51bc3eaec6909209e752f8af50745149">removeItem</a>(item::Id item) override</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#a3d6f7ef329b25be64576ed289ab8c08c">setOwner</a>(Battler &amp;owner)</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01285.html#a18e5d5e2ea0802132c3bc47dd38d442d">shouldContinue</a>() const</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#ae1191e1c0bfd0bf20b53fe5c0e67bb1f">useItem</a></td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a01281.html#a03114ab9f6fa28e3520496f3265d55b1">~AIController</a>()=default</td><td class="entry"><a class="el" href="a01281.html">core::battle::AIController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a01285.html#a4a5b1df85837330f19d8be14246c5c73">~BattlerController</a>()=default</td><td class="entry"><a class="el" href="a01285.html">core::battle::BattlerController</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

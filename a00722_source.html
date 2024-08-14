@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Sandstorm.hpp Source File</title>
+<title>Peoplemon: src/Core/Maps/Weather/Fog.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,83 +71,78 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Sandstorm.hpp</div>  </div>
+<div class="title">Fog.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_SANDSTORM_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_SANDSTORM_HPP</span></div>
+<a href="a00722.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_FOG_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_FOG_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00704.html">Base.hpp</a>&quot;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00716.html">Base.hpp</a>&quot;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Particles.hpp&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>map</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>weather</div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>sandstorm</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keyword">namespace </span>fog</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;{</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span><a class="code" href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">Sand</a>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">struct </span><a class="code" href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">Swirl</a>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace sandstorm</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02597.html">   26</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02597.html">Sandstorm</a> : <span class="keyword">public</span> <a class="code" href="a02473.html">Base</a> {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a02597.html#a2dd614987eab30634c1583fea2b3ce78">Sandstorm</a>();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02597.html#a34ce4ca40ef37db01cf6345afd8f7ec3">~Sandstorm</a>();</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02597.html#a6137cabe409261ebd68b3de8ff975d30">type</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a91a3979cb4d89974ee985e9b56455f5f">start</a>(bl::engine::Engine&amp; engine, <a class="code" href="a01781.html">Map</a>&amp; map) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a2ed89923f6145684440ad67d94ddfa50">stop</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02597.html#a07ac834a6cc7ba446edd52f27ebe35c3">stopped</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02597.html#a12ffb97e3a097d0ebb79499ef5c33fa1">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    bl::engine::Engine* engine;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    bl::rc::res::TextureRef sandTxtr;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    bl::rc::res::TextureRef swirlTxtr;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    bl::pcl::ParticleManager&lt;sandstorm::Sand&gt;* sand;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    bl::pcl::ParticleManager&lt;sandstorm::Swirl&gt;* swirls;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> targetAlpha;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordtype">float</span> alpha;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">void</span> setAlpha();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;};</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">struct </span><a class="code" href="a01130.html#a91b84bcc70c9b02f8837581d9537246f">Particle</a>;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02577.html">   25</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02577.html">Fog</a> : <span class="keyword">public</span> <a class="code" href="a02541.html">Base</a> {</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="a02577.html#a363198746b5701dbe3c60af35fdd3172">Fog</a>(<span class="keywordtype">bool</span> thick);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02577.html#acfd7cf5482027d01b6c5118c62c0d8b4">~Fog</a>();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02577.html#a34546f007d7e10480e6fd5c6c5a0feca">type</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02577.html#a7abd9a562f88072b0dad94548f34da03">start</a>(bl::engine::Engine&amp; engine, bl::rc::RenderTarget&amp; renderTarget,</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                       <a class="code" href="a01805.html">Map</a>&amp; map) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02577.html#a006dd0233fbf667a52ac42f5b133a90c">stop</a>() <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02577.html#aae75145834c972195d18ed804a929540">stopped</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02577.html#a3dc1077da6f77b13781e3969a04f6868">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    bl::engine::Engine* engine;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> maxOpacity;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> targetOpacity;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    bl::rc::res::TextureRef fogTxtr;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    bl::pcl::ParticleManager&lt;fog::Particle&gt;* particles;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;};</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">Base.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01108_html_a923cf8da7c5d618e47d0cb6de16f813e"><div class="ttname"><a href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">bl::pcl::Swirl</a></div><div class="ttdeci">core::map::weather::sandstorm::Swirl Swirl</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00073">Sandstorm.cpp:73</a></div></div>
-<div class="ttc" id="aa01108_html_ad6d56c8b6ae3bbaa1fc5f6ade882484e"><div class="ttname"><a href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">bl::pcl::Sand</a></div><div class="ttdeci">core::map::weather::sandstorm::Sand Sand</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00072">Sandstorm.cpp:72</a></div></div>
-<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03265_source.html#l00049">Map.hpp:49</a></div></div>
-<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00038">Weather.hpp:38</a></div></div>
-<div class="ttc" id="aa02473_html"><div class="ttname"><a href="a02473.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00028">Base.hpp:28</a></div></div>
-<div class="ttc" id="aa02597_html"><div class="ttname"><a href="a02597.html">core::map::weather::Sandstorm</a></div><div class="ttdoc">Creates sandstorms.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00026">Sandstorm.hpp:26</a></div></div>
-<div class="ttc" id="aa02597_html_a07ac834a6cc7ba446edd52f27ebe35c3"><div class="ttname"><a href="a02597.html#a07ac834a6cc7ba446edd52f27ebe35c3">core::map::weather::Sandstorm::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true if the sandstorm is fully stopped, false if stopping.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00348">Sandstorm.cpp:348</a></div></div>
-<div class="ttc" id="aa02597_html_a12ffb97e3a097d0ebb79499ef5c33fa1"><div class="ttname"><a href="a02597.html#a12ffb97e3a097d0ebb79499ef5c33fa1">core::map::weather::Sandstorm::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00390">Sandstorm.cpp:390</a></div></div>
-<div class="ttc" id="aa02597_html_a2dd614987eab30634c1583fea2b3ce78"><div class="ttname"><a href="a02597.html#a2dd614987eab30634c1583fea2b3ce78">core::map::weather::Sandstorm::Sandstorm</a></div><div class="ttdeci">Sandstorm()</div><div class="ttdoc">Creates the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00333">Sandstorm.cpp:333</a></div></div>
-<div class="ttc" id="aa02597_html_a2ed89923f6145684440ad67d94ddfa50"><div class="ttname"><a href="a02597.html#a2ed89923f6145684440ad67d94ddfa50">core::map::weather::Sandstorm::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00346">Sandstorm.cpp:346</a></div></div>
-<div class="ttc" id="aa02597_html_a34ce4ca40ef37db01cf6345afd8f7ec3"><div class="ttname"><a href="a02597.html#a34ce4ca40ef37db01cf6345afd8f7ec3">core::map::weather::Sandstorm::~Sandstorm</a></div><div class="ttdeci">virtual ~Sandstorm()</div><div class="ttdoc">Destroy the Sandstorm object.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00337">Sandstorm.cpp:337</a></div></div>
-<div class="ttc" id="aa02597_html_a6137cabe409261ebd68b3de8ff975d30"><div class="ttname"><a href="a02597.html#a6137cabe409261ebd68b3de8ff975d30">core::map::weather::Sandstorm::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns Sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00344">Sandstorm.cpp:344</a></div></div>
-<div class="ttc" id="aa02597_html_a91a3979cb4d89974ee985e9b56455f5f"><div class="ttname"><a href="a02597.html#a91a3979cb4d89974ee985e9b56455f5f">core::map::weather::Sandstorm::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Starts the sandstorm.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00350">Sandstorm.cpp:350</a></div></div>
+<div class="ttc" id="aa00716_html"><div class="ttname"><a href="a00716.html">Base.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01130_html_a91b84bcc70c9b02f8837581d9537246f"><div class="ttname"><a href="a01130.html#a91b84bcc70c9b02f8837581d9537246f">bl::pcl::Particle</a></div><div class="ttdeci">core::map::weather::fog::Particle Particle</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00077">Fog.cpp:77</a></div></div>
+<div class="ttc" id="aa01805_html"><div class="ttname"><a href="a01805.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03352_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01857_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03337_source.html#l00038">Weather.hpp:38</a></div></div>
+<div class="ttc" id="aa02541_html"><div class="ttname"><a href="a02541.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00028">Base.hpp:28</a></div></div>
+<div class="ttc" id="aa02577_html"><div class="ttname"><a href="a02577.html">core::map::weather::Fog</a></div><div class="ttdoc">Weather type for thin or thick fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00722_source.html#l00025">Fog.hpp:25</a></div></div>
+<div class="ttc" id="aa02577_html_a006dd0233fbf667a52ac42f5b133a90c"><div class="ttname"><a href="a02577.html#a006dd0233fbf667a52ac42f5b133a90c">core::map::weather::Fog::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stops the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00275">Fog.cpp:275</a></div></div>
+<div class="ttc" id="aa02577_html_a34546f007d7e10480e6fd5c6c5a0feca"><div class="ttname"><a href="a02577.html#a34546f007d7e10480e6fd5c6c5a0feca">core::map::weather::Fog::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">Returns ThinFog or ThickFog.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00248">Fog.cpp:248</a></div></div>
+<div class="ttc" id="aa02577_html_a363198746b5701dbe3c60af35fdd3172"><div class="ttname"><a href="a02577.html#a363198746b5701dbe3c60af35fdd3172">core::map::weather::Fog::Fog</a></div><div class="ttdeci">Fog(bool thick)</div><div class="ttdoc">Creates foggy weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00237">Fog.cpp:237</a></div></div>
+<div class="ttc" id="aa02577_html_a3dc1077da6f77b13781e3969a04f6868"><div class="ttname"><a href="a02577.html#a3dc1077da6f77b13781e3969a04f6868">core::map::weather::Fog::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00281">Fog.cpp:281</a></div></div>
+<div class="ttc" id="aa02577_html_a7abd9a562f88072b0dad94548f34da03"><div class="ttname"><a href="a02577.html#a7abd9a562f88072b0dad94548f34da03">core::map::weather::Fog::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, bl::rc::RenderTarget &amp;renderTarget, Map &amp;map) override</div><div class="ttdoc">Starts the fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00252">Fog.cpp:252</a></div></div>
+<div class="ttc" id="aa02577_html_aae75145834c972195d18ed804a929540"><div class="ttname"><a href="a02577.html#aae75145834c972195d18ed804a929540">core::map::weather::Fog::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when the fog is fully dissipated, false if not.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00277">Fog.cpp:277</a></div></div>
+<div class="ttc" id="aa02577_html_acfd7cf5482027d01b6c5118c62c0d8b4"><div class="ttname"><a href="a02577.html#acfd7cf5482027d01b6c5118c62c0d8b4">core::map::weather::Fog::~Fog</a></div><div class="ttdeci">virtual ~Fog()</div><div class="ttdoc">No more fog.</div><div class="ttdef"><b>Definition:</b> <a href="a00719_source.html#l00244">Fog.cpp:244</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

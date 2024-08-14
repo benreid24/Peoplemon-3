@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Game/Menus/PeopledexRow.hpp Source File</title>
+<title>Peoplemon: include/Editor/Pages/VariousEditors.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,88 +66,74 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_3ec18ca5bc15574d5d690a68ca8e7a1e.html">Menus</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_9879a2d9fc75d55adf27ec2dfa65cb52.html">Editor</a></li><li class="navelem"><a class="el" href="dir_1ffc1464f269e3d65e90325dbd429524.html">Pages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PeopledexRow.hpp</div>  </div>
+<div class="title">VariousEditors.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00500.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_MENUS_PEOPLEDEXROW_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_MENUS_PEOPLEDEXROW_HPP</span></div>
+<a href="a00500.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_PAGES_VARIOUSEDITORS_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_PAGES_VARIOUSEDITORS_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03295.html">Core/Player/Peopledex.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a02341.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02341.html">PeopledexRow</a> : <span class="keyword">public</span> bl::menu::Item {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">   21</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a> = std::shared_ptr&lt;PeopledexRow&gt;;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keyword">static</span> <a class="code" href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a> <a class="code" href="a02341.html#a8eaaf17144df9e3488557c6b2f6173b8">create</a>(<a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01921.html">core::player::Peopledex</a>&amp; dex);</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a02341.html#ab942471c339e9d8ac7f36aea0290c0fe">   36</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02341.html#ab942471c339e9d8ac7f36aea0290c0fe">~PeopledexRow</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">virtual</span> glm::vec2 <a class="code" href="a02341.html#a51a273191035498752f7109766591ded">getSize</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="keyword">protected</span>:</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02341.html#a45fcd7ec3571460c32cf7d2464b28e5b">doCreate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02341.html#a96f33d517b0758e41d9c6daa5b8dc38a">doSceneAdd</a>(bl::rc::Scene* overlay) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02341.html#a06e46989a112de09f80bec6b78d35d86">doSceneRemove</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> bl::ecs::Entity <a class="code" href="a02341.html#a6848c01f11679c6ecd5b615b129a3f68">getEntity</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02341.html#aca99c397bb79d73cfd2d38e32d29a42a">draw</a>(bl::rc::scene::CodeScene::RenderContext&amp; ctx) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl;</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01921.html">core::player::Peopledex</a>&amp; dex;</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    bl::rc::res::TextureRef bgndTxtr;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    bl::rc::res::TextureRef activeBgndTxtr;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    bl::gfx::Sprite background;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::rc::res::TextureRef ballTxtr;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    bl::gfx::Sprite ball;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    bl::gfx::Text id;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    bl::gfx::Text name;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="a02341.html">PeopledexRow</a>(<a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01921.html">core::player::Peopledex</a>&amp; dex);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keywordtype">void</span> makeActive();</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">void</span> makeInactive();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01091_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03256_source.html#l00016">Id.hpp:16</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01921_html"><div class="ttname"><a href="a01921.html">core::player::Peopledex</a></div><div class="ttdoc">Maintains the information required to populate the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a03295_source.html#l00024">Peopledex.hpp:24</a></div></div>
-<div class="ttc" id="aa02341_html"><div class="ttname"><a href="a02341.html">game::menu::PeopledexRow</a></div><div class="ttdoc">Item row for peoplemon in the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00018">PeopledexRow.hpp:18</a></div></div>
-<div class="ttc" id="aa02341_html_a06e46989a112de09f80bec6b78d35d86"><div class="ttname"><a href="a02341.html#a06e46989a112de09f80bec6b78d35d86">game::menu::PeopledexRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00084">PeopledexRow.cpp:84</a></div></div>
-<div class="ttc" id="aa02341_html_a45fcd7ec3571460c32cf7d2464b28e5b"><div class="ttname"><a href="a02341.html#a45fcd7ec3571460c32cf7d2464b28e5b">game::menu::PeopledexRow::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00033">PeopledexRow.cpp:33</a></div></div>
-<div class="ttc" id="aa02341_html_a51a273191035498752f7109766591ded"><div class="ttname"><a href="a02341.html#a51a273191035498752f7109766591ded">game::menu::PeopledexRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size that the row takes up.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00031">PeopledexRow.cpp:31</a></div></div>
-<div class="ttc" id="aa02341_html_a6848c01f11679c6ecd5b615b129a3f68"><div class="ttname"><a href="a02341.html#a6848c01f11679c6ecd5b615b129a3f68">game::menu::PeopledexRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00086">PeopledexRow.cpp:86</a></div></div>
-<div class="ttc" id="aa02341_html_a8eaaf17144df9e3488557c6b2f6173b8"><div class="ttname"><a href="a02341.html#a8eaaf17144df9e3488557c6b2f6173b8">game::menu::PeopledexRow::create</a></div><div class="ttdeci">static Ptr create(core::pplmn::Id ppl, const core::player::Peopledex &amp;dex)</div><div class="ttdoc">Create a new peopledex row.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00020">PeopledexRow.cpp:20</a></div></div>
-<div class="ttc" id="aa02341_html_a96f33d517b0758e41d9c6daa5b8dc38a"><div class="ttname"><a href="a02341.html#a96f33d517b0758e41d9c6daa5b8dc38a">game::menu::PeopledexRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Scene *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00075">PeopledexRow.cpp:75</a></div></div>
-<div class="ttc" id="aa02341_html_a9cc62017bf50878eb68b4934c453f3b8"><div class="ttname"><a href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">game::menu::PeopledexRow::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; PeopledexRow &gt; Ptr</div><div class="ttdoc">Pointer to the row item.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00021">PeopledexRow.hpp:21</a></div></div>
-<div class="ttc" id="aa02341_html_ab942471c339e9d8ac7f36aea0290c0fe"><div class="ttname"><a href="a02341.html#ab942471c339e9d8ac7f36aea0290c0fe">game::menu::PeopledexRow::~PeopledexRow</a></div><div class="ttdeci">virtual ~PeopledexRow()=default</div><div class="ttdoc">Destroy the Peopledex Row object.</div></div>
-<div class="ttc" id="aa02341_html_aca99c397bb79d73cfd2d38e32d29a42a"><div class="ttname"><a href="a02341.html#aca99c397bb79d73cfd2d38e32d29a42a">game::menu::PeopledexRow::draw</a></div><div class="ttdeci">virtual void draw(bl::rc::scene::CodeScene::RenderContext &amp;ctx) override</div><div class="ttdoc">Renders the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00092">PeopledexRow.cpp:92</a></div></div>
-<div class="ttc" id="aa03295_html"><div class="ttname"><a href="a03295.html">Peopledex.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/GUI.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00383.html">Editor/Components/ConversationWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00419.html">Editor/Components/NPCEditorWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00431.html">Editor/Components/PlaylistEditorWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00452.html">Editor/Components/TrainerEditorWindow.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00473.html">Editor/Pages/Page.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01139.html">editor</a></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>page</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02393.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02393.html">VariousEditors</a> : <span class="keyword">public</span> <a class="code" href="a02329.html">Page</a> {</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <a class="code" href="a02393.html#ac11498856ab7be2deef9f27fd9df8bda">VariousEditors</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02393.html#aa8e5eb71e517b46d277e7795e3020675">   34</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02393.html#aa8e5eb71e517b46d277e7795e3020675">~VariousEditors</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02393.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <a class="code" href="a02173.html">component::ConversationWindow</a> conversationEditor;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a02245.html">component::NpcEditorWindow</a> npcEditor;</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <a class="code" href="a02293.html">component::TrainerEditorWindow</a> trainerEditor;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <a class="code" href="a02261.html">component::PlaylistEditorWindow</a> playlistEditor;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordtype">void</span> openConvEditor();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordtype">void</span> openNpcEditor();</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordtype">void</span> openTrainerEditor();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> openPlaylistEditor();</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;} <span class="comment">// namespace page</span></div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00383_html"><div class="ttname"><a href="a00383.html">ConversationWindow.hpp</a></div></div>
+<div class="ttc" id="aa00419_html"><div class="ttname"><a href="a00419.html">NPCEditorWindow.hpp</a></div></div>
+<div class="ttc" id="aa00431_html"><div class="ttname"><a href="a00431.html">PlaylistEditorWindow.hpp</a></div></div>
+<div class="ttc" id="aa00452_html"><div class="ttname"><a href="a00452.html">TrainerEditorWindow.hpp</a></div></div>
+<div class="ttc" id="aa00473_html"><div class="ttname"><a href="a00473.html">Page.hpp</a></div></div>
+<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00010">Tile.hpp:11</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02173_html"><div class="ttname"><a href="a02173.html">editor::component::ConversationWindow</a></div><div class="ttdoc">A window for choosing and editing conversations.</div><div class="ttdef"><b>Definition:</b> <a href="a00383_source.html#l00018">ConversationWindow.hpp:18</a></div></div>
+<div class="ttc" id="aa02245_html"><div class="ttname"><a href="a02245.html">editor::component::NpcEditorWindow</a></div><div class="ttdoc">Editor for NPC files.</div><div class="ttdef"><b>Definition:</b> <a href="a00419_source.html#l00020">NPCEditorWindow.hpp:20</a></div></div>
+<div class="ttc" id="aa02261_html"><div class="ttname"><a href="a02261.html">editor::component::PlaylistEditorWindow</a></div><div class="ttdoc">The playlist editor and chooser.</div><div class="ttdef"><b>Definition:</b> <a href="a00431_source.html#l00016">PlaylistEditorWindow.hpp:16</a></div></div>
+<div class="ttc" id="aa02293_html"><div class="ttname"><a href="a02293.html">editor::component::TrainerEditorWindow</a></div><div class="ttdoc">Editor for NPC files.</div><div class="ttdef"><b>Definition:</b> <a href="a00452_source.html#l00023">TrainerEditorWindow.hpp:23</a></div></div>
+<div class="ttc" id="aa02329_html"><div class="ttname"><a href="a02329.html">editor::page::Page</a></div><div class="ttdoc">Base class for all editor pages.</div><div class="ttdef"><b>Definition:</b> <a href="a00473_source.html#l00032">Page.hpp:32</a></div></div>
+<div class="ttc" id="aa02329_html_af7278d27f56dbefc4a2843d9541a92cc"><div class="ttname"><a href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">editor::page::Page::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a00473_source.html#l00068">Page.hpp:68</a></div></div>
+<div class="ttc" id="aa02393_html"><div class="ttname"><a href="a02393.html">editor::page::VariousEditors</a></div><div class="ttdoc">Page for opening various editor windows outside the map editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00021">VariousEditors.hpp:21</a></div></div>
+<div class="ttc" id="aa02393_html_a955aae06b1bd2c8e6e7a1f2ad9c9917a"><div class="ttname"><a href="a02393.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">editor::page::VariousEditors::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00046">VariousEditors.cpp:46</a></div></div>
+<div class="ttc" id="aa02393_html_aa8e5eb71e517b46d277e7795e3020675"><div class="ttname"><a href="a02393.html#aa8e5eb71e517b46d277e7795e3020675">editor::page::VariousEditors::~VariousEditors</a></div><div class="ttdeci">virtual ~VariousEditors()=default</div><div class="ttdoc">Destroy the Page.</div></div>
+<div class="ttc" id="aa02393_html_ac11498856ab7be2deef9f27fd9df8bda"><div class="ttname"><a href="a02393.html#ac11498856ab7be2deef9f27fd9df8bda">editor::page::VariousEditors::VariousEditors</a></div><div class="ttdeci">VariousEditors(core::system::Systems &amp;systems)</div><div class="ttdoc">Construct a new VariousEditors tab.</div><div class="ttdef"><b>Definition:</b> <a href="a01016_source.html#l00014">VariousEditors.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

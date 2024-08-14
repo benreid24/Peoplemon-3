@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::page::GameTesting Class Reference</title>
+<title>Peoplemon: editor::component::ScriptSelector Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,109 +66,101 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01120.html">editor</a></li><li class="navelem"><a class="el" href="a01127.html">page</a></li><li class="navelem"><a class="el" href="a02285.html">GameTesting</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01140.html">component</a></li><li class="navelem"><a class="el" href="a02285.html">ScriptSelector</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02282.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::GameTesting Class Reference<div class="ingroups"><a class="el" href="a01083.html">Editor</a> &raquo; <a class="el" href="a01097.html">Pages</a></div></div>  </div>
+<div class="title">editor::component::ScriptSelector Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Subpage in the map editor for creating and testing game saves.  
+<p>GUI component for selecting or writing scripts. Performs syntax validation as well.  
  <a href="a02285.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00470_source.html">GameTesting.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00446_source.html">ScriptSelector.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a7e8086d3c3717968151b80ce0144eb4b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> = std::function&lt; void(const std::string &amp;)&gt;</td></tr>
+<tr class="memdesc:a7e8086d3c3717968151b80ce0144eb4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback type for when a script is chosen.  <a href="a02285.html#a7e8086d3c3717968151b80ce0144eb4b">More...</a><br /></td></tr>
+<tr class="separator:a7e8086d3c3717968151b80ce0144eb4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4755d42efaec91a7a4a5c7653d211e13"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> = std::function&lt; void()&gt;</td></tr>
+<tr class="memdesc:a4755d42efaec91a7a4a5c7653d211e13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the window is closed without a selection.  <a href="a02285.html#a4755d42efaec91a7a4a5c7653d211e13">More...</a><br /></td></tr>
+<tr class="separator:a4755d42efaec91a7a4a5c7653d211e13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a725db21870dfcb4ce5e7c792bc12a6f0">GameTesting</a> ()</td></tr>
-<tr class="memdesc:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Testing page.  <a href="a02285.html#a725db21870dfcb4ce5e7c792bc12a6f0">More...</a><br /></td></tr>
-<tr class="separator:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a9b96d16d1e2cfc9e9822a4a335fab990">registerGUI</a> (bl::gui::GUI *gui)</td></tr>
-<tr class="memdesc:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the primary GUI object.  <a href="a02285.html#a9b96d16d1e2cfc9e9822a4a335fab990">More...</a><br /></td></tr>
-<tr class="separator:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a3c72be7f4a00c84d25f4edebf6d41d43">notifyClick</a> (const std::string &amp;map, unsigned int level, const sf::Vector2i &amp;pos)</td></tr>
-<tr class="memdesc:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies of the spawn being set.  <a href="a02285.html#a3c72be7f4a00c84d25f4edebf6d41d43">More...</a><br /></td></tr>
-<tr class="separator:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8fc8cab441ff6c68a4f192bd1e289856"><td class="memItemLeft" align="right" valign="top">const bl::gui::Box::Ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a8fc8cab441ff6c68a4f192bd1e289856">getContent</a> () const</td></tr>
-<tr class="memdesc:a8fc8cab441ff6c68a4f192bd1e289856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to pack.  <a href="a02285.html#a8fc8cab441ff6c68a4f192bd1e289856">More...</a><br /></td></tr>
-<tr class="separator:a8fc8cab441ff6c68a4f192bd1e289856"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#ad64e7e6d573d5dc8040baf5a241bf48e">ScriptSelector</a> (const <a class="el" href="a02285.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> &amp;onSelect, const <a class="el" href="a02285.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> &amp;onCancel)</td></tr>
+<tr class="memdesc:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Script Selector dialog.  <a href="a02285.html#ad64e7e6d573d5dc8040baf5a241bf48e">More...</a><br /></td></tr>
+<tr class="separator:ad64e7e6d573d5dc8040baf5a241bf48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5b9e7c830dc209077a26280bbe8b68a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02285.html#a5b9e7c830dc209077a26280bbe8b68a9">open</a> (bl::gui::GUI *parent, const std::string &amp;value={})</td></tr>
+<tr class="memdesc:a5b9e7c830dc209077a26280bbe8b68a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the dialog to select a script.  <a href="a02285.html#a5b9e7c830dc209077a26280bbe8b68a9">More...</a><br /></td></tr>
+<tr class="separator:a5b9e7c830dc209077a26280bbe8b68a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Subpage in the map editor for creating and testing game saves. </p>
+<div class="textblock"><p>GUI component for selecting or writing scripts. Performs syntax validation as well. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00470_source.html#l00019">19</a> of file <a class="el" href="a00470_source.html">GameTesting.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a725db21870dfcb4ce5e7c792bc12a6f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a725db21870dfcb4ce5e7c792bc12a6f0">&#9670;&nbsp;</a></span>GameTesting()</h2>
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00017">17</a> of file <a class="el" href="a00446_source.html">ScriptSelector.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a4755d42efaec91a7a4a5c7653d211e13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4755d42efaec91a7a4a5c7653d211e13">&#9670;&nbsp;</a></span>OnCancel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::page::GameTesting::GameTesting </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
+          <td class="memname">using <a class="el" href="a02285.html#a4755d42efaec91a7a4a5c7653d211e13">editor::component::ScriptSelector::OnCancel</a> =  std::function&lt;void()&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Game Testing page. </p>
+<p>Called when the window is closed without a selection. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00977_source.html#l00009">9</a> of file <a class="el" href="a00977_source.html">GameTesting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00023">23</a> of file <a class="el" href="a00446_source.html">ScriptSelector.hpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8fc8cab441ff6c68a4f192bd1e289856"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8fc8cab441ff6c68a4f192bd1e289856">&#9670;&nbsp;</a></span>getContent()</h2>
+<a id="a7e8086d3c3717968151b80ce0144eb4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e8086d3c3717968151b80ce0144eb4b">&#9670;&nbsp;</a></span>OnSelect</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const Box::Ptr &amp; editor::page::GameTesting::getContent </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="memname">using <a class="el" href="a02285.html#a7e8086d3c3717968151b80ce0144eb4b">editor::component::ScriptSelector::OnSelect</a> =  std::function&lt;void(const std::string&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Returns the content to pack. </p>
+<p>Callback type for when a script is chosen. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00977_source.html#l00075">75</a> of file <a class="el" href="a00977_source.html">GameTesting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00446_source.html#l00020">20</a> of file <a class="el" href="a00446_source.html">ScriptSelector.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a3c72be7f4a00c84d25f4edebf6d41d43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c72be7f4a00c84d25f4edebf6d41d43">&#9670;&nbsp;</a></span>notifyClick()</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ad64e7e6d573d5dc8040baf5a241bf48e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad64e7e6d573d5dc8040baf5a241bf48e">&#9670;&nbsp;</a></span>ScriptSelector()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::GameTesting::notifyClick </td>
+          <td class="memname">editor::component::ScriptSelector::ScriptSelector </td>
           <td>(</td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>map</em>, </td>
+          <td class="paramtype">const <a class="el" href="a02285.html#a7e8086d3c3717968151b80ce0144eb4b">OnSelect</a> &amp;&#160;</td>
+          <td class="paramname"><em>onSelect</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">unsigned int&#160;</td>
-          <td class="paramname"><em>level</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
+          <td class="paramtype">const <a class="el" href="a02285.html#a4755d42efaec91a7a4a5c7653d211e13">OnCancel</a> &amp;&#160;</td>
+          <td class="paramname"><em>onCancel</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -178,51 +170,68 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Notifies of the spawn being set. </p>
+<p>Construct a new Script Selector dialog. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The name of the map to spawn into </td></tr>
-    <tr><td class="paramname">level</td><td>The level to spawn on </td></tr>
-    <tr><td class="paramname">pos</td><td>The position to spawn at </td></tr>
+    <tr><td class="paramname">onSelect</td><td>Callback to call when a script is chosen </td></tr>
+    <tr><td class="paramname">onCancel</td><td>Called when the window is closed without a selection </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00977_source.html#l00086">86</a> of file <a class="el" href="a00977_source.html">GameTesting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00012">12</a> of file <a class="el" href="a00965_source.html">ScriptSelector.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a9b96d16d1e2cfc9e9822a4a335fab990"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b96d16d1e2cfc9e9822a4a335fab990">&#9670;&nbsp;</a></span>registerGUI()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a5b9e7c830dc209077a26280bbe8b68a9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b9e7c830dc209077a26280bbe8b68a9">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::GameTesting::registerGUI </td>
+          <td class="memname">void editor::component::ScriptSelector::open </td>
           <td>(</td>
           <td class="paramtype">bl::gui::GUI *&#160;</td>
-          <td class="paramname"><em>gui</em></td><td>)</td>
+          <td class="paramname"><em>parent</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>value</em> = <code>{}</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Sets the primary GUI object. </p>
+<p>Opens the dialog to select a script. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">parent</td><td>The parent to add the GUI elements to </td></tr>
+    <tr><td class="paramname">value</td><td>The default script value to fill </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00977_source.html#l00073">73</a> of file <a class="el" href="a00977_source.html">GameTesting.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00965_source.html#l00059">59</a> of file <a class="el" href="a00965_source.html">ScriptSelector.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Pages/Subpages/<a class="el" href="a00470_source.html">GameTesting.hpp</a></li>
-<li>src/Editor/Pages/Subpages/<a class="el" href="a00977_source.html">GameTesting.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00446_source.html">ScriptSelector.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00965_source.html">ScriptSelector.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

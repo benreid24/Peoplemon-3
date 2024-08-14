@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::LoadGame Class Reference</title>
+<title>Peoplemon: game::menu::PeopledexRow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,99 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01129.html">game</a></li><li class="navelem"><a class="el" href="a01131.html">state</a></li><li class="navelem"><a class="el" href="a02409.html">LoadGame</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01154.html">menu</a></li><li class="navelem"><a class="el" href="a02409.html">PeopledexRow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02406.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::LoadGame Class Reference<div class="ingroups"><a class="el" href="a01083.html">Editor</a> &#124; <a class="el" href="a01084.html">Game</a> &raquo; <a class="el" href="a01098.html">States</a></div></div>  </div>
+<div class="title">game::menu::PeopledexRow Class Reference<div class="ingroups"><a class="el" href="a01105.html">Game</a> &raquo; <a class="el" href="a01121.html">Menus</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Provides a menu to select a save and loads the selected save.  
+<p>Item row for peoplemon in the peopledex.  
  <a href="a02409.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00527_source.html">LoadGame.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00512_source.html">PeopledexRow.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::LoadGame:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::menu::PeopledexRow:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02409.png" usemap="#game::state::LoadGame_map" alt=""/>
-  <map id="game::state::LoadGame_map" name="game::state::LoadGame_map">
-<area href="a02453.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,140,80"/>
-  </map>
-</div></div>
+  <img src="a02409.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a9cc62017bf50878eb68b4934c453f3b8"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02409.html">PeopledexRow</a> &gt;</td></tr>
+<tr class="memdesc:a9cc62017bf50878eb68b4934c453f3b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pointer to the row item.  <a href="a02409.html#a9cc62017bf50878eb68b4934c453f3b8">More...</a><br /></td></tr>
+<tr class="separator:a9cc62017bf50878eb68b4934c453f3b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a94655628cb918218e4aad1cda403e2eb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a94655628cb918218e4aad1cda403e2eb">~LoadGame</a> ()=default</td></tr>
-<tr class="memdesc:a94655628cb918218e4aad1cda403e2eb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the New Game state.  <a href="a02409.html#a94655628cb918218e4aad1cda403e2eb">More...</a><br /></td></tr>
-<tr class="separator:a94655628cb918218e4aad1cda403e2eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af38d459719db2113a0a16422b1f31aed"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#af38d459719db2113a0a16422b1f31aed">name</a> () const override</td></tr>
-<tr class="memdesc:af38d459719db2113a0a16422b1f31aed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "LoadGame".  <a href="a02409.html#af38d459719db2113a0a16422b1f31aed">More...</a><br /></td></tr>
-<tr class="separator:af38d459719db2113a0a16422b1f31aed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b04b57de91e68168968a2f762161766"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a2b04b57de91e68168968a2f762161766">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:a2b04b57de91e68168968a2f762161766"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the state.  <a href="a02409.html#a2b04b57de91e68168968a2f762161766">More...</a><br /></td></tr>
-<tr class="separator:a2b04b57de91e68168968a2f762161766"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf6ca5c80e47f0c1f37aa609ad115ce5"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#abf6ca5c80e47f0c1f37aa609ad115ce5">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:abf6ca5c80e47f0c1f37aa609ad115ce5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates the state.  <a href="a02409.html#abf6ca5c80e47f0c1f37aa609ad115ce5">More...</a><br /></td></tr>
-<tr class="separator:abf6ca5c80e47f0c1f37aa609ad115ce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac8309ab3272efd32b14263025ae1cb3d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#ac8309ab3272efd32b14263025ae1cb3d">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
-<tr class="memdesc:ac8309ab3272efd32b14263025ae1cb3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state and menus and whatnot.  <a href="a02409.html#ac8309ab3272efd32b14263025ae1cb3d">More...</a><br /></td></tr>
-<tr class="separator:ac8309ab3272efd32b14263025ae1cb3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab942471c339e9d8ac7f36aea0290c0fe"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#ab942471c339e9d8ac7f36aea0290c0fe">~PeopledexRow</a> ()=default</td></tr>
+<tr class="memdesc:ab942471c339e9d8ac7f36aea0290c0fe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Peopledex Row object.  <a href="a02409.html#ab942471c339e9d8ac7f36aea0290c0fe">More...</a><br /></td></tr>
+<tr class="separator:ab942471c339e9d8ac7f36aea0290c0fe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a273191035498752f7109766591ded"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a51a273191035498752f7109766591ded">getSize</a> () const override</td></tr>
+<tr class="memdesc:a51a273191035498752f7109766591ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size that the row takes up.  <a href="a02409.html#a51a273191035498752f7109766591ded">More...</a><br /></td></tr>
+<tr class="separator:a51a273191035498752f7109766591ded"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a5e54e925246815ab02b2ea9ad5d19eb0"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a5e54e925246815ab02b2ea9ad5d19eb0">create</a> (<a class="el" href="a02085.html">core::system::Systems</a> &amp;<a class="el" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
-<tr class="memdesc:a5e54e925246815ab02b2ea9ad5d19eb0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the load game state.  <a href="a02409.html#a5e54e925246815ab02b2ea9ad5d19eb0">More...</a><br /></td></tr>
-<tr class="separator:a5e54e925246815ab02b2ea9ad5d19eb0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8eaaf17144df9e3488557c6b2f6173b8"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02409.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a8eaaf17144df9e3488557c6b2f6173b8">create</a> (<a class="el" href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, const <a class="el" href="a01945.html">core::player::Peopledex</a> &amp;dex)</td></tr>
+<tr class="memdesc:a8eaaf17144df9e3488557c6b2f6173b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Create a new peopledex row.  <a href="a02409.html#a8eaaf17144df9e3488557c6b2f6173b8">More...</a><br /></td></tr>
+<tr class="separator:a8eaaf17144df9e3488557c6b2f6173b8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02085.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
-<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a45fcd7ec3571460c32cf7d2464b28e5b"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a45fcd7ec3571460c32cf7d2464b28e5b">doCreate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a45fcd7ec3571460c32cf7d2464b28e5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <a href="a02409.html#a45fcd7ec3571460c32cf7d2464b28e5b">More...</a><br /></td></tr>
+<tr class="separator:a45fcd7ec3571460c32cf7d2464b28e5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96f33d517b0758e41d9c6daa5b8dc38a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a96f33d517b0758e41d9c6daa5b8dc38a">doSceneAdd</a> (bl::rc::Scene *overlay) override</td></tr>
+<tr class="memdesc:a96f33d517b0758e41d9c6daa5b8dc38a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the overlay.  <a href="a02409.html#a96f33d517b0758e41d9c6daa5b8dc38a">More...</a><br /></td></tr>
+<tr class="separator:a96f33d517b0758e41d9c6daa5b8dc38a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a06e46989a112de09f80bec6b78d35d86"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a06e46989a112de09f80bec6b78d35d86">doSceneRemove</a> () override</td></tr>
+<tr class="memdesc:a06e46989a112de09f80bec6b78d35d86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the overlay.  <a href="a02409.html#a06e46989a112de09f80bec6b78d35d86">More...</a><br /></td></tr>
+<tr class="separator:a06e46989a112de09f80bec6b78d35d86"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6848c01f11679c6ecd5b615b129a3f68"><td class="memItemLeft" align="right" valign="top">virtual bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#a6848c01f11679c6ecd5b615b129a3f68">getEntity</a> () const override</td></tr>
+<tr class="memdesc:a6848c01f11679c6ecd5b615b129a3f68"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <a href="a02409.html#a6848c01f11679c6ecd5b615b129a3f68">More...</a><br /></td></tr>
+<tr class="separator:a6848c01f11679c6ecd5b615b129a3f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca99c397bb79d73cfd2d38e32d29a42a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02409.html#aca99c397bb79d73cfd2d38e32d29a42a">draw</a> (bl::rc::scene::CodeScene::RenderContext &amp;ctx) override</td></tr>
+<tr class="memdesc:aca99c397bb79d73cfd2d38e32d29a42a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the item.  <a href="a02409.html#aca99c397bb79d73cfd2d38e32d29a42a">More...</a><br /></td></tr>
+<tr class="separator:aca99c397bb79d73cfd2d38e32d29a42a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Provides a menu to select a save and loads the selected save. </p>
+<div class="textblock"><p>Item row for peoplemon in the peopledex. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00527_source.html#l00019">19</a> of file <a class="el" href="a00527_source.html">LoadGame.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a94655628cb918218e4aad1cda403e2eb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a94655628cb918218e4aad1cda403e2eb">&#9670;&nbsp;</a></span>~LoadGame()</h2>
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00018">18</a> of file <a class="el" href="a00512_source.html">PeopledexRow.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a9cc62017bf50878eb68b4934c453f3b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9cc62017bf50878eb68b4934c453f3b8">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02409.html#a9cc62017bf50878eb68b4934c453f3b8">game::menu::PeopledexRow::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02409.html">PeopledexRow</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Pointer to the row item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00512_source.html#l00021">21</a> of file <a class="el" href="a00512_source.html">PeopledexRow.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="ab942471c339e9d8ac7f36aea0290c0fe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab942471c339e9d8ac7f36aea0290c0fe">&#9670;&nbsp;</a></span>~PeopledexRow()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,7 +167,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual game::state::LoadGame::~LoadGame </td>
+          <td class="memname">virtual game::menu::PeopledexRow::~PeopledexRow </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -153,13 +180,13 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the New Game state. </p>
+<p>Destroy the Peopledex Row object. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a2b04b57de91e68168968a2f762161766"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b04b57de91e68168968a2f762161766">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a8eaaf17144df9e3488557c6b2f6173b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8eaaf17144df9e3488557c6b2f6173b8">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -168,49 +195,21 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::LoadGame::activate </td>
+          <td class="memname"><a class="el" href="a02409.html#a9cc62017bf50878eb68b4934c453f3b8">PeopledexRow::Ptr</a> game::menu::PeopledexRow::create </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
+          <td class="paramtype"><a class="el" href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a>&#160;</td>
+          <td class="paramname"><em>ppl</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Activates the state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02453.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00028">28</a> of file <a class="el" href="a01049_source.html">LoadGame.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5e54e925246815ab02b2ea9ad5d19eb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5e54e925246815ab02b2ea9ad5d19eb0">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">LoadGame::Ptr game::state::LoadGame::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02085.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">const <a class="el" href="a01945.html">core::player::Peopledex</a> &amp;&#160;</td>
+          <td class="paramname"><em>dex</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -220,21 +219,22 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the load game state. </p>
+<p>Create a new peopledex row. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">ppl</td><td>The peoplemon to put in the peopledex </td></tr>
+    <tr><td class="paramname">dex</td><td>The Peopledex </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The new state </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The new row </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00018">18</a> of file <a class="el" href="a01049_source.html">LoadGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00020">20</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
 
 </div>
 </div>
-<a id="abf6ca5c80e47f0c1f37aa609ad115ce5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf6ca5c80e47f0c1f37aa609ad115ce5">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="a45fcd7ec3571460c32cf7d2464b28e5b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a45fcd7ec3571460c32cf7d2464b28e5b">&#9670;&nbsp;</a></span>doCreate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,7 +243,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::LoadGame::deactivate </td>
+          <td class="memname">void game::menu::PeopledexRow::doCreate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"><em>engine</em></td><td>)</td>
@@ -252,27 +252,25 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deactivates the state. </p>
+<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a02453.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00078">78</a> of file <a class="el" href="a01049_source.html">LoadGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00033">33</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af38d459719db2113a0a16422b1f31aed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af38d459719db2113a0a16422b1f31aed">&#9670;&nbsp;</a></span>name()</h2>
+<a id="a96f33d517b0758e41d9c6daa5b8dc38a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96f33d517b0758e41d9c6daa5b8dc38a">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +279,137 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * game::state::LoadGame::name </td>
+          <td class="memname">void game::menu::PeopledexRow::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::Scene *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be added to the overlay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The overlay to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00075">75</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a06e46989a112de09f80bec6b78d35d86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a06e46989a112de09f80bec6b78d35d86">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeopledexRow::doSceneRemove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be removed from the overlay. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00084">84</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aca99c397bb79d73cfd2d38e32d29a42a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca99c397bb79d73cfd2d38e32d29a42a">&#9670;&nbsp;</a></span>draw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeopledexRow::draw </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::scene::CodeScene::RenderContext &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renders the item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The render context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00092">92</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6848c01f11679c6ecd5b615b129a3f68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6848c01f11679c6ecd5b615b129a3f68">&#9670;&nbsp;</a></span>getEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::Entity game::menu::PeopledexRow::getEntity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the entity (or top level entity) of the item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00086">86</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a51a273191035498752f7109766591ded"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a51a273191035498752f7109766591ded">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 game::menu::PeopledexRow::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -294,103 +422,21 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns "LoadGame". </p>
+<p>Returns the size that the row takes up. </p>
 
-<p>Implements <a class="el" href="a02453.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00026">26</a> of file <a class="el" href="a01049_source.html">LoadGame.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac8309ab3272efd32b14263025ae1cb3d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac8309ab3272efd32b14263025ae1cb3d">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::state::LoadGame::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Updates the state and menus and whatnot. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02453.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01049_source.html#l00084">84</a> of file <a class="el" href="a01049_source.html">LoadGame.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a02085.html">core::system::Systems</a>&amp; game::state::State::systems</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03304_source.html#l00066">66</a> of file <a class="el" href="a03304_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01028_source.html#l00031">31</a> of file <a class="el" href="a01028_source.html">PeopledexRow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a00527_source.html">LoadGame.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a01049_source.html">LoadGame.cpp</a></li>
+<li>include/Game/Menus/<a class="el" href="a00512_source.html">PeopledexRow.hpp</a></li>
+<li>src/Game/Menus/<a class="el" href="a01028_source.html">PeopledexRow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

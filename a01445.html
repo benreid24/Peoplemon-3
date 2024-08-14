@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::BattleStarted Struct Reference</title>
+<title>Peoplemon: core::component::StandingBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,104 +66,114 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01110.html">event</a></li><li class="navelem"><a class="el" href="a01445.html">BattleStarted</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01131.html">component</a></li><li class="navelem"><a class="el" href="a01445.html">StandingBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01442.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::BattleStarted Struct Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01086.html">Events</a></div></div>  </div>
+<div class="title">core::component::StandingBehavior Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin.  
+<p>AI behavior for standing in place facing a fixed direction.  
  <a href="a01445.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03175_source.html">Battle.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00104_source.html">StandingBehavior.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01445.html#ad383ca87cb6d0e838ffc86fb066b7a72">BattleStarted</a> (std::unique_ptr&lt; <a class="el" href="a01241.html">battle::Battle</a> &gt; &amp;&amp;<a class="el" href="a01445.html#a7441c17448e872495503eec88b334e5a">battle</a>)</td></tr>
-<tr class="memdesc:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Battle Started event.  <a href="a01445.html#ad383ca87cb6d0e838ffc86fb066b7a72">More...</a><br /></td></tr>
-<tr class="separator:ad383ca87cb6d0e838ffc86fb066b7a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7441c17448e872495503eec88b334e5a"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; <a class="el" href="a01241.html">battle::Battle</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01445.html#a7441c17448e872495503eec88b334e5a">battle</a></td></tr>
-<tr class="memdesc:a7441c17448e872495503eec88b334e5a"><td class="mdescLeft">&#160;</td><td class="mdescRight">The battle to start.  <a href="a01445.html#a7441c17448e872495503eec88b334e5a">More...</a><br /></td></tr>
-<tr class="separator:a7441c17448e872495503eec88b334e5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af20f253324e31132042fc1ed9d870978"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01445.html#af20f253324e31132042fc1ed9d870978">StandingBehavior</a> (bl::tmap::Direction faceDir)</td></tr>
+<tr class="memdesc:af20f253324e31132042fc1ed9d870978"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Standing Behavior component.  <a href="a01445.html#af20f253324e31132042fc1ed9d870978">More...</a><br /></td></tr>
+<tr class="separator:af20f253324e31132042fc1ed9d870978"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc49de8d738661448e3676974c49e777"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01445.html#adc49de8d738661448e3676974c49e777">update</a> (bl::tmap::Position &amp;position, <a class="el" href="a01405.html">Controllable</a> &amp;controller)</td></tr>
+<tr class="memdesc:adc49de8d738661448e3676974c49e777"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ensures the managed entity is facing the required position.  <a href="a01445.html#adc49de8d738661448e3676974c49e777">More...</a><br /></td></tr>
+<tr class="separator:adc49de8d738661448e3676974c49e777"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired when a battle should start. This does not actually start a battle, but communicates to the current game state that a battle should begin. </p>
+<div class="textblock"><p>AI behavior for standing in place facing a fixed direction. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00017">17</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00104_source.html#l00016">16</a> of file <a class="el" href="a00104_source.html">StandingBehavior.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ad383ca87cb6d0e838ffc86fb066b7a72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad383ca87cb6d0e838ffc86fb066b7a72">&#9670;&nbsp;</a></span>BattleStarted()</h2>
+<a id="af20f253324e31132042fc1ed9d870978"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af20f253324e31132042fc1ed9d870978">&#9670;&nbsp;</a></span>StandingBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::BattleStarted::BattleStarted </td>
+          <td class="memname">core::component::StandingBehavior::StandingBehavior </td>
           <td>(</td>
-          <td class="paramtype">std::unique_ptr&lt; <a class="el" href="a01241.html">battle::Battle</a> &gt; &amp;&amp;&#160;</td>
-          <td class="paramname"><em>battle</em></td><td>)</td>
+          <td class="paramtype">bl::tmap::Direction&#160;</td>
+          <td class="paramname"><em>faceDir</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Battle Started event. </p>
+<p>Construct a new Standing Behavior component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">battle</td><td>The battle to start </td></tr>
+    <tr><td class="paramname">faceDir</td><td>The direction to face </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00026">26</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00007">7</a> of file <a class="el" href="a00656_source.html">StandingBehavior.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7441c17448e872495503eec88b334e5a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7441c17448e872495503eec88b334e5a">&#9670;&nbsp;</a></span>battle</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="adc49de8d738661448e3676974c49e777"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc49de8d738661448e3676974c49e777">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt;<a class="el" href="a01241.html">battle::Battle</a>&gt; core::event::BattleStarted::battle</td>
+          <td class="memname">void core::component::StandingBehavior::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::tmap::Position &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01405.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>The battle to start. </p>
+<p>Ensures the managed entity is facing the required position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The entities position component </td></tr>
+    <tr><td class="paramname">controller</td><td>The entities controllable component </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a03175_source.html#l00019">19</a> of file <a class="el" href="a03175_source.html">Battle.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00656_source.html#l00010">10</a> of file <a class="el" href="a00656_source.html">StandingBehavior.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a03175_source.html">Battle.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00104_source.html">StandingBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00656_source.html">StandingBehavior.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

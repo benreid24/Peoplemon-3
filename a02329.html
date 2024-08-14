@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::state::MainEditor Class Reference</title>
+<title>Peoplemon: editor::page::Page Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,63 +66,103 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01120.html">editor</a></li><li class="navelem"><a class="el" href="a01128.html">state</a></li><li class="navelem"><a class="el" href="a02329.html">MainEditor</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01149.html">page</a></li><li class="navelem"><a class="el" href="a02329.html">Page</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02326.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::state::MainEditor Class Reference<div class="ingroups"><a class="el" href="a01083.html">Editor</a> &#124; <a class="el" href="a01084.html">Game</a> &raquo; <a class="el" href="a01098.html">States</a></div></div>  </div>
+<div class="title">editor::page::Page Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01104.html">Editor</a> &raquo; <a class="el" href="a01119.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The primary state of the editor. Owns the GUI and all tabs.  
+<p>Base class for all editor pages.  
  <a href="a02329.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00491_source.html">MainEditor.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00473_source.html">Page.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::state::MainEditor:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::Page:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02329.png" alt=""/>
- </div></div>
+  <img src="a02329.png" usemap="#editor::page::Page_map" alt=""/>
+  <map id="editor::page::Page_map" name="editor::page::Page_map">
+<area href="a02313.html" title="Page for editing the credits." alt="editor::page::Credits" shape="rect" coords="0,56,167,80"/>
+<area href="a02317.html" title="Page for editing item names, descriptions, and values." alt="editor::page::Items" shape="rect" coords="177,56,344,80"/>
+<area href="a02321.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything." alt="editor::page::Map" shape="rect" coords="354,56,521,80"/>
+<area href="a02325.html" title="Page for editing move metadata." alt="editor::page::Moves" shape="rect" coords="531,56,698,80"/>
+<area href="a02333.html" title="Page for editing Peoplemon metadata." alt="editor::page::Peoplemon" shape="rect" coords="708,56,875,80"/>
+<area href="a02337.html" title="Scripting validation tab." alt="editor::page::Scripts" shape="rect" coords="885,56,1052,80"/>
+<area href="a02393.html" title="Page for opening various editor windows outside the map editor." alt="editor::page::VariousEditors" shape="rect" coords="1062,56,1229,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7884cbb08e36693db414877e7ebb094f"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a7884cbb08e36693db414877e7ebb094f">~MainEditor</a> ()=default</td></tr>
-<tr class="memdesc:a7884cbb08e36693db414877e7ebb094f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Main Editor state.  <a href="a02329.html#a7884cbb08e36693db414877e7ebb094f">More...</a><br /></td></tr>
-<tr class="separator:a7884cbb08e36693db414877e7ebb094f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a540f7f0e84c5ee24d8b82c89cfde80da">name</a> () const override</td></tr>
-<tr class="memdesc:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "MainEditor".  <a href="a02329.html#a540f7f0e84c5ee24d8b82c89cfde80da">More...</a><br /></td></tr>
-<tr class="separator:a540f7f0e84c5ee24d8b82c89cfde80da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a81c5d0df817cbe9780c4644fce9fd143"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a81c5d0df817cbe9780c4644fce9fd143">activate</a> (bl::engine::Engine &amp;) override</td></tr>
-<tr class="memdesc:a81c5d0df817cbe9780c4644fce9fd143"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes the gui to window events.  <a href="a02329.html#a81c5d0df817cbe9780c4644fce9fd143">More...</a><br /></td></tr>
-<tr class="separator:a81c5d0df817cbe9780c4644fce9fd143"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a2cd7bfe17d6359081b91d672fa6b62a7">deactivate</a> (bl::engine::Engine &amp;) override</td></tr>
-<tr class="memdesc:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes the gui from window events.  <a href="a02329.html#a2cd7bfe17d6359081b91d672fa6b62a7">More...</a><br /></td></tr>
-<tr class="separator:a2cd7bfe17d6359081b91d672fa6b62a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3eeced0202f69185f75c13db8c598475"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a3eeced0202f69185f75c13db8c598475">update</a> (bl::engine::Engine &amp;, float dt, float) override</td></tr>
-<tr class="memdesc:a3eeced0202f69185f75c13db8c598475"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the gui and the current page.  <a href="a02329.html#a3eeced0202f69185f75c13db8c598475">More...</a><br /></td></tr>
-<tr class="separator:a3eeced0202f69185f75c13db8c598475"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1013e75f94006e1317f3c47311b98a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#ab1013e75f94006e1317f3c47311b98a1">Page</a> (<a class="el" href="a02109.html">core::system::Systems</a> &amp;<a class="el" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
+<tr class="memdesc:ab1013e75f94006e1317f3c47311b98a1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>.  <a href="a02329.html#ab1013e75f94006e1317f3c47311b98a1">More...</a><br /></td></tr>
+<tr class="separator:ab1013e75f94006e1317f3c47311b98a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a09f899d9a9e9e1d763c1f3076925190e"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a09f899d9a9e9e1d763c1f3076925190e">~Page</a> ()=default</td></tr>
+<tr class="memdesc:a09f899d9a9e9e1d763c1f3076925190e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>.  <a href="a02329.html#a09f899d9a9e9e1d763c1f3076925190e">More...</a><br /></td></tr>
+<tr class="separator:a09f899d9a9e9e1d763c1f3076925190e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b795b1243ceabcf90c0cb492ae7f903"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a2b795b1243ceabcf90c0cb492ae7f903">update</a> (float dt)=0</td></tr>
+<tr class="memdesc:a2b795b1243ceabcf90c0cb492ae7f903"><td class="mdescLeft">&#160;</td><td class="mdescRight">Any custom page update logic outside of event callbacks goes here.  <a href="a02329.html#a2b795b1243ceabcf90c0cb492ae7f903">More...</a><br /></td></tr>
+<tr class="separator:a2b795b1243ceabcf90c0cb492ae7f903"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
+<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="a02329.html#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
+<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a> (bl::gui::GUI *<a class="el" href="a02329.html#a7ece0b91553c68d952d61903d417d51b">parent</a>)</td></tr>
+<tr class="memdesc:ad50b571e79e7c949f5097ba17ad4aa03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the parent GUI.  <a href="a02329.html#ad50b571e79e7c949f5097ba17ad4aa03">More...</a><br /></td></tr>
+<tr class="separator:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memItemLeft" align="right" valign="top">static Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#ae5c3888e51aae992b41fc4172f8efbfb">create</a> (<a class="el" href="a02085.html">core::system::Systems</a> &amp;systems)</td></tr>
-<tr class="memdesc:ae5c3888e51aae992b41fc4172f8efbfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Main Editor state.  <a href="a02329.html#ae5c3888e51aae992b41fc4172f8efbfb">More...</a><br /></td></tr>
-<tr class="separator:ae5c3888e51aae992b41fc4172f8efbfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
+<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
+<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ece0b91553c68d952d61903d417d51b"><td class="memItemLeft" align="right" valign="top">bl::gui::GUI *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a7ece0b91553c68d952d61903d417d51b">parent</a></td></tr>
+<tr class="separator:a7ece0b91553c68d952d61903d417d51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The primary state of the editor. Owns the GUI and all tabs. </p>
+<div class="textblock"><p>Base class for all editor pages. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00491_source.html#l00035">35</a> of file <a class="el" href="a00491_source.html">MainEditor.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00032">32</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a7884cbb08e36693db414877e7ebb094f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7884cbb08e36693db414877e7ebb094f">&#9670;&nbsp;</a></span>~MainEditor()</h2>
+<a id="ab1013e75f94006e1317f3c47311b98a1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1013e75f94006e1317f3c47311b98a1">&#9670;&nbsp;</a></span>Page()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">editor::page::Page::Page </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00989_source.html#l00007">7</a> of file <a class="el" href="a00989_source.html">Page.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a09f899d9a9e9e1d763c1f3076925190e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a09f899d9a9e9e1d763c1f3076925190e">&#9670;&nbsp;</a></span>~Page()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +171,7 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual editor::state::MainEditor::~MainEditor </td>
+          <td class="memname">virtual editor::page::Page::~Page </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -144,79 +184,62 @@ Static Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Main Editor state. </p>
+<p>Destroy the <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a81c5d0df817cbe9780c4644fce9fd143"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81c5d0df817cbe9780c4644fce9fd143">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a6ca56d8d39860251755e5800924e57ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::state::MainEditor::activate </td>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Subscribes the gui to window events. </p>
+<p>Returns the content to put in the editor. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00067">67</a> of file <a class="el" href="a00998_source.html">MainEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00989_source.html#l00011">11</a> of file <a class="el" href="a00989_source.html">Page.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ae5c3888e51aae992b41fc4172f8efbfb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5c3888e51aae992b41fc4172f8efbfb">&#9670;&nbsp;</a></span>create()</h2>
+<a id="ad50b571e79e7c949f5097ba17ad4aa03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50b571e79e7c949f5097ba17ad4aa03">&#9670;&nbsp;</a></span>registerGui()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">MainEditor::Ptr editor::state::MainEditor::create </td>
+          <td class="memname">void editor::page::Page::registerGui </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02085.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new Main Editor state. </p>
+<p>Registers the parent GUI. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00009">9</a> of file <a class="el" href="a00998_source.html">MainEditor.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00989_source.html#l00013">13</a> of file <a class="el" href="a00989_source.html">Page.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a2cd7bfe17d6359081b91d672fa6b62a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2cd7bfe17d6359081b91d672fa6b62a7">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="a2b795b1243ceabcf90c0cb492ae7f903"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b795b1243ceabcf90c0cb492ae7f903">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -225,96 +248,21 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::state::MainEditor::deactivate </td>
+          <td class="memname">virtual void editor::page::Page::update </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Unsubscribes the gui from window events. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00072">72</a> of file <a class="el" href="a00998_source.html">MainEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a540f7f0e84c5ee24d8b82c89cfde80da"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a540f7f0e84c5ee24d8b82c89cfde80da">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char * editor::state::MainEditor::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns "MainEditor". </p>
-
-<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00065">65</a> of file <a class="el" href="a00998_source.html">MainEditor.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3eeced0202f69185f75c13db8c598475"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3eeced0202f69185f75c13db8c598475">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::state::MainEditor::update </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname">, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Updates the gui and the current page. </p>
+<p>Any custom page update logic outside of event callbacks goes here. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
@@ -322,19 +270,92 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00077">77</a> of file <a class="el" href="a00998_source.html">MainEditor.cpp</a>.</p>
+<p>Implemented in <a class="el" href="a02393.html#a955aae06b1bd2c8e6e7a1f2ad9c9917a">editor::page::VariousEditors</a>, <a class="el" href="a02337.html#a91447d4958d920b6cfa381b9ad769ef2">editor::page::Scripts</a>, <a class="el" href="a02333.html#ae4175110bbef09cfbbb0c6e2352c43aa">editor::page::Peoplemon</a>, <a class="el" href="a02325.html#ab0d136d0393e72bd6c0a18a3ec9fcd21">editor::page::Moves</a>, <a class="el" href="a02321.html#ab376c3860063dd5d6c35cbd9ce9576f3">editor::page::Map</a>, <a class="el" href="a02317.html#a4f336277208311195237fa76c827468f">editor::page::Items</a>, and <a class="el" href="a02313.html#a1572097f9a6f71dd033f6d3d480c9abf">editor::page::Credits</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00069">69</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ece0b91553c68d952d61903d417d51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ece0b91553c68d952d61903d417d51b">&#9670;&nbsp;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::GUI* editor::page::Page::parent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00070">70</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02109.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00068">68</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/States/<a class="el" href="a00491_source.html">MainEditor.hpp</a></li>
-<li>src/Editor/States/<a class="el" href="a00998_source.html">MainEditor.cpp</a></li>
+<li>include/Editor/Pages/<a class="el" href="a00473_source.html">Page.hpp</a></li>
+<li>src/Editor/Pages/<a class="el" href="a00989_source.html">Page.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

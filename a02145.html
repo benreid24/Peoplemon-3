@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::component::ConversationWindow Class Reference</title>
+<title>Peoplemon: editor::component::CharacterSpawnWindow Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01120.html">editor</a></li><li class="navelem"><a class="el" href="a01121.html">component</a></li><li class="navelem"><a class="el" href="a02145.html">ConversationWindow</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01140.html">component</a></li><li class="navelem"><a class="el" href="a02145.html">CharacterSpawnWindow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -75,123 +75,91 @@ $(function() {
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02142.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::component::ConversationWindow Class Reference</div>  </div>
+<div class="title">editor::component::CharacterSpawnWindow Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>A window for choosing and editing conversations.  
+<p>Editing window for character spawns. Manages NPCs and trainers.  
  <a href="a02145.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00383_source.html">ConversationWindow.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00374_source.html">CharacterSpawnWindow.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:aab1244bd95ed503546dbc38e8d949c79"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#aab1244bd95ed503546dbc38e8d949c79">SelectCb</a> = std::function&lt; void(const std::string &amp;)&gt;</td></tr>
-<tr class="memdesc:aab1244bd95ed503546dbc38e8d949c79"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when a conversation is chosen.  <a href="a02145.html#aab1244bd95ed503546dbc38e8d949c79">More...</a><br /></td></tr>
-<tr class="separator:aab1244bd95ed503546dbc38e8d949c79"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adb7196ef93bbdd4bd1eccdf3ae4bf64b"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">CancelCb</a> = std::function&lt; void()&gt;</td></tr>
-<tr class="memdesc:adb7196ef93bbdd4bd1eccdf3ae4bf64b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when the window is closed with no choice made.  <a href="a02145.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">More...</a><br /></td></tr>
-<tr class="separator:adb7196ef93bbdd4bd1eccdf3ae4bf64b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> = std::function&lt; void(const <a class="el" href="a01749.html">core::map::CharacterSpawn</a> *, const <a class="el" href="a01749.html">core::map::CharacterSpawn</a> &amp;)&gt;</td></tr>
+<tr class="memdesc:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Callback for when spawns are created or edited.  <a href="a02145.html#aa46cdd85beb497a70d861e2dbbe64dc2">More...</a><br /></td></tr>
+<tr class="separator:aa46cdd85beb497a70d861e2dbbe64dc2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeab5bb5895e016081f6c5f4efa5929ce"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#aeab5bb5895e016081f6c5f4efa5929ce">ConversationWindow</a> (const <a class="el" href="a02145.html#aab1244bd95ed503546dbc38e8d949c79">SelectCb</a> &amp;onSelect, const <a class="el" href="a02145.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">CancelCb</a> &amp;onCancel)</td></tr>
-<tr class="memdesc:aeab5bb5895e016081f6c5f4efa5929ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialize a new conversation window.  <a href="a02145.html#aeab5bb5895e016081f6c5f4efa5929ce">More...</a><br /></td></tr>
-<tr class="separator:aeab5bb5895e016081f6c5f4efa5929ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af7d33e5764714cac9b3fcbe351f5c046"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#af7d33e5764714cac9b3fcbe351f5c046">open</a> (bl::gui::GUI *parent, const std::string &amp;current)</td></tr>
-<tr class="memdesc:af7d33e5764714cac9b3fcbe351f5c046"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actually opens the window and initializes with a conversation.  <a href="a02145.html#af7d33e5764714cac9b3fcbe351f5c046">More...</a><br /></td></tr>
-<tr class="separator:af7d33e5764714cac9b3fcbe351f5c046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d95659288c6bff0f0c4d02a6921923f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#a1d95659288c6bff0f0c4d02a6921923f">CharacterSpawnWindow</a> (const <a class="el" href="a02145.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> &amp;onEdit)</td></tr>
+<tr class="memdesc:a1d95659288c6bff0f0c4d02a6921923f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="a02145.html" title="Editing window for character spawns. Manages NPCs and trainers.">CharacterSpawnWindow</a>.  <a href="a02145.html#a1d95659288c6bff0f0c4d02a6921923f">More...</a><br /></td></tr>
+<tr class="separator:a1d95659288c6bff0f0c4d02a6921923f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82c5fe9bbea072d27f44f8ff6be499ff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02145.html#a82c5fe9bbea072d27f44f8ff6be499ff">open</a> (bl::gui::GUI *parent, unsigned int level, const sf::Vector2i &amp;pos, const <a class="el" href="a01749.html">core::map::CharacterSpawn</a> *orig)</td></tr>
+<tr class="memdesc:a82c5fe9bbea072d27f44f8ff6be499ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the spawn editing window.  <a href="a02145.html#a82c5fe9bbea072d27f44f8ff6be499ff">More...</a><br /></td></tr>
+<tr class="separator:a82c5fe9bbea072d27f44f8ff6be499ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A window for choosing and editing conversations. </p>
+<div class="textblock"><p>Editing window for character spawns. Manages NPCs and trainers. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00383_source.html#l00019">19</a> of file <a class="el" href="a00383_source.html">ConversationWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00374_source.html#l00019">19</a> of file <a class="el" href="a00374_source.html">CharacterSpawnWindow.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="adb7196ef93bbdd4bd1eccdf3ae4bf64b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb7196ef93bbdd4bd1eccdf3ae4bf64b">&#9670;&nbsp;</a></span>CancelCb</h2>
+<a id="aa46cdd85beb497a70d861e2dbbe64dc2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa46cdd85beb497a70d861e2dbbe64dc2">&#9670;&nbsp;</a></span>OnEdit</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="a02145.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">editor::component::ConversationWindow::CancelCb</a> =  std::function&lt;void()&gt;</td>
+          <td class="memname">using <a class="el" href="a02145.html#aa46cdd85beb497a70d861e2dbbe64dc2">editor::component::CharacterSpawnWindow::OnEdit</a> =  std::function&lt;void(const <a class="el" href="a01749.html">core::map::CharacterSpawn</a>*, const <a class="el" href="a01749.html">core::map::CharacterSpawn</a>&amp;)&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Callback for when the window is closed with no choice made. </p>
+<p>Callback for when spawns are created or edited. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00383_source.html#l00025">25</a> of file <a class="el" href="a00383_source.html">ConversationWindow.hpp</a>.</p>
-
-</div>
-</div>
-<a id="aab1244bd95ed503546dbc38e8d949c79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab1244bd95ed503546dbc38e8d949c79">&#9670;&nbsp;</a></span>SelectCb</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a02145.html#aab1244bd95ed503546dbc38e8d949c79">editor::component::ConversationWindow::SelectCb</a> =  std::function&lt;void(const std::string&amp;)&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Callback for when a conversation is chosen. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00383_source.html#l00022">22</a> of file <a class="el" href="a00383_source.html">ConversationWindow.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00374_source.html#l00022">22</a> of file <a class="el" href="a00374_source.html">CharacterSpawnWindow.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aeab5bb5895e016081f6c5f4efa5929ce"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeab5bb5895e016081f6c5f4efa5929ce">&#9670;&nbsp;</a></span>ConversationWindow()</h2>
+<a id="a1d95659288c6bff0f0c4d02a6921923f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d95659288c6bff0f0c4d02a6921923f">&#9670;&nbsp;</a></span>CharacterSpawnWindow()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::component::ConversationWindow::ConversationWindow </td>
+          <td class="memname">editor::component::CharacterSpawnWindow::CharacterSpawnWindow </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a02145.html#aab1244bd95ed503546dbc38e8d949c79">SelectCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onSelect</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="a02145.html#aa46cdd85beb497a70d861e2dbbe64dc2">OnEdit</a> &amp;&#160;</td>
+          <td class="paramname"><em>onEdit</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">const <a class="el" href="a02145.html#adb7196ef93bbdd4bd1eccdf3ae4bf64b">CancelCb</a> &amp;&#160;</td>
-          <td class="paramname"><em>onCancel</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initialize a new conversation window. </p>
+<p>Creates a new <a class="el" href="a02145.html" title="Editing window for character spawns. Manages NPCs and trainers.">CharacterSpawnWindow</a>. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">onSelect</td><td>Callback to call when a conversation is chosen </td></tr>
-    <tr><td class="paramname">onCancel</td><td>Callback to call when the window is closed </td></tr>
+    <tr><td class="paramname">onEdit</td><td>Callback for when spawns are edited </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00878_source.html#l00058">58</a> of file <a class="el" href="a00878_source.html">ConversationWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00035">35</a> of file <a class="el" href="a00881_source.html">CharacterSpawnWindow.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af7d33e5764714cac9b3fcbe351f5c046"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af7d33e5764714cac9b3fcbe351f5c046">&#9670;&nbsp;</a></span>open()</h2>
+<a id="a82c5fe9bbea072d27f44f8ff6be499ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82c5fe9bbea072d27f44f8ff6be499ff">&#9670;&nbsp;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::component::ConversationWindow::open </td>
+          <td class="memname">void editor::component::CharacterSpawnWindow::open </td>
           <td>(</td>
           <td class="paramtype">bl::gui::GUI *&#160;</td>
           <td class="paramname"><em>parent</em>, </td>
@@ -199,8 +167,20 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const std::string &amp;&#160;</td>
-          <td class="paramname"><em>current</em>&#160;</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01749.html">core::map::CharacterSpawn</a> *&#160;</td>
+          <td class="paramname"><em>orig</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -210,28 +190,30 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Actually opens the window and initializes with a conversation. </p>
+<p>Opens the spawn editing window. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
-    <tr><td class="paramname">current</td><td>The conversation to load. Blank to make a new one </td></tr>
+    <tr><td class="paramname">level</td><td>The level the spawn is on </td></tr>
+    <tr><td class="paramname">pos</td><td>The position the spawn is at </td></tr>
+    <tr><td class="paramname">orig</td><td>The spawn currently in that spot. Nullptr if none </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00878_source.html#l00217">217</a> of file <a class="el" href="a00878_source.html">ConversationWindow.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00881_source.html#l00146">146</a> of file <a class="el" href="a00881_source.html">CharacterSpawnWindow.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Components/<a class="el" href="a00383_source.html">ConversationWindow.hpp</a></li>
-<li>src/Editor/Components/<a class="el" href="a00878_source.html">ConversationWindow.cpp</a></li>
+<li>include/Editor/Components/<a class="el" href="a00374_source.html">CharacterSpawnWindow.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00881_source.html">CharacterSpawnWindow.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

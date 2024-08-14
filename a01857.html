@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::serial::SerializableObject&lt; core::pplmn::OwnedMove &gt; Struct Reference</title>
+<title>Peoplemon: core::map::Weather Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,172 +66,313 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01107.html">bl</a></li><li class="navelem"><a class="el" href="a01113.html">serial</a></li><li class="navelem"><a class="el" href="a01857.html">SerializableObject&lt; core::pplmn::OwnedMove &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01134.html">map</a></li><li class="navelem"><a class="el" href="a01857.html">Weather</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01854.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::SerializableObject&lt; core::pplmn::OwnedMove &gt; Struct Reference</div>  </div>
+<div class="title">core::map::Weather Class Reference<div class="ingroups"><a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01111.html">Maps</a> &raquo; <a class="el" href="a01122.html">Weather</a> &#124; <a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01111.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00242_source.html">OwnedMove.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::pplmn::OwnedMove &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01857.png" alt=""/>
- </div></div>
+<p>Parent weather system for maps. Manages active weather.  
+ <a href="a01857.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a03337_source.html">Weather.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a86bd359759227867048652568f943305"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a86bd359759227867048652568f943305">Id</a> = <a class="el" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></td></tr>
-<tr class="separator:a86bd359759227867048652568f943305"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa327e17ab9fe91cb2cbd378948c77ce7"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a> = <a class="el" href="a01849.html">core::pplmn::OwnedMove</a></td></tr>
-<tr class="separator:aa327e17ab9fe91cb2cbd378948c77ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1be4194375652797f8c87a7881b2ff3d"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> : std::uint8_t { <br />
+&#160;&#160;<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6">None</a> = 0
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c">AllRandom</a> = 1
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db">LightRain</a> = 2
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d">LightRainThunder</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550">HardRain</a> = 4
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b">HardRainThunder</a> = 5
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242">LightSnow</a> = 6
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0">LightSnowThunder</a> = 7
+, <br />
+&#160;&#160;<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882">HardSnow</a> = 8
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83">HardSnowThunder</a> = 9
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c">ThinFog</a> = 10
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2">ThickFog</a> = 11
+, <br />
+&#160;&#160;<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6">Sunny</a> = 12
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60">SandStorm</a> = 13
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040">WaterRandom</a> = 14
+, <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635">SnowRandom</a> = 15
+, <br />
+&#160;&#160;<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4">DesertRandom</a> = 16
+<br />
+ }</td></tr>
+<tr class="memdesc:a1be4194375652797f8c87a7881b2ff3d"><td class="mdescLeft">&#160;</td><td class="mdescRight">The type of weather.  <a href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">More...</a><br /></td></tr>
+<tr class="separator:a1be4194375652797f8c87a7881b2ff3d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a9b2d3c198976434cf113c417de4a65ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a9b2d3c198976434cf113c417de4a65ed">SerializableObject</a> ()</td></tr>
-<tr class="separator:a9b2d3c198976434cf113c417de4a65ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a7173f1afa1f2c2615039164fd4283db0"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, <a class="el" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a7173f1afa1f2c2615039164fd4283db0">id</a></td></tr>
-<tr class="separator:a7173f1afa1f2c2615039164fd4283db0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03c57d07c0b9d70edc3ccd340c166e2e"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a03c57d07c0b9d70edc3ccd340c166e2e">curPP</a></td></tr>
-<tr class="separator:a03c57d07c0b9d70edc3ccd340c166e2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb819fbd5b9a819e87e411ef0301d59d"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 3, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, unsigned int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#aeb819fbd5b9a819e87e411ef0301d59d">maxPP</a></td></tr>
-<tr class="separator:aeb819fbd5b9a819e87e411ef0301d59d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37aa44274a43da3e5578c6d9ec07e416"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a37aa44274a43da3e5578c6d9ec07e416">Weather</a> ()</td></tr>
+<tr class="memdesc:a37aa44274a43da3e5578c6d9ec07e416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the weather system with None.  <a href="a01857.html#a37aa44274a43da3e5578c6d9ec07e416">More...</a><br /></td></tr>
+<tr class="separator:a37aa44274a43da3e5578c6d9ec07e416"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#aa78c7aadf9c291bdb5747cdbf00d004b">~Weather</a> ()</td></tr>
+<tr class="memdesc:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Terminates active weather.  <a href="a01857.html#aa78c7aadf9c291bdb5747cdbf00d004b">More...</a><br /></td></tr>
+<tr class="separator:aa78c7aadf9c291bdb5747cdbf00d004b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b06c0cbb3a904da65541c2fcde99f4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a69b06c0cbb3a904da65541c2fcde99f4">activate</a> (<a class="el" href="a02109.html">system::Systems</a> &amp;systems, <a class="el" href="a01805.html">Map</a> &amp;map)</td></tr>
+<tr class="memdesc:a69b06c0cbb3a904da65541c2fcde99f4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the weather system.  <a href="a01857.html#a69b06c0cbb3a904da65541c2fcde99f4">More...</a><br /></td></tr>
+<tr class="separator:a69b06c0cbb3a904da65541c2fcde99f4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae48dd781d8df78511a1ca9e1871cede5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#ae48dd781d8df78511a1ca9e1871cede5">set</a> (<a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Type</a> type, bool immediate=false)</td></tr>
+<tr class="memdesc:ae48dd781d8df78511a1ca9e1871cede5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the current weather type.  <a href="a01857.html#ae48dd781d8df78511a1ca9e1871cede5">More...</a><br /></td></tr>
+<tr class="separator:ae48dd781d8df78511a1ca9e1871cede5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#aaf34d1cbd85edeb7ea7d04cd56b14824">getType</a> () const</td></tr>
+<tr class="memdesc:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the current type of weather.  <a href="a01857.html#aaf34d1cbd85edeb7ea7d04cd56b14824">More...</a><br /></td></tr>
+<tr class="separator:aaf34d1cbd85edeb7ea7d04cd56b14824"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f0b50ffdeffd5e1d97dda2cfe50afe6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01857.html#a4f0b50ffdeffd5e1d97dda2cfe50afe6">update</a> (float dt)</td></tr>
+<tr class="memdesc:a4f0b50ffdeffd5e1d97dda2cfe50afe6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the current weather.  <a href="a01857.html#a4f0b50ffdeffd5e1d97dda2cfe50afe6">More...</a><br /></td></tr>
+<tr class="separator:a4f0b50ffdeffd5e1d97dda2cfe50afe6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00088">88</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a86bd359759227867048652568f943305"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a86bd359759227867048652568f943305">&#9670;&nbsp;</a></span>Id</h2>
+<div class="textblock"><p>Parent weather system for maps. Manages active weather. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03337_source.html#l00032">32</a> of file <a class="el" href="a03337_source.html">Weather.hpp</a>.</p>
+</div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="a1be4194375652797f8c87a7881b2ff3d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1be4194375652797f8c87a7881b2ff3d">&#9670;&nbsp;</a></span>Type</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::<a class="el" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">Id</a> =  <a class="el" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">core::pplmn::MoveId</a></td>
+          <td class="memname">enum <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a> : std::uint8_t</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00089">89</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p>The type of weather. </p>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6"></a>None&#160;</td><td class="fielddoc"><p>No weather will occur. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dadca1965ef3688c4002315586374f402c"></a>AllRandom&#160;</td><td class="fielddoc"><p>All types of weather may occur over time. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da69fd77327c8390915ca79dd5db39e5db"></a>LightRain&#160;</td><td class="fielddoc"><p><a class="el" href="a01789.html" title="Represents a renderable light in a Map.">Light</a> rain with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da48c6fd326d206644d2018f17397ab01d"></a>LightRainThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a01789.html" title="Represents a renderable light in a Map.">Light</a> rain with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da3094875a455784dd9d54a16f04c1c550"></a>HardRain&#160;</td><td class="fielddoc"><p>Hard rain with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da4812c2c48bcbce3d1f2b929e6134af9b"></a>HardRainThunder&#160;</td><td class="fielddoc"><p>Hard rain with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daac7d445b308bd108a75bd3eac5f83242"></a>LightSnow&#160;</td><td class="fielddoc"><p><a class="el" href="a01789.html" title="Represents a renderable light in a Map.">Light</a> snow with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da60a9c95357eb6043f44bf9ea5cf51ab0"></a>LightSnowThunder&#160;</td><td class="fielddoc"><p><a class="el" href="a01789.html" title="Represents a renderable light in a Map.">Light</a> snow with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac617dcb9be143b60d11d45432b4b4882"></a>HardSnow&#160;</td><td class="fielddoc"><p>Hard snow with no thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da0dc24b2f06d94732f80a71661733ed83"></a>HardSnowThunder&#160;</td><td class="fielddoc"><p>Hard snow with thunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e08c91fbea84bcbd5f52153918d361c"></a>ThinFog&#160;</td><td class="fielddoc"><p>Thin fog covers the area. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3daa6cbc19d34782f989ef22227a3f01ce2"></a>ThickFog&#160;</td><td class="fielddoc"><p>Thick fog obscures everything. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da231d194790c4a1e96e8997521ebb21a6"></a>Sunny&#160;</td><td class="fielddoc"><p>A very sunny day with pulsating light. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da2e6a1cc7cd1bfca36154c37b37d07f60"></a>SandStorm&#160;</td><td class="fielddoc"><p>A sandstorm ravages you. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da5006feb65d3f5fac14a4ddcfa5406040"></a>WaterRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightRain, HardRain, LightRainThunder, HardRainThunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3da6f123d369cd2707cf03ecaa953aa7635"></a>SnowRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of LightSnow, HardSnow, LightSnowThunder, HardSnowThunder. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="a1be4194375652797f8c87a7881b2ff3dac0acf1d2daf1e1d84ecf3e0dce6371b4"></a>DesertRandom&#160;</td><td class="fielddoc"><p>Periodically triggers one of Sunny, Sandstorm. </p>
+</td></tr>
+</table>
 
-</div>
-</div>
-<a id="aa327e17ab9fe91cb2cbd378948c77ce7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa327e17ab9fe91cb2cbd378948c77ce7">&#9670;&nbsp;</a></span>Move</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::<a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a> =  <a class="el" href="a01849.html">core::pplmn::OwnedMove</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00090">90</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03337_source.html#l00038">38</a> of file <a class="el" href="a03337_source.html">Weather.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a9b2d3c198976434cf113c417de4a65ed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9b2d3c198976434cf113c417de4a65ed">&#9670;&nbsp;</a></span>SerializableObject()</h2>
+<a id="a37aa44274a43da3e5578c6d9ec07e416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37aa44274a43da3e5578c6d9ec07e416">&#9670;&nbsp;</a></span>Weather()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::SerializableObject </td>
+          <td class="memname">core::map::Weather::Weather </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00096">96</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p>Initializes the weather system with None. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00040">40</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a03c57d07c0b9d70edc3ccd340c166e2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a03c57d07c0b9d70edc3ccd340c166e2e">&#9670;&nbsp;</a></span>curPP</h2>
+<a id="aa78c7aadf9c291bdb5747cdbf00d004b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa78c7aadf9c291bdb5747cdbf00d004b">&#9670;&nbsp;</a></span>~Weather()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SerializableField&lt;2, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, unsigned int&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::curPP</td>
+          <td class="memname">core::map::Weather::~Weather </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00093">93</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p>Terminates active weather. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00047">47</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a7173f1afa1f2c2615039164fd4283db0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7173f1afa1f2c2615039164fd4283db0">&#9670;&nbsp;</a></span>id</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a69b06c0cbb3a904da65541c2fcde99f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b06c0cbb3a904da65541c2fcde99f4">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SerializableField&lt;1, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, <a class="el" href="a01091.html#gab39f21e54ca605725b382bd7848530b3">Id</a>&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::id</td>
+          <td class="memname">void core::map::Weather::activate </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02109.html">system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01805.html">Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00092">92</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p>Activates the weather system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
+    <tr><td class="paramname">map</td><td>The map that the weather is in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00049">49</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aeb819fbd5b9a819e87e411ef0301d59d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb819fbd5b9a819e87e411ef0301d59d">&#9670;&nbsp;</a></span>maxPP</h2>
+<a id="aaf34d1cbd85edeb7ea7d04cd56b14824"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf34d1cbd85edeb7ea7d04cd56b14824">&#9670;&nbsp;</a></span>getType()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SerializableField&lt;3, <a class="el" href="a01857.html#aa327e17ab9fe91cb2cbd378948c77ce7">Move</a>, unsigned int&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01849.html">core::pplmn::OwnedMove</a> &gt;::maxPP</td>
+          <td class="memname"><a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> core::map::Weather::getType </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00242_source.html#l00094">94</a> of file <a class="el" href="a00242_source.html">OwnedMove.hpp</a>.</p>
+<p>Returns the current type of weather. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00066">66</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Peoplemon/<a class="el" href="a00242_source.html">OwnedMove.hpp</a></li>
+<a id="ae48dd781d8df78511a1ca9e1871cede5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae48dd781d8df78511a1ca9e1871cede5">&#9670;&nbsp;</a></span>set()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::Weather::set </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Type</a>&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>immediate</em> = <code>false</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the current weather type. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">type</td><td>The type of weather to transition to </td></tr>
+    <tr><td class="paramname">immediate</td><td>True to skip the stop phase of the current weather </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00054">54</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a4f0b50ffdeffd5e1d97dda2cfe50afe6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f0b50ffdeffd5e1d97dda2cfe50afe6">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::Weather::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the current weather. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed since last call to <a class="el" href="a01857.html#a4f0b50ffdeffd5e1d97dda2cfe50afe6" title="Updates the current weather.">update()</a> in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00755_source.html#l00068">68</a> of file <a class="el" href="a00755_source.html">Weather.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Maps/<a class="el" href="a03337_source.html">Weather.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a00755_source.html">Weather.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

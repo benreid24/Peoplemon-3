@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::file::GameSave::ClockPointers Struct Reference</title>
+<title>Peoplemon: bl::serial::SerializableObject&lt; core::file::Conversation &gt; Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,57 +66,136 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01111.html">file</a></li><li class="navelem"><a class="el" href="a01613.html">GameSave</a></li><li class="navelem"><a class="el" href="a01633.html">ClockPointers</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01129.html">bl</a></li><li class="navelem"><a class="el" href="a01135.html">serial</a></li><li class="navelem"><a class="el" href="a01633.html">SerializableObject&lt; core::file::Conversation &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01630.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::file::GameSave::ClockPointers Struct Reference</div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; core::file::Conversation &gt; Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stores the date in game.  
- <a href="a01633.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a03229_source.html">GameSave.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03256_source.html">Conversation.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::file::Conversation &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01633.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a9612d2b137e9aafef06e7da146e5dcc5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a9612d2b137e9aafef06e7da146e5dcc5">Node</a> = <a class="el" href="a01617.html">core::file::Conversation::Node</a></td></tr>
+<tr class="separator:a9612d2b137e9aafef06e7da146e5dcc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2708781e07947b89a9bb07f971f7f801"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a2708781e07947b89a9bb07f971f7f801">Conversation</a> = <a class="el" href="a01613.html">core::file::Conversation</a></td></tr>
+<tr class="separator:a2708781e07947b89a9bb07f971f7f801"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a78d874cca0da47f0482c5d9a93b091bc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a78d874cca0da47f0482c5d9a93b091bc">SerializableObject</a> ()</td></tr>
+<tr class="separator:a78d874cca0da47f0482c5d9a93b091bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aaabe6a3b50a85bce217d96be4a0c936d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01993.html">system::Clock::Time</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#aaabe6a3b50a85bce217d96be4a0c936d">time</a></td></tr>
-<tr class="separator:aaabe6a3b50a85bce217d96be4a0c936d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1aee6c6d37f31fb5c4c00de83ebcc8ca"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01633.html#a2708781e07947b89a9bb07f971f7f801">Conversation</a>, std::vector&lt; <a class="el" href="a01633.html#a9612d2b137e9aafef06e7da146e5dcc5">Node</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01633.html#a1aee6c6d37f31fb5c4c00de83ebcc8ca">nodes</a></td></tr>
+<tr class="separator:a1aee6c6d37f31fb5c4c00de83ebcc8ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stores the date in game. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03229_source.html#l00067">67</a> of file <a class="el" href="a03229_source.html">GameSave.hpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="aaabe6a3b50a85bce217d96be4a0c936d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaabe6a3b50a85bce217d96be4a0c936d">&#9670;&nbsp;</a></span>time</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a03256_source.html#l00388">388</a> of file <a class="el" href="a03256_source.html">Conversation.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a2708781e07947b89a9bb07f971f7f801"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2708781e07947b89a9bb07f971f7f801">&#9670;&nbsp;</a></span>Conversation</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01993.html">system::Clock::Time</a>* core::file::GameSave::ClockPointers::time</td>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01613.html">core::file::Conversation</a> &gt;::<a class="el" href="a01633.html#a2708781e07947b89a9bb07f971f7f801">Conversation</a> =  <a class="el" href="a01613.html">core::file::Conversation</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03229_source.html#l00068">68</a> of file <a class="el" href="a03229_source.html">GameSave.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03256_source.html#l00390">390</a> of file <a class="el" href="a03256_source.html">Conversation.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a9612d2b137e9aafef06e7da146e5dcc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9612d2b137e9aafef06e7da146e5dcc5">&#9670;&nbsp;</a></span>Node</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01613.html">core::file::Conversation</a> &gt;::<a class="el" href="a01633.html#a9612d2b137e9aafef06e7da146e5dcc5">Node</a> =  <a class="el" href="a01617.html">core::file::Conversation::Node</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03256_source.html#l00389">389</a> of file <a class="el" href="a03256_source.html">Conversation.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a78d874cca0da47f0482c5d9a93b091bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78d874cca0da47f0482c5d9a93b091bc">&#9670;&nbsp;</a></span>SerializableObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01613.html">core::file::Conversation</a> &gt;::SerializableObject </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03256_source.html#l00394">394</a> of file <a class="el" href="a03256_source.html">Conversation.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a1aee6c6d37f31fb5c4c00de83ebcc8ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1aee6c6d37f31fb5c4c00de83ebcc8ca">&#9670;&nbsp;</a></span>nodes</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SerializableField&lt;1, <a class="el" href="a01633.html#a2708781e07947b89a9bb07f971f7f801">Conversation</a>, std::vector&lt;<a class="el" href="a01633.html#a9612d2b137e9aafef06e7da146e5dcc5">Node</a>&gt; &gt; bl::serial::SerializableObject&lt; <a class="el" href="a01613.html">core::file::Conversation</a> &gt;::nodes</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03256_source.html#l00392">392</a> of file <a class="el" href="a03256_source.html">Conversation.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Files/<a class="el" href="a03229_source.html">GameSave.hpp</a></li>
+<li>include/Core/Files/<a class="el" href="a03256_source.html">Conversation.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

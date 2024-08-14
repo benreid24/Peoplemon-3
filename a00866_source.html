@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Components/CatchRegionWindow.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/Trainers.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,337 +66,266 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">CatchRegionWindow.cpp</div>  </div>
+<div class="title">Trainers.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00866.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00371.html">Editor/Components/CatchRegionWindow.hpp</a>&gt;</span></div>
+<a href="a00866.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00359.html">Core/Systems/Trainers.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;iomanip&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;numeric&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;constexpr <span class="keywordtype">float</span> FreqRange = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(std::numeric_limits&lt;std::uint16_t&gt;::max() - 1);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">bool</span> isnum(<span class="keyword">const</span> std::string&amp; n) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> c : n) {</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <span class="keywordflow">if</span> (!std::isdigit(c)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    }</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (n.empty()) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using namespace </span>bl::gui;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160; </div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02113.html#a41dfe46457f80ce57072b56ee553351a">   25</a></span>&#160;<a class="code" href="a02113.html#a41dfe46457f80ce57072b56ee553351a">CatchRegionWindow::CatchRegionWindow</a>(<span class="keyword">const</span> <a class="code" href="a02113.html#a5ed4ad71ca49abed301492fc33be073f">TriggerCb</a>&amp; cb)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;: onSave(cb) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    window =</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        Window::create(LinePacker::create(LinePacker::Vertical, 4.f), <span class="stringliteral">&quot;Peoplemon Region Editor&quot;</span>);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    window-&gt;getSignal(Event::Closed).willAlwaysCall(std::bind(&amp;CatchRegionWindow::close, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    window-&gt;setRequisition({700.f, 600.f});</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    row-&gt;pack(Label::create(<span class="stringliteral">&quot;Name:&quot;</span>), <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    nameEntry = TextEntry::create();</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    row-&gt;pack(nameEntry, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    window-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Audio/AudioSystem.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03316.html">Core/Files/GameSave.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> HoldTime   = 0.75f;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> RevealRate = 60.f;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;std::string trainerKey(<span class="keyword">const</span> component::Trainer&amp; t) { <span class="keywordflow">return</span> t.<a class="code" href="a01133.html">file</a>() + <span class="stringliteral">&quot;:&quot;</span> + t.name(); }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02113.html#acc08fe54b119cd087630adfc53d4d091">   21</a></span>&#160;<a class="code" href="a02113.html#acc08fe54b119cd087630adfc53d4d091">Trainers::Trainers</a>(<a class="code" href="a02109.html">Systems</a>&amp; o)</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: owner(o)</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, trainerPool(o.engine().ecs().getAllComponents&lt;component::Trainer&gt;())</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, state(State::Searching)</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;, walkingTrainer(<a class="code" href="a01129.html">bl</a>::ecs::InvalidEntity) {}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> Trainers::init(bl::engine::Engine&amp; engine) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    exclaimTxtr = engine.renderer().texturePool().getOrLoadTexture(</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a01957.html#af6458fb093d6801509a2581a3496f817">Properties::TrainerExclaimImage</a>(),</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        engine.renderer().vulkanState().samplerCache.noFilterBorderClamped());</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    exclaim.create(engine, exclaimTxtr);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    exclaim.getTransform().setDepth(-0.5f); <span class="comment">// just above parent</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    engine.ecs().setEntityParentDestructionBehavior(</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        exclaim.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    exclaimSound = bl::audio::AudioSystem::getOrLoadSound(<a class="code" href="a01957.html#a769652783ab82057e415b2922942dcb4">Properties::TrainerExclaimSound</a>());</div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    peopleScroll = ScrollArea::create(LinePacker::create(LinePacker::Vertical, 8.f));</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    peopleScroll-&gt;setMaxSize({700.f, 550.f});</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    window-&gt;pack(peopleScroll, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    row                = Box::create(LinePacker::create(LinePacker::Horizontal, 4.f));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    Button::Ptr addBut = Button::create(<span class="stringliteral">&quot;Add Peoplemon&quot;</span>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    addBut-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(&amp;CatchRegionWindow::add, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    row-&gt;pack(addBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    Box::Ptr subrow       = Box::create(LinePacker::create(</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        LinePacker::Horizontal, 4.f, LinePacker::Compact, LinePacker::RightAlign));</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    Button::Ptr cancelBut = Button::create(<span class="stringliteral">&quot;Cancel&quot;</span>);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    cancelBut-&gt;setColor(sf::Color::Red, sf::Color::Black);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    cancelBut-&gt;getSignal(Event::LeftClicked)</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        .willAlwaysCall(std::bind(&amp;CatchRegionWindow::close, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    subrow-&gt;pack(cancelBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    Button::Ptr saveBut = Button::create(<span class="stringliteral">&quot;Save&quot;</span>);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    saveBut-&gt;setColor(sf::Color(3, 252, 244), sf::Color::Black);</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    saveBut-&gt;getSignal(Event::LeftClicked)</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        .willAlwaysCall(std::bind(&amp;CatchRegionWindow::save, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    subrow-&gt;pack(saveBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    row-&gt;pack(subrow, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    window-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02113.html#ac9843951ac995dfdb8282d7c3dd1589a">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02113.html#ac9843951ac995dfdb8282d7c3dd1589a">CatchRegionWindow::open</a>(bl::gui::GUI* gui, <span class="keyword">const</span> <a class="code" href="a01717.html">core::map::CatchRegion</a>&amp; v) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : rows) { row.row-&gt;remove(); }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    rows.clear();</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    bl::event::Dispatcher::subscribe(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">void</span> Trainers::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> updateRect = [<span class="keyword">this</span>](<span class="keywordtype">float</span> h) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        exclaim.setTextureSource({0, 0.f, exclaimTxtr-&gt;size().x, h});</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        exclaim.scaleToSize({exclaimTxtr-&gt;size().x, h});</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        exclaim.getTransform().setPosition(exclaim.getTransform().getLocalPosition().x, -h - 12.f);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    };</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">switch</span> (state) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">case</span> State::PoppingUp:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        height += dt * RevealRate;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <span class="keywordflow">if</span> (height &gt;= exclaimTxtr-&gt;size().y) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;            updateRect(exclaimTxtr-&gt;size().y);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;            state  = State::Holding;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            height = 0.f;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        <span class="keywordflow">else</span> { updateRect(height); }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">case</span> State::Holding:</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        height += dt;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <span class="keywordflow">if</span> (height &gt;= HoldTime) {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;            height = exclaimTxtr-&gt;size().y;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            state  = State::Rising;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    nameEntry-&gt;setInput(v.<a class="code" href="a01717.html#aa685b24f69d96f95d4c9d07b06c1f689">name</a>);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    rows.reserve(v.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.size());</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="a01897.html">core::pplmn::WildPeoplemon</a>&amp; wild : v.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        rows.emplace_back(std::bind(&amp;CatchRegionWindow::freqChange, <span class="keyword">this</span>, std::placeholders::_1),</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                          std::bind(&amp;CatchRegionWindow::remove, <span class="keyword">this</span>, std::placeholders::_1));</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        rows.back().idSelect-&gt;setPeoplemon(wild.<a class="code" href="a01897.html#a11bb70fa5cfd71306283bb8a09d21d42">id</a>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        rows.back().minLevel-&gt;setInput(std::to_string(wild.<a class="code" href="a01897.html#a3bd0467c151fec11b848f119b4e0db17">minLevel</a>));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        rows.back().maxLevel-&gt;setInput(std::to_string(wild.<a class="code" href="a01897.html#a4455c1e1512329c24872cbda32895f17">maxLevel</a>));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        rows.back().freqSlider-&gt;setValue(<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(wild.<a class="code" href="a01897.html#a5242a47f9f124e031cdcdddb5b96421c">frequency</a>) / FreqRange);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        peopleScroll-&gt;pack(rows.back().row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    gui-&gt;pack(window);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    window-&gt;setForceFocus(<span class="keyword">true</span>);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    value = v;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02113.html#ac743666b84070d7892100735b2b735d0">   85</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01717.html">core::map::CatchRegion</a>&amp; <a class="code" href="a02113.html#ac743666b84070d7892100735b2b735d0">CatchRegionWindow::getValue</a>() {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    value.<a class="code" href="a01717.html#aa685b24f69d96f95d4c9d07b06c1f689">name</a> = nameEntry-&gt;getInput();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.clear();</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.reserve(rows.size());</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Row&amp; row : rows) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.emplace_back();</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.back().id       = row.idSelect-&gt;currentPeoplemon();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.back().minLevel = std::atoi(row.minLevel-&gt;getInput().c_str());</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.back().maxLevel = std::atoi(row.maxLevel-&gt;getInput().c_str());</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        value.<a class="code" href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">wilds</a>.back().frequency =</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keyword">static_cast&lt;</span>std::uint16_t<span class="keyword">&gt;</span>(row.freqSlider-&gt;getValue() * FreqRange);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordflow">case</span> State::Rising:</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        height -= dt * RevealRate;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">if</span> (height &gt; 0.f) { updateRect(height); }</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;            updateRect(0);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            state = State::Walking;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;            exclaim.removeFromScene();</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;        }</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordflow">case</span> State::Walking:</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (!trainerMove-&gt;<a class="code" href="a01417.html#a8a843bd9a56205f07badfa288c8e030a">moving</a>()) {</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;            <span class="keywordflow">if</span> (bl::tmap::Position::adjacent(*trainerPos, owner.<a class="code" href="a02109.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02089.html#a3cf2e4213684ff96d04876b6d98b13fa">position</a>())) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#adbf956366f458de91791b525731c36de">interaction</a>().<a class="code" href="a02081.html#a7c7533feedd7d9861ffa3f8d03546d36">interact</a>(walkingTrainer)) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                    BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Trainer &quot;</span> &lt;&lt; walkingTrainer</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                                 &lt;&lt; <span class="stringliteral">&quot; was unable to interact with player, aborting&quot;</span>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    cleanup();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                <span class="keywordflow">else</span> { state = State::Battling; }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a41e33ceb29b9098d1d611b395bc8c544">movement</a>().<a class="code" href="a02085.html#a89dec9aa18e78a1ae724e793dc0cf660">moveEntity</a>(walkingTrainer, trainerPos-&gt;direction, <span class="keyword">false</span>)) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                    BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Trainer &quot;</span> &lt;&lt; walkingTrainer</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                                 &lt;&lt; <span class="stringliteral">&quot; is unable to get to the player, aborting&quot;</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                    owner.<a class="code" href="a02109.html#a93591789b40dcfcfb17d73c33004f83f">controllable</a>().<a class="code" href="a02025.html#a0bdc1bfd930d148706d112ebc1bf388d">setEntityLocked</a>(owner.<a class="code" href="a02109.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02089.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>(), <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                    cleanup();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                }</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;            }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        <span class="keywordflow">break</span>;</div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> value;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="keywordtype">void</span> CatchRegionWindow::close() {</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    window-&gt;setForceFocus(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    window-&gt;remove();</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160; </div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;CatchRegionWindow::Row::Row(<span class="keyword">const</span> Callback&amp; cb, <span class="keyword">const</span> Callback&amp; delcb) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    row = Box::create(LinePacker::create(LinePacker::Horizontal, 8.f));</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    row-&gt;setColor(sf::Color(119, 252, 35, 100), sf::Color::Green);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    row-&gt;setOutlineThickness(1.f);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">case</span> State::Searching:</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">case</span> State::Battling:</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a02113.html#a832b730851fe1796601412a04ef80b06">  105</a></span>&#160;bl::ecs::Entity <a class="code" href="a02113.html#a832b730851fe1796601412a04ef80b06">Trainers::approachingTrainer</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> walkingTrainer; }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno"><a class="line" href="a02113.html#aa663463a29057045e7d45437ea9baf1f">  107</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02113.html#aa663463a29057045e7d45437ea9baf1f">Trainers::trainerDefeated</a>(<span class="keyword">const</span> <a class="code" href="a01449.html">component::Trainer</a>&amp; t)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">return</span> defeated.find(trainerKey(t)) != defeated.end();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160; </div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    Box::Ptr col = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    col-&gt;pack(Label::create(<span class="stringliteral">&quot;Peoplemon&quot;</span>));</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    idSelect = <a class="code" href="a02213.html#a014ddb144fb0aa35d74c07d63182b6e4">PeoplemonSelector::create</a>();</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    idSelect-&gt;setVerticalAlignment(RenderSettings::Bottom);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    idSelect-&gt;setMaxHeight(300.f);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    col-&gt;pack(idSelect, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    row-&gt;pack(col, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    col = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    col-&gt;pack(Label::create(<span class="stringliteral">&quot;Min Lvl&quot;</span>), <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    minLevel = TextEntry::create();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;    minLevel-&gt;setMode(TextEntry::Mode::Integer | TextEntry::Mode::Unsigned);</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    col-&gt;pack(minLevel, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    row-&gt;pack(col, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    col = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    col-&gt;pack(Label::create(<span class="stringliteral">&quot;Max Lvl&quot;</span>), <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    maxLevel = TextEntry::create();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    maxLevel-&gt;setMode(TextEntry::Mode::Integer | TextEntry::Mode::Unsigned);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    col-&gt;pack(maxLevel, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    row-&gt;pack(col, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    col             = Box::create(LinePacker::create(LinePacker::Vertical, 4.f));</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    Box::Ptr subrow = Box::create(LinePacker::create(LinePacker::Horizontal, 10.f));</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    freqLabel       = Label::create(<span class="stringliteral">&quot;Freq: 0%&quot;</span>);</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    freqLabel-&gt;setRequisition({90.f, 10.f});</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    lockBut = CheckButton::create(<span class="stringliteral">&quot;Lock&quot;</span>);</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    freqLabel-&gt;setHorizontalAlignment(RenderSettings::Left);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    subrow-&gt;pack(freqLabel, <span class="keyword">true</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    subrow-&gt;pack(lockBut, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    col-&gt;pack(subrow, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    freqSlider = Slider::create(Slider::Horizontal);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    freqSlider-&gt;getSignal(Event::ValueChanged).willAlwaysCall(std::bind(cb, std::placeholders::_2));</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    freqSlider-&gt;setRequisition({200.f, 20.f});</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;    freqSlider-&gt;setSliderIncrement(0.001f);</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    col-&gt;pack(freqSlider, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    row-&gt;pack(col, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    col    = Box::create(LinePacker::create(</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        LinePacker::Vertical, 4.f, LinePacker::Compact, LinePacker::BottomAlign));</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    delBut = Button::create(<span class="stringliteral">&quot;Remove&quot;</span>);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    delBut-&gt;setColor(sf::Color::Red, sf::Color::Black);</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    delBut-&gt;getSignal(Event::LeftClicked).willAlwaysCall(std::bind(delcb, std::placeholders::_2));</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    col-&gt;pack(delBut);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    row-&gt;pack(col, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160; </div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="keywordtype">void</span> CatchRegionWindow::save() {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordflow">if</span> (validate()) {</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        onSave();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        close();</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">void</span> CatchRegionWindow::add() {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> unlocked = 1;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordtype">float</span> unlockedAmount  = 0.f;</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        <span class="keywordflow">if</span> (!row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;            ++unlocked;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;            unlockedAmount += row.freqSlider-&gt;getValue();</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        }</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> avg = unlockedAmount / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(unlocked);</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    rows.emplace_back(std::bind(&amp;CatchRegionWindow::freqChange, <span class="keyword">this</span>, std::placeholders::_1),</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;                      std::bind(&amp;CatchRegionWindow::remove, <span class="keyword">this</span>, std::placeholders::_1));</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    rows.back().minLevel-&gt;setInput(<span class="stringliteral">&quot;20&quot;</span>);</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    rows.back().maxLevel-&gt;setInput(<span class="stringliteral">&quot;30&quot;</span>);</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    peopleScroll-&gt;pack(rows.back().row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    <span class="keywordflow">if</span> (rows.size() == 1) { rows.front().freqSlider-&gt;setValue(1.f); }</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;            <span class="keywordflow">if</span> (!row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;                row.freqSlider-&gt;setValue(avg, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;                std::stringstream ss;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;                ss &lt;&lt; <span class="stringliteral">&quot;Freq: &quot;</span>;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;                ss &lt;&lt; std::setprecision(5) &lt;&lt; (row.freqSlider-&gt;getValue() * 100.f) &lt;&lt; <span class="stringliteral">&quot;%&quot;</span>;</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;                row.freqLabel-&gt;setText(ss.str());</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;            }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        }</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="keywordtype">void</span> CatchRegionWindow::remove(bl::gui::Element* e) {</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span> it = rows.begin(); it != rows.end(); ++it) {</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>Element*<span class="keyword">&gt;</span>(it-&gt;delBut.get()) == e) {</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            it-&gt;row-&gt;remove();</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;            rows.erase(it);</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;            <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        }</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> unlocked = 0;</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    <span class="keywordtype">float</span> unlockedAmount  = 0.f;</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;        <span class="keywordflow">if</span> (!row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            ++unlocked;</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            unlockedAmount += row.freqSlider-&gt;getValue();</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    }</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> avg = unlockedAmount / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(unlocked);</div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160; </div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keywordflow">if</span> (!row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;            row.freqSlider-&gt;setValue(avg, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;            std::stringstream ss;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            ss &lt;&lt; <span class="stringliteral">&quot;Freq: &quot;</span>;</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;            ss &lt;&lt; std::setprecision(5) &lt;&lt; (row.freqSlider-&gt;getValue() * 100.f) &lt;&lt; <span class="stringliteral">&quot;%&quot;</span>;</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;            row.freqLabel-&gt;setText(ss.str());</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        }</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    }</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;}</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="keywordtype">void</span> CatchRegionWindow::freqChange(Element* e) {</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordtype">float</span> sum             = 0.f;</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> unlocked = 0;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        sum += row.freqSlider-&gt;getValue();</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>Element*<span class="keyword">&gt;</span>(row.freqSlider.get()) != e &amp;&amp; !row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;            ++unlocked;</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    }</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> diff   = 1.f - sum;</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> shared = diff / <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(unlocked);</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; row : rows) {</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;        <span class="keywordflow">if</span> (<span class="keyword">static_cast&lt;</span>Element*<span class="keyword">&gt;</span>(row.freqSlider.get()) != e &amp;&amp; !row.lockBut-&gt;getValue()) {</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;            <span class="keywordtype">float</span> f = row.freqSlider-&gt;getValue() + shared;</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;            <span class="keywordflow">if</span> (f &lt;= 0.f) f = 0.001f;</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;            <span class="keywordflow">if</span> (f &gt; 1.f) f = 1.f;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;            row.freqSlider-&gt;setValue(f, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;        }</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;        std::stringstream ss;</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;        ss &lt;&lt; <span class="stringliteral">&quot;Freq: &quot;</span>;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;        ss &lt;&lt; std::setprecision(5) &lt;&lt; (row.freqSlider-&gt;getValue() * 100.f) &lt;&lt; <span class="stringliteral">&quot;%&quot;</span>;</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;        row.freqLabel-&gt;setText(ss.str());</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;}</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="keywordtype">bool</span> CatchRegionWindow::validate()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <span class="keywordflow">if</span> (rows.empty()) {</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;        bl::dialog::tinyfd_messageBox(</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;            <span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Region must have at least one Peoplemon&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    }</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordflow">if</span> (nameEntry-&gt;getInput().empty()) {</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;        bl::dialog::tinyfd_messageBox(<span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Please enter a name&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    }</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160; </div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <span class="keywordtype">float</span> sum = 0.f;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> Row&amp; row : rows) {</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;        <span class="keywordflow">if</span> (row.idSelect-&gt;currentPeoplemon() == <a class="code" href="a01091.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a>) {</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            bl::dialog::tinyfd_messageBox(<span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Peoplemon cannot be blank&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;        }</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        <span class="keywordflow">if</span> (!isnum(row.minLevel-&gt;getInput()) || !isnum(row.maxLevel-&gt;getInput())) {</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;            bl::dialog::tinyfd_messageBox(<span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Levels must be numbers&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        }</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> mn = std::atoi(row.minLevel-&gt;getInput().c_str());</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> mx = std::atoi(row.maxLevel-&gt;getInput().c_str());</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;        <span class="keywordflow">if</span> (mn &lt;= 0 || mx &lt;= 0) {</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;            bl::dialog::tinyfd_messageBox(<span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Levels must be non-zero&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;        }</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;        <span class="keywordflow">if</span> (mn &gt; 100 || mx &gt; 100) {</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;            bl::dialog::tinyfd_messageBox(</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;                <span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Levels must be less than or equal to 100&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;        }</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;        <span class="keywordflow">if</span> (mx &lt; mn) {</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;            bl::dialog::tinyfd_messageBox(</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;                <span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Min level must be below max level&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;        }</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;        sum += row.freqSlider-&gt;getValue();</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    }</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordflow">if</span> (std::abs(1.f - sum) &gt; 0.001f) {</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        bl::dialog::tinyfd_messageBox(<span class="stringliteral">&quot;Error&quot;</span>, <span class="stringliteral">&quot;Frequencies must sum to 100%&quot;</span>, <span class="stringliteral">&quot;ok&quot;</span>, <span class="stringliteral">&quot;error&quot;</span>, 1);</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;    }</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;}</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160; </div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="ttc" id="aa00371_html"><div class="ttname"><a href="a00371.html">CatchRegionWindow.hpp</a></div></div>
-<div class="ttc" id="aa01091_html_ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01091.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
-<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01717_html"><div class="ttname"><a href="a01717.html">core::map::CatchRegion</a></div><div class="ttdoc">Represents a class of catchable peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00018">CatchRegion.hpp:18</a></div></div>
-<div class="ttc" id="aa01717_html_aa685b24f69d96f95d4c9d07b06c1f689"><div class="ttname"><a href="a01717.html#aa685b24f69d96f95d4c9d07b06c1f689">core::map::CatchRegion::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00019">CatchRegion.hpp:19</a></div></div>
-<div class="ttc" id="aa01717_html_ad13a93a6da9f31784cf5c3afbea6033d"><div class="ttname"><a href="a01717.html#ad13a93a6da9f31784cf5c3afbea6033d">core::map::CatchRegion::wilds</a></div><div class="ttdeci">std::vector&lt; pplmn::WildPeoplemon &gt; wilds</div><div class="ttdef"><b>Definition:</b> <a href="a00179_source.html#l00020">CatchRegion.hpp:20</a></div></div>
-<div class="ttc" id="aa01897_html"><div class="ttname"><a href="a01897.html">core::pplmn::WildPeoplemon</a></div><div class="ttdoc">Template struct to generate OwnedPeoplemon for random encounters.</div><div class="ttdef"><b>Definition:</b> <a href="a03289_source.html#l00018">WildPeoplemon.hpp:18</a></div></div>
-<div class="ttc" id="aa01897_html_a11bb70fa5cfd71306283bb8a09d21d42"><div class="ttname"><a href="a01897.html#a11bb70fa5cfd71306283bb8a09d21d42">core::pplmn::WildPeoplemon::id</a></div><div class="ttdeci">Id id</div><div class="ttdoc">The type of peoplemon to generate.</div><div class="ttdef"><b>Definition:</b> <a href="a03289_source.html#l00020">WildPeoplemon.hpp:20</a></div></div>
-<div class="ttc" id="aa01897_html_a3bd0467c151fec11b848f119b4e0db17"><div class="ttname"><a href="a01897.html#a3bd0467c151fec11b848f119b4e0db17">core::pplmn::WildPeoplemon::minLevel</a></div><div class="ttdeci">std::uint8_t minLevel</div><div class="ttdoc">The minimum level that may spawn, inclusive.</div><div class="ttdef"><b>Definition:</b> <a href="a03289_source.html#l00023">WildPeoplemon.hpp:23</a></div></div>
-<div class="ttc" id="aa01897_html_a4455c1e1512329c24872cbda32895f17"><div class="ttname"><a href="a01897.html#a4455c1e1512329c24872cbda32895f17">core::pplmn::WildPeoplemon::maxLevel</a></div><div class="ttdeci">std::uint8_t maxLevel</div><div class="ttdoc">The maximum level that may spawn, inclusive.</div><div class="ttdef"><b>Definition:</b> <a href="a03289_source.html#l00026">WildPeoplemon.hpp:26</a></div></div>
-<div class="ttc" id="aa01897_html_a5242a47f9f124e031cdcdddb5b96421c"><div class="ttname"><a href="a01897.html#a5242a47f9f124e031cdcdddb5b96421c">core::pplmn::WildPeoplemon::frequency</a></div><div class="ttdeci">std::uint16_t frequency</div><div class="ttdoc">Frequency of spawns relative to other wild peoplemon in the region.</div><div class="ttdef"><b>Definition:</b> <a href="a03289_source.html#l00029">WildPeoplemon.hpp:29</a></div></div>
-<div class="ttc" id="aa02113_html_a41dfe46457f80ce57072b56ee553351a"><div class="ttname"><a href="a02113.html#a41dfe46457f80ce57072b56ee553351a">editor::component::CatchRegionWindow::CatchRegionWindow</a></div><div class="ttdeci">CatchRegionWindow(const TriggerCb &amp;onSave)</div><div class="ttdoc">Construct a new Catch Region Window.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00025">CatchRegionWindow.cpp:25</a></div></div>
-<div class="ttc" id="aa02113_html_a5ed4ad71ca49abed301492fc33be073f"><div class="ttname"><a href="a02113.html#a5ed4ad71ca49abed301492fc33be073f">editor::component::CatchRegionWindow::TriggerCb</a></div><div class="ttdeci">std::function&lt; void()&gt; TriggerCb</div><div class="ttdoc">Called when the region is saved.</div><div class="ttdef"><b>Definition:</b> <a href="a00371_source.html#l00021">CatchRegionWindow.hpp:21</a></div></div>
-<div class="ttc" id="aa02113_html_ac743666b84070d7892100735b2b735d0"><div class="ttname"><a href="a02113.html#ac743666b84070d7892100735b2b735d0">editor::component::CatchRegionWindow::getValue</a></div><div class="ttdeci">const core::map::CatchRegion &amp; getValue()</div><div class="ttdoc">Returns the current region value as inputed by the user.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00085">CatchRegionWindow.cpp:85</a></div></div>
-<div class="ttc" id="aa02113_html_ac9843951ac995dfdb8282d7c3dd1589a"><div class="ttname"><a href="a02113.html#ac9843951ac995dfdb8282d7c3dd1589a">editor::component::CatchRegionWindow::open</a></div><div class="ttdeci">void open(bl::gui::GUI *gui, const core::map::CatchRegion &amp;region)</div><div class="ttdoc">Opens the window with the given region value.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00063">CatchRegionWindow.cpp:63</a></div></div>
-<div class="ttc" id="aa02213_html_a014ddb144fb0aa35d74c07d63182b6e4"><div class="ttname"><a href="a02213.html#a014ddb144fb0aa35d74c07d63182b6e4">editor::component::PeoplemonSelector::create</a></div><div class="ttdeci">static Ptr create(bool allowUnknown=false)</div><div class="ttdoc">Creates a new peoplemon selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00935_source.html#l00008">PeoplemonSelector.cpp:8</a></div></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="a02113.html#ac076fc57965f4d38efe246360017aaa3">  111</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02113.html#ac076fc57965f4d38efe246360017aaa3">Trainers::setDefeated</a>(<a class="code" href="a01449.html">component::Trainer</a>&amp; t) {</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    t.<a class="code" href="a01449.html#af7c48076f937bdd565885bc95085b416">setDefeated</a>();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    defeated.emplace(trainerKey(t));</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;}</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="keywordtype">void</span> Trainers::observe(<span class="keyword">const</span> <a class="code" href="a01489.html">event::GameSaveInitializing</a>&amp; save) {</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    save.<a class="code" href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01637.html#a2fb72128552082a09bb4efb4d048a41a">trainers</a>.<a class="code" href="a01661.html#af71f1d04ce7eb698d6f25c09be5539f3">defeated</a> = &amp;defeated;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;}</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="keywordtype">void</span> Trainers::observe(<span class="keyword">const</span> bl::ecs::event::ComponentAdded&lt;component::Trainer&gt;&amp; tc) {</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02113.html#aa663463a29057045e7d45437ea9baf1f">trainerDefeated</a>(tc.component)) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <a class="code" href="a01449.html">component::Trainer</a>&amp; t = <span class="keyword">const_cast&lt;</span><a class="code" href="a01449.html">component::Trainer</a>&amp;<span class="keyword">&gt;</span>(tc.component);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        t.<a class="code" href="a01449.html#af7c48076f937bdd565885bc95085b416">setDefeated</a>();</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    }</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="keywordtype">void</span> Trainers::observe(<span class="keyword">const</span> event::BattleCompleted&amp; b) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="keywordflow">if</span> (b.type == <a class="code" href="a01265.html#a5c4138656c418031327b3958cc6e8c62a6a637f7058902bd845b674214be7d85c">battle::Battle::Type::Trainer</a> &amp;&amp; b.result.localPlayerWon) {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <a class="code" href="a02113.html#ac076fc57965f4d38efe246360017aaa3">setDefeated</a>(*trainerComponent);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    cleanup();</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="keywordtype">void</span> Trainers::observe(<span class="keyword">const</span> event::EntityRotated&amp; rot) {</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordflow">if</span> (walkingTrainer == bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        component::Trainer* trainer = trainerPool.get(rot.entity);</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keywordflow">if</span> (trainer) { checkTrainer(rot.entity, *trainer); }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    }</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;}</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="keywordtype">void</span> Trainers::observe(<span class="keyword">const</span> event::EntityMoveFinished&amp; moved) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span> (walkingTrainer != bl::ecs::InvalidEntity) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">if</span> (moved.entity == owner.<a class="code" href="a02109.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02089.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>()) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        trainerPool.forEach([<span class="keyword">this</span>](bl::ecs::Entity ent, component::Trainer&amp; trainer) {</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;            checkTrainer(ent, trainer);</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        });</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        component::Trainer* trainer = trainerPool.get(moved.entity);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        <span class="keywordflow">if</span> (trainer) { checkTrainer(moved.entity, *trainer); }</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    }</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;}</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="keywordtype">void</span> Trainers::checkTrainer(bl::ecs::Entity ent, component::Trainer&amp; trainer) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (trainer.defeated()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">if</span> (owner.<a class="code" href="a02109.html#a625832b092ffb62d44ae2d29b7a7dd47">flight</a>().<a class="code" href="a02033.html#a8ad33d553394552aff5c2d2055c8c1bc">flying</a>()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="comment">// TODO - respect player/trainer locks?</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keyword">const</span> bl::tmap::Position* pos = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::tmap::Position&gt;(ent);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="keywordflow">if</span> (!pos) {</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Encountered trainer &quot;</span> &lt;&lt; ent &lt;&lt; <span class="stringliteral">&quot; with no position&quot;</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    }</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    component::Movable* move = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;component::Movable&gt;(ent);</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">if</span> (!move) {</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Encountered trainer &quot;</span> &lt;&lt; ent &lt;&lt; <span class="stringliteral">&quot; with no movable&quot;</span>;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    }</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keyword">const</span> bl::ecs::Entity see = owner.<a class="code" href="a02109.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">position</a>().<a class="code" href="a02097.html#a469ec2cedb5d2f13b905fe6352a956aa">search</a>(*pos, pos-&gt;direction, trainer.range());</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">if</span> (see == owner.<a class="code" href="a02109.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02089.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>()) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Trainer &quot;</span> &lt;&lt; ent &lt;&lt; <span class="stringliteral">&quot;(&quot;</span> &lt;&lt; trainer.name() &lt;&lt; <span class="stringliteral">&quot; | &quot;</span> &lt;&lt; trainer.file()</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;                    &lt;&lt; <span class="stringliteral">&quot;) sees player&quot;</span>;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        owner.<a class="code" href="a02109.html#a1ce8e251fe7c2df6d7bd8e9a3a4a501b">ai</a>().<a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(ent);</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        walkingTrainer   = ent;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        trainerComponent = &amp;trainer;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;        trainerPos       = pos;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        trainerMove      = move;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;        owner.<a class="code" href="a02109.html#a93591789b40dcfcfb17d73c33004f83f">controllable</a>().<a class="code" href="a02025.html#a0bdc1bfd930d148706d112ebc1bf388d">setEntityLocked</a>(owner.<a class="code" href="a02109.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02089.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">player</a>(), <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;        bl::audio::AudioSystem::playSound(exclaimSound);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;        state  = State::PoppingUp;</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;        height = 0.f;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;        exclaim.setTextureSource({0.f, 0.f, 0.f, 0.f});</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;        <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">float</span> xoff =</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;            <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01957.html#a3dbd0e08a9910f9755d0e5218ba45f5a">Properties::PixelsPerTile</a>()) * 0.5f - exclaimTxtr-&gt;size().x * 0.5f;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;        exclaim.setParent(ent);</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        exclaim.getTransform().setPosition(xoff, -<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="a01957.html#a3dbd0e08a9910f9755d0e5218ba45f5a">Properties::PixelsPerTile</a>()));</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        exclaim.addToScene(owner.<a class="code" href="a02109.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02121.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>().<a class="code" href="a01805.html#acaaf032c17899a335f649ae156d49b5b">getScene</a>(), bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="keywordtype">void</span> Trainers::cleanup() {</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;    state            = State::Searching;</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    walkingTrainer   = bl::ecs::InvalidEntity;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    trainerComponent = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    trainerMove      = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;}</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="a02113.html#a640c1b9dffa13ec5c676c923d0b7b862">  200</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02113.html#a640c1b9dffa13ec5c676c923d0b7b862">Trainers::resetDefeated</a>() { defeated.clear(); }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa00359_html"><div class="ttname"><a href="a00359.html">Trainers.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
+<div class="ttc" id="aa01133_html"><div class="ttname"><a href="a01133.html">core::file</a></div><div class="ttdoc">Collection of data classes that provide saving and loading of different game file formats.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00009">GameSave.hpp:10</a></div></div>
+<div class="ttc" id="aa01265_html_a5c4138656c418031327b3958cc6e8c62a6a637f7058902bd845b674214be7d85c"><div class="ttname"><a href="a01265.html#a5c4138656c418031327b3958cc6e8c62a6a637f7058902bd845b674214be7d85c">core::battle::Battle::Type::Trainer</a></div><div class="ttdeci">@ Trainer</div></div>
+<div class="ttc" id="aa01417_html_a8a843bd9a56205f07badfa288c8e030a"><div class="ttname"><a href="a01417.html#a8a843bd9a56205f07badfa288c8e030a">core::component::Movable::moving</a></div><div class="ttdeci">bool moving() const</div><div class="ttdoc">Returns whether or not the entity is moving.</div><div class="ttdef"><b>Definition:</b> <a href="a00641_source.html#l00043">Movable.cpp:43</a></div></div>
+<div class="ttc" id="aa01449_html"><div class="ttname"><a href="a01449.html">core::component::Trainer</a></div><div class="ttdoc">Adding this to an entity will make it a trainer that can battle.</div><div class="ttdef"><b>Definition:</b> <a href="a03301_source.html#l00018">Trainer.hpp:18</a></div></div>
+<div class="ttc" id="aa01449_html_af7c48076f937bdd565885bc95085b416"><div class="ttname"><a href="a01449.html#af7c48076f937bdd565885bc95085b416">core::component::Trainer::setDefeated</a></div><div class="ttdeci">void setDefeated()</div><div class="ttdoc">Marks this trainer as defeated.</div><div class="ttdef"><b>Definition:</b> <a href="a03442_source.html#l00059">Trainer.cpp:59</a></div></div>
+<div class="ttc" id="aa01489_html"><div class="ttname"><a href="a01489.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa01489_html_ac6fbd08a5bcbfc66c3df65f5f33965a8"><div class="ttname"><a href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">core::event::GameSaveInitializing::gameSave</a></div><div class="ttdeci">file::GameSave &amp; gameSave</div><div class="ttdoc">Game save being initialized.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00024">GameSave.hpp:24</a></div></div>
+<div class="ttc" id="aa01637_html_a2fb72128552082a09bb4efb4d048a41a"><div class="ttname"><a href="a01637.html#a2fb72128552082a09bb4efb4d048a41a">core::file::GameSave::trainers</a></div><div class="ttdeci">struct core::file::GameSave::TrainerPointers trainers</div></div>
+<div class="ttc" id="aa01661_html_af71f1d04ce7eb698d6f25c09be5539f3"><div class="ttname"><a href="a01661.html#af71f1d04ce7eb698d6f25c09be5539f3">core::file::GameSave::TrainerPointers::defeated</a></div><div class="ttdeci">std::unordered_set&lt; std::string &gt; * defeated</div><div class="ttdef"><b>Definition:</b> <a href="a03316_source.html#l00073">GameSave.hpp:73</a></div></div>
+<div class="ttc" id="aa01805_html_acaaf032c17899a335f649ae156d49b5b"><div class="ttname"><a href="a01805.html#acaaf032c17899a335f649ae156d49b5b">core::map::Map::getScene</a></div><div class="ttdeci">bl::rc::SceneRef getScene()</div><div class="ttdoc">Returns the scene for this map.</div><div class="ttdef"><b>Definition:</b> <a href="a03352_source.html#l00280">Map.hpp:280</a></div></div>
+<div class="ttc" id="aa01957_html_a3dbd0e08a9910f9755d0e5218ba45f5a"><div class="ttname"><a href="a01957.html#a3dbd0e08a9910f9755d0e5218ba45f5a">core::Properties::PixelsPerTile</a></div><div class="ttdeci">static int PixelsPerTile()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00279">Properties.cpp:279</a></div></div>
+<div class="ttc" id="aa01957_html_a769652783ab82057e415b2922942dcb4"><div class="ttname"><a href="a01957.html#a769652783ab82057e415b2922942dcb4">core::Properties::TrainerExclaimSound</a></div><div class="ttdeci">static const std::string &amp; TrainerExclaimSound()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00690">Properties.cpp:690</a></div></div>
+<div class="ttc" id="aa01957_html_af6458fb093d6801509a2581a3496f817"><div class="ttname"><a href="a01957.html#af6458fb093d6801509a2581a3496f817">core::Properties::TrainerExclaimImage</a></div><div class="ttdeci">static const std::string &amp; TrainerExclaimImage()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00684">Properties.cpp:684</a></div></div>
+<div class="ttc" id="aa02009_html_a73cd3a7b19fb9c10d6c85299956ab0ca"><div class="ttname"><a href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">core::system::AI::removeAi</a></div><div class="ttdeci">void removeAi(bl::ecs::Entity ent)</div><div class="ttdoc">Removes any ai behavior from the given entity. Does not affect path finding.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00178">AI.cpp:178</a></div></div>
+<div class="ttc" id="aa02025_html_a0bdc1bfd930d148706d112ebc1bf388d"><div class="ttname"><a href="a02025.html#a0bdc1bfd930d148706d112ebc1bf388d">core::system::Controllable::setEntityLocked</a></div><div class="ttdeci">bool setEntityLocked(bl::ecs::Entity entity, bool locked, bool preserve=true)</div><div class="ttdoc">Set the give entity to be locked or unlocked.</div><div class="ttdef"><b>Definition:</b> <a href="a03424_source.html#l00013">Controllable.cpp:13</a></div></div>
+<div class="ttc" id="aa02033_html_a8ad33d553394552aff5c2d2055c8c1bc"><div class="ttname"><a href="a02033.html#a8ad33d553394552aff5c2d2055c8c1bc">core::system::Flight::flying</a></div><div class="ttdeci">bool flying() const</div><div class="ttdoc">Returns whether or not the player is currently flying.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00048">Flight.cpp:48</a></div></div>
+<div class="ttc" id="aa02081_html_a7c7533feedd7d9861ffa3f8d03546d36"><div class="ttname"><a href="a02081.html#a7c7533feedd7d9861ffa3f8d03546d36">core::system::Interaction::interact</a></div><div class="ttdeci">bool interact(bl::ecs::Entity interactor)</div><div class="ttdoc">Performs an interation on behalf of the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00845_source.html#l00035">Interaction.cpp:35</a></div></div>
+<div class="ttc" id="aa02085_html_a89dec9aa18e78a1ae724e793dc0cf660"><div class="ttname"><a href="a02085.html#a89dec9aa18e78a1ae724e793dc0cf660">core::system::Movement::moveEntity</a></div><div class="ttdeci">bool moveEntity(bl::ecs::Entity entity, bl::tmap::Direction direction, bool fast)</div><div class="ttdoc">Moves an entity in the given direction using either its fast or slow speed.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00027">Movement.cpp:27</a></div></div>
+<div class="ttc" id="aa02089_html_a3cf2e4213684ff96d04876b6d98b13fa"><div class="ttname"><a href="a02089.html#a3cf2e4213684ff96d04876b6d98b13fa">core::system::Player::position</a></div><div class="ttdeci">const bl::tmap::Position &amp; position() const</div><div class="ttdoc">Returns the current position of the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00057">Player.cpp:57</a></div></div>
+<div class="ttc" id="aa02089_html_adf0f45e0a9fe86ce78ed2f4aafbdbf15"><div class="ttname"><a href="a02089.html#adf0f45e0a9fe86ce78ed2f4aafbdbf15">core::system::Player::player</a></div><div class="ttdeci">bl::ecs::Entity player() const</div><div class="ttdoc">Returns the id of the player entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00055">Player.cpp:55</a></div></div>
+<div class="ttc" id="aa02097_html_a469ec2cedb5d2f13b905fe6352a956aa"><div class="ttname"><a href="a02097.html#a469ec2cedb5d2f13b905fe6352a956aa">core::system::Position::search</a></div><div class="ttdeci">bl::ecs::Entity search(const bl::tmap::Position &amp;start, bl::tmap::Direction dir, unsigned int range)</div><div class="ttdoc">Searches for an entity from the starting position in the given direction for the given number of spac...</div><div class="ttdef"><b>Definition:</b> <a href="a00854_source.html#l00039">Position.cpp:39</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02109_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00035">Systems.cpp:35</a></div></div>
+<div class="ttc" id="aa02109_html_a1ce8e251fe7c2df6d7bd8e9a3a4a501b"><div class="ttname"><a href="a02109.html#a1ce8e251fe7c2df6d7bd8e9a3a4a501b">core::system::Systems::ai</a></div><div class="ttdeci">AI &amp; ai()</div><div class="ttdoc">Returns the AI system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00065">Systems.cpp:65</a></div></div>
+<div class="ttc" id="aa02109_html_a41e33ceb29b9098d1d611b395bc8c544"><div class="ttname"><a href="a02109.html#a41e33ceb29b9098d1d611b395bc8c544">core::system::Systems::movement</a></div><div class="ttdeci">Movement &amp; movement()</div><div class="ttdoc">Returns a reference to the movement system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00051">Systems.cpp:51</a></div></div>
+<div class="ttc" id="aa02109_html_a614eb9bb163de0567a30da6c215835af"><div class="ttname"><a href="a02109.html#a614eb9bb163de0567a30da6c215835af">core::system::Systems::player</a></div><div class="ttdeci">Player &amp; player()</div><div class="ttdoc">Returns the player system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00059">Systems.cpp:59</a></div></div>
+<div class="ttc" id="aa02109_html_a625832b092ffb62d44ae2d29b7a7dd47"><div class="ttname"><a href="a02109.html#a625832b092ffb62d44ae2d29b7a7dd47">core::system::Systems::flight</a></div><div class="ttdeci">Flight &amp; flight()</div><div class="ttdoc">Returns the flight system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00083">Systems.cpp:83</a></div></div>
+<div class="ttc" id="aa02109_html_a77a77d45e2bddf8fd0e4e4d2f693bc9f"><div class="ttname"><a href="a02109.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">core::system::Systems::position</a></div><div class="ttdeci">Position &amp; position()</div><div class="ttdoc">Returns a reference to the position system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00047">Systems.cpp:47</a></div></div>
+<div class="ttc" id="aa02109_html_a93591789b40dcfcfb17d73c33004f83f"><div class="ttname"><a href="a02109.html#a93591789b40dcfcfb17d73c33004f83f">core::system::Systems::controllable</a></div><div class="ttdeci">Controllable &amp; controllable()</div><div class="ttdoc">Returns the controllable entity system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00063">Systems.cpp:63</a></div></div>
+<div class="ttc" id="aa02109_html_ad71abe5cc74772044d51b1108df6ade4"><div class="ttname"><a href="a02109.html#ad71abe5cc74772044d51b1108df6ade4">core::system::Systems::world</a></div><div class="ttdeci">World &amp; world()</div><div class="ttdoc">Modifiable accessor for the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00043">Systems.cpp:43</a></div></div>
+<div class="ttc" id="aa02109_html_adbf956366f458de91791b525731c36de"><div class="ttname"><a href="a02109.html#adbf956366f458de91791b525731c36de">core::system::Systems::interaction</a></div><div class="ttdeci">Interaction &amp; interaction()</div><div class="ttdoc">Returns the interaction system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00067">Systems.cpp:67</a></div></div>
+<div class="ttc" id="aa02113_html_a640c1b9dffa13ec5c676c923d0b7b862"><div class="ttname"><a href="a02113.html#a640c1b9dffa13ec5c676c923d0b7b862">core::system::Trainers::resetDefeated</a></div><div class="ttdeci">void resetDefeated()</div><div class="ttdoc">Resets the list of defeated trainers.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00200">Trainers.cpp:200</a></div></div>
+<div class="ttc" id="aa02113_html_a832b730851fe1796601412a04ef80b06"><div class="ttname"><a href="a02113.html#a832b730851fe1796601412a04ef80b06">core::system::Trainers::approachingTrainer</a></div><div class="ttdeci">bl::ecs::Entity approachingTrainer() const</div><div class="ttdoc">Returns the trainer currently approaching the player.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00105">Trainers.cpp:105</a></div></div>
+<div class="ttc" id="aa02113_html_aa663463a29057045e7d45437ea9baf1f"><div class="ttname"><a href="a02113.html#aa663463a29057045e7d45437ea9baf1f">core::system::Trainers::trainerDefeated</a></div><div class="ttdeci">bool trainerDefeated(const component::Trainer &amp;trainer) const</div><div class="ttdoc">Checks whether or not the given trainer has been defeated.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00107">Trainers.cpp:107</a></div></div>
+<div class="ttc" id="aa02113_html_ac076fc57965f4d38efe246360017aaa3"><div class="ttname"><a href="a02113.html#ac076fc57965f4d38efe246360017aaa3">core::system::Trainers::setDefeated</a></div><div class="ttdeci">void setDefeated(component::Trainer &amp;trainer)</div><div class="ttdoc">Sets the given trainer as having been defeated and updates the game save data.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00111">Trainers.cpp:111</a></div></div>
+<div class="ttc" id="aa02113_html_acc08fe54b119cd087630adfc53d4d091"><div class="ttname"><a href="a02113.html#acc08fe54b119cd087630adfc53d4d091">core::system::Trainers::Trainers</a></div><div class="ttdeci">Trainers(Systems &amp;owner)</div><div class="ttdoc">Construct a new Trainers system.</div><div class="ttdef"><b>Definition:</b> <a href="a00866_source.html#l00021">Trainers.cpp:21</a></div></div>
+<div class="ttc" id="aa02121_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02121.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00084">World.cpp:84</a></div></div>
+<div class="ttc" id="aa03316_html"><div class="ttname"><a href="a03316.html">GameSave.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

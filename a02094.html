@@ -66,31 +66,29 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01102.html">system</a></li><li class="navelem"><a class="el" href="a02097.html">World</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01124.html">system</a></li><li class="navelem"><a class="el" href="a02097.html">Position</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::system::World Member List</div>  </div>
+<div class="title">core::system::Position Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02097.html">core::system::World</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02097.html">core::system::Position</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>()</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02097.html#a37312fecc4ea11c1b9fe90a4842267bd">activeMap</a>() const</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02097.html#ab14a57ac77561c5d5cf3a232d77d2af9">observe</a>(const event::GameSaveInitializing &amp;save) override</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02097.html#a46e9433cfc2332c7ea4e2d587c1a94b9">observe</a>(const event::GameSaveLoaded &amp;load) override</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a37237bf8464a738e91d2c56569dbc021">setWhiteoutMap</a>(unsigned int spawn)</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02097.html#a8d85231f1c949e41a64b8967f599c2c4">switchMaps</a>(const std::string &amp;newMap, int spawnId)</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a50ca82a4f35846749671738b6daedf56">whiteout</a>(const std::string &amp;newMap, int spawnId)</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02097.html#a2d59d17c578592c34a3001f3232f8e02">World</a>(Systems &amp;systems)</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a055194bb19ccbbfd68dbe9e7617deeb3">~World</a>()=default</td><td class="entry"><a class="el" href="a02097.html">core::system::World</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02097.html#abdd770fb2982f2dae0223c99b24bfa4a">editorPopLevel</a>()</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02097.html#a4ee48477b3cb2ed9fa4c0d02976e2276">editorPushLevel</a>()</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a8081d283563dac3280bc5838409ea3e6">getEntity</a>(const bl::tmap::Position &amp;pos) const</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02097.html#a2430735d1e951fe4b5b8321026896b70">Position</a>(Systems &amp;owner)</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a469ec2cedb5d2f13b905fe6352a956aa">search</a>(const bl::tmap::Position &amp;start, bl::tmap::Direction dir, unsigned int range)</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02097.html#ad4ff9b23176b662c9fa622b6f3853b08">spaceFree</a>(const bl::tmap::Position &amp;position) const</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02097.html#a2bf147b773980900c1a4ee73bb7cb768">~Position</a>()=default</td><td class="entry"><a class="el" href="a02097.html">core::system::Position</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

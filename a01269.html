@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::battle::PlayerController Class Reference</title>
+<title>Peoplemon: core::battle::BattleController Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,7 +66,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01104.html">battle</a></li><li class="navelem"><a class="el" href="a01269.html">PlayerController</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01126.html">battle</a></li><li class="navelem"><a class="el" href="a01269.html">BattleController</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -76,146 +76,93 @@ $(function() {
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a01266.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::PlayerController Class Reference</div>  </div>
+<div class="title">core::battle::BattleController Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This controller allows the player to control a battler.  
+<p>Interface for battle controllers. <a class="el" href="a01265.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles.  
  <a href="a01269.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00026_source.html">PlayerController.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00011_source.html">BattleController.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::battle::PlayerController:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::battle::BattleController:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a01269.png" usemap="#core::battle::PlayerController_map" alt=""/>
-  <map id="core::battle::PlayerController_map" name="core::battle::PlayerController_map">
-<area href="a01261.html" title="Base class for battlers in the game. This provides storage for peoplemon and turn choices." alt="core::battle::BattlerController" shape="rect" coords="0,0,173,24"/>
+  <img src="a01269.png" usemap="#core::battle::BattleController_map" alt=""/>
+  <map id="core::battle::BattleController_map" name="core::battle::BattleController_map">
+<area href="a01273.html" title="Battle controller for local battles against peoplemon or trainers." alt="core::battle::LocalBattleController" shape="rect" coords="0,56,198,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac9e876179b19f05299785760d672da3b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ac9e876179b19f05299785760d672da3b">PlayerController</a> (<a class="el" href="a02065.html">system::Player</a> &amp;player, <a class="el" href="a01369.html">view::PlayerMenu</a> &amp;menu)</td></tr>
-<tr class="memdesc:ac9e876179b19f05299785760d672da3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Player Controller.  <a href="a01269.html#ac9e876179b19f05299785760d672da3b">More...</a><br /></td></tr>
-<tr class="separator:ac9e876179b19f05299785760d672da3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad9d6e3ea4ca31e082b26291e526157f3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ad9d6e3ea4ca31e082b26291e526157f3">~PlayerController</a> ()=default</td></tr>
-<tr class="memdesc:ad9d6e3ea4ca31e082b26291e526157f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Player Controller object.  <a href="a01269.html#ad9d6e3ea4ca31e082b26291e526157f3">More...</a><br /></td></tr>
-<tr class="separator:ad9d6e3ea4ca31e082b26291e526157f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ab1f40f519e7445a03f406e38d71007"><td class="memItemLeft" align="right" valign="top">virtual const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a6ab1f40f519e7445a03f406e38d71007">name</a> () const override</td></tr>
-<tr class="memdesc:a6ab1f40f519e7445a03f406e38d71007"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the name of the battler.  <a href="a01269.html#a6ab1f40f519e7445a03f406e38d71007">More...</a><br /></td></tr>
-<tr class="separator:a6ab1f40f519e7445a03f406e38d71007"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a305c1eb35d656dd31de1353723d3b13e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a305c1eb35d656dd31de1353723d3b13e">refresh</a> () override</td></tr>
-<tr class="memdesc:a305c1eb35d656dd31de1353723d3b13e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks the menu state.  <a href="a01269.html#a305c1eb35d656dd31de1353723d3b13e">More...</a><br /></td></tr>
-<tr class="separator:a305c1eb35d656dd31de1353723d3b13e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae187b9610c61da47fcb4d619a1661e6b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ae187b9610c61da47fcb4d619a1661e6b">removeItem</a> (<a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a> item) override</td></tr>
-<tr class="memdesc:ae187b9610c61da47fcb4d619a1661e6b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the item from the battler's inventory.  <a href="a01269.html#ae187b9610c61da47fcb4d619a1661e6b">More...</a><br /></td></tr>
-<tr class="separator:ae187b9610c61da47fcb4d619a1661e6b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c78dacf8556e841c03f1ac36bda4d0c"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a7c78dacf8556e841c03f1ac36bda4d0c">isHost</a> () const override</td></tr>
-<tr class="memdesc:a7c78dacf8556e841c03f1ac36bda4d0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true.  <a href="a01269.html#a7c78dacf8556e841c03f1ac36bda4d0c">More...</a><br /></td></tr>
-<tr class="separator:a7c78dacf8556e841c03f1ac36bda4d0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d6f7ef329b25be64576ed289ab8c08c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a3d6f7ef329b25be64576ed289ab8c08c">setOwner</a> (<a class="el" href="a01253.html">Battler</a> &amp;<a class="el" href="a01261.html#a57118c2627b0d8560cbb3dbdd615f3a3">owner</a>)</td></tr>
-<tr class="memdesc:a3d6f7ef329b25be64576ed289ab8c08c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the owner of this controller.  <a href="a01261.html#a3d6f7ef329b25be64576ed289ab8c08c">More...</a><br /></td></tr>
-<tr class="separator:a3d6f7ef329b25be64576ed289ab8c08c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a808605c9858744ae6be2848244c27f3b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a808605c9858744ae6be2848244c27f3b">actionSelected</a> () const</td></tr>
-<tr class="memdesc:a808605c9858744ae6be2848244c27f3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the battler has chosen what to do on this turn.  <a href="a01261.html#a808605c9858744ae6be2848244c27f3b">More...</a><br /></td></tr>
-<tr class="separator:a808605c9858744ae6be2848244c27f3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a453b7bba08d4a09a7241913a11cbe6f8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a453b7bba08d4a09a7241913a11cbe6f8">pickAction</a> ()</td></tr>
-<tr class="memdesc:a453b7bba08d4a09a7241913a11cbe6f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the process of selecting what to do on this turn.  <a href="a01261.html#a453b7bba08d4a09a7241913a11cbe6f8">More...</a><br /></td></tr>
-<tr class="separator:a453b7bba08d4a09a7241913a11cbe6f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af255efbb68bb847af0784c8cf8c0f371"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#af255efbb68bb847af0784c8cf8c0f371">pickPeoplemon</a> (bool fromFaint, bool reviveOnly)</td></tr>
-<tr class="memdesc:af255efbb68bb847af0784c8cf8c0f371"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initiates the process of selecting a replacement peoplemon if the current one faints.  <a href="a01261.html#af255efbb68bb847af0784c8cf8c0f371">More...</a><br /></td></tr>
-<tr class="separator:af255efbb68bb847af0784c8cf8c0f371"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a415ebfc872aa9b15da5fee4c989096dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01104.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a415ebfc872aa9b15da5fee4c989096dd">chosenAction</a> () const</td></tr>
-<tr class="memdesc:a415ebfc872aa9b15da5fee4c989096dd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the action the battler is using this turn.  <a href="a01261.html#a415ebfc872aa9b15da5fee4c989096dd">More...</a><br /></td></tr>
-<tr class="separator:a415ebfc872aa9b15da5fee4c989096dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19d41a19506b3788829a00374a1e8b28"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a19d41a19506b3788829a00374a1e8b28">chosenMove</a> () const</td></tr>
-<tr class="memdesc:a19d41a19506b3788829a00374a1e8b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the move the battler is using this turn.  <a href="a01261.html#a19d41a19506b3788829a00374a1e8b28">More...</a><br /></td></tr>
-<tr class="separator:a19d41a19506b3788829a00374a1e8b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae87d1d0b805840d6f73f043aa3c07953"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#ae87d1d0b805840d6f73f043aa3c07953">chosenItem</a> () const</td></tr>
-<tr class="memdesc:ae87d1d0b805840d6f73f043aa3c07953"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the item the battler is using this turn.  <a href="a01261.html#ae87d1d0b805840d6f73f043aa3c07953">More...</a><br /></td></tr>
-<tr class="separator:ae87d1d0b805840d6f73f043aa3c07953"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abf60a47aa1ae05eb04eafb8f0345557c"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#abf60a47aa1ae05eb04eafb8f0345557c">chosenPeoplemon</a> () const</td></tr>
-<tr class="memdesc:abf60a47aa1ae05eb04eafb8f0345557c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the peoplemon the battler is switching to this turn.  <a href="a01261.html#abf60a47aa1ae05eb04eafb8f0345557c">More...</a><br /></td></tr>
-<tr class="separator:abf60a47aa1ae05eb04eafb8f0345557c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18e5d5e2ea0802132c3bc47dd38d442d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a18e5d5e2ea0802132c3bc47dd38d442d">shouldContinue</a> () const</td></tr>
-<tr class="memdesc:a18e5d5e2ea0802132c3bc47dd38d442d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the player has chosen to continue.  <a href="a01261.html#a18e5d5e2ea0802132c3bc47dd38d442d">More...</a><br /></td></tr>
-<tr class="separator:a18e5d5e2ea0802132c3bc47dd38d442d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adea0f6c53431e16b73dfa1b8152e659b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#adea0f6c53431e16b73dfa1b8152e659b">chooseToContinue</a> ()</td></tr>
-<tr class="memdesc:adea0f6c53431e16b73dfa1b8152e659b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Prompts the player to continue or not.  <a href="a01261.html#adea0f6c53431e16b73dfa1b8152e659b">More...</a><br /></td></tr>
-<tr class="separator:adea0f6c53431e16b73dfa1b8152e659b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d9bb04bfe43bb564892986299e0b837"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a1d9bb04bfe43bb564892986299e0b837">BattleController</a> ()</td></tr>
+<tr class="memdesc:a1d9bb04bfe43bb564892986299e0b837"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes some internal state.  <a href="a01269.html#a1d9bb04bfe43bb564892986299e0b837">More...</a><br /></td></tr>
+<tr class="separator:a1d9bb04bfe43bb564892986299e0b837"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7beb877acc9002867fc20df74c7ba3c1"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a7beb877acc9002867fc20df74c7ba3c1">~BattleController</a> ()=default</td></tr>
+<tr class="memdesc:a7beb877acc9002867fc20df74c7ba3c1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a01265.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> Controller object.  <a href="a01269.html#a7beb877acc9002867fc20df74c7ba3c1">More...</a><br /></td></tr>
+<tr class="separator:a7beb877acc9002867fc20df74c7ba3c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a03fb7651c32b7f81f5faf0dbe827daf2">init</a> (<a class="el" href="a01265.html">Battle</a> &amp;<a class="el" href="a01269.html#a52949e7c96b02eb980268d56e5b9103e">battle</a>, <a class="el" href="a01309.html">BattleView</a> &amp;<a class="el" href="a01269.html#ac3232f65b5c17b5d3ea7c64d6a5faf13">view</a>, <a class="el" href="a01305.html">BattleState</a> &amp;<a class="el" href="a01269.html#ae44668dc54fec0f11f21438086fc10bd">state</a>)</td></tr>
+<tr class="memdesc:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets internal references to the view and state of the battle.  <a href="a01269.html#a03fb7651c32b7f81f5faf0dbe827daf2">More...</a><br /></td></tr>
+<tr class="separator:a03fb7651c32b7f81f5faf0dbe827daf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a17a84794f0b2ebbb7b5ffb0cb84df484">update</a> ()</td></tr>
+<tr class="memdesc:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the processing of the command queue.  <a href="a01269.html#a17a84794f0b2ebbb7b5ffb0cb84df484">More...</a><br /></td></tr>
+<tr class="separator:a17a84794f0b2ebbb7b5ffb0cb84df484"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a046b3867a8dfb36fe5ddc1450f216eb5">queueCommand</a> (<a class="el" href="a01321.html">Command</a> &amp;&amp;command, bool addWait=false)</td></tr>
+<tr class="memdesc:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enqueues a command to manipulate battle state or the view.  <a href="a01269.html#a046b3867a8dfb36fe5ddc1450f216eb5">More...</a><br /></td></tr>
+<tr class="separator:a046b3867a8dfb36fe5ddc1450f216eb5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a8236091b722e7e449b78bdc5a831edba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a8236091b722e7e449b78bdc5a831edba">chooseMove</a> (int <a class="el" href="a01261.html#a65434ef8e3c2c92c02e1cfac6ae3ea20">move</a>)</td></tr>
-<tr class="memdesc:a8236091b722e7e449b78bdc5a831edba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the move to use this turn when fighting.  <a href="a01261.html#a8236091b722e7e449b78bdc5a831edba">More...</a><br /></td></tr>
-<tr class="separator:a8236091b722e7e449b78bdc5a831edba"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a938aaca275d1a8129f57f533c30c2226"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a938aaca275d1a8129f57f533c30c2226">choosePeoplemon</a> (std::uint8_t i)</td></tr>
-<tr class="memdesc:a938aaca275d1a8129f57f533c30c2226"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the peoplemon to switch to.  <a href="a01261.html#a938aaca275d1a8129f57f533c30c2226">More...</a><br /></td></tr>
-<tr class="separator:a938aaca275d1a8129f57f533c30c2226"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac820b93d846f7e391de716dee326e861"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#ac820b93d846f7e391de716dee326e861">chooseItem</a> (std::uint8_t pplIndex, <a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item)</td></tr>
-<tr class="memdesc:ac820b93d846f7e391de716dee326e861"><td class="mdescLeft">&#160;</td><td class="mdescRight">Selects the item to use.  <a href="a01261.html#ac820b93d846f7e391de716dee326e861">More...</a><br /></td></tr>
-<tr class="separator:ac820b93d846f7e391de716dee326e861"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad794ddae47cbc1dc87e17de56edc0270"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#ad794ddae47cbc1dc87e17de56edc0270">chooseRun</a> ()</td></tr>
-<tr class="memdesc:ad794ddae47cbc1dc87e17de56edc0270"><td class="mdescLeft">&#160;</td><td class="mdescRight">Chooses to run away.  <a href="a01261.html#ad794ddae47cbc1dc87e17de56edc0270">More...</a><br /></td></tr>
-<tr class="separator:ad794ddae47cbc1dc87e17de56edc0270"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7bc43a137d4d03b1751dc8c9ce701e7b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a7bc43a137d4d03b1751dc8c9ce701e7b">chooseGiveUp</a> (bool yes)</td></tr>
-<tr class="memdesc:a7bc43a137d4d03b1751dc8c9ce701e7b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Choose whether to give up or not.  <a href="a01261.html#a7bc43a137d4d03b1751dc8c9ce701e7b">More...</a><br /></td></tr>
-<tr class="separator:a7bc43a137d4d03b1751dc8c9ce701e7b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ee11826f943752206d0902906c73fd7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a5ee11826f943752206d0902906c73fd7">onCommandQueued</a> (const <a class="el" href="a01321.html">Command</a> &amp;cmd)=0</td></tr>
+<tr class="memdesc:a5ee11826f943752206d0902906c73fd7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when a command is first enqueued but not processed. May be used to send commands over the network, for example.  <a href="a01269.html#a5ee11826f943752206d0902906c73fd7">More...</a><br /></td></tr>
+<tr class="separator:a5ee11826f943752206d0902906c73fd7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaded8cbf80cf2d6078ba6455be53af61"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#aaded8cbf80cf2d6078ba6455be53af61">onCommandProcessed</a> (const <a class="el" href="a01321.html">Command</a> &amp;cmd)=0</td></tr>
+<tr class="memdesc:aaded8cbf80cf2d6078ba6455be53af61"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is called after a command is processed. Derived classes may perform specific actions for commands in this method, such as sending state across the network.  <a href="a01269.html#aaded8cbf80cf2d6078ba6455be53af61">More...</a><br /></td></tr>
+<tr class="separator:aaded8cbf80cf2d6078ba6455be53af61"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab1621b5a2d603aeb1c1715612514b6f1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ab1621b5a2d603aeb1c1715612514b6f1">onUpdate</a> (bool viewSynced, bool queueEmpty)=0</td></tr>
+<tr class="memdesc:ab1621b5a2d603aeb1c1715612514b6f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Derived controllers may use this method for update logic every frame.  <a href="a01269.html#ab1621b5a2d603aeb1c1715612514b6f1">More...</a><br /></td></tr>
+<tr class="separator:ab1621b5a2d603aeb1c1715612514b6f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a57118c2627b0d8560cbb3dbdd615f3a3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01253.html">Battler</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01261.html#a57118c2627b0d8560cbb3dbdd615f3a3">owner</a></td></tr>
-<tr class="separator:a57118c2627b0d8560cbb3dbdd615f3a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a52949e7c96b02eb980268d56e5b9103e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01265.html">Battle</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#a52949e7c96b02eb980268d56e5b9103e">battle</a></td></tr>
+<tr class="separator:a52949e7c96b02eb980268d56e5b9103e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac3232f65b5c17b5d3ea7c64d6a5faf13"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01309.html">BattleView</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ac3232f65b5c17b5d3ea7c64d6a5faf13">view</a></td></tr>
+<tr class="separator:ac3232f65b5c17b5d3ea7c64d6a5faf13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44668dc54fec0f11f21438086fc10bd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01305.html">BattleState</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01269.html#ae44668dc54fec0f11f21438086fc10bd">state</a></td></tr>
+<tr class="separator:ae44668dc54fec0f11f21438086fc10bd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This controller allows the player to control a battler. </p>
+<div class="textblock"><p>Interface for battle controllers. <a class="el" href="a01265.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> controllers manage the flow of state and interaction for battles. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00026_source.html#l00022">22</a> of file <a class="el" href="a00026_source.html">PlayerController.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00023">23</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac9e876179b19f05299785760d672da3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e876179b19f05299785760d672da3b">&#9670;&nbsp;</a></span>PlayerController()</h2>
+<a id="a1d9bb04bfe43bb564892986299e0b837"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1d9bb04bfe43bb564892986299e0b837">&#9670;&nbsp;</a></span>BattleController()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::PlayerController::PlayerController </td>
+          <td class="memname">core::battle::BattleController::BattleController </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02065.html">system::Player</a> &amp;&#160;</td>
-          <td class="paramname"><em>player</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01369.html">view::PlayerMenu</a> &amp;&#160;</td>
-          <td class="paramname"><em>menu</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Construct a new Player Controller. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">player</td><td>The player system </td></tr>
-    <tr><td class="paramname">menu</td><td>The menu to get player choices from </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Initializes some internal state. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00011">11</a> of file <a class="el" href="a00581_source.html">PlayerController.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00011">11</a> of file <a class="el" href="a00578_source.html">BattleController.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad9d6e3ea4ca31e082b26291e526157f3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad9d6e3ea4ca31e082b26291e526157f3">&#9670;&nbsp;</a></span>~PlayerController()</h2>
+<a id="a7beb877acc9002867fc20df74c7ba3c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7beb877acc9002867fc20df74c7ba3c1">&#9670;&nbsp;</a></span>~BattleController()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,7 +171,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual core::battle::PlayerController::~PlayerController </td>
+          <td class="memname">virtual core::battle::BattleController::~BattleController </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -237,96 +184,145 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Player Controller object. </p>
+<p>Destroy the <a class="el" href="a01265.html" title="Convenience struct that owns all the components required for a battle and resolves some boilerplate s...">Battle</a> Controller object. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a808605c9858744ae6be2848244c27f3b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a808605c9858744ae6be2848244c27f3b">&#9670;&nbsp;</a></span>actionSelected()</h2>
+<a id="a03fb7651c32b7f81f5faf0dbe827daf2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03fb7651c32b7f81f5faf0dbe827daf2">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::battle::BattlerController::actionSelected </td>
+          <td class="memname">void core::battle::BattleController::init </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the battler has chosen what to do on this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00014">14</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7bc43a137d4d03b1751dc8c9ce701e7b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7bc43a137d4d03b1751dc8c9ce701e7b">&#9670;&nbsp;</a></span>chooseGiveUp()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::chooseGiveUp </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>yes</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Choose whether to give up or not. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">yes</td><td>True to give up, false to continue </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00041">41</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac820b93d846f7e391de716dee326e861"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac820b93d846f7e391de716dee326e861">&#9670;&nbsp;</a></span>chooseItem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::chooseItem </td>
-          <td>(</td>
-          <td class="paramtype">std::uint8_t&#160;</td>
-          <td class="paramname"><em>pplIndex</em>, </td>
+          <td class="paramtype"><a class="el" href="a01265.html">Battle</a> &amp;&#160;</td>
+          <td class="paramname"><em>battle</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em>&#160;</td>
+          <td class="paramtype"><a class="el" href="a01309.html">BattleView</a> &amp;&#160;</td>
+          <td class="paramname"><em>view</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01305.html">BattleState</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets internal references to the view and state of the battle. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">battle</td><td>The battle itself </td></tr>
+    <tr><td class="paramname">view</td><td>The view of the battle </td></tr>
+    <tr><td class="paramname">state</td><td>The state of the battle </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00016">16</a> of file <a class="el" href="a00578_source.html">BattleController.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaded8cbf80cf2d6078ba6455be53af61"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaded8cbf80cf2d6078ba6455be53af61">&#9670;&nbsp;</a></span>onCommandProcessed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::battle::BattleController::onCommandProcessed </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01321.html">Command</a> &amp;&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This is called after a command is processed. Derived classes may perform specific actions for commands in this method, such as sending state across the network. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>The command that was just processed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a5ee11826f943752206d0902906c73fd7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ee11826f943752206d0902906c73fd7">&#9670;&nbsp;</a></span>onCommandQueued()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::battle::BattleController::onCommandQueued </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01321.html">Command</a> &amp;&#160;</td>
+          <td class="paramname"><em>cmd</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when a command is first enqueued but not processed. May be used to send commands over the network, for example. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cmd</td><td>The command that was just enqueued </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="ab1621b5a2d603aeb1c1715612514b6f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab1621b5a2d603aeb1c1715612514b6f1">&#9670;&nbsp;</a></span>onUpdate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void core::battle::BattleController::onUpdate </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>viewSynced</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>queueEmpty</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -336,381 +332,39 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Selects the item to use. </p>
+<p>Derived controllers may use this method for update logic every frame. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">pplIndex</td><td>Index of the peoplemon to use the item on </td></tr>
-    <tr><td class="paramname">item</td><td>The item to use </td></tr>
+    <tr><td class="paramname">viewSynced</td><td>Whether or not the view is fully up to date and static </td></tr>
+    <tr><td class="paramname">queueEmpty</td><td>Whether or not the command queue has been fully drained </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00058">58</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a8236091b722e7e449b78bdc5a831edba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8236091b722e7e449b78bdc5a831edba">&#9670;&nbsp;</a></span>chooseMove()</h2>
+<a id="a046b3867a8dfb36fe5ddc1450f216eb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a046b3867a8dfb36fe5ddc1450f216eb5">&#9670;&nbsp;</a></span>queueCommand()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::BattlerController::chooseMove </td>
+          <td class="memname">void core::battle::BattleController::queueCommand </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>move</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Selects the move to use this turn when fighting. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">move</td><td>The index of the move to use </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00046">46</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a938aaca275d1a8129f57f533c30c2226"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a938aaca275d1a8129f57f533c30c2226">&#9670;&nbsp;</a></span>choosePeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::choosePeoplemon </td>
-          <td>(</td>
-          <td class="paramtype">std::uint8_t&#160;</td>
-          <td class="paramname"><em>i</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Selects the peoplemon to switch to. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">i</td><td>Index of the peoplemon to switch to </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00052">52</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad794ddae47cbc1dc87e17de56edc0270"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad794ddae47cbc1dc87e17de56edc0270">&#9670;&nbsp;</a></span>chooseRun()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::chooseRun </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Chooses to run away. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00065">65</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="adea0f6c53431e16b73dfa1b8152e659b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adea0f6c53431e16b73dfa1b8152e659b">&#9670;&nbsp;</a></span>chooseToContinue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::chooseToContinue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Prompts the player to continue or not. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00026">26</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a415ebfc872aa9b15da5fee4c989096dd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a415ebfc872aa9b15da5fee4c989096dd">&#9670;&nbsp;</a></span>chosenAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01104.html#a9f4dbdd126a3cad461c287d3626e196a">TurnAction</a> core::battle::BattlerController::chosenAction </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the action the battler is using this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00033">33</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae87d1d0b805840d6f73f043aa3c07953"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae87d1d0b805840d6f73f043aa3c07953">&#9670;&nbsp;</a></span>chosenItem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> core::battle::BattlerController::chosenItem </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the item the battler is using this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00037">37</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a19d41a19506b3788829a00374a1e8b28"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19d41a19506b3788829a00374a1e8b28">&#9670;&nbsp;</a></span>chosenMove()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int core::battle::BattlerController::chosenMove </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the move the battler is using this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00035">35</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abf60a47aa1ae05eb04eafb8f0345557c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abf60a47aa1ae05eb04eafb8f0345557c">&#9670;&nbsp;</a></span>chosenPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint8_t core::battle::BattlerController::chosenPeoplemon </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the peoplemon the battler is switching to this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00039">39</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7c78dacf8556e841c03f1ac36bda4d0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c78dacf8556e841c03f1ac36bda4d0c">&#9670;&nbsp;</a></span>isHost()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::battle::PlayerController::isHost </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns true. </p>
-
-<p>Implements <a class="el" href="a01261.html#a0fc6037f207372c9be832ab85dec09d9">core::battle::BattlerController</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00069">69</a> of file <a class="el" href="a00581_source.html">PlayerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a6ab1f40f519e7445a03f406e38d71007"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ab1f40f519e7445a03f406e38d71007">&#9670;&nbsp;</a></span>name()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const std::string &amp; core::battle::PlayerController::name </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the name of the battler. </p>
-
-<p>Implements <a class="el" href="a01261.html#a2b2febe161e86bd3854d9635684dcfe0">core::battle::BattlerController</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00009">9</a> of file <a class="el" href="a00581_source.html">PlayerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a453b7bba08d4a09a7241913a11cbe6f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a453b7bba08d4a09a7241913a11cbe6f8">&#9670;&nbsp;</a></span>pickAction()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::pickAction </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Initiates the process of selecting what to do on this turn. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00016">16</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af255efbb68bb847af0784c8cf8c0f371"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af255efbb68bb847af0784c8cf8c0f371">&#9670;&nbsp;</a></span>pickPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::pickPeoplemon </td>
-          <td>(</td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>fromFaint</em>, </td>
+          <td class="paramtype"><a class="el" href="a01321.html">Command</a> &amp;&amp;&#160;</td>
+          <td class="paramname"><em>command</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>reviveOnly</em>&#160;</td>
+          <td class="paramname"><em>addWait</em> = <code>false</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -718,164 +372,45 @@ Protected Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Initiates the process of selecting a replacement peoplemon if the current one faints. </p>
+<p>Enqueues a command to manipulate battle state or the view. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">fromFaint</td><td>True if the current has fainted, false if the switch is for another reason </td></tr>
-    <tr><td class="paramname">reviveOnly</td><td>True if fainted peoplemon must be selected </td></tr>
+    <tr><td class="paramname">command</td><td>The command to enqueue </td></tr>
+    <tr><td class="paramname">addWait</td><td>True to add a waitView command after the given command </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00021">21</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00049">49</a> of file <a class="el" href="a00578_source.html">BattleController.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a305c1eb35d656dd31de1353723d3b13e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a305c1eb35d656dd31de1353723d3b13e">&#9670;&nbsp;</a></span>refresh()</h2>
+<a id="a17a84794f0b2ebbb7b5ffb0cb84df484"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a17a84794f0b2ebbb7b5ffb0cb84df484">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void core::battle::PlayerController::refresh </td>
+          <td class="memname">void core::battle::BattleController::update </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Checks the menu state. </p>
+<p>Updates the processing of the command queue. </p>
 
-<p>Implements <a class="el" href="a01261.html#a83c0355c53aebbff053b7f144baa0145">core::battle::BattlerController</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00016">16</a> of file <a class="el" href="a00581_source.html">PlayerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ae187b9610c61da47fcb4d619a1661e6b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae187b9610c61da47fcb4d619a1661e6b">&#9670;&nbsp;</a></span>removeItem()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::battle::PlayerController::removeItem </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>&#160;</td>
-          <td class="paramname"><em>item</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Removes the item from the battler's inventory. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">item</td><td>The item to remove </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the item was removed, false otherwise </dd></dl>
-
-<p>Implements <a class="el" href="a01261.html#ab52a97ceabfd64db1cf2fb73e8607a97">core::battle::BattlerController</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a00581_source.html#l00067">67</a> of file <a class="el" href="a00581_source.html">PlayerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3d6f7ef329b25be64576ed289ab8c08c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d6f7ef329b25be64576ed289ab8c08c">&#9670;&nbsp;</a></span>setOwner()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::battle::BattlerController::setOwner </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a01253.html">Battler</a> &amp;&#160;</td>
-          <td class="paramname"><em>owner</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Sets the owner of this controller. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">owner</td><td>The battler using this controller </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00012">12</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a18e5d5e2ea0802132c3bc47dd38d442d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18e5d5e2ea0802132c3bc47dd38d442d">&#9670;&nbsp;</a></span>shouldContinue()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::battle::BattlerController::shouldContinue </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the player has chosen to continue. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00031">31</a> of file <a class="el" href="a00578_source.html">BattlerController.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00578_source.html#l00022">22</a> of file <a class="el" href="a00578_source.html">BattleController.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="ab2ed2ebbee075f35ec07d72d9ac4c18e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2ed2ebbee075f35ec07d72d9ac4c18e">&#9670;&nbsp;</a></span>dontGiveUp</h2>
+<a id="a52949e7c96b02eb980268d56e5b9103e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52949e7c96b02eb980268d56e5b9103e">&#9670;&nbsp;</a></span>battle</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -884,22 +419,22 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool core::battle::BattlerController::dontGiveUp</td>
+          <td class="memname"><a class="el" href="a01265.html">Battle</a>* core::battle::BattleController::battle</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00190">190</a> of file <a class="el" href="a00023_source.html">BattlerController.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00061">61</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a65434ef8e3c2c92c02e1cfac6ae3ea20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65434ef8e3c2c92c02e1cfac6ae3ea20">&#9670;&nbsp;</a></span>move</h2>
+<a id="ae44668dc54fec0f11f21438086fc10bd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44668dc54fec0f11f21438086fc10bd">&#9670;&nbsp;</a></span>state</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -908,22 +443,22 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int core::battle::BattlerController::move</td>
+          <td class="memname"><a class="el" href="a01305.html">BattleState</a>* core::battle::BattleController::state</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00189">189</a> of file <a class="el" href="a00023_source.html">BattlerController.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00063">63</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a57118c2627b0d8560cbb3dbdd615f3a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a57118c2627b0d8560cbb3dbdd615f3a3">&#9670;&nbsp;</a></span>owner</h2>
+<a id="ac3232f65b5c17b5d3ea7c64d6a5faf13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac3232f65b5c17b5d3ea7c64d6a5faf13">&#9670;&nbsp;</a></span>view</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -932,53 +467,29 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01253.html">Battler</a>* core::battle::BattlerController::owner</td>
+          <td class="memname"><a class="el" href="a01309.html">BattleView</a>* core::battle::BattleController::view</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00119">119</a> of file <a class="el" href="a00023_source.html">BattlerController.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae1191e1c0bfd0bf20b53fe5c0e67bb1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae1191e1c0bfd0bf20b53fe5c0e67bb1f">&#9670;&nbsp;</a></span>useItem</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01089.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> core::battle::BattlerController::useItem</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00023_source.html#l00188">188</a> of file <a class="el" href="a00023_source.html">BattlerController.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00011_source.html#l00062">62</a> of file <a class="el" href="a00011_source.html">BattleController.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Core/Battles/BattlerControllers/<a class="el" href="a00026_source.html">PlayerController.hpp</a></li>
-<li>src/Core/Battles/BattlerControllers/<a class="el" href="a00581_source.html">PlayerController.cpp</a></li>
+<li>include/Core/Battles/BattleControllers/<a class="el" href="a00011_source.html">BattleController.hpp</a></li>
+<li>src/Core/Battles/BattleControllers/<a class="el" href="a00578_source.html">BattleController.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

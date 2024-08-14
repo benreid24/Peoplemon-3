@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Bundler/main.cpp Source File</title>
+<title>Peoplemon: include/Core/Events/GameSave.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,84 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_d0ffe62d396b7342b2a5119731b0d651.html">Bundler</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">main.cpp</div>  </div>
+<div class="title">GameSave.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03313.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03202.html">Core/Items/Item.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00233.html">Core/Peoplemon/Move.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03283.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;iostream&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a03313.html#ae66f6b31b5ad750f1fe042a706a4e3d4">    8</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a03313.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    bl::logging::Config::rollLogs(<span class="stringliteral">&quot;logs&quot;</span>, <span class="stringliteral">&quot;bundle&quot;</span>, 3);</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    bl::logging::Config::configureOutput(std::cout, bl::logging::Config::Debug);</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    bl::logging::Config::addFileOutput(<span class="stringliteral">&quot;logs/bundle.log&quot;</span>, bl::logging::Config::Debug);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <a class="code" href="a01933.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a>(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <a class="code" href="a01093.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a>();</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading game metadata&quot;</span>;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading items&quot;</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <a class="code" href="a01673.html">core::file::ItemDB</a> itemdb;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keywordflow">if</span> (!itemdb.<a class="code" href="a01673.html#afd5022b071039b10d417ac2f79aa6d0a">load</a>()) {</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load item database&quot;</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <a class="code" href="a01713.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a>(itemdb);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading moves&quot;</span>;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <a class="code" href="a01681.html">core::file::MoveDB</a> movedb;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">if</span> (!movedb.<a class="code" href="a01681.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">load</a>()) {</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load move database&quot;</span>;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a01845.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a>(movedb);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Loading Peoplemon&quot;</span>;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <a class="code" href="a01697.html">core::file::PeoplemonDB</a> ppldb;</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!ppldb.<a class="code" href="a01697.html#a0c67bdc04c8cf17fe23e9f87c76857cf">load</a>()) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load peoplemon database&quot;</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="a01869.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a>(ppldb);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Game metadata loaded&quot;</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Beginning bundle creation&quot;</span>;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01093.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a>()) { BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Finished bundle creation&quot;</span>; }</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Bundle creation failed&quot;</span>;</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keywordflow">return</span> 1;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="ttc" id="aa00233_html"><div class="ttname"><a href="a00233.html">Move.hpp</a></div></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01093_html_ga06a2b1d1c4ad02dd161574d9dc3ec524"><div class="ttname"><a href="a01093.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a></div><div class="ttdeci">bool createBundles()</div><div class="ttdoc">Creates the resource bundles.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00047">Resources.cpp:47</a></div></div>
-<div class="ttc" id="aa01093_html_gad33d85e09660ea3585e1353113905170"><div class="ttname"><a href="a01093.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a></div><div class="ttdeci">void installDevLoaders()</div><div class="ttdoc">Sets up the BLIB resource managers in dev mode.</div><div class="ttdef"><b>Definition:</b> <a href="a00794_source.html#l00016">Resources.cpp:16</a></div></div>
-<div class="ttc" id="aa01673_html"><div class="ttname"><a href="a01673.html">core::file::ItemDB</a></div><div class="ttdoc">Loads and stores metadata surrounding items in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00155_source.html#l00024">ItemDB.hpp:24</a></div></div>
-<div class="ttc" id="aa01673_html_afd5022b071039b10d417ac2f79aa6d0a"><div class="ttname"><a href="a01673.html#afd5022b071039b10d417ac2f79aa6d0a">core::file::ItemDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the item metadata from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00665_source.html#l00011">ItemDB.cpp:11</a></div></div>
-<div class="ttc" id="aa01681_html"><div class="ttname"><a href="a01681.html">core::file::MoveDB</a></div><div class="ttdoc">Stores the metadata of all peoplemon moves.</div><div class="ttdef"><b>Definition:</b> <a href="a00158_source.html#l00022">MoveDB.hpp:22</a></div></div>
-<div class="ttc" id="aa01681_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01681.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00668_source.html#l00012">MoveDB.cpp:12</a></div></div>
-<div class="ttc" id="aa01697_html"><div class="ttname"><a href="a01697.html">core::file::PeoplemonDB</a></div><div class="ttdoc">Data structure that holds the underlaying data for all the peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00161_source.html#l00026">PeoplemonDB.hpp:26</a></div></div>
-<div class="ttc" id="aa01697_html_a0c67bdc04c8cf17fe23e9f87c76857cf"><div class="ttname"><a href="a01697.html#a0c67bdc04c8cf17fe23e9f87c76857cf">core::file::PeoplemonDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the database data from the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00012">PeoplemonDB.cpp:12</a></div></div>
-<div class="ttc" id="aa01713_html_a1c25894c0c71ec92f9e15686c3cb3e46"><div class="ttname"><a href="a01713.html#a1c25894c0c71ec92f9e15686c3cb3e46">core::item::Item::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::ItemDB &amp;source)</div><div class="ttdoc">Set the data source for the item methods.</div><div class="ttdef"><b>Definition:</b> <a href="a03343_source.html#l00041">Item.cpp:41</a></div></div>
-<div class="ttc" id="aa01845_html_a517b2e77d5de789d2b0c22b457bb4107"><div class="ttname"><a href="a01845.html#a517b2e77d5de789d2b0c22b457bb4107">core::pplmn::Move::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::MoveDB &amp;source)</div><div class="ttdoc">Set the data source for each method.</div><div class="ttdef"><b>Definition:</b> <a href="a00752_source.html#l00046">Move.cpp:46</a></div></div>
-<div class="ttc" id="aa01869_html_a307220e0167b57e958be788d185f5012"><div class="ttname"><a href="a01869.html#a307220e0167b57e958be788d185f5012">core::pplmn::Peoplemon::setDataSource</a></div><div class="ttdeci">static void setDataSource(file::PeoplemonDB &amp;data)</div><div class="ttdoc">Sets the data source for all peoplemon. Must remain in scope.</div><div class="ttdef"><b>Definition:</b> <a href="a03373_source.html#l00094">Peoplemon.cpp:94</a></div></div>
-<div class="ttc" id="aa01933_html_adc250e10205e7f79fc2589cee281bb0f"><div class="ttname"><a href="a01933.html#adc250e10205e7f79fc2589cee281bb0f">core::Properties::load</a></div><div class="ttdeci">static bool load(bool inEditor)</div><div class="ttdoc">Loads from the config file and sets defaults. Must be called before using any properties.</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00119">Properties.cpp:119</a></div></div>
-<div class="ttc" id="aa03202_html"><div class="ttname"><a href="a03202.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa03283_html"><div class="ttname"><a href="a03283.html">Peoplemon.hpp</a></div></div>
-<div class="ttc" id="aa03313_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="a03313.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00008">main.cpp:8</a></div></div>
+<a href="a03313.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_GAMESAVE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_GAMESAVE_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01133.html">    9</a></span>&#160;<span class="keyword">namespace </span>file</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">struct </span><a class="code" href="a01637.html">GameSave</a>;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01489.html">   22</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01489.html">GameSaveInitializing</a> {</div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">   24</a></span>&#160;    <a class="code" href="a01637.html">file::GameSave</a>&amp; <a class="code" href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01489.html#a8f568dfb017538878fc182a74de877ae">   27</a></span>&#160;    <span class="keywordtype">bool</span> <a class="code" href="a01489.html#a8f568dfb017538878fc182a74de877ae">saving</a>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01489.html#a89aee5a2ad64a2d11d46634ff300f72e">   35</a></span>&#160;    <a class="code" href="a01489.html#a89aee5a2ad64a2d11d46634ff300f72e">GameSaveInitializing</a>(<a class="code" href="a01637.html">file::GameSave</a>&amp; sv, <span class="keywordtype">bool</span> s)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    : <a class="code" href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>(sv)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    , <a class="code" href="a01489.html#a8f568dfb017538878fc182a74de877ae">saving</a>(s) {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;};</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a01493.html">   46</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01493.html">GameSaveLoaded</a> {</div>
+<div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="a01493.html#a52b3f58736c5393a403f34a000fb1c32">   48</a></span>&#160;    <span class="keyword">mutable</span> std::string <a class="code" href="a01493.html#a52b3f58736c5393a403f34a000fb1c32">failMessage</a>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;};</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01489_html"><div class="ttname"><a href="a01489.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa01489_html_a89aee5a2ad64a2d11d46634ff300f72e"><div class="ttname"><a href="a01489.html#a89aee5a2ad64a2d11d46634ff300f72e">core::event::GameSaveInitializing::GameSaveInitializing</a></div><div class="ttdeci">GameSaveInitializing(file::GameSave &amp;sv, bool s)</div><div class="ttdoc">Construct a new Game Save Initializing object.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00035">GameSave.hpp:35</a></div></div>
+<div class="ttc" id="aa01489_html_a8f568dfb017538878fc182a74de877ae"><div class="ttname"><a href="a01489.html#a8f568dfb017538878fc182a74de877ae">core::event::GameSaveInitializing::saving</a></div><div class="ttdeci">bool saving</div><div class="ttdoc">True when saving, false when loading.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00027">GameSave.hpp:27</a></div></div>
+<div class="ttc" id="aa01489_html_ac6fbd08a5bcbfc66c3df65f5f33965a8"><div class="ttname"><a href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">core::event::GameSaveInitializing::gameSave</a></div><div class="ttdeci">file::GameSave &amp; gameSave</div><div class="ttdoc">Game save being initialized.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00024">GameSave.hpp:24</a></div></div>
+<div class="ttc" id="aa01493_html"><div class="ttname"><a href="a01493.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00046">GameSave.hpp:46</a></div></div>
+<div class="ttc" id="aa01493_html_a52b3f58736c5393a403f34a000fb1c32"><div class="ttname"><a href="a01493.html#a52b3f58736c5393a403f34a000fb1c32">core::event::GameSaveLoaded::failMessage</a></div><div class="ttdeci">std::string failMessage</div><div class="ttdoc">Modules can set this if they encounter a failure that should fail the entire load.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00048">GameSave.hpp:48</a></div></div>
+<div class="ttc" id="aa01637_html"><div class="ttname"><a href="a01637.html">core::file::GameSave</a></div><div class="ttdoc">Represents a game save and provides functionality to load and save.</div><div class="ttdef"><b>Definition:</b> <a href="a03316_source.html#l00024">GameSave.hpp:24</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

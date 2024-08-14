@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/NewGame.cpp Source File</title>
+<title>Peoplemon: src/Game/States/Evolution/Particles.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,161 +66,90 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li><li class="navelem"><a class="el" href="dir_8fba243f7867c86be42674cf36ff6b69.html">Evolution</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">NewGame.cpp</div>  </div>
+<div class="title">Particles.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01061.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00539.html">Game/States/NewGame.hpp</a>&gt;</span></div>
+<a href="a01061.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">Game/States/Evolution/Particles.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00530.html">Game/States/MainGame.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01153.html">game</a></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>state</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>evo</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> RotateSpeed     = 120.f;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> FadeTime        = 1.6f;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">float</span> ProfMoveSpeedX  = -550.f;</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> ProfMoveSpeedY  = 450.f;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;constexpr <span class="keywordtype">float</span> ProfRotateSpeed = -75.f;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;constexpr <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> SparkCount = 400;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;constexpr <span class="keywordtype">float</span> SparkSpawnRate    = 1600.f;</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">const</span> sf::Color SparkColor(252, 230, 30);</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02425.html#aed9aa52a2728b50fd9633705fc002aaf">   20</a></span>&#160;NewGame::Ptr <a class="code" href="a02425.html#aed9aa52a2728b50fd9633705fc002aaf">NewGame::create</a>(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems) { <span class="keywordflow">return</span> Ptr(<span class="keyword">new</span> <a class="code" href="a02425.html">NewGame</a>(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)); }</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;NewGame::NewGame(<a class="code" href="a02085.html">core::system::Systems</a>&amp; systems)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;: <a class="code" href="a02453.html">State</a>(systems, <a class="code" href="a01107.html">bl</a>::engine::StateMask::Menu)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, fadeout(nullptr) {}</div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02449.html#a56f9705ea9d4c88bd63caae8457a1522">   20</a></span>&#160;<a class="code" href="a02449.html#a56f9705ea9d4c88bd63caae8457a1522">SparkEmitter::SparkEmitter</a>()</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;: residual(0.f) {}</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> SparkEmitter::update(Emitter::Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    residual += SparkSpawnRate * dt;</div>
 <div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02425.html#a425868cb227f96f1c86b3024bc2a82ef">   26</a></span>&#160;<span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02425.html#a425868cb227f96f1c86b3024bc2a82ef">NewGame::name</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> <span class="stringliteral">&quot;NewGame&quot;</span>; }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02425.html#a35f139b50b5b15e496ae36ccd3e0e9fc">   28</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02425.html#a35f139b50b5b15e496ae36ccd3e0e9fc">NewGame::activate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">if</span> (!bgndTxtr) {</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;            <a class="code" href="a01933.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a>(), <span class="stringliteral">&quot;NewGame/newGameBgnd.png&quot;</span>));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        profTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;            <a class="code" href="a01933.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a>(), <span class="stringliteral">&quot;NewGame/professor.png&quot;</span>));</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        background.create(engine, bgndTxtr);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        background.getTransform().setOrigin(bgndTxtr-&gt;size() * 0.5f);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        background.getTransform().setPosition(<a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                              <a class="code" href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        prof.create(engine, profTxtr);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        prof.getTransform().setPosition(background.getTransform().getLocalPosition() -</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                                        profTxtr-&gt;size() * 0.5f);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        prof.getTransform().setDepth(-1.f); <span class="comment">// ensure rendered after background w/o parenting</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="comment">// TODO - cap spawn?</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">while</span> (residual &gt;= 1.f) {</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        residual -= 1.f;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <a class="code" href="a02465.html">Evolution::Spark</a>&amp; sp = proxy.emit();</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> a = bl::util::Random::get&lt;float&gt;(0.f, 360.f);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> d = bl::util::Random::get&lt;float&gt;(1.f, 40.f);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> v = bl::util::Random::get&lt;float&gt;(150.f, 900.f);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> c = bl::math::cos(a);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">float</span> s = bl::math::sin(a);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        sp.<a class="code" href="a02465.html#ae6e8101eceb2d9854606cf39731a4150">position</a>   = glm::vec2(<a class="code" href="a01957.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().x * 0.5f,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                <a class="code" href="a01957.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a>().y * 0.5f) +</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                      glm::vec2(c, s) * d;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        sp.<a class="code" href="a02465.html#a2a12345544b43062f44c2874be28af08">velocity</a>.x = v * c;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        sp.<a class="code" href="a02465.html#a2a12345544b43062f44c2874be28af08">velocity</a>.y = v * s;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        sp.<a class="code" href="a02465.html#af89e515957aefb9827be4e793223de8e">time</a>       = 0.f;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        sp.<a class="code" href="a02465.html#afbe5c0b2a19faf159d42710b14e26261">lifetime</a>   = bl::util::Random::get&lt;float&gt;(0.75f, 1.4f);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        sp.<a class="code" href="a02465.html#affca86902bebc4ab7a5b33a5709c7783">radius</a>     = bl::util::Random::get&lt;float&gt;(2.f, 7.f);</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    }</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">auto</span> overlay = engine.renderer().getObserver().pushScene&lt;bl::rc::Overlay&gt;();</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    background.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    prof.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;Hello there!&quot;</span>);</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;I&#39;m the professor in HomeTown. My name is Professor, but you can &quot;</span></div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;                                 <span class="stringliteral">&quot;just call me Professor Professor&quot;</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a915330b9d11ff6dabd5d65e473c0255b">getInputString</a>(</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        <span class="stringliteral">&quot;Your mom told me she had a kid, but I wasn&#39;t really listening. What&#39;s your name?&quot;</span>,</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        1,</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        24,</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        std::bind(&amp;NewGame::nameSet, <span class="keyword">this</span>, std::placeholders::_1));</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="keywordtype">void</span> NewGame::nameSet(<span class="keyword">const</span> std::string&amp; n) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    playerName = n;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;Wow your parents must not care for you much&quot;</span>);</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a4861aaeecc1a3b97b0397b25437301f3">promptUser</a>(</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="stringliteral">&quot;It&#39;s hard to tell with, uh... my bad vision, but are you a boy or a girl?&quot;</span>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        {<span class="stringliteral">&quot;Boy&quot;</span>, <span class="stringliteral">&quot;Girl&quot;</span>},</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        std::bind(&amp;NewGame::genderSet, <span class="keyword">this</span>, std::placeholders::_1));</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;}</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="keywordtype">void</span> NewGame::genderSet(<span class="keyword">const</span> std::string&amp; g) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    isBoy = g == <span class="stringliteral">&quot;Boy&quot;</span>;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;........ Really?&quot;</span>);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">hud</a>().<a class="code" href="a02041.html#a2fde7c654039330e1a393f26a294f994">displayMessage</a>(<span class="stringliteral">&quot;Right then. Well I have to go do important professor things. I&#39;m &quot;</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;                                 <span class="stringliteral">&quot;sure you&#39;ll figure the rest out&quot;</span>,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;                                 std::bind(&amp;NewGame::fadeOut, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="keywordtype">void</span> NewGame::fadeOut() {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    fadeout = <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>()</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                  .renderer()</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                  .getObserver()</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                  .getRenderGraph()</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                  .putTask&lt;bl::rc::rgi::FadeEffectTask&gt;(FadeTime);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;}</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno"><a class="line" href="a02425.html#aae9ae100d1002573cf3c0cb038a05afe">   85</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02425.html#aae9ae100d1002573cf3c0cb038a05afe">NewGame::deactivate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    engine.renderer().getObserver().popScene();</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    fadeout = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160; </div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02097.html#a8d85231f1c949e41a64b8967f599c2c4">switchMaps</a>(<span class="stringliteral">&quot;Hometown/HometownYourHouseYourRoom.map&quot;</span>, 5)) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to load starting map&quot;</span>;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().flags().set(bl::engine::Flags::Terminate);</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#aba03d5263fd6298e1264cd37dd2f7fef">clock</a>().<a class="code" href="a01989.html#a9c6a0731f099a28c8b5ded37cf010d74">set</a>({12, 0});</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a614eb9bb163de0567a30da6c215835af">player</a>().<a class="code" href="a02065.html#a315e2b9d07f7860e850dd5ccdb8c91c1">newGame</a>(playerName,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                             isBoy ? <a class="code" href="a01092.html#gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7">core::player::Gender::Boy</a> : <a class="code" href="a01092.html#gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d">core::player::Gender::Girl</a>);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;}</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00098"></a><span class="lineno"><a class="line" href="a02425.html#afc319da97dc4da1047df9f399a2f2a00">   98</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02425.html#afc319da97dc4da1047df9f399a2f2a00">NewGame::update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    background.getTransform().rotate(RotateSpeed * dt);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">if</span> (fadeout) {</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">if</span> (fadeout-&gt;complete()) { <a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().replaceState(<a class="code" href="a02413.html#af52604a5df0abe639e62fbe0af65f557">MainGame::create</a>(<a class="code" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)); }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">if</span> (prof.getTransform().getRotation() &gt; -90.f) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;            prof.getTransform().rotate(dt * ProfRotateSpeed);</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        prof.getTransform().move({dt * ProfMoveSpeedX, dt * ProfMoveSpeedY});</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;}</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;}</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> SparkSink::update(Proxy&amp; proxy, std::span&lt;Evolution::Spark&gt; particles, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; spark : particles) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        spark.lifetime += dt;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        <span class="keywordflow">if</span> (spark.time &gt;= spark.lifetime) { proxy.destroy(spark); }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;}</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160; </div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keywordtype">void</span> SparkAffector::update(Proxy&amp; proxy, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; spark : proxy.particles()) { spark.position += spark.velocity * dt; }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;} <span class="comment">// namespace evo</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace game</span></div>
 <div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">MainGame.hpp</a></div></div>
-<div class="ttc" id="aa00539_html"><div class="ttname"><a href="a00539.html">NewGame.hpp</a></div></div>
-<div class="ttc" id="aa01092_html_gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d"><div class="ttname"><a href="a01092.html#gga11b9fe689813091d7db2b7cf30c51200a635c6c282d4385b8a6b6083d0151054d">core::player::Gender::Girl</a></div><div class="ttdeci">@ Girl</div></div>
-<div class="ttc" id="aa01092_html_gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7"><div class="ttname"><a href="a01092.html#gga11b9fe689813091d7db2b7cf30c51200ad82b0920e2c72a949df4a3673aba5ba7">core::player::Gender::Boy</a></div><div class="ttdeci">@ Boy</div></div>
-<div class="ttc" id="aa01107_html"><div class="ttname"><a href="a01107.html">bl</a></div><div class="ttdef"><b>Definition:</b> <a href="a00065_source.html#l00063">PeoplemonSpark.hpp:64</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01933_html_a83a1435c52995339e6a350c3120a9beb"><div class="ttname"><a href="a01933.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a></div><div class="ttdeci">static const std::string &amp; MenuImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00303">Properties.cpp:303</a></div></div>
-<div class="ttc" id="aa01933_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01933.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00262">Properties.cpp:262</a></div></div>
-<div class="ttc" id="aa01989_html_a9c6a0731f099a28c8b5ded37cf010d74"><div class="ttname"><a href="a01989.html#a9c6a0731f099a28c8b5ded37cf010d74">core::system::Clock::set</a></div><div class="ttdeci">void set(const Time &amp;time)</div><div class="ttdoc">Sets the current time.</div><div class="ttdef"><b>Definition:</b> <a href="a00815_source.html#l00029">Clock.cpp:29</a></div></div>
-<div class="ttc" id="aa02041_html_a2fde7c654039330e1a393f26a294f994"><div class="ttname"><a href="a02041.html#a2fde7c654039330e1a393f26a294f994">core::system::HUD::displayMessage</a></div><div class="ttdeci">void displayMessage(const std::string &amp;message, const Callback &amp;cb=[](const std::string &amp;) {})</div><div class="ttdoc">Displays a message in the HUD textbox. Messages are queued in order that they arrive.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00092">HUD.cpp:92</a></div></div>
-<div class="ttc" id="aa02041_html_a4861aaeecc1a3b97b0397b25437301f3"><div class="ttname"><a href="a02041.html#a4861aaeecc1a3b97b0397b25437301f3">core::system::HUD::promptUser</a></div><div class="ttdeci">void promptUser(const std::string &amp;prompt, const std::vector&lt; std::string &gt; &amp;choices, const Callback &amp;cb)</div><div class="ttdoc">Asks the player a question through the HUD.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00112">HUD.cpp:112</a></div></div>
-<div class="ttc" id="aa02041_html_a915330b9d11ff6dabd5d65e473c0255b"><div class="ttname"><a href="a02041.html#a915330b9d11ff6dabd5d65e473c0255b">core::system::HUD::getInputString</a></div><div class="ttdeci">void getInputString(const std::string &amp;prompt, unsigned int minLen, unsigned int maxLen, const Callback &amp;cb)</div><div class="ttdoc">Prompts the player to input a string using the screen keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00830_source.html#l00118">HUD.cpp:118</a></div></div>
-<div class="ttc" id="aa02065_html_a315e2b9d07f7860e850dd5ccdb8c91c1"><div class="ttname"><a href="a02065.html#a315e2b9d07f7860e850dd5ccdb8c91c1">core::system::Player::newGame</a></div><div class="ttdeci">void newGame(const std::string &amp;name, player::Gender gender)</div><div class="ttdoc">Initializes all player data structures for a new game.</div><div class="ttdef"><b>Definition:</b> <a href="a00839_source.html#l00059">Player.cpp:59</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02085_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00035">Systems.cpp:35</a></div></div>
-<div class="ttc" id="aa02085_html_a614eb9bb163de0567a30da6c215835af"><div class="ttname"><a href="a02085.html#a614eb9bb163de0567a30da6c215835af">core::system::Systems::player</a></div><div class="ttdeci">Player &amp; player()</div><div class="ttdoc">Returns the player system.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00059">Systems.cpp:59</a></div></div>
-<div class="ttc" id="aa02085_html_aba03d5263fd6298e1264cd37dd2f7fef"><div class="ttname"><a href="a02085.html#aba03d5263fd6298e1264cd37dd2f7fef">core::system::Systems::clock</a></div><div class="ttdeci">Clock &amp; clock()</div><div class="ttdoc">Accessor for the in game clock.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00039">Systems.cpp:39</a></div></div>
-<div class="ttc" id="aa02085_html_abb5e1cbaf09a2d66b686562d3006cf34"><div class="ttname"><a href="a02085.html#abb5e1cbaf09a2d66b686562d3006cf34">core::system::Systems::hud</a></div><div class="ttdeci">HUD &amp; hud()</div><div class="ttdoc">Returns the HUD.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00069">Systems.cpp:69</a></div></div>
-<div class="ttc" id="aa02085_html_ad71abe5cc74772044d51b1108df6ade4"><div class="ttname"><a href="a02085.html#ad71abe5cc74772044d51b1108df6ade4">core::system::Systems::world</a></div><div class="ttdeci">World &amp; world()</div><div class="ttdoc">Modifiable accessor for the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00043">Systems.cpp:43</a></div></div>
-<div class="ttc" id="aa02097_html_a8d85231f1c949e41a64b8967f599c2c4"><div class="ttname"><a href="a02097.html#a8d85231f1c949e41a64b8967f599c2c4">core::system::World::switchMaps</a></div><div class="ttdeci">bool switchMaps(const std::string &amp;newMap, int spawnId)</div><div class="ttdoc">Switches the current map to the map in the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a00857_source.html#l00026">World.cpp:26</a></div></div>
-<div class="ttc" id="aa02413_html_af52604a5df0abe639e62fbe0af65f557"><div class="ttname"><a href="a02413.html#af52604a5df0abe639e62fbe0af65f557">game::state::MainGame::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates the main game state. The game state must be initialized before invoking the main game state.</div><div class="ttdef"><b>Definition:</b> <a href="a01052_source.html#l00035">MainGame.cpp:35</a></div></div>
-<div class="ttc" id="aa02425_html"><div class="ttname"><a href="a02425.html">game::state::NewGame</a></div><div class="ttdoc">This state does the game intro, gets the player's name and gender, and triggers the main game state i...</div><div class="ttdef"><b>Definition:</b> <a href="a00539_source.html#l00018">NewGame.hpp:18</a></div></div>
-<div class="ttc" id="aa02425_html_a35f139b50b5b15e496ae36ccd3e0e9fc"><div class="ttname"><a href="a02425.html#a35f139b50b5b15e496ae36ccd3e0e9fc">game::state::NewGame::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Activates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00028">NewGame.cpp:28</a></div></div>
-<div class="ttc" id="aa02425_html_a425868cb227f96f1c86b3024bc2a82ef"><div class="ttname"><a href="a02425.html#a425868cb227f96f1c86b3024bc2a82ef">game::state::NewGame::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;NewGame&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00026">NewGame.cpp:26</a></div></div>
-<div class="ttc" id="aa02425_html_aae9ae100d1002573cf3c0cb038a05afe"><div class="ttname"><a href="a02425.html#aae9ae100d1002573cf3c0cb038a05afe">game::state::NewGame::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Deactivates the state.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00085">NewGame.cpp:85</a></div></div>
-<div class="ttc" id="aa02425_html_aed9aa52a2728b50fd9633705fc002aaf"><div class="ttname"><a href="a02425.html#aed9aa52a2728b50fd9633705fc002aaf">game::state::NewGame::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems)</div><div class="ttdoc">Creates the new game state.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00020">NewGame.cpp:20</a></div></div>
-<div class="ttc" id="aa02425_html_afc319da97dc4da1047df9f399a2f2a00"><div class="ttname"><a href="a02425.html#afc319da97dc4da1047df9f399a2f2a00">game::state::NewGame::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;engine, float dt, float) override</div><div class="ttdoc">Updates the state and menus and whatnot.</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00098">NewGame.cpp:98</a></div></div>
-<div class="ttc" id="aa02453_html"><div class="ttname"><a href="a02453.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00029">State.hpp:29</a></div></div>
-<div class="ttc" id="aa02453_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03304_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa00530_html"><div class="ttname"><a href="a00530.html">Particles.hpp</a></div></div>
+<div class="ttc" id="aa01153_html"><div class="ttname"><a href="a01153.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00506_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01957_html_a84e03ce493ed0ae1a9df59303b595aa7"><div class="ttname"><a href="a01957.html#a84e03ce493ed0ae1a9df59303b595aa7">core::Properties::WindowSize</a></div><div class="ttdeci">static sf::Vector2f WindowSize()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00262">Properties.cpp:262</a></div></div>
+<div class="ttc" id="aa02449_html_a56f9705ea9d4c88bd63caae8457a1522"><div class="ttname"><a href="a02449.html#a56f9705ea9d4c88bd63caae8457a1522">game::state::evo::SparkEmitter::SparkEmitter</a></div><div class="ttdeci">SparkEmitter()</div><div class="ttdef"><b>Definition:</b> <a href="a01061_source.html#l00020">Particles.cpp:20</a></div></div>
+<div class="ttc" id="aa02465_html"><div class="ttname"><a href="a02465.html">game::state::Evolution::Spark</a></div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00057">Evolution.hpp:57</a></div></div>
+<div class="ttc" id="aa02465_html_a2a12345544b43062f44c2874be28af08"><div class="ttname"><a href="a02465.html#a2a12345544b43062f44c2874be28af08">game::state::Evolution::Spark::velocity</a></div><div class="ttdeci">glm::vec2 velocity</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00059">Evolution.hpp:59</a></div></div>
+<div class="ttc" id="aa02465_html_ae6e8101eceb2d9854606cf39731a4150"><div class="ttname"><a href="a02465.html#ae6e8101eceb2d9854606cf39731a4150">game::state::Evolution::Spark::position</a></div><div class="ttdeci">glm::vec2 position</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00058">Evolution.hpp:58</a></div></div>
+<div class="ttc" id="aa02465_html_af89e515957aefb9827be4e793223de8e"><div class="ttname"><a href="a02465.html#af89e515957aefb9827be4e793223de8e">game::state::Evolution::Spark::time</a></div><div class="ttdeci">float time</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00061">Evolution.hpp:61</a></div></div>
+<div class="ttc" id="aa02465_html_afbe5c0b2a19faf159d42710b14e26261"><div class="ttname"><a href="a02465.html#afbe5c0b2a19faf159d42710b14e26261">game::state::Evolution::Spark::lifetime</a></div><div class="ttdeci">float lifetime</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00062">Evolution.hpp:62</a></div></div>
+<div class="ttc" id="aa02465_html_affca86902bebc4ab7a5b33a5709c7783"><div class="ttname"><a href="a02465.html#affca86902bebc4ab7a5b33a5709c7783">game::state::Evolution::Spark::radius</a></div><div class="ttdeci">float radius</div><div class="ttdef"><b>Definition:</b> <a href="a00533_source.html#l00060">Evolution.hpp:60</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

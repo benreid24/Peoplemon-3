@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::battle::view::PeoplemonSparkGpu Struct Reference</title>
+<title>Peoplemon: core::battle::view::MessagePrinter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,156 +66,363 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01104.html">battle</a></li><li class="navelem"><a class="el" href="a01105.html">view</a></li><li class="navelem"><a class="el" href="a01341.html">PeoplemonSparkGpu</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01126.html">battle</a></li><li class="navelem"><a class="el" href="a01127.html">view</a></li><li class="navelem"><a class="el" href="a01341.html">MessagePrinter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01338.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::battle::view::PeoplemonSparkGpu Struct Reference</div>  </div>
+<div class="title">core::battle::view::MessagePrinter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Particle system spark GPU payload for peoplemon animations.  
+<p>Helper utility for printing battle messages.  
  <a href="a01341.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00056_source.html">MessagePrinter.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a43a1b4c32114c4183c0002703f50ee4b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a43a1b4c32114c4183c0002703f50ee4b">PeoplemonSparkGpu</a> ()=default</td></tr>
-<tr class="separator:a43a1b4c32114c4183c0002703f50ee4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e737fcbb46ccf197a944673beebc488"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01341.html">PeoplemonSparkGpu</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a7e737fcbb46ccf197a944673beebc488">operator=</a> (const <a class="el" href="a01337.html">PeoplemonSpark</a> &amp;s)</td></tr>
-<tr class="separator:a7e737fcbb46ccf197a944673beebc488"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a50cbbef888401b73a4cc18fcb6417f11"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a50cbbef888401b73a4cc18fcb6417f11">position</a></td></tr>
-<tr class="separator:a50cbbef888401b73a4cc18fcb6417f11"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab26df11973a85b3ec5a473f2e473519e"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#ab26df11973a85b3ec5a473f2e473519e">radius</a></td></tr>
-<tr class="separator:ab26df11973a85b3ec5a473f2e473519e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2969d269a6a784d73f9dadc6552975c2"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a2969d269a6a784d73f9dadc6552975c2">lifetime</a></td></tr>
-<tr class="separator:a2969d269a6a784d73f9dadc6552975c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38061847251e9ae2172fdf51faa7b4c4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a38061847251e9ae2172fdf51faa7b4c4">MessagePrinter</a> (bl::engine::Engine &amp;engine)</td></tr>
+<tr class="memdesc:a38061847251e9ae2172fdf51faa7b4c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Message Printer utility.  <a href="a01341.html#a38061847251e9ae2172fdf51faa7b4c4">More...</a><br /></td></tr>
+<tr class="separator:a38061847251e9ae2172fdf51faa7b4c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7262b19f60e3b4bdf49cc45fc038d73"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#ad7262b19f60e3b4bdf49cc45fc038d73">init</a> (bl::rc::scene::CodeScene *scene)</td></tr>
+<tr class="memdesc:ad7262b19f60e3b4bdf49cc45fc038d73"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the UI components and adds to scene.  <a href="a01341.html#ad7262b19f60e3b4bdf49cc45fc038d73">More...</a><br /></td></tr>
+<tr class="separator:ad7262b19f60e3b4bdf49cc45fc038d73"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66371a448a95777dc3bac5c404597f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#ae66371a448a95777dc3bac5c404597f7">setMessage</a> (<a class="el" href="a01305.html">BattleState</a> &amp;state, const <a class="el" href="a01329.html">cmd::Message</a> &amp;message)</td></tr>
+<tr class="memdesc:ae66371a448a95777dc3bac5c404597f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the message to be printed.  <a href="a01341.html#ae66371a448a95777dc3bac5c404597f7">More...</a><br /></td></tr>
+<tr class="separator:ae66371a448a95777dc3bac5c404597f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a2d38f9b1d6cd2a2363d8d2310be672"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a1a2d38f9b1d6cd2a2363d8d2310be672">process</a> (<a class="el" href="a01136.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a> ctrl, bool ignoreDebounce)</td></tr>
+<tr class="memdesc:a1a2d38f9b1d6cd2a2363d8d2310be672"><td class="mdescLeft">&#160;</td><td class="mdescRight">Displays the full message. Call when user presses the continue button.  <a href="a01341.html#a1a2d38f9b1d6cd2a2363d8d2310be672">More...</a><br /></td></tr>
+<tr class="separator:a1a2d38f9b1d6cd2a2363d8d2310be672"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cd0ad6374cff9f731c7f5686b3a9139"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a6cd0ad6374cff9f731c7f5686b3a9139">messageDone</a> () const</td></tr>
+<tr class="memdesc:a6cd0ad6374cff9f731c7f5686b3a9139"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when the full message is on display and finishPrint() has been called.  <a href="a01341.html#a6cd0ad6374cff9f731c7f5686b3a9139">More...</a><br /></td></tr>
+<tr class="separator:a6cd0ad6374cff9f731c7f5686b3a9139"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad819ff55c0de112f43b0f8083bc4dcca"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#ad819ff55c0de112f43b0f8083bc4dcca">choseToForget</a> () const</td></tr>
+<tr class="memdesc:ad819ff55c0de112f43b0f8083bc4dcca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the player chose to forget a move.  <a href="a01341.html#ad819ff55c0de112f43b0f8083bc4dcca">More...</a><br /></td></tr>
+<tr class="separator:ad819ff55c0de112f43b0f8083bc4dcca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9372dc49b70c1999fea43350e3d77f5e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a9372dc49b70c1999fea43350e3d77f5e">choseToSetName</a> () const</td></tr>
+<tr class="memdesc:a9372dc49b70c1999fea43350e3d77f5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the player chose to set a nickname.  <a href="a01341.html#a9372dc49b70c1999fea43350e3d77f5e">More...</a><br /></td></tr>
+<tr class="separator:a9372dc49b70c1999fea43350e3d77f5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03ac4de80b66776ab2aca7ad28ea392e"><td class="memItemLeft" align="right" valign="top">const std::string &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a03ac4de80b66776ab2aca7ad28ea392e">chosenNickname</a> () const</td></tr>
+<tr class="memdesc:a03ac4de80b66776ab2aca7ad28ea392e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the nickname chosen by the player.  <a href="a01341.html#a03ac4de80b66776ab2aca7ad28ea392e">More...</a><br /></td></tr>
+<tr class="separator:a03ac4de80b66776ab2aca7ad28ea392e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac5abfbe42786fef21a65ce7d4d0e3b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a6ac5abfbe42786fef21a65ce7d4d0e3b">hide</a> ()</td></tr>
+<tr class="memdesc:a6ac5abfbe42786fef21a65ce7d4d0e3b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hides the text once the view is fully synced.  <a href="a01341.html#a6ac5abfbe42786fef21a65ce7d4d0e3b">More...</a><br /></td></tr>
+<tr class="separator:a6ac5abfbe42786fef21a65ce7d4d0e3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57db6bd9250cbabd72146d6b50258d75"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a57db6bd9250cbabd72146d6b50258d75">update</a> (float dt)</td></tr>
+<tr class="memdesc:a57db6bd9250cbabd72146d6b50258d75"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the ghost writer.  <a href="a01341.html#a57db6bd9250cbabd72146d6b50258d75">More...</a><br /></td></tr>
+<tr class="separator:a57db6bd9250cbabd72146d6b50258d75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a849760c1d186c46c3acf0ea548ac7ad5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01341.html#a849760c1d186c46c3acf0ea548ac7ad5">render</a> (bl::rc::scene::CodeScene::RenderContext &amp;ctx)</td></tr>
+<tr class="memdesc:a849760c1d186c46c3acf0ea548ac7ad5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the message.  <a href="a01341.html#a849760c1d186c46c3acf0ea548ac7ad5">More...</a><br /></td></tr>
+<tr class="separator:a849760c1d186c46c3acf0ea548ac7ad5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Particle system spark GPU payload for peoplemon animations. </p>
+<div class="textblock"><p>Helper utility for printing battle messages. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00035">35</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00056_source.html#l00026">26</a> of file <a class="el" href="a00056_source.html">MessagePrinter.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a43a1b4c32114c4183c0002703f50ee4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43a1b4c32114c4183c0002703f50ee4b">&#9670;&nbsp;</a></span>PeoplemonSparkGpu()</h2>
+<a id="a38061847251e9ae2172fdf51faa7b4c4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38061847251e9ae2172fdf51faa7b4c4">&#9670;&nbsp;</a></span>MessagePrinter()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::battle::view::PeoplemonSparkGpu::PeoplemonSparkGpu </td>
+          <td class="memname">core::battle::view::MessagePrinter::MessagePrinter </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Construct a new Message Printer utility. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00054">54</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a03ac4de80b66776ab2aca7ad28ea392e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03ac4de80b66776ab2aca7ad28ea392e">&#9670;&nbsp;</a></span>chosenNickname()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string &amp; core::battle::view::MessagePrinter::chosenNickname </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the nickname chosen by the player. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01126">1126</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad819ff55c0de112f43b0f8083bc4dcca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad819ff55c0de112f43b0f8083bc4dcca">&#9670;&nbsp;</a></span>choseToForget()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::battle::view::MessagePrinter::choseToForget </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns whether or not the player chose to forget a move. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01120">1120</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9372dc49b70c1999fea43350e3d77f5e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9372dc49b70c1999fea43350e3d77f5e">&#9670;&nbsp;</a></span>choseToSetName()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool core::battle::view::MessagePrinter::choseToSetName </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Whether or not the player chose to set a nickname. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01122">1122</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a6ac5abfbe42786fef21a65ce7d4d0e3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ac5abfbe42786fef21a65ce7d4d0e3b">&#9670;&nbsp;</a></span>hide()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::MessagePrinter::hide </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
+
+<p>Hides the text once the view is fully synced. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01072">1072</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7e737fcbb46ccf197a944673beebc488"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e737fcbb46ccf197a944673beebc488">&#9670;&nbsp;</a></span>operator=()</h2>
+<a id="ad7262b19f60e3b4bdf49cc45fc038d73"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7262b19f60e3b4bdf49cc45fc038d73">&#9670;&nbsp;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01341.html">PeoplemonSparkGpu</a>&amp; core::battle::view::PeoplemonSparkGpu::operator= </td>
+          <td class="memname">void core::battle::view::MessagePrinter::init </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="a01337.html">PeoplemonSpark</a> &amp;&#160;</td>
-          <td class="paramname"><em>s</em></td><td>)</td>
+          <td class="paramtype">bl::rc::scene::CodeScene *&#160;</td>
+          <td class="paramname"><em>scene</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00042">42</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+<p>Initializes the UI components and adds to scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">scene</td><td>The scene to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00060">60</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a2969d269a6a784d73f9dadc6552975c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2969d269a6a784d73f9dadc6552975c2">&#9670;&nbsp;</a></span>lifetime</h2>
+<a id="a6cd0ad6374cff9f731c7f5686b3a9139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cd0ad6374cff9f731c7f5686b3a9139">&#9670;&nbsp;</a></span>messageDone()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float core::battle::view::PeoplemonSparkGpu::lifetime</td>
+          <td class="memname">bool core::battle::view::MessagePrinter::messageDone </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00038">38</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+<p>Returns true when the full message is on display and finishPrint() has been called. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01074">1074</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a50cbbef888401b73a4cc18fcb6417f11"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a50cbbef888401b73a4cc18fcb6417f11">&#9670;&nbsp;</a></span>position</h2>
+<a id="a1a2d38f9b1d6cd2a2363d8d2310be672"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a2d38f9b1d6cd2a2363d8d2310be672">&#9670;&nbsp;</a></span>process()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec2 core::battle::view::PeoplemonSparkGpu::position</td>
+          <td class="memname">void core::battle::view::MessagePrinter::process </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01136.html#a362a94172d86c7b7662228aeab1b7516">input::EntityControl</a>&#160;</td>
+          <td class="paramname"><em>ctrl</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>ignoreDebounce</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00036">36</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+<p>Displays the full message. Call when user presses the continue button. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctrl</td><td>The control to process </td></tr>
+    <tr><td class="paramname">ignoreDebounce</td><td>True to always process, false to rate limit </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01031">1031</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ab26df11973a85b3ec5a473f2e473519e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab26df11973a85b3ec5a473f2e473519e">&#9670;&nbsp;</a></span>radius</h2>
+<a id="a849760c1d186c46c3acf0ea548ac7ad5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a849760c1d186c46c3acf0ea548ac7ad5">&#9670;&nbsp;</a></span>render()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">float core::battle::view::PeoplemonSparkGpu::radius</td>
+          <td class="memname">void core::battle::view::MessagePrinter::render </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::scene::CodeScene::RenderContext &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00037">37</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+<p>Renders the message. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The render context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01098">1098</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Battles/View/<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a></li>
+<a id="ae66371a448a95777dc3bac5c404597f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66371a448a95777dc3bac5c404597f7">&#9670;&nbsp;</a></span>setMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::MessagePrinter::setMessage </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a01305.html">BattleState</a> &amp;&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01329.html">cmd::Message</a> &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Set the message to be printed. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>The current state of the battle </td></tr>
+    <tr><td class="paramname">message</td><td>The message to display </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l00093">93</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a57db6bd9250cbabd72146d6b50258d75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57db6bd9250cbabd72146d6b50258d75">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::MessagePrinter::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the ghost writer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00617_source.html#l01078">1078</a> of file <a class="el" href="a00617_source.html">MessagePrinter.cpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Battles/View/<a class="el" href="a00056_source.html">MessagePrinter.hpp</a></li>
+<li>src/Core/Battles/View/<a class="el" href="a00617_source.html">MessagePrinter.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

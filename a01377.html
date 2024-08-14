@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::component::Collision Struct Reference</title>
+<title>Peoplemon: core::battle::view::SparkExplosionEmitter Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,31 +66,192 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01109.html">component</a></li><li class="navelem"><a class="el" href="a01377.html">Collision</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01126.html">battle</a></li><li class="navelem"><a class="el" href="a01127.html">view</a></li><li class="navelem"><a class="el" href="a01377.html">SparkExplosionEmitter</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
+  <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="a01374.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::component::Collision Struct Reference</div>  </div>
+<div class="title">core::battle::view::SparkExplosionEmitter Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Empty component to indicate that an entity cannot be moved through.  
+<p>Particle system spark emitter for explosions.  
  <a href="a01377.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a03184_source.html">Collision.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::battle::view::SparkExplosionEmitter:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01377.png" alt=""/>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:af0b79df0fa14af2d97169e07fc347be2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html#af0b79df0fa14af2d97169e07fc347be2">SparkExplosionEmitter</a> (const glm::vec2 &amp;origin)</td></tr>
+<tr class="separator:af0b79df0fa14af2d97169e07fc347be2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a354509c17f5d8387c14617ccf9adb305"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html#a354509c17f5d8387c14617ccf9adb305">~SparkExplosionEmitter</a> ()=default</td></tr>
+<tr class="separator:a354509c17f5d8387c14617ccf9adb305"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa0b8cf5961d1983f332dae626d48dac7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html#aa0b8cf5961d1983f332dae626d48dac7">setEnabled</a> (bool e)</td></tr>
+<tr class="separator:aa0b8cf5961d1983f332dae626d48dac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr class="memitem:a228599a6ac071d15c769910a1479deb4"><td class="memItemLeft" align="right" valign="top">static constexpr float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html#a228599a6ac071d15c769910a1479deb4">CreateRate</a> = 200.f</td></tr>
+<tr class="separator:a228599a6ac071d15c769910a1479deb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38230c0e709171fb34fbd2ec01f4e4bb"><td class="memItemLeft" align="right" valign="top">static constexpr unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01377.html#a38230c0e709171fb34fbd2ec01f4e4bb">MaxSpawn</a> = 50</td></tr>
+<tr class="separator:a38230c0e709171fb34fbd2ec01f4e4bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Empty component to indicate that an entity cannot be moved through. </p>
+<div class="textblock"><p>Particle system spark emitter for explosions. </p>
 
-<p class="definition">Definition at line <a class="el" href="a03184_source.html#l00014">14</a> of file <a class="el" href="a03184_source.html">Collision.hpp</a>.</p>
-</div><hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Components/<a class="el" href="a03184_source.html">Collision.hpp</a></li>
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00107">107</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af0b79df0fa14af2d97169e07fc347be2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0b79df0fa14af2d97169e07fc347be2">&#9670;&nbsp;</a></span>SparkExplosionEmitter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">core::battle::view::SparkExplosionEmitter::SparkExplosionEmitter </td>
+          <td>(</td>
+          <td class="paramtype">const glm::vec2 &amp;&#160;</td>
+          <td class="paramname"><em>origin</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00112">112</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a354509c17f5d8387c14617ccf9adb305"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a354509c17f5d8387c14617ccf9adb305">&#9670;&nbsp;</a></span>~SparkExplosionEmitter()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual core::battle::view::SparkExplosionEmitter::~SparkExplosionEmitter </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa0b8cf5961d1983f332dae626d48dac7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa0b8cf5961d1983f332dae626d48dac7">&#9670;&nbsp;</a></span>setEnabled()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::battle::view::SparkExplosionEmitter::setEnabled </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>e</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00119">119</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a228599a6ac071d15c769910a1479deb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a228599a6ac071d15c769910a1479deb4">&#9670;&nbsp;</a></span>CreateRate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr float core::battle::view::SparkExplosionEmitter::CreateRate = 200.f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00109">109</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a38230c0e709171fb34fbd2ec01f4e4bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a38230c0e709171fb34fbd2ec01f4e4bb">&#9670;&nbsp;</a></span>MaxSpawn</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr unsigned int core::battle::view::SparkExplosionEmitter::MaxSpawn = 50</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00110">110</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/Core/Battles/View/<a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

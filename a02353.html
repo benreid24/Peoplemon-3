@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::menu::StorageGrid Class Reference</title>
+<title>Peoplemon: editor::page::GameTesting Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,119 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01129.html">game</a></li><li class="navelem"><a class="el" href="a01130.html">menu</a></li><li class="navelem"><a class="el" href="a02353.html">StorageGrid</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01149.html">page</a></li><li class="navelem"><a class="el" href="a02353.html">GameTesting</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
 <a href="a02350.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::menu::StorageGrid Class Reference<div class="ingroups"><a class="el" href="a01084.html">Game</a> &raquo; <a class="el" href="a01099.html">Menus</a></div></div>  </div>
+<div class="title">editor::page::GameTesting Class Reference<div class="ingroups"><a class="el" href="a01104.html">Editor</a> &raquo; <a class="el" href="a01119.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Renderer for the grid of peoplemon in a storage box.  
+<p>Subpage in the map editor for creating and testing game saves.  
  <a href="a02353.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00509_source.html">StorageGrid.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00482_source.html">GameTesting.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aed267a5a8c4746af1b34bf356b9bbccc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#aed267a5a8c4746af1b34bf356b9bbccc">StorageGrid</a> (bl::engine::Engine &amp;engine)</td></tr>
-<tr class="memdesc:aed267a5a8c4746af1b34bf356b9bbccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes the grid to be empty.  <a href="a02353.html#aed267a5a8c4746af1b34bf356b9bbccc">More...</a><br /></td></tr>
-<tr class="separator:aed267a5a8c4746af1b34bf356b9bbccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a945f9af83a58f7d14c85f68aa7c38620"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a945f9af83a58f7d14c85f68aa7c38620">activate</a> (bl::ecs::Entity background)</td></tr>
-<tr class="memdesc:a945f9af83a58f7d14c85f68aa7c38620"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parent of the grid rectangle to the background.  <a href="a02353.html#a945f9af83a58f7d14c85f68aa7c38620">More...</a><br /></td></tr>
-<tr class="separator:a945f9af83a58f7d14c85f68aa7c38620"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a73e61a7b8e42999afee46c1d8cb7607f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a73e61a7b8e42999afee46c1d8cb7607f">deactivate</a> ()</td></tr>
-<tr class="memdesc:a73e61a7b8e42999afee46c1d8cb7607f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the content from the scene and releases entities.  <a href="a02353.html#a73e61a7b8e42999afee46c1d8cb7607f">More...</a><br /></td></tr>
-<tr class="separator:a73e61a7b8e42999afee46c1d8cb7607f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd9f9123b9185b33dcca010337b0083c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#abd9f9123b9185b33dcca010337b0083c">update</a> (const std::vector&lt; <a class="el" href="a01885.html">core::pplmn::StoredPeoplemon</a> &gt; &amp;box)</td></tr>
-<tr class="memdesc:abd9f9123b9185b33dcca010337b0083c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the set of peoplemon to render.  <a href="a02353.html#abd9f9123b9185b33dcca010337b0083c">More...</a><br /></td></tr>
-<tr class="separator:abd9f9123b9185b33dcca010337b0083c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3c606819bdc775ef190bc030dade3609"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a3c606819bdc775ef190bc030dade3609">notifyOffset</a> (float offset)</td></tr>
-<tr class="memdesc:a3c606819bdc775ef190bc030dade3609"><td class="mdescLeft">&#160;</td><td class="mdescRight">Applies the given offset to the grid position. Used for sliding in and out.  <a href="a02353.html#a3c606819bdc775ef190bc030dade3609">More...</a><br /></td></tr>
-<tr class="separator:a3c606819bdc775ef190bc030dade3609"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:acdde23bc62de7328b792b721c6e5936f"><td class="memItemLeft" align="right" valign="top">static constexpr glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#acdde23bc62de7328b792b721c6e5936f">BoxPosition</a> = {293.f, 158.f}</td></tr>
-<tr class="separator:acdde23bc62de7328b792b721c6e5936f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae272d7e80a224243dbf7aa93fb8d78e1"><td class="memItemLeft" align="right" valign="top">static constexpr glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#ae272d7e80a224243dbf7aa93fb8d78e1">BoxSize</a> = {784.f - BoxPosition.x, 581.f - BoxPosition.y}</td></tr>
-<tr class="separator:ae272d7e80a224243dbf7aa93fb8d78e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a725db21870dfcb4ce5e7c792bc12a6f0">GameTesting</a> ()</td></tr>
+<tr class="memdesc:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Game Testing page.  <a href="a02353.html#a725db21870dfcb4ce5e7c792bc12a6f0">More...</a><br /></td></tr>
+<tr class="separator:a725db21870dfcb4ce5e7c792bc12a6f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a9b96d16d1e2cfc9e9822a4a335fab990">registerGUI</a> (bl::gui::GUI *gui)</td></tr>
+<tr class="memdesc:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the primary GUI object.  <a href="a02353.html#a9b96d16d1e2cfc9e9822a4a335fab990">More...</a><br /></td></tr>
+<tr class="separator:a9b96d16d1e2cfc9e9822a4a335fab990"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a3c72be7f4a00c84d25f4edebf6d41d43">notifyClick</a> (const std::string &amp;map, unsigned int level, const sf::Vector2i &amp;pos)</td></tr>
+<tr class="memdesc:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies of the spawn being set.  <a href="a02353.html#a3c72be7f4a00c84d25f4edebf6d41d43">More...</a><br /></td></tr>
+<tr class="separator:a3c72be7f4a00c84d25f4edebf6d41d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8fc8cab441ff6c68a4f192bd1e289856"><td class="memItemLeft" align="right" valign="top">const bl::gui::Box::Ptr &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02353.html#a8fc8cab441ff6c68a4f192bd1e289856">getContent</a> () const</td></tr>
+<tr class="memdesc:a8fc8cab441ff6c68a4f192bd1e289856"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to pack.  <a href="a02353.html#a8fc8cab441ff6c68a4f192bd1e289856">More...</a><br /></td></tr>
+<tr class="separator:a8fc8cab441ff6c68a4f192bd1e289856"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Renderer for the grid of peoplemon in a storage box. </p>
+<div class="textblock"><p>Subpage in the map editor for creating and testing game saves. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00020">20</a> of file <a class="el" href="a00509_source.html">StorageGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00482_source.html#l00019">19</a> of file <a class="el" href="a00482_source.html">GameTesting.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aed267a5a8c4746af1b34bf356b9bbccc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aed267a5a8c4746af1b34bf356b9bbccc">&#9670;&nbsp;</a></span>StorageGrid()</h2>
+<a id="a725db21870dfcb4ce5e7c792bc12a6f0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a725db21870dfcb4ce5e7c792bc12a6f0">&#9670;&nbsp;</a></span>GameTesting()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">game::menu::StorageGrid::StorageGrid </td>
-          <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Initializes the grid to be empty. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01016_source.html#l00011">11</a> of file <a class="el" href="a01016_source.html">StorageGrid.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a945f9af83a58f7d14c85f68aa7c38620"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a945f9af83a58f7d14c85f68aa7c38620">&#9670;&nbsp;</a></span>activate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::menu::StorageGrid::activate </td>
-          <td>(</td>
-          <td class="paramtype">bl::ecs::Entity&#160;</td>
-          <td class="paramname"><em>background</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Sets the parent of the grid rectangle to the background. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">background</td><td>The background entity </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01016_source.html#l00019">19</a> of file <a class="el" href="a01016_source.html">StorageGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a73e61a7b8e42999afee46c1d8cb7607f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73e61a7b8e42999afee46c1d8cb7607f">&#9670;&nbsp;</a></span>deactivate()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::menu::StorageGrid::deactivate </td>
+          <td class="memname">editor::page::GameTesting::GameTesting </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -186,126 +118,111 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Removes the content from the scene and releases entities. </p>
+<p>Construct a new Game Testing page. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01016_source.html#l00021">21</a> of file <a class="el" href="a01016_source.html">StorageGrid.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00009">9</a> of file <a class="el" href="a00998_source.html">GameTesting.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a3c606819bdc775ef190bc030dade3609"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3c606819bdc775ef190bc030dade3609">&#9670;&nbsp;</a></span>notifyOffset()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8fc8cab441ff6c68a4f192bd1e289856"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8fc8cab441ff6c68a4f192bd1e289856">&#9670;&nbsp;</a></span>getContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void game::menu::StorageGrid::notifyOffset </td>
+          <td class="memname">const Box::Ptr &amp; editor::page::GameTesting::getContent </td>
           <td>(</td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>offset</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the content to pack. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00075">75</a> of file <a class="el" href="a00998_source.html">GameTesting.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a3c72be7f4a00c84d25f4edebf6d41d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c72be7f4a00c84d25f4edebf6d41d43">&#9670;&nbsp;</a></span>notifyClick()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::GameTesting::notifyClick </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>level</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Notifies of the spawn being set. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">map</td><td>The name of the map to spawn into </td></tr>
+    <tr><td class="paramname">level</td><td>The level to spawn on </td></tr>
+    <tr><td class="paramname">pos</td><td>The position to spawn at </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00086">86</a> of file <a class="el" href="a00998_source.html">GameTesting.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b96d16d1e2cfc9e9822a4a335fab990"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b96d16d1e2cfc9e9822a4a335fab990">&#9670;&nbsp;</a></span>registerGUI()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::GameTesting::registerGUI </td>
+          <td>(</td>
+          <td class="paramtype">bl::gui::GUI *&#160;</td>
+          <td class="paramname"><em>gui</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Applies the given offset to the grid position. Used for sliding in and out. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">offset</td><td>The offset in overlay units to apply to the x coordinate </td></tr>
-  </table>
-  </dd>
-</dl>
+<p>Sets the primary GUI object. </p>
 
-<p class="definition">Definition at line <a class="el" href="a01016_source.html#l00026">26</a> of file <a class="el" href="a01016_source.html">StorageGrid.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abd9f9123b9185b33dcca010337b0083c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd9f9123b9185b33dcca010337b0083c">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void game::menu::StorageGrid::update </td>
-          <td>(</td>
-          <td class="paramtype">const std::vector&lt; <a class="el" href="a01885.html">core::pplmn::StoredPeoplemon</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>box</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Updates the set of peoplemon to render. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">box</td><td>The set of stored peoplemon to render </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p class="definition">Definition at line <a class="el" href="a01016_source.html#l00030">30</a> of file <a class="el" href="a01016_source.html">StorageGrid.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="acdde23bc62de7328b792b721c6e5936f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdde23bc62de7328b792b721c6e5936f">&#9670;&nbsp;</a></span>BoxPosition</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr glm::vec2 game::menu::StorageGrid::BoxPosition = {293.f, 158.f}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00022">22</a> of file <a class="el" href="a00509_source.html">StorageGrid.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ae272d7e80a224243dbf7aa93fb8d78e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae272d7e80a224243dbf7aa93fb8d78e1">&#9670;&nbsp;</a></span>BoxSize</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr glm::vec2 game::menu::StorageGrid::BoxSize = {784.f - BoxPosition.x, 581.f - BoxPosition.y}</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00509_source.html#l00023">23</a> of file <a class="el" href="a00509_source.html">StorageGrid.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00998_source.html#l00073">73</a> of file <a class="el" href="a00998_source.html">GameTesting.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/Menus/<a class="el" href="a00509_source.html">StorageGrid.hpp</a></li>
-<li>src/Game/Menus/<a class="el" href="a01016_source.html">StorageGrid.cpp</a></li>
+<li>include/Editor/Pages/Subpages/<a class="el" href="a00482_source.html">GameTesting.hpp</a></li>
+<li>src/Editor/Pages/Subpages/<a class="el" href="a00998_source.html">GameTesting.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

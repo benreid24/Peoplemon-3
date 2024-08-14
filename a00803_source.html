@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Scripts/DebugScriptContext.cpp Source File</title>
+<title>Peoplemon: src/Core/Resources/WalkAnimations.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,45 +66,73 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_6edc84a9acc94cea070447f5eeb2cf24.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_05ad645af30ba5694f9d87fa8078b2c2.html">Resources</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">DebugScriptContext.cpp</div>  </div>
+<div class="title">WalkAnimations.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00803.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00305.html">Core/Scripts/DebugScriptContext.hpp</a>&gt;</span></div>
+<a href="a00803.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00293.html">Core/Resources/WalkAnimations.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00299.html">Core/Scripts/BaseFunctions.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>script</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01969.html#abed200a4b5f28bb2668773f522d94c9f">   10</a></span>&#160;<a class="code" href="a01969.html#abed200a4b5f28bb2668773f522d94c9f">DebugScriptContext::DebugScriptContext</a>(<a class="code" href="a02085.html">system::Systems</a>&amp; s)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: systems(s) {}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/FileUtil.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>res</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
+<div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="a01977.html#a70b0f00855c9a34611b144eb2745adae">    9</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01977.html#a70b0f00855c9a34611b144eb2745adae">WalkAnimations::loadFromDirectory</a>(<span class="keyword">const</span> std::string&amp; path) {</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;    <span class="keyword">using</span> <a class="code" href="a00296.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a> = bl::resource::ResourceManager&lt;bl::gfx::a2d::AnimationData&gt;;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">using</span> <a class="code" href="a01140.html#a6d9c3715f0042a26a07703b3a1006870">FileUtil</a>         = <a class="code" href="a01140.html#a6d9c3715f0042a26a07703b3a1006870">bl::util::FileUtil</a>;</div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160; </div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a01969.html#ad39ea9fa1d463137f018c559edc5b57c">   13</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01969.html#ad39ea9fa1d463137f018c559edc5b57c">DebugScriptContext::addCustomSymbols</a>(bl::script::SymbolTable&amp; table)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <a class="code" href="a01961.html#ab82e28a7c9987d205a5c929e04bcdfee">BaseFunctions::addDefaults</a>(table, systems);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace script</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00299_html"><div class="ttname"><a href="a00299.html">BaseFunctions.hpp</a></div></div>
-<div class="ttc" id="aa00305_html"><div class="ttname"><a href="a00305.html">DebugScriptContext.hpp</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01961_html_ab82e28a7c9987d205a5c929e04bcdfee"><div class="ttname"><a href="a01961.html#ab82e28a7c9987d205a5c929e04bcdfee">core::script::BaseFunctions::addDefaults</a></div><div class="ttdeci">static void addDefaults(bl::script::SymbolTable &amp;table, system::Systems &amp;systems)</div><div class="ttdoc">Adds the universal built-in functions to the given symbol table.</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00167">BaseFunctions.cpp:167</a></div></div>
-<div class="ttc" id="aa01969_html_abed200a4b5f28bb2668773f522d94c9f"><div class="ttname"><a href="a01969.html#abed200a4b5f28bb2668773f522d94c9f">core::script::DebugScriptContext::DebugScriptContext</a></div><div class="ttdeci">DebugScriptContext(system::Systems &amp;systems)</div><div class="ttdoc">Construct a new Debug Script Context.</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00010">DebugScriptContext.cpp:10</a></div></div>
-<div class="ttc" id="aa01969_html_ad39ea9fa1d463137f018c559edc5b57c"><div class="ttname"><a href="a01969.html#ad39ea9fa1d463137f018c559edc5b57c">core::script::DebugScriptContext::addCustomSymbols</a></div><div class="ttdeci">virtual void addCustomSymbols(bl::script::SymbolTable &amp;table) const override</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00013">DebugScriptContext.cpp:13</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;up.anim&quot;</span>), *<span class="keyword">this</span>)) {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    }</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    maxLen = getLength();</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    prepareForStates(4);</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    bl::gfx::a2d::AnimationData temp;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;right.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    }</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    addState(1, temp);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;down.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    }</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    addState(2, temp);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">if</span> (!AnimationManager::initializeExisting(FileUtil::joinPath(path, <span class="stringliteral">&quot;left.anim&quot;</span>), temp)) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    maxLen = std::max(maxLen, temp.getLength());</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    addState(3, temp);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a01981.html#ac812aaa849e6d32df14b228e81d88aa8">   41</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01981.html#ac812aaa849e6d32df14b228e81d88aa8">WalkAnimationLoader::load</a>(<span class="keyword">const</span> std::string&amp; path, <span class="keyword">const</span> <span class="keywordtype">char</span>*, std::size_t, std::istream&amp;,</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;                               <a class="code" href="a01977.html">WalkAnimations</a>&amp; result) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> result.<a class="code" href="a01977.html#a70b0f00855c9a34611b144eb2745adae">loadFromDirectory</a>(path);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;} <span class="comment">// namespace res</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00293_html"><div class="ttname"><a href="a00293.html">WalkAnimations.hpp</a></div></div>
+<div class="ttc" id="aa00296_html_a0fa4edee4adcb3fdc713366e2d8c3eca"><div class="ttname"><a href="a00296.html#a0fa4edee4adcb3fdc713366e2d8c3eca">AnimationManager</a></div><div class="ttdeci">bl::resource::ResourceManager&lt; bl::gfx::a2d::AnimationData &gt; AnimationManager</div><div class="ttdef"><b>Definition:</b> <a href="a00296_source.html#l00020">Resources.hpp:20</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01140_html_a6d9c3715f0042a26a07703b3a1006870"><div class="ttname"><a href="a01140.html#a6d9c3715f0042a26a07703b3a1006870">editor::component::FileUtil</a></div><div class="ttdeci">bl::util::FileUtil FileUtil</div><div class="ttdef"><b>Definition:</b> <a href="a00938_source.html#l00015">NPCEditorWindow.cpp:15</a></div></div>
+<div class="ttc" id="aa01977_html"><div class="ttname"><a href="a01977.html">core::res::WalkAnimations</a></div><div class="ttdoc">Extension of animation data that loads and combines the animations for each movement direction into a...</div><div class="ttdef"><b>Definition:</b> <a href="a00293_source.html#l00018">WalkAnimations.hpp:18</a></div></div>
+<div class="ttc" id="aa01977_html_a70b0f00855c9a34611b144eb2745adae"><div class="ttname"><a href="a01977.html#a70b0f00855c9a34611b144eb2745adae">core::res::WalkAnimations::loadFromDirectory</a></div><div class="ttdeci">bool loadFromDirectory(const std::string &amp;path)</div><div class="ttdoc">Loads the walking animations from the given directory.</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00009">WalkAnimations.cpp:9</a></div></div>
+<div class="ttc" id="aa01981_html_ac812aaa849e6d32df14b228e81d88aa8"><div class="ttname"><a href="a01981.html#ac812aaa849e6d32df14b228e81d88aa8">core::res::WalkAnimationLoader::load</a></div><div class="ttdeci">virtual bool load(const std::string &amp;path, const char *, std::size_t, std::istream &amp;, WalkAnimations &amp;result) override</div><div class="ttdoc">Loads the walking animations from the given path.</div><div class="ttdef"><b>Definition:</b> <a href="a00803_source.html#l00041">WalkAnimations.cpp:41</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

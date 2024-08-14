@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::player::State Struct Reference</title>
+<title>Peoplemon: bl::serial::SerializableObject&lt; core::pplmn::WildPeoplemon &gt; Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,358 +66,172 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01122.html">player</a></li><li class="navelem"><a class="el" href="a01925.html">State</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01129.html">bl</a></li><li class="navelem"><a class="el" href="a01135.html">serial</a></li><li class="navelem"><a class="el" href="a01925.html">SerializableObject&lt; core::pplmn::WildPeoplemon &gt;</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01922.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::player::State Struct Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01092.html">Player</a></div></div>  </div>
+<div class="title">bl::serial::SerializableObject&lt; core::pplmn::WildPeoplemon &gt; Struct Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Stores all player state.  
- <a href="a01925.html#details">More...</a></p>
-
-<p><code>#include &lt;<a class="el" href="a03301_source.html">State.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::pplmn::WildPeoplemon &gt;:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a01925.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a568f51e78a0a230317f6a518e8a660a5"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a> = <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a></td></tr>
+<tr class="separator:a568f51e78a0a230317f6a518e8a660a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6b9232ce0c0b30707798b92ee5f04f13"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a6b9232ce0c0b30707798b92ee5f04f13">State</a> ()</td></tr>
-<tr class="memdesc:a6b9232ce0c0b30707798b92ee5f04f13"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes to default values.  <a href="a01925.html#a6b9232ce0c0b30707798b92ee5f04f13">More...</a><br /></td></tr>
-<tr class="separator:a6b9232ce0c0b30707798b92ee5f04f13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7302f504bae7459e2a758bfe0da54e57"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a7302f504bae7459e2a758bfe0da54e57">healPeoplemon</a> ()</td></tr>
-<tr class="memdesc:a7302f504bae7459e2a758bfe0da54e57"><td class="mdescLeft">&#160;</td><td class="mdescRight">Restores HP and removes all ailments.  <a href="a01925.html#a7302f504bae7459e2a758bfe0da54e57">More...</a><br /></td></tr>
-<tr class="separator:a7302f504bae7459e2a758bfe0da54e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aab5ac03f0500d787ced4f72fcd08e096"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#aab5ac03f0500d787ced4f72fcd08e096">evolutionPending</a> () const</td></tr>
-<tr class="memdesc:aab5ac03f0500d787ced4f72fcd08e096"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not any peoplemon have a pending evolution.  <a href="a01925.html#aab5ac03f0500d787ced4f72fcd08e096">More...</a><br /></td></tr>
-<tr class="separator:aab5ac03f0500d787ced4f72fcd08e096"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3914ec2a7d6dc4bbe95d029e065d69d6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a3914ec2a7d6dc4bbe95d029e065d69d6">hasLivingPeoplemon</a> () const</td></tr>
-<tr class="memdesc:a3914ec2a7d6dc4bbe95d029e065d69d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not the player has any living peoplemon.  <a href="a01925.html#a3914ec2a7d6dc4bbe95d029e065d69d6">More...</a><br /></td></tr>
-<tr class="separator:a3914ec2a7d6dc4bbe95d029e065d69d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af30acd1762e59aa5ffc27e0741f5ff99"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#af30acd1762e59aa5ffc27e0741f5ff99">SerializableObject</a> ()</td></tr>
+<tr class="separator:af30acd1762e59aa5ffc27e0741f5ff99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a512f31e65aad71aa9e01f85b778dcfec"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a512f31e65aad71aa9e01f85b778dcfec">name</a></td></tr>
-<tr class="separator:a512f31e65aad71aa9e01f85b778dcfec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adf899c890eacaf37a0970aae31726a08"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01092.html#ga11b9fe689813091d7db2b7cf30c51200">player::Gender</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#adf899c890eacaf37a0970aae31726a08">sex</a></td></tr>
-<tr class="separator:adf899c890eacaf37a0970aae31726a08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af138e05ed91617c02df4bdd321fa1eb3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01905.html">player::Bag</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#af138e05ed91617c02df4bdd321fa1eb3">bag</a></td></tr>
-<tr class="separator:af138e05ed91617c02df4bdd321fa1eb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0503d98710d9ea14a94e2ff6b95b88a9"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a0503d98710d9ea14a94e2ff6b95b88a9">monei</a></td></tr>
-<tr class="separator:a0503d98710d9ea14a94e2ff6b95b88a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a4ba948bb65db83ef5b9037f08aa0c0"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01861.html">pplmn::OwnedPeoplemon</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a4a4ba948bb65db83ef5b9037f08aa0c0">peoplemon</a></td></tr>
-<tr class="separator:a4a4ba948bb65db83ef5b9037f08aa0c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00cc75ccc4fc5c40ce4a73dde580b91a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01929.html">StorageSystem</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a00cc75ccc4fc5c40ce4a73dde580b91a">storage</a></td></tr>
-<tr class="separator:a00cc75ccc4fc5c40ce4a73dde580b91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb2a7b6deaad36263e6ffb04709d5053"><td class="memItemLeft" align="right" valign="top">std::unordered_set&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#afb2a7b6deaad36263e6ffb04709d5053">visitedTowns</a></td></tr>
-<tr class="separator:afb2a7b6deaad36263e6ffb04709d5053"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2389c60d49dadbffb0e167dc7389008"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a01921.html">Peopledex</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#ae2389c60d49dadbffb0e167dc7389008">peopledex</a></td></tr>
-<tr class="separator:ae2389c60d49dadbffb0e167dc7389008"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afb4f28d74939c696584e4285ae591673"><td class="memItemLeft" align="right" valign="top">bl::tmap::Position&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#afb4f28d74939c696584e4285ae591673">savePos</a></td></tr>
-<tr class="separator:afb4f28d74939c696584e4285ae591673"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e5931070e6593bcf388861abdc288e1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a8e5931070e6593bcf388861abdc288e1">whiteoutMap</a></td></tr>
-<tr class="separator:a8e5931070e6593bcf388861abdc288e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2dc44807131c9c810a1cf79e30e584e1"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a2dc44807131c9c810a1cf79e30e584e1">whiteoutSpawn</a></td></tr>
-<tr class="separator:a2dc44807131c9c810a1cf79e30e584e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f078f88435987bd2d203cdb95a49081"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a9f078f88435987bd2d203cdb95a49081">repelSteps</a></td></tr>
-<tr class="separator:a9f078f88435987bd2d203cdb95a49081"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a254f451a5dabf76032538257ad5b08ff"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a254f451a5dabf76032538257ad5b08ff">minLevel</a></td></tr>
+<tr class="separator:a254f451a5dabf76032538257ad5b08ff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24a2c3ff7b18a6f4b41bd75f9571b75a"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a24a2c3ff7b18a6f4b41bd75f9571b75a">maxLevel</a></td></tr>
+<tr class="separator:a24a2c3ff7b18a6f4b41bd75f9571b75a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a193780959e0e70a68c9dec554ade1082"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 3, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint16_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a193780959e0e70a68c9dec554ade1082">freq</a></td></tr>
+<tr class="separator:a193780959e0e70a68c9dec554ade1082"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9183b9169a9c021ec6960ab085c7be45"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 4, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, <a class="el" href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01925.html#a9183b9169a9c021ec6960ab085c7be45">id</a></td></tr>
+<tr class="separator:a9183b9169a9c021ec6960ab085c7be45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stores all player state. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00021">21</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6b9232ce0c0b30707798b92ee5f04f13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b9232ce0c0b30707798b92ee5f04f13">&#9670;&nbsp;</a></span>State()</h2>
+<div class="textblock">
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00046">46</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a568f51e78a0a230317f6a518e8a660a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a568f51e78a0a230317f6a518e8a660a5">&#9670;&nbsp;</a></span>Wild</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">core::player::State::State </td>
+          <td class="memname">using bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::<a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a> =  <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00047">47</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af30acd1762e59aa5ffc27e0741f5ff99"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af30acd1762e59aa5ffc27e0741f5ff99">&#9670;&nbsp;</a></span>SerializableObject()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::SerializableObject </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Initializes to default values. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00007">7</a> of file <a class="el" href="a03391_source.html">State.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="aab5ac03f0500d787ced4f72fcd08e096"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aab5ac03f0500d787ced4f72fcd08e096">&#9670;&nbsp;</a></span>evolutionPending()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::player::State::evolutionPending </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not any peoplemon have a pending evolution. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00020">20</a> of file <a class="el" href="a03391_source.html">State.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3914ec2a7d6dc4bbe95d029e065d69d6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3914ec2a7d6dc4bbe95d029e065d69d6">&#9670;&nbsp;</a></span>hasLivingPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool core::player::State::hasLivingPeoplemon </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns whether or not the player has any living peoplemon. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00027">27</a> of file <a class="el" href="a03391_source.html">State.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7302f504bae7459e2a758bfe0da54e57"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7302f504bae7459e2a758bfe0da54e57">&#9670;&nbsp;</a></span>healPeoplemon()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void core::player::State::healPeoplemon </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Restores HP and removes all ailments. </p>
-
-<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00016">16</a> of file <a class="el" href="a03391_source.html">State.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00054">54</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="af138e05ed91617c02df4bdd321fa1eb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af138e05ed91617c02df4bdd321fa1eb3">&#9670;&nbsp;</a></span>bag</h2>
+<a id="a193780959e0e70a68c9dec554ade1082"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a193780959e0e70a68c9dec554ade1082">&#9670;&nbsp;</a></span>freq</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01905.html">player::Bag</a> core::player::State::bag</td>
+          <td class="memname">SerializableField&lt;3, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint16_t&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::freq</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00044">44</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00051">51</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a0503d98710d9ea14a94e2ff6b95b88a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0503d98710d9ea14a94e2ff6b95b88a9">&#9670;&nbsp;</a></span>monei</h2>
+<a id="a9183b9169a9c021ec6960ab085c7be45"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9183b9169a9c021ec6960ab085c7be45">&#9670;&nbsp;</a></span>id</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">long core::player::State::monei</td>
+          <td class="memname">SerializableField&lt;4, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, <a class="el" href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a>&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::id</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00045">45</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00052">52</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a512f31e65aad71aa9e01f85b778dcfec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a512f31e65aad71aa9e01f85b778dcfec">&#9670;&nbsp;</a></span>name</h2>
+<a id="a24a2c3ff7b18a6f4b41bd75f9571b75a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24a2c3ff7b18a6f4b41bd75f9571b75a">&#9670;&nbsp;</a></span>maxLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::string core::player::State::name</td>
+          <td class="memname">SerializableField&lt;2, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint8_t&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::maxLevel</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00042">42</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00050">50</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae2389c60d49dadbffb0e167dc7389008"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2389c60d49dadbffb0e167dc7389008">&#9670;&nbsp;</a></span>peopledex</h2>
+<a id="a254f451a5dabf76032538257ad5b08ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a254f451a5dabf76032538257ad5b08ff">&#9670;&nbsp;</a></span>minLevel</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a01921.html">Peopledex</a> core::player::State::peopledex</td>
+          <td class="memname">SerializableField&lt;1, <a class="el" href="a01925.html#a568f51e78a0a230317f6a518e8a660a5">Wild</a>, std::uint8_t&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01921.html">core::pplmn::WildPeoplemon</a> &gt;::minLevel</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00049">49</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03376_source.html#l00049">49</a> of file <a class="el" href="a03376_source.html">WildPeoplemon.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a4a4ba948bb65db83ef5b9037f08aa0c0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a4ba948bb65db83ef5b9037f08aa0c0">&#9670;&nbsp;</a></span>peoplemon</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::vector&lt;<a class="el" href="a01861.html">pplmn::OwnedPeoplemon</a>&gt; core::player::State::peoplemon</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00046">46</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a9f078f88435987bd2d203cdb95a49081"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f078f88435987bd2d203cdb95a49081">&#9670;&nbsp;</a></span>repelSteps</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int core::player::State::repelSteps</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00054">54</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afb4f28d74939c696584e4285ae591673"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb4f28d74939c696584e4285ae591673">&#9670;&nbsp;</a></span>savePos</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bl::tmap::Position core::player::State::savePos</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00051">51</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="adf899c890eacaf37a0970aae31726a08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adf899c890eacaf37a0970aae31726a08">&#9670;&nbsp;</a></span>sex</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01092.html#ga11b9fe689813091d7db2b7cf30c51200">player::Gender</a> core::player::State::sex</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00043">43</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a00cc75ccc4fc5c40ce4a73dde580b91a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00cc75ccc4fc5c40ce4a73dde580b91a">&#9670;&nbsp;</a></span>storage</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="a01929.html">StorageSystem</a> core::player::State::storage</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00047">47</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="afb2a7b6deaad36263e6ffb04709d5053"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb2a7b6deaad36263e6ffb04709d5053">&#9670;&nbsp;</a></span>visitedTowns</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::unordered_set&lt;std::string&gt; core::player::State::visitedTowns</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00048">48</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a8e5931070e6593bcf388861abdc288e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e5931070e6593bcf388861abdc288e1">&#9670;&nbsp;</a></span>whiteoutMap</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string core::player::State::whiteoutMap</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00052">52</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a2dc44807131c9c810a1cf79e30e584e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2dc44807131c9c810a1cf79e30e584e1">&#9670;&nbsp;</a></span>whiteoutSpawn</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned int core::player::State::whiteoutSpawn</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a03301_source.html#l00053">53</a> of file <a class="el" href="a03301_source.html">State.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following files:<ul>
-<li>include/Core/Player/<a class="el" href="a03301_source.html">State.hpp</a></li>
-<li>src/Core/Player/<a class="el" href="a03391_source.html">State.cpp</a></li>
+<hr/>The documentation for this struct was generated from the following file:<ul>
+<li>include/Core/Peoplemon/<a class="el" href="a03376_source.html">WildPeoplemon.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

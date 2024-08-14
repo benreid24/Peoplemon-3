@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::weather::sandstorm::GlobalShaderInfo Struct Reference</title>
+<title>Peoplemon: core::map::weather::fog::FogSink Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,105 +66,179 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a01153.html">sandstorm</a></li><li class="navelem"><a class="el" href="a02561.html">GlobalShaderInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01134.html">map</a></li><li class="navelem"><a class="el" href="a01142.html">weather</a></li><li class="navelem"><a class="el" href="a01174.html">fog</a></li><li class="navelem"><a class="el" href="a02561.html">FogSink</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-attribs">Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02558.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::weather::sandstorm::GlobalShaderInfo Struct Reference</div>  </div>
+<div class="title">core::map::weather::fog::FogSink Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::weather::fog::FogSink:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02561.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a6532098dfe90adf64c99eb2d99ee78a4"><td class="memItemLeft" align="right" valign="top">std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a6532098dfe90adf64c99eb2d99ee78a4">textureId</a></td></tr>
-<tr class="separator:a6532098dfe90adf64c99eb2d99ee78a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab8c3a61e99ba09bbf1eba57a29ed7fd0"><td class="memItemLeft" align="right" valign="top">glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#ab8c3a61e99ba09bbf1eba57a29ed7fd0">textureCenter</a></td></tr>
-<tr class="separator:ab8c3a61e99ba09bbf1eba57a29ed7fd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7db998c2d896e9fcbe199be7aa07a369"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a7db998c2d896e9fcbe199be7aa07a369">alpha</a></td></tr>
-<tr class="separator:a7db998c2d896e9fcbe199be7aa07a369"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7f678610aa28a67106edca7647698c5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#ad7f678610aa28a67106edca7647698c5">radius</a></td></tr>
-<tr class="separator:ad7f678610aa28a67106edca7647698c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a991d5f70f233b9fe17ca746a4525e888"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a991d5f70f233b9fe17ca746a4525e888">FogSink</a> ()</td></tr>
+<tr class="separator:a991d5f70f233b9fe17ca746a4525e888"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a913c1d635e398b9b642547f203480067"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a913c1d635e398b9b642547f203480067">~FogSink</a> ()=default</td></tr>
+<tr class="separator:a913c1d635e398b9b642547f203480067"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a39996c18c69f12cbb55c853049c93f8d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a39996c18c69f12cbb55c853049c93f8d">update</a> (Proxy &amp;proxy, std::span&lt; <a class="el" href="a02545.html">Particle</a> &gt; particles, float, float) override</td></tr>
+<tr class="separator:a39996c18c69f12cbb55c853049c93f8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a98ac46a92df45bb0c2c124ca98addf9a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html#a98ac46a92df45bb0c2c124ca98addf9a">clearAll</a> ()</td></tr>
+<tr class="separator:a98ac46a92df45bb0c2c124ca98addf9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00056">56</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
-<a id="a7db998c2d896e9fcbe199be7aa07a369"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7db998c2d896e9fcbe199be7aa07a369">&#9670;&nbsp;</a></span>alpha</h2>
+<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00114">114</a> of file <a class="el" href="a00719_source.html">Fog.cpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a991d5f70f233b9fe17ca746a4525e888"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a991d5f70f233b9fe17ca746a4525e888">&#9670;&nbsp;</a></span>FogSink()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float core::map::weather::sandstorm::GlobalShaderInfo::alpha</td>
+          <td class="memname">core::map::weather::fog::FogSink::FogSink </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00059">59</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00116">116</a> of file <a class="el" href="a00719_source.html">Fog.cpp</a>.</p>
 
 </div>
 </div>
-<a id="ad7f678610aa28a67106edca7647698c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad7f678610aa28a67106edca7647698c5">&#9670;&nbsp;</a></span>radius</h2>
+<a id="a913c1d635e398b9b642547f203480067"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a913c1d635e398b9b642547f203480067">&#9670;&nbsp;</a></span>~FogSink()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">float core::map::weather::sandstorm::GlobalShaderInfo::radius</td>
+          <td class="memname">virtual core::map::weather::fog::FogSink::~FogSink </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00060">60</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ab8c3a61e99ba09bbf1eba57a29ed7fd0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab8c3a61e99ba09bbf1eba57a29ed7fd0">&#9670;&nbsp;</a></span>textureCenter</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a98ac46a92df45bb0c2c124ca98addf9a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98ac46a92df45bb0c2c124ca98addf9a">&#9670;&nbsp;</a></span>clearAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">glm::vec2 core::map::weather::sandstorm::GlobalShaderInfo::textureCenter</td>
+          <td class="memname">void core::map::weather::fog::FogSink::clearAll </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00058">58</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00128">128</a> of file <a class="el" href="a00719_source.html">Fog.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a6532098dfe90adf64c99eb2d99ee78a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6532098dfe90adf64c99eb2d99ee78a4">&#9670;&nbsp;</a></span>textureId</h2>
+<a id="a39996c18c69f12cbb55c853049c93f8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a39996c18c69f12cbb55c853049c93f8d">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::uint32_t core::map::weather::sandstorm::GlobalShaderInfo::textureId</td>
+          <td class="memname">virtual void core::map::weather::fog::FogSink::update </td>
+          <td>(</td>
+          <td class="paramtype">Proxy &amp;&#160;</td>
+          <td class="paramname"><em>proxy</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::span&lt; <a class="el" href="a02545.html">Particle</a> &gt;&#160;</td>
+          <td class="paramname"><em>particles</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00057">57</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00121">121</a> of file <a class="el" href="a00719_source.html">Fog.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Maps/Weather/<a class="el" href="a00719_source.html">Sandstorm.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>src/Core/Maps/Weather/<a class="el" href="a00719_source.html">Fog.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: game::state::MainGame Class Reference</title>
+<title>Peoplemon: game::menu::PeoplemonButton Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,72 +66,108 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01129.html">game</a></li><li class="navelem"><a class="el" href="a01131.html">state</a></li><li class="navelem"><a class="el" href="a02413.html">MainGame</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01154.html">menu</a></li><li class="navelem"><a class="el" href="a02413.html">PeoplemonButton</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="a02410.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">game::state::MainGame Class Reference<div class="ingroups"><a class="el" href="a01083.html">Editor</a> &#124; <a class="el" href="a01084.html">Game</a> &raquo; <a class="el" href="a01098.html">States</a></div></div>  </div>
+<div class="title">game::menu::PeoplemonButton Class Reference<div class="ingroups"><a class="el" href="a01105.html">Game</a> &raquo; <a class="el" href="a01121.html">Menus</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>The big honcho. This is the primary state that runs a majority of the time.  
+<p>Menu item for peoplemon.  
  <a href="a02413.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00530_source.html">MainGame.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00515_source.html">PeoplemonButton.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::MainGame:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::menu::PeoplemonButton:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02413.png" usemap="#game::state::MainGame_map" alt=""/>
-  <map id="game::state::MainGame_map" name="game::state::MainGame_map">
-<area href="a02453.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,1036,80"/>
-  </map>
-</div></div>
+  <img src="a02413.png" alt=""/>
+ </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
+Public Types</h2></td></tr>
+<tr class="memitem:a92c69624db93006871ad425e2135a90f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a92c69624db93006871ad425e2135a90f">Ptr</a> = std::shared_ptr&lt; <a class="el" href="a02413.html">PeoplemonButton</a> &gt;</td></tr>
+<tr class="separator:a92c69624db93006871ad425e2135a90f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a6fce55916b635eb5d8a6da9b76c7eed7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a6fce55916b635eb5d8a6da9b76c7eed7">~MainGame</a> ()</td></tr>
-<tr class="memdesc:a6fce55916b635eb5d8a6da9b76c7eed7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Main Game state.  <a href="a02413.html#a6fce55916b635eb5d8a6da9b76c7eed7">More...</a><br /></td></tr>
-<tr class="separator:a6fce55916b635eb5d8a6da9b76c7eed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0884a6523fd406e4e4488c6b1cb0cfdb"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a0884a6523fd406e4e4488c6b1cb0cfdb">name</a> () const override</td></tr>
-<tr class="memdesc:a0884a6523fd406e4e4488c6b1cb0cfdb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "MainGame".  <a href="a02413.html#a0884a6523fd406e4e4488c6b1cb0cfdb">More...</a><br /></td></tr>
-<tr class="separator:a0884a6523fd406e4e4488c6b1cb0cfdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5a1e06c32c343d46f42a47c3535e292c"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a5a1e06c32c343d46f42a47c3535e292c">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:a5a1e06c32c343d46f42a47c3535e292c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the state.  <a href="a02413.html#a5a1e06c32c343d46f42a47c3535e292c">More...</a><br /></td></tr>
-<tr class="separator:a5a1e06c32c343d46f42a47c3535e292c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5927fca05c0a0a8ef5e62f1057514cbc"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a5927fca05c0a0a8ef5e62f1057514cbc">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
-<tr class="memdesc:a5927fca05c0a0a8ef5e62f1057514cbc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates the game state.  <a href="a02413.html#a5927fca05c0a0a8ef5e62f1057514cbc">More...</a><br /></td></tr>
-<tr class="separator:a5927fca05c0a0a8ef5e62f1057514cbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96758bd49abff5762cf219de09ad3f99"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a96758bd49abff5762cf219de09ad3f99">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
-<tr class="memdesc:a96758bd49abff5762cf219de09ad3f99"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates all of the primary systems.  <a href="a02413.html#a96758bd49abff5762cf219de09ad3f99">More...</a><br /></td></tr>
-<tr class="separator:a96758bd49abff5762cf219de09ad3f99"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a333e3bb4fa38f40b4b17d68ab09c1ff7"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a333e3bb4fa38f40b4b17d68ab09c1ff7">~PeoplemonButton</a> ()=default</td></tr>
+<tr class="memdesc:a333e3bb4fa38f40b4b17d68ab09c1ff7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Peoplemon Button object.  <a href="a02413.html#a333e3bb4fa38f40b4b17d68ab09c1ff7">More...</a><br /></td></tr>
+<tr class="separator:a333e3bb4fa38f40b4b17d68ab09c1ff7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b1ade340bf7dd43bcd25d9edd33516"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a42b1ade340bf7dd43bcd25d9edd33516">setHighlightColor</a> (const sf::Color &amp;color)</td></tr>
+<tr class="memdesc:a42b1ade340bf7dd43bcd25d9edd33516"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the highlight color.  <a href="a02413.html#a42b1ade340bf7dd43bcd25d9edd33516">More...</a><br /></td></tr>
+<tr class="separator:a42b1ade340bf7dd43bcd25d9edd33516"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa09f408baafd85fde74a61c47adc0499"><td class="memItemLeft" align="right" valign="top">virtual glm::vec2&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#aa09f408baafd85fde74a61c47adc0499">getSize</a> () const override</td></tr>
+<tr class="memdesc:aa09f408baafd85fde74a61c47adc0499"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the size of the button.  <a href="a02413.html#aa09f408baafd85fde74a61c47adc0499">More...</a><br /></td></tr>
+<tr class="separator:aa09f408baafd85fde74a61c47adc0499"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa360d240b45d5c83275e138d5bef0a1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#aa360d240b45d5c83275e138d5bef0a1e">sync</a> (const <a class="el" href="a01885.html">core::pplmn::OwnedPeoplemon</a> &amp;ppl)</td></tr>
+<tr class="memdesc:aa360d240b45d5c83275e138d5bef0a1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Syncs the HP bar and ailment texture with the peoplemon.  <a href="a02413.html#aa360d240b45d5c83275e138d5bef0a1e">More...</a><br /></td></tr>
+<tr class="separator:aa360d240b45d5c83275e138d5bef0a1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac33ca75987d8206f50cdf63b0ba956de"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#ac33ca75987d8206f50cdf63b0ba956de">update</a> (float dt)</td></tr>
+<tr class="memdesc:ac33ca75987d8206f50cdf63b0ba956de"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the HP bar.  <a href="a02413.html#ac33ca75987d8206f50cdf63b0ba956de">More...</a><br /></td></tr>
+<tr class="separator:ac33ca75987d8206f50cdf63b0ba956de"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4a47b7e3fb68d37b326450cc2628a69f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a4a47b7e3fb68d37b326450cc2628a69f">synced</a> () const</td></tr>
+<tr class="memdesc:a4a47b7e3fb68d37b326450cc2628a69f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether or not this button is synced.  <a href="a02413.html#a4a47b7e3fb68d37b326450cc2628a69f">More...</a><br /></td></tr>
+<tr class="separator:a4a47b7e3fb68d37b326450cc2628a69f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:af52604a5df0abe639e62fbe0af65f557"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#af52604a5df0abe639e62fbe0af65f557">create</a> (<a class="el" href="a02085.html">core::system::Systems</a> &amp;<a class="el" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
-<tr class="memdesc:af52604a5df0abe639e62fbe0af65f557"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the main game state. The game state must be initialized before invoking the main game state.  <a href="a02413.html#af52604a5df0abe639e62fbe0af65f557">More...</a><br /></td></tr>
-<tr class="separator:af52604a5df0abe639e62fbe0af65f557"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1baba8b3c121b2f1c0ffa42a8377bc3f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="a02413.html#a92c69624db93006871ad425e2135a90f">Ptr</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a1baba8b3c121b2f1c0ffa42a8377bc3f">create</a> (const <a class="el" href="a01885.html">core::pplmn::OwnedPeoplemon</a> &amp;ppl)</td></tr>
+<tr class="memdesc:a1baba8b3c121b2f1c0ffa42a8377bc3f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new peoplemon button from the peoplemon.  <a href="a02413.html#a1baba8b3c121b2f1c0ffa42a8377bc3f">More...</a><br /></td></tr>
+<tr class="separator:a1baba8b3c121b2f1c0ffa42a8377bc3f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
-Protected Attributes</h2></td></tr>
-<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02085.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
-<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
+Protected Member Functions</h2></td></tr>
+<tr class="memitem:a519aa610e58d959b77923724da695c9f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a519aa610e58d959b77923724da695c9f">doCreate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a519aa610e58d959b77923724da695c9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use.  <a href="a02413.html#a519aa610e58d959b77923724da695c9f">More...</a><br /></td></tr>
+<tr class="separator:a519aa610e58d959b77923724da695c9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a071edcb482b6d7800ab50d9bf903524d"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a071edcb482b6d7800ab50d9bf903524d">doSceneAdd</a> (bl::rc::Scene *overlay) override</td></tr>
+<tr class="memdesc:a071edcb482b6d7800ab50d9bf903524d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be added to the overlay.  <a href="a02413.html#a071edcb482b6d7800ab50d9bf903524d">More...</a><br /></td></tr>
+<tr class="separator:a071edcb482b6d7800ab50d9bf903524d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23104847d8311745a493e6ca49e90525"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a23104847d8311745a493e6ca49e90525">doSceneRemove</a> () override</td></tr>
+<tr class="memdesc:a23104847d8311745a493e6ca49e90525"><td class="mdescLeft">&#160;</td><td class="mdescRight">Called when the item should be removed from the overlay.  <a href="a02413.html#a23104847d8311745a493e6ca49e90525">More...</a><br /></td></tr>
+<tr class="separator:a23104847d8311745a493e6ca49e90525"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae835b224c88f63b873fdf128d6eb0f64"><td class="memItemLeft" align="right" valign="top">virtual bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#ae835b224c88f63b873fdf128d6eb0f64">getEntity</a> () const override</td></tr>
+<tr class="memdesc:ae835b224c88f63b873fdf128d6eb0f64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the entity (or top level entity) of the item.  <a href="a02413.html#ae835b224c88f63b873fdf128d6eb0f64">More...</a><br /></td></tr>
+<tr class="separator:ae835b224c88f63b873fdf128d6eb0f64"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a883694f8f0e8e21f1d75d1fd720f412e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02413.html#a883694f8f0e8e21f1d75d1fd720f412e">draw</a> (bl::rc::scene::CodeScene::RenderContext &amp;ctx) override</td></tr>
+<tr class="memdesc:a883694f8f0e8e21f1d75d1fd720f412e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Renders the item.  <a href="a02413.html#a883694f8f0e8e21f1d75d1fd720f412e">More...</a><br /></td></tr>
+<tr class="separator:a883694f8f0e8e21f1d75d1fd720f412e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>The big honcho. This is the primary state that runs a majority of the time. </p>
+<div class="textblock"><p>Menu item for peoplemon. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00530_source.html#l00022">22</a> of file <a class="el" href="a00530_source.html">MainGame.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a6fce55916b635eb5d8a6da9b76c7eed7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6fce55916b635eb5d8a6da9b76c7eed7">&#9670;&nbsp;</a></span>~MainGame()</h2>
+<p class="definition">Definition at line <a class="el" href="a00515_source.html#l00017">17</a> of file <a class="el" href="a00515_source.html">PeoplemonButton.hpp</a>.</p>
+</div><h2 class="groupheader">Member Typedef Documentation</h2>
+<a id="a92c69624db93006871ad425e2135a90f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92c69624db93006871ad425e2135a90f">&#9670;&nbsp;</a></span>Ptr</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="a02413.html#a92c69624db93006871ad425e2135a90f">game::menu::PeoplemonButton::Ptr</a> =  std::shared_ptr&lt;<a class="el" href="a02413.html">PeoplemonButton</a>&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00515_source.html#l00019">19</a> of file <a class="el" href="a00515_source.html">PeoplemonButton.hpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a333e3bb4fa38f40b4b17d68ab09c1ff7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a333e3bb4fa38f40b4b17d68ab09c1ff7">&#9670;&nbsp;</a></span>~PeoplemonButton()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -140,7 +176,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">game::state::MainGame::~MainGame </td>
+          <td class="memname">virtual game::menu::PeoplemonButton::~PeoplemonButton </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -148,20 +184,18 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the Main Game state. </p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00045">45</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
+<p>Destroy the Peoplemon Button object. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a5a1e06c32c343d46f42a47c3535e292c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5a1e06c32c343d46f42a47c3535e292c">&#9670;&nbsp;</a></span>activate()</h2>
+<a id="a1baba8b3c121b2f1c0ffa42a8377bc3f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1baba8b3c121b2f1c0ffa42a8377bc3f">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -170,48 +204,10 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MainGame::activate </td>
+          <td class="memname"><a class="el" href="a02413.html#a92c69624db93006871ad425e2135a90f">PeoplemonButton::Ptr</a> game::menu::PeoplemonButton::create </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Activates the state. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-  </table>
-  </dd>
-</dl>
-
-<p>Implements <a class="el" href="a02453.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00049">49</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
-
-</div>
-</div>
-<a id="af52604a5df0abe639e62fbe0af65f557"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af52604a5df0abe639e62fbe0af65f557">&#9670;&nbsp;</a></span>create()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">MainGame::Ptr game::state::MainGame::create </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a02085.html">core::system::Systems</a> &amp;&#160;</td>
-          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td class="paramtype">const <a class="el" href="a01885.html">core::pplmn::OwnedPeoplemon</a> &amp;&#160;</td>
+          <td class="paramname"><em>ppl</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -222,21 +218,21 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Creates the main game state. The game state must be initialized before invoking the main game state. </p>
+<p>Creates a new peoplemon button from the peoplemon. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">ppl</td><td>The peoplemon to represent </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The main game state </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Ptr The new item </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00035">35</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00019">19</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a5927fca05c0a0a8ef5e62f1057514cbc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5927fca05c0a0a8ef5e62f1057514cbc">&#9670;&nbsp;</a></span>deactivate()</h2>
+<a id="a519aa610e58d959b77923724da695c9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a519aa610e58d959b77923724da695c9f">&#9670;&nbsp;</a></span>doCreate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -245,7 +241,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MainGame::deactivate </td>
+          <td class="memname">void game::menu::PeoplemonButton::doCreate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
           <td class="paramname"><em>engine</em></td><td>)</td>
@@ -254,27 +250,25 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Deactivates the game state. </p>
+<p>Called at least once when the item is added to a menu. Should create required graphics primitives and return the transform to use. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a02453.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00062">62</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00056">56</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a0884a6523fd406e4e4488c6b1cb0cfdb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0884a6523fd406e4e4488c6b1cb0cfdb">&#9670;&nbsp;</a></span>name()</h2>
+<a id="a071edcb482b6d7800ab50d9bf903524d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a071edcb482b6d7800ab50d9bf903524d">&#9670;&nbsp;</a></span>doSceneAdd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -283,7 +277,137 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">const char * game::state::MainGame::name </td>
+          <td class="memname">void game::menu::PeoplemonButton::doSceneAdd </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::Scene *&#160;</td>
+          <td class="paramname"><em>overlay</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be added to the overlay. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">overlay</td><td>The overlay to add to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00141">141</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a23104847d8311745a493e6ca49e90525"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23104847d8311745a493e6ca49e90525">&#9670;&nbsp;</a></span>doSceneRemove()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeoplemonButton::doSceneRemove </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Called when the item should be removed from the overlay. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00167">167</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a883694f8f0e8e21f1d75d1fd720f412e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a883694f8f0e8e21f1d75d1fd720f412e">&#9670;&nbsp;</a></span>draw()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeoplemonButton::draw </td>
+          <td>(</td>
+          <td class="paramtype">bl::rc::scene::CodeScene::RenderContext &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Renders the item. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">ctx</td><td>The render context </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00156">156</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae835b224c88f63b873fdf128d6eb0f64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae835b224c88f63b873fdf128d6eb0f64">&#9670;&nbsp;</a></span>getEntity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::ecs::Entity game::menu::PeoplemonButton::getEntity </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns the entity (or top level entity) of the item. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00169">169</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa09f408baafd85fde74a61c47adc0499"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa09f408baafd85fde74a61c47adc0499">&#9670;&nbsp;</a></span>getSize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">glm::vec2 game::menu::PeoplemonButton::getSize </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -296,103 +420,120 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns "MainGame". </p>
+<p>Returns the size of the button. </p>
 
-<p>Implements <a class="el" href="a02453.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00047">47</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00039">39</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a96758bd49abff5762cf219de09ad3f99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96758bd49abff5762cf219de09ad3f99">&#9670;&nbsp;</a></span>update()</h2>
+<a id="a42b1ade340bf7dd43bcd25d9edd33516"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42b1ade340bf7dd43bcd25d9edd33516">&#9670;&nbsp;</a></span>setHighlightColor()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void game::state::MainGame::update </td>
+          <td class="memname">void game::menu::PeoplemonButton::setHighlightColor </td>
           <td>(</td>
-          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const sf::Color &amp;&#160;</td>
+          <td class="paramname"><em>color</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">float&#160;</td>
-          <td class="paramname">&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Updates all of the primary systems. </p>
+<p>Set the highlight color. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00034">34</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aa360d240b45d5c83275e138d5bef0a1e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa360d240b45d5c83275e138d5bef0a1e">&#9670;&nbsp;</a></span>sync()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeoplemonButton::sync </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="a01885.html">core::pplmn::OwnedPeoplemon</a> &amp;&#160;</td>
+          <td class="paramname"><em>ppl</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Syncs the HP bar and ailment texture with the peoplemon. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
-    <tr><td class="paramname">dt</td><td>Time to step forward in the game world </td></tr>
+    <tr><td class="paramname">ppl</td><td>The peoplemon to sync with </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implements <a class="el" href="a02453.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="a01052_source.html#l00067">67</a> of file <a class="el" href="a01052_source.html">MainGame.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00041">41</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+<a id="a4a47b7e3fb68d37b326450cc2628a69f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a47b7e3fb68d37b326450cc2628a69f">&#9670;&nbsp;</a></span>synced()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="a02085.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+          <td class="memname">bool game::menu::PeoplemonButton::synced </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a03304_source.html#l00066">66</a> of file <a class="el" href="a03304_source.html">State.hpp</a>.</p>
+<p>Returns whether or not this button is synced. </p>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00052">52</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac33ca75987d8206f50cdf63b0ba956de"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac33ca75987d8206f50cdf63b0ba956de">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::menu::PeoplemonButton::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the HP bar. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a01031_source.html#l00171">171</a> of file <a class="el" href="a01031_source.html">PeoplemonButton.cpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Game/States/<a class="el" href="a00530_source.html">MainGame.hpp</a></li>
-<li>src/Game/States/<a class="el" href="a01052_source.html">MainGame.cpp</a></li>
+<li>include/Game/Menus/<a class="el" href="a00515_source.html">PeoplemonButton.hpp</a></li>
+<li>src/Game/Menus/<a class="el" href="a01031_source.html">PeoplemonButton.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

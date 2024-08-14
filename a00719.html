@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Sandstorm.cpp File Reference</title>
+<title>Peoplemon: src/Core/Maps/Weather/Fog.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -76,10 +76,10 @@ $(function() {
 <a href="#typedef-members">Typedefs</a> &#124;
 <a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
-<div class="title">Sandstorm.cpp File Reference</div>  </div>
+<div class="title">Fog.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00722_source.html">Sandstorm.hpp</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00722_source.html">Fog.hpp</a>&quot;</code><br />
 <code>#include &lt;BLIB/Cameras/2D/Camera2D.hpp&gt;</code><br />
 <code>#include &lt;BLIB/Util/Random.hpp&gt;</code><br />
 <code>#include &lt;<a class="el" href="a00281_source.html">Core/Properties.hpp</a>&gt;</code><br />
@@ -88,70 +88,62 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02549.html">core::map::weather::sandstorm::Sand</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02545.html">core::map::weather::fog::Particle</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02553.html">core::map::weather::sandstorm::Swirl</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02549.html">core::map::weather::fog::GpuParticle</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02557.html">core::map::weather::sandstorm::GpuSwirl</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02553.html">core::map::weather::fog::GlobalShaderInfo</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html">core::map::weather::sandstorm::GlobalShaderInfo</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02557.html">bl::pcl::RenderConfigMap&lt; Particle &gt;</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02565.html">bl::pcl::RenderConfigMap&lt; Sand &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02561.html">core::map::weather::fog::FogSink</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02569.html">bl::pcl::RenderConfigMap&lt; Swirl &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02565.html">core::map::weather::fog::FogUpdater</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02573.html">core::map::weather::sandstorm::SandSink</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02569.html">core::map::weather::fog::FogAffector</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02577.html">core::map::weather::sandstorm::SandUpdater</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02581.html">core::map::weather::sandstorm::SandAffector</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02585.html">core::map::weather::sandstorm::SandEmitter</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02589.html">core::map::weather::sandstorm::SwirlAffector</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02593.html">core::map::weather::sandstorm::SwirlEmitter</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02573.html">core::map::weather::fog::FogEmitter</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01101"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html">core</a></td></tr>
-<tr class="memdesc:a01101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01123"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html">core</a></td></tr>
+<tr class="memdesc:a01123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01112"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01112.html">core::map</a></td></tr>
-<tr class="memdesc:a01112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
+<tr class="memitem:a01134"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01134.html">core::map</a></td></tr>
+<tr class="memdesc:a01134"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of classes responsible for loading, editing, rendering, and updating maps. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01118"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01118.html">core::map::weather</a></td></tr>
-<tr class="memdesc:a01118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of different weather types. <br /></td></tr>
+<tr class="memitem:a01142"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01142.html">core::map::weather</a></td></tr>
+<tr class="memdesc:a01142"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of different weather types. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01153"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html">core::map::weather::sandstorm</a></td></tr>
+<tr class="memitem:a01174"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01174.html">core::map::weather::fog</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01107"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01107.html">bl</a></td></tr>
+<tr class="memitem:a01129"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01129.html">bl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01108"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html">bl::pcl</a></td></tr>
+<tr class="memitem:a01130"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html">bl::pcl</a></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
-<tr class="memitem:ad6d56c8b6ae3bbaa1fc5f6ade882484e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">bl::pcl::Sand</a> = <a class="el" href="a02549.html">core::map::weather::sandstorm::Sand</a></td></tr>
-<tr class="separator:ad6d56c8b6ae3bbaa1fc5f6ade882484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a923cf8da7c5d618e47d0cb6de16f813e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">bl::pcl::Swirl</a> = <a class="el" href="a02553.html">core::map::weather::sandstorm::Swirl</a></td></tr>
-<tr class="separator:a923cf8da7c5d618e47d0cb6de16f813e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bf25e3d34eb0f246503862f82749948"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a1bf25e3d34eb0f246503862f82749948">bl::pcl::GpuSwirl</a> = <a class="el" href="a02557.html">core::map::weather::sandstorm::GpuSwirl</a></td></tr>
-<tr class="separator:a1bf25e3d34eb0f246503862f82749948"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a91b84bcc70c9b02f8837581d9537246f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html#a91b84bcc70c9b02f8837581d9537246f">bl::pcl::Particle</a> = <a class="el" href="a02545.html">core::map::weather::fog::Particle</a></td></tr>
+<tr class="separator:a91b84bcc70c9b02f8837581d9537246f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html#a58959b6f7eb0cfeddbb4932967f5d079">bl::pcl::GpuParticle</a> = <a class="el" href="a02549.html">core::map::weather::fog::GpuParticle</a></td></tr>
+<tr class="separator:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1fe2649dda87e4a4cc500096513be57c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01130.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a> = <a class="el" href="a02553.html">core::map::weather::fog::GlobalShaderInfo</a></td></tr>
+<tr class="separator:a1fe2649dda87e4a4cc500096513be57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
-<tr class="memitem:ac04aac6272fa91430343805d90898811"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html#ac04aac6272fa91430343805d90898811">core::map::weather::sandstorm::wrapWidth</a> = 800.f</td></tr>
-<tr class="separator:ac04aac6272fa91430343805d90898811"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af3eb44c7b5fcfdc0842161af2d750dd6"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01153.html#af3eb44c7b5fcfdc0842161af2d750dd6">core::map::weather::sandstorm::wrapHeight</a> = 600.f</td></tr>
-<tr class="separator:af3eb44c7b5fcfdc0842161af2d750dd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fbbb179ca76a0835ca228dad1f64248"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01174.html#a6fbbb179ca76a0835ca228dad1f64248">core::map::weather::fog::wrapWidth</a> = 800.f</td></tr>
+<tr class="separator:a6fbbb179ca76a0835ca228dad1f64248"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae53d937e4f8b3adcf2b7ea5c4193e40"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01174.html#aae53d937e4f8b3adcf2b7ea5c4193e40">core::map::weather::fog::wrapHeight</a> = 600.f</td></tr>
+<tr class="separator:aae53d937e4f8b3adcf2b7ea5c4193e40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

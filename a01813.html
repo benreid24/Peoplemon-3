@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::serial::SerializableObject&lt; core::map::Tile &gt; Struct Reference</title>
+<title>Peoplemon: core::map::RenderLevel Struct Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,113 +66,240 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01107.html">bl</a></li><li class="navelem"><a class="el" href="a01113.html">serial</a></li><li class="navelem"><a class="el" href="a01813.html">SerializableObject&lt; core::map::Tile &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01134.html">map</a></li><li class="navelem"><a class="el" href="a01813.html">RenderLevel</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01810.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::serial::SerializableObject&lt; core::map::Tile &gt; Struct Reference</div>  </div>
+<div class="title">core::map::RenderLevel Struct Reference<div class="ingroups"><a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01111.html">Maps</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="a00215_source.html">Tile.hpp</a>&gt;</code></p>
-<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for bl::serial::SerializableObject&lt; core::map::Tile &gt;:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
- <div class="center">
-  <img src="a01813.png" alt=""/>
- </div></div>
+<p>Basic struct containing the graphics elements to render a map level.  
+ <a href="a01813.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00209_source.html">RenderLevel.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01817.html">Zone</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Batched graphics primitives for a set of layers.  <a href="a01817.html#details">More...</a><br /></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8f98574c7d5f7839c12e51a051d4f59b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#a8f98574c7d5f7839c12e51a051d4f59b">SerializableObject</a> ()</td></tr>
-<tr class="separator:a8f98574c7d5f7839c12e51a051d4f59b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae135bddf891afe64856879f9a93f6b25"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#ae135bddf891afe64856879f9a93f6b25">create</a> (bl::engine::Engine &amp;engine, bl::rc::res::TextureRef tileset, unsigned int layerCount, const sf::Vector2u &amp;mapSize, bl::rc::Scene *scene)</td></tr>
+<tr class="memdesc:ae135bddf891afe64856879f9a93f6b25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the graphics primitives and adds them to the given scene.  <a href="a01813.html#ae135bddf891afe64856879f9a93f6b25">More...</a><br /></td></tr>
+<tr class="separator:ae135bddf891afe64856879f9a93f6b25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:addb469a55626955e0be790a1bddfbb1b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#addb469a55626955e0be790a1bddfbb1b">insertLayer</a> (unsigned int position)</td></tr>
+<tr class="memdesc:addb469a55626955e0be790a1bddfbb1b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a layer at the given position.  <a href="a01813.html#addb469a55626955e0be790a1bddfbb1b">More...</a><br /></td></tr>
+<tr class="separator:addb469a55626955e0be790a1bddfbb1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b26c51c3b73f68b3129d160275cda2d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#a9b26c51c3b73f68b3129d160275cda2d">removeLayer</a> (unsigned int position)</td></tr>
+<tr class="memdesc:a9b26c51c3b73f68b3129d160275cda2d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Removes the layer at the given position.  <a href="a01813.html#a9b26c51c3b73f68b3129d160275cda2d">More...</a><br /></td></tr>
+<tr class="separator:a9b26c51c3b73f68b3129d160275cda2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a71c07c09e9bcc44bd0ae8cc1728a3e23"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#a71c07c09e9bcc44bd0ae8cc1728a3e23">swapLayers</a> (unsigned int l1, unsigned int l2)</td></tr>
+<tr class="memdesc:a71c07c09e9bcc44bd0ae8cc1728a3e23"><td class="mdescLeft">&#160;</td><td class="mdescRight">Swaps two render layers.  <a href="a01813.html#a71c07c09e9bcc44bd0ae8cc1728a3e23">More...</a><br /></td></tr>
+<tr class="separator:a71c07c09e9bcc44bd0ae8cc1728a3e23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:a1849727528bdc98d43f39e1688430902"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 1, <a class="el" href="a01805.html">core::map::Tile</a>, bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#a1849727528bdc98d43f39e1688430902">anim</a></td></tr>
-<tr class="separator:a1849727528bdc98d43f39e1688430902"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae794d17de10c8c66203ce50524be6985"><td class="memItemLeft" align="right" valign="top">SerializableField&lt; 2, <a class="el" href="a01805.html">core::map::Tile</a>, <a class="el" href="a01805.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#ae794d17de10c8c66203ce50524be6985">id</a></td></tr>
-<tr class="separator:ae794d17de10c8c66203ce50524be6985"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadbfdf3cfa0d9cc09ae36cbe631c87f6"><td class="memItemLeft" align="right" valign="top">std::vector&lt; <a class="el" href="a01817.html">Zone</a> * &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01813.html#aadbfdf3cfa0d9cc09ae36cbe631c87f6">zones</a></td></tr>
+<tr class="memdesc:aadbfdf3cfa0d9cc09ae36cbe631c87f6"><td class="mdescLeft">&#160;</td><td class="mdescRight">The graphics primitives for all the layers in the level.  <a href="a01813.html#aadbfdf3cfa0d9cc09ae36cbe631c87f6">More...</a><br /></td></tr>
+<tr class="separator:aadbfdf3cfa0d9cc09ae36cbe631c87f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00133">133</a> of file <a class="el" href="a00215_source.html">Tile.hpp</a>.</p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8f98574c7d5f7839c12e51a051d4f59b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f98574c7d5f7839c12e51a051d4f59b">&#9670;&nbsp;</a></span>SerializableObject()</h2>
+<div class="textblock"><p>Basic struct containing the graphics elements to render a map level. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00209_source.html#l00016">16</a> of file <a class="el" href="a00209_source.html">RenderLevel.hpp</a>.</p>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="ae135bddf891afe64856879f9a93f6b25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae135bddf891afe64856879f9a93f6b25">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bl::serial::SerializableObject&lt; <a class="el" href="a01805.html">core::map::Tile</a> &gt;::SerializableObject </td>
+          <td class="memname">void core::map::RenderLevel::create </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::rc::res::TextureRef&#160;</td>
+          <td class="paramname"><em>tileset</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>layerCount</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const sf::Vector2u &amp;&#160;</td>
+          <td class="paramname"><em>mapSize</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::rc::Scene *&#160;</td>
+          <td class="paramname"><em>scene</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Creates the graphics primitives and adds them to the given scene. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>Game engine instance </td></tr>
+    <tr><td class="paramname">tileset</td><td>Stitched texture atlas for all tiles </td></tr>
+    <tr><td class="paramname">layerCount</td><td>The total number of layers in the level </td></tr>
+    <tr><td class="paramname">mapSize</td><td>The size of the map in tiles </td></tr>
+    <tr><td class="paramname">scene</td><td>The scene to add primitives to </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a03361_source.html#l00009">9</a> of file <a class="el" href="a03361_source.html">RenderLevel.cpp</a>.</p>
+
+</div>
+</div>
+<a id="addb469a55626955e0be790a1bddfbb1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#addb469a55626955e0be790a1bddfbb1b">&#9670;&nbsp;</a></span>insertLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::RenderLevel::insertLayer </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00137">137</a> of file <a class="el" href="a00215_source.html">Tile.hpp</a>.</p>
+<p>Inserts a layer at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The index to insert at </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a03361_source.html#l00040">40</a> of file <a class="el" href="a03361_source.html">RenderLevel.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9b26c51c3b73f68b3129d160275cda2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b26c51c3b73f68b3129d160275cda2d">&#9670;&nbsp;</a></span>removeLayer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::RenderLevel::removeLayer </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>position</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Removes the layer at the given position. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The index of the layer to remove </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a03361_source.html#l00051">51</a> of file <a class="el" href="a03361_source.html">RenderLevel.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a71c07c09e9bcc44bd0ae8cc1728a3e23"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a71c07c09e9bcc44bd0ae8cc1728a3e23">&#9670;&nbsp;</a></span>swapLayers()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void core::map::RenderLevel::swapLayers </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>l1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>l2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Swaps two render layers. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">l1</td><td>Index of the first layer to swap </td></tr>
+    <tr><td class="paramname">l2</td><td>Index of the second layer to swap </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a03361_source.html#l00030">30</a> of file <a class="el" href="a03361_source.html">RenderLevel.cpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
-<a id="a1849727528bdc98d43f39e1688430902"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1849727528bdc98d43f39e1688430902">&#9670;&nbsp;</a></span>anim</h2>
+<a id="aadbfdf3cfa0d9cc09ae36cbe631c87f6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadbfdf3cfa0d9cc09ae36cbe631c87f6">&#9670;&nbsp;</a></span>zones</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">SerializableField&lt;1, <a class="el" href="a01805.html">core::map::Tile</a>, bool&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01805.html">core::map::Tile</a> &gt;::anim</td>
+          <td class="memname">std::vector&lt;<a class="el" href="a01817.html">Zone</a>*&gt; core::map::RenderLevel::zones</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00134">134</a> of file <a class="el" href="a00215_source.html">Tile.hpp</a>.</p>
+<p>The graphics primitives for all the layers in the level. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00209_source.html#l00026">26</a> of file <a class="el" href="a00209_source.html">RenderLevel.hpp</a>.</p>
 
 </div>
 </div>
-<a id="ae794d17de10c8c66203ce50524be6985"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae794d17de10c8c66203ce50524be6985">&#9670;&nbsp;</a></span>id</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">SerializableField&lt;2, <a class="el" href="a01805.html">core::map::Tile</a>, <a class="el" href="a01805.html#a62dbb7a9b1a1c3795a03bf22adacefcc">core::map::Tile::IdType</a>&gt; bl::serial::SerializableObject&lt; <a class="el" href="a01805.html">core::map::Tile</a> &gt;::id</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00215_source.html#l00135">135</a> of file <a class="el" href="a00215_source.html">Tile.hpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Maps/<a class="el" href="a00215_source.html">Tile.hpp</a></li>
+<hr/>The documentation for this struct was generated from the following files:<ul>
+<li>include/Core/Maps/<a class="el" href="a00209_source.html">RenderLevel.hpp</a></li>
+<li>src/Core/Maps/<a class="el" href="a03361_source.html">RenderLevel.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

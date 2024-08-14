@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Weather/Rain.hpp Source File</title>
+<title>Peoplemon: src/Core/Maps/Weather/Base.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,99 +71,61 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Rain.hpp</div>  </div>
+<div class="title">Base.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00716.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_RAIN_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_RAIN_HPP</span></div>
+<a href="a00716.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_MAPS_WEATHER_BASE_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_MAPS_WEATHER_BASE_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00704.html">Base.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="a00740.html">Thunder.hpp</a>&quot;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;BLIB/Audio.hpp&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;BLIB/Particles.hpp&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Random.hpp&gt;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/RectangleShape.hpp&gt;</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Sprite.hpp&gt;</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics/Texture.hpp&gt;</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;SFML/System/Vector3.hpp&gt;</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine/Engine.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03337.html">Core/Maps/Weather.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;SFML/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace </span>map</div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;{</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="keyword">namespace </span>weather</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;{</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="keyword">namespace </span>rain</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;{</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">struct </span><a class="code" href="a01108.html#ad46bdcc461002055a4540e535b218594">Raindrop</a>;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="keyword">class </span>TimeEmitter;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;} <span class="comment">// namespace rain</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02545.html">   34</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02545.html">Rain</a> : <span class="keyword">public</span> <a class="code" href="a02473.html">Base</a> {</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="a02545.html#a6eb323fb81944530506583b7ffda4392">Rain</a>(<span class="keywordtype">bool</span> hard, <span class="keywordtype">bool</span> thunder);</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02545.html#a82885718014cb1e2d87f5c1fcb3f31cb">~Rain</a>();</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02545.html#a401fbef52b8a04f28d13ff4d5812a0bc">type</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02545.html#ac6c9d15072bba5e57ff67a0a6be4c2a9">start</a>(bl::engine::Engine&amp; engine, <a class="code" href="a01781.html">Map</a>&amp; map) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02545.html#a1e2c26d2a0bc7bbcfe34b986bf511936">stop</a>() <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02545.html#a264b133ab12761b7e6f8dc3e93a5b0aa">stopped</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02545.html#ae97c2b16cce4438446990321c3c41dbe">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    bl::engine::Engine* engine;</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    bl::pcl::ParticleManager&lt;rain::Raindrop&gt;* particles;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <a class="code" href="a02541.html">rain::TimeEmitter</a>* emitter;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> _type;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> targetParticleCount;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keyword">const</span> glm::vec2 velocity;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> fallSpeed;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> rotation;</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordtype">float</span> stopFactor;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    bl::rc::res::TextureRef dropTxtr;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    bl::rc::res::TextureRef splash1Txtr;</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    bl::rc::res::TextureRef splash2Txtr;</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    bl::audio::AudioSystem::Handle rainSoundHandle;</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <a class="code" href="a02637.html">Thunder</a> thunder;</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;};</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;} <span class="comment">// namespace weather</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00704_html"><div class="ttname"><a href="a00704.html">Base.hpp</a></div></div>
-<div class="ttc" id="aa00740_html"><div class="ttname"><a href="a00740.html">Thunder.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01108_html_ad46bdcc461002055a4540e535b218594"><div class="ttname"><a href="a01108.html#ad46bdcc461002055a4540e535b218594">bl::pcl::Raindrop</a></div><div class="ttdeci">core::map::weather::rain::Raindrop Raindrop</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00077">Rain.cpp:77</a></div></div>
-<div class="ttc" id="aa01781_html"><div class="ttname"><a href="a01781.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03265_source.html#l00049">Map.hpp:49</a></div></div>
-<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00038">Weather.hpp:38</a></div></div>
-<div class="ttc" id="aa02473_html"><div class="ttname"><a href="a02473.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00704_source.html#l00028">Base.hpp:28</a></div></div>
-<div class="ttc" id="aa02541_html"><div class="ttname"><a href="a02541.html">core::map::weather::rain::TimeEmitter</a></div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00159">Rain.cpp:159</a></div></div>
-<div class="ttc" id="aa02545_html"><div class="ttname"><a href="a02545.html">core::map::weather::Rain</a></div><div class="ttdoc">Weather type for rainy days. Handles light and hard rain and owns thunder if need be.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00034">Rain.hpp:34</a></div></div>
-<div class="ttc" id="aa02545_html_a1e2c26d2a0bc7bbcfe34b986bf511936"><div class="ttname"><a href="a02545.html#a1e2c26d2a0bc7bbcfe34b986bf511936">core::map::weather::Rain::stop</a></div><div class="ttdeci">virtual void stop() override</div><div class="ttdoc">Stop the rain.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00258">Rain.cpp:258</a></div></div>
-<div class="ttc" id="aa02545_html_a264b133ab12761b7e6f8dc3e93a5b0aa"><div class="ttname"><a href="a02545.html#a264b133ab12761b7e6f8dc3e93a5b0aa">core::map::weather::Rain::stopped</a></div><div class="ttdeci">virtual bool stopped() const override</div><div class="ttdoc">Returns true when all rain is fallen after stop() is called.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00264">Rain.cpp:264</a></div></div>
-<div class="ttc" id="aa02545_html_a401fbef52b8a04f28d13ff4d5812a0bc"><div class="ttname"><a href="a02545.html#a401fbef52b8a04f28d13ff4d5812a0bc">core::map::weather::Rain::type</a></div><div class="ttdeci">virtual Weather::Type type() const override</div><div class="ttdoc">One of LightRain, LightRainThunder, HardRain, or HardRainThunder.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00218">Rain.cpp:218</a></div></div>
-<div class="ttc" id="aa02545_html_a6eb323fb81944530506583b7ffda4392"><div class="ttname"><a href="a02545.html#a6eb323fb81944530506583b7ffda4392">core::map::weather::Rain::Rain</a></div><div class="ttdeci">Rain(bool hard, bool thunder)</div><div class="ttdoc">Construct a new Rain system.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00196">Rain.cpp:196</a></div></div>
-<div class="ttc" id="aa02545_html_a82885718014cb1e2d87f5c1fcb3f31cb"><div class="ttname"><a href="a02545.html#a82885718014cb1e2d87f5c1fcb3f31cb">core::map::weather::Rain::~Rain</a></div><div class="ttdeci">virtual ~Rain()</div><div class="ttdoc">Destroy the Rain.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00212">Rain.cpp:212</a></div></div>
-<div class="ttc" id="aa02545_html_ac6c9d15072bba5e57ff67a0a6be4c2a9"><div class="ttname"><a href="a02545.html#ac6c9d15072bba5e57ff67a0a6be4c2a9">core::map::weather::Rain::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, Map &amp;map) override</div><div class="ttdoc">Start the rain.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00220">Rain.cpp:220</a></div></div>
-<div class="ttc" id="aa02545_html_ae97c2b16cce4438446990321c3c41dbe"><div class="ttname"><a href="a02545.html#ae97c2b16cce4438446990321c3c41dbe">core::map::weather::Rain::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdoc">Updates the rain.</div><div class="ttdef"><b>Definition:</b> <a href="a00713_source.html#l00266">Rain.cpp:266</a></div></div>
-<div class="ttc" id="aa02637_html"><div class="ttname"><a href="a02637.html">core::map::weather::Thunder</a></div><div class="ttdoc">Simple helper class for creating thunder in different weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00740_source.html#l00020">Thunder.hpp:20</a></div></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keyword">class </span><a class="code" href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c">Map</a>;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span>weather</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a02541.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a02541.html">Base</a> {</div>
+<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02541.html#a1a8feb776aebad8e099e8b56d9a9b2b5">   32</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02541.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02541.html#af408f0694287fd7c7c2060de024b20d7">   39</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> <a class="code" href="a02541.html#af408f0694287fd7c7c2060de024b20d7">type</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno"><a class="line" href="a02541.html#a60aa031cb8b915c59cda8bc809af1d31">   46</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02541.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(<span class="keywordtype">float</span> dt) = 0;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno"><a class="line" href="a02541.html#ab67efd651f188f1cf08c921f24ef0d50">   55</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02541.html#ab67efd651f188f1cf08c921f24ef0d50">start</a>(bl::engine::Engine&amp; engine, bl::rc::RenderTarget&amp; renderTarget,</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;                       <a class="code" href="a01805.html">Map</a>&amp; map) = 0;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno"><a class="line" href="a02541.html#adea1271d369903e717e122178f312034">   61</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02541.html#adea1271d369903e717e122178f312034">stop</a>() = 0;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02541.html#a322285a2f2aedb30791f826f4e45278b">   68</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02541.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() <span class="keyword">const</span> = 0;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;};</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;} <span class="comment">// namespace weather</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;} <span class="comment">// namespace map</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01110_html_ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c"><div class="ttname"><a href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa46f3ea056caa3126b91f3f70beea068c">core::item::Id::Map</a></div><div class="ttdeci">@ Map</div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01805_html"><div class="ttname"><a href="a01805.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03352_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01857_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03337_source.html#l00038">Weather.hpp:38</a></div></div>
+<div class="ttc" id="aa02541_html"><div class="ttname"><a href="a02541.html">core::map::weather::Base</a></div><div class="ttdoc">Base class for all weather types.</div><div class="ttdef"><b>Definition:</b> <a href="a00716_source.html#l00028">Base.hpp:28</a></div></div>
+<div class="ttc" id="aa02541_html_a1a8feb776aebad8e099e8b56d9a9b2b5"><div class="ttname"><a href="a02541.html#a1a8feb776aebad8e099e8b56d9a9b2b5">core::map::weather::Base::~Base</a></div><div class="ttdeci">virtual ~Base()=default</div><div class="ttdoc">Destroy the Base object.</div></div>
+<div class="ttc" id="aa02541_html_a322285a2f2aedb30791f826f4e45278b"><div class="ttname"><a href="a02541.html#a322285a2f2aedb30791f826f4e45278b">core::map::weather::Base::stopped</a></div><div class="ttdeci">virtual bool stopped() const =0</div><div class="ttdoc">Returns true when the weather has completed stopping.</div></div>
+<div class="ttc" id="aa02541_html_a60aa031cb8b915c59cda8bc809af1d31"><div class="ttname"><a href="a02541.html#a60aa031cb8b915c59cda8bc809af1d31">core::map::weather::Base::update</a></div><div class="ttdeci">virtual void update(float dt)=0</div><div class="ttdoc">Update the weather.</div></div>
+<div class="ttc" id="aa02541_html_ab67efd651f188f1cf08c921f24ef0d50"><div class="ttname"><a href="a02541.html#ab67efd651f188f1cf08c921f24ef0d50">core::map::weather::Base::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine, bl::rc::RenderTarget &amp;renderTarget, Map &amp;map)=0</div><div class="ttdoc">Start the weather using the initial area.</div></div>
+<div class="ttc" id="aa02541_html_adea1271d369903e717e122178f312034"><div class="ttname"><a href="a02541.html#adea1271d369903e717e122178f312034">core::map::weather::Base::stop</a></div><div class="ttdeci">virtual void stop()=0</div><div class="ttdoc">Stop the weather.</div></div>
+<div class="ttc" id="aa02541_html_af408f0694287fd7c7c2060de024b20d7"><div class="ttname"><a href="a02541.html#af408f0694287fd7c7c2060de024b20d7">core::map::weather::Base::type</a></div><div class="ttdeci">virtual Weather::Type type() const =0</div><div class="ttdoc">Returns the type of weather this is.</div></div>
+<div class="ttc" id="aa03337_html"><div class="ttname"><a href="a03337.html">Weather.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

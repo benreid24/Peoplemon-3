@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Components/LightPreview.cpp Source File</title>
+<title>Peoplemon: src/Editor/Components/Helpers/OpenAnimationEditor.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,68 +66,33 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li><li class="navelem"><a class="el" href="dir_8a5ba89507fee9f7e225b2553f50c69e.html">Helpers</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">LightPreview.cpp</div>  </div>
+<div class="title">OpenAnimationEditor.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00905.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00404.html">Editor/Components/LightPreview.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;bl::resource::Ref&lt;sf::Image&gt; txtr;</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a02181.html#ac98c9f916c79db3d55c18499e9eb1aa2">   14</a></span>&#160;<a class="code" href="a02181.html#a5d870620ba189d41eb0ba3ef48197e97">LightPreview::Ptr</a> <a class="code" href="a02181.html#ac98c9f916c79db3d55c18499e9eb1aa2">LightPreview::create</a>(<span class="keyword">const</span> sf::Vector2f&amp; size) {</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">if</span> (!txtr) { txtr = ImageManager::load(<span class="stringliteral">&quot;EditorResources/lightpreview.png&quot;</span>); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02181.html#a5d870620ba189d41eb0ba3ef48197e97">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02181.html">LightPreview</a>(size));</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;LightPreview::LightPreview(<span class="keyword">const</span> sf::Vector2f&amp; size)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: Image(txtr)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, cover(size) {</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    scaleToSize(size);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    cover.setFillColor(sf::Color::Transparent);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;bl::gui::rdr::Component* LightPreview::doPrepareRender(bl::gui::rdr::Renderer&amp; renderer) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="a02181.html#a9e1ea9a56078e04e767ec87161f879dd">   30</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02181.html#a9e1ea9a56078e04e767ec87161f879dd">LightPreview::setLightLevel</a>(std::uint8_t a) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    cover.setFillColor(sf::Color(0, 0, 0, 255 - a));</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// void LightPreview::doRender(sf::RenderTarget&amp; target, sf::RenderStates states,</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">//                             const bl::gui::Renderer&amp; renderer) const {</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">//     Image::doRender(target, states, renderer);</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">//     states.transform.translate(getPosition());</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">//     target.draw(cover, states);</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// }</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00404_html"><div class="ttname"><a href="a00404.html">LightPreview.hpp</a></div></div>
-<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa02181_html"><div class="ttname"><a href="a02181.html">editor::component::LightPreview</a></div><div class="ttdoc">Helper component that displays an image with a light level overlaid on it.</div><div class="ttdef"><b>Definition:</b> <a href="a00404_source.html#l00016">LightPreview.hpp:16</a></div></div>
-<div class="ttc" id="aa02181_html_a5d870620ba189d41eb0ba3ef48197e97"><div class="ttname"><a href="a02181.html#a5d870620ba189d41eb0ba3ef48197e97">editor::component::LightPreview::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; LightPreview &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00404_source.html#l00018">LightPreview.hpp:18</a></div></div>
-<div class="ttc" id="aa02181_html_a9e1ea9a56078e04e767ec87161f879dd"><div class="ttname"><a href="a02181.html#a9e1ea9a56078e04e767ec87161f879dd">editor::component::LightPreview::setLightLevel</a></div><div class="ttdeci">void setLightLevel(std::uint8_t level)</div><div class="ttdoc">Sets the light level to display.</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00030">LightPreview.cpp:30</a></div></div>
-<div class="ttc" id="aa02181_html_ac98c9f916c79db3d55c18499e9eb1aa2"><div class="ttname"><a href="a02181.html#ac98c9f916c79db3d55c18499e9eb1aa2">editor::component::LightPreview::create</a></div><div class="ttdeci">static Ptr create(const sf::Vector2f &amp;size)</div><div class="ttdoc">Create a new LightPreview component.</div><div class="ttdef"><b>Definition:</b> <a href="a00905_source.html#l00014">LightPreview.cpp:14</a></div></div>
+<a href="a00905.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef EDITOR_COMPONENTS_OPENANIMATIONEDITOR_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define EDITOR_COMPONENTS_OPENANIMATIONEDITOR_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01139.html">editor</a></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;{</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01140.html#ab6f94080c1e646bd7dc2dd3bdfaed52d">openAnimationEditor</a>();</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;}</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00010">Tile.hpp:11</a></div></div>
+<div class="ttc" id="aa01140_html_ab6f94080c1e646bd7dc2dd3bdfaed52d"><div class="ttname"><a href="a01140.html#ab6f94080c1e646bd7dc2dd3bdfaed52d">editor::component::openAnimationEditor</a></div><div class="ttdeci">void openAnimationEditor()</div><div class="ttdef"><b>Definition:</b> <a href="a00902_source.html#l00020">OpenAnimationEditor.cpp:20</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

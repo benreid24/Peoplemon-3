@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::weather::fog::FogUpdater Class Reference</title>
+<title>Peoplemon: game::state::PauseMenu Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,41 +66,72 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a01150.html">fog</a></li><li class="navelem"><a class="el" href="a02497.html">FogUpdater</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01155.html">state</a></li><li class="navelem"><a class="el" href="a02497.html">PauseMenu</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02494.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::weather::fog::FogUpdater Class Reference</div>  </div>
+<div class="title">game::state::PauseMenu Class Reference<div class="ingroups"><a class="el" href="a01104.html">Editor</a> &#124; <a class="el" href="a01105.html">Game</a> &raquo; <a class="el" href="a01120.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Game state for the pause menu.  
+ <a href="a02497.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00554_source.html">PauseMenu.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::weather::fog::FogUpdater:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::PauseMenu:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02497.png" alt=""/>
- </div></div>
+  <img src="a02497.png" usemap="#game::state::PauseMenu_map" alt=""/>
+  <map id="game::state::PauseMenu_map" name="game::state::PauseMenu_map">
+<area href="a02521.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,147,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a53a72c6a34d1a06073494c72b75d1f55"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#a53a72c6a34d1a06073494c72b75d1f55">FogUpdater</a> (bl::rc::Observer &amp;observer, <a class="el" href="a02493.html">FogSink</a> &amp;sink)</td></tr>
-<tr class="separator:a53a72c6a34d1a06073494c72b75d1f55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abebaf3f45325057de72759941b6545ec"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#abebaf3f45325057de72759941b6545ec">~FogUpdater</a> ()=default</td></tr>
-<tr class="separator:abebaf3f45325057de72759941b6545ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aadf473641093e2b49f85182d53c80ade"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#aadf473641093e2b49f85182d53c80ade">update</a> (Proxy &amp;proxy, float, float) override</td></tr>
-<tr class="separator:aadf473641093e2b49f85182d53c80ade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abcba21f5b156a4eef3a7513a4180644c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#abcba21f5b156a4eef3a7513a4180644c">~PauseMenu</a> ()=default</td></tr>
+<tr class="memdesc:abcba21f5b156a4eef3a7513a4180644c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the Pause Menu object.  <a href="a02497.html#abcba21f5b156a4eef3a7513a4180644c">More...</a><br /></td></tr>
+<tr class="separator:abcba21f5b156a4eef3a7513a4180644c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad306171de1cd78c01dd80e894515ac00"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#ad306171de1cd78c01dd80e894515ac00">name</a> () const override</td></tr>
+<tr class="memdesc:ad306171de1cd78c01dd80e894515ac00"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "PauseMenu".  <a href="a02497.html#ad306171de1cd78c01dd80e894515ac00">More...</a><br /></td></tr>
+<tr class="separator:ad306171de1cd78c01dd80e894515ac00"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa73bb135e241e4a8c6d902ffe07143d0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#aa73bb135e241e4a8c6d902ffe07143d0">activate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:aa73bb135e241e4a8c6d902ffe07143d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subscribes to event buses.  <a href="a02497.html#aa73bb135e241e4a8c6d902ffe07143d0">More...</a><br /></td></tr>
+<tr class="separator:aa73bb135e241e4a8c6d902ffe07143d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#a87e83a1eaa0229d77ec1b19e9baf6887">deactivate</a> (bl::engine::Engine &amp;) override</td></tr>
+<tr class="memdesc:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unsubscribes from event buses.  <a href="a02497.html#a87e83a1eaa0229d77ec1b19e9baf6887">More...</a><br /></td></tr>
+<tr class="separator:a87e83a1eaa0229d77ec1b19e9baf6887"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a209deb49bdd7bb47146e0c6f7564827a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#a209deb49bdd7bb47146e0c6f7564827a">update</a> (bl::engine::Engine &amp;, float dt, float) override</td></tr>
+<tr class="memdesc:a209deb49bdd7bb47146e0c6f7564827a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates systems that are not paused.  <a href="a02497.html#a209deb49bdd7bb47146e0c6f7564827a">More...</a><br /></td></tr>
+<tr class="separator:a209deb49bdd7bb47146e0c6f7564827a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ae7bf5c21466113543605afd251075112"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02497.html#ae7bf5c21466113543605afd251075112">create</a> (<a class="el" href="a02109.html">core::system::Systems</a> &amp;<a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>)</td></tr>
+<tr class="memdesc:ae7bf5c21466113543605afd251075112"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new pause menu state.  <a href="a02497.html#ae7bf5c21466113543605afd251075112">More...</a><br /></td></tr>
+<tr class="separator:ae7bf5c21466113543605afd251075112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
+<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00134">134</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
+<div class="textblock"><p>Game state for the pause menu. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00554_source.html#l00018">18</a> of file <a class="el" href="a00554_source.html">PauseMenu.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a53a72c6a34d1a06073494c72b75d1f55"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53a72c6a34d1a06073494c72b75d1f55">&#9670;&nbsp;</a></span>FogUpdater()</h2>
+<a id="abcba21f5b156a4eef3a7513a4180644c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcba21f5b156a4eef3a7513a4180644c">&#9670;&nbsp;</a></span>~PauseMenu()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -109,45 +140,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::map::weather::fog::FogUpdater::FogUpdater </td>
-          <td>(</td>
-          <td class="paramtype">bl::rc::Observer &amp;&#160;</td>
-          <td class="paramname"><em>observer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="a02493.html">FogSink</a> &amp;&#160;</td>
-          <td class="paramname"><em>sink</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00136">136</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
-
-</div>
-</div>
-<a id="abebaf3f45325057de72759941b6545ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abebaf3f45325057de72759941b6545ec">&#9670;&nbsp;</a></span>~FogUpdater()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual core::map::weather::fog::FogUpdater::~FogUpdater </td>
+          <td class="memname">virtual game::state::PauseMenu::~PauseMenu </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -160,11 +153,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Destroy the Pause Menu object. </p>
+
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="aadf473641093e2b49f85182d53c80ade"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aadf473641093e2b49f85182d53c80ade">&#9670;&nbsp;</a></span>update()</h2>
+<a id="aa73bb135e241e4a8c6d902ffe07143d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa73bb135e241e4a8c6d902ffe07143d0">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,16 +168,148 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void core::map::weather::fog::FogUpdater::update </td>
+          <td class="memname">void game::state::PauseMenu::activate </td>
           <td>(</td>
-          <td class="paramtype">Proxy &amp;&#160;</td>
-          <td class="paramname"><em>proxy</em>, </td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Subscribes to event buses. </p>
+
+<p>Implements <a class="el" href="a02521.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01085_source.html#l00096">96</a> of file <a class="el" href="a01085_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ae7bf5c21466113543605afd251075112"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7bf5c21466113543605afd251075112">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::State::Ptr game::state::PauseMenu::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new pause menu state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">systems</td><td>The main game systems </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The created engine state </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="a01085_source.html#l00015">15</a> of file <a class="el" href="a01085_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a87e83a1eaa0229d77ec1b19e9baf6887"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87e83a1eaa0229d77ec1b19e9baf6887">&#9670;&nbsp;</a></span>deactivate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::PauseMenu::deactivate </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Unsubscribes from event buses. </p>
+
+<p>Implements <a class="el" href="a02521.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01085_source.html#l00108">108</a> of file <a class="el" href="a01085_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ad306171de1cd78c01dd80e894515ac00"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad306171de1cd78c01dd80e894515ac00">&#9670;&nbsp;</a></span>name()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char * game::state::PauseMenu::name </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns "PauseMenu". </p>
+
+<p>Implements <a class="el" href="a02521.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01085_source.html#l00094">94</a> of file <a class="el" href="a01085_source.html">PauseMenu.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a209deb49bdd7bb47146e0c6f7564827a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a209deb49bdd7bb47146e0c6f7564827a">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void game::state::PauseMenu::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname">, </td>
+          <td class="paramname"><em>dt</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -198,23 +325,59 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00143">143</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
+<p>Updates systems that are not paused. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02521.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01085_source.html#l00115">115</a> of file <a class="el" href="a01085_source.html">PauseMenu.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following file:<ul>
-<li>src/Core/Maps/Weather/<a class="el" href="a00707_source.html">Fog.cpp</a></li>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02109.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00066">66</a> of file <a class="el" href="a03391_source.html">State.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Game/States/<a class="el" href="a00554_source.html">PauseMenu.hpp</a></li>
+<li>src/Game/States/<a class="el" href="a01085_source.html">PauseMenu.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -66,31 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01129.html">game</a></li><li class="navelem"><a class="el" href="a01131.html">state</a></li><li class="navelem"><a class="el" href="a02405.html">FlyMap</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01154.html">menu</a></li><li class="navelem"><a class="el" href="a02405.html">MoveInfoRow</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">game::state::FlyMap Member List</div>  </div>
+<div class="title">game::menu::MoveInfoRow Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02405.html">game::state::FlyMap</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02405.html">game::menu::MoveInfoRow</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02405.html#ac24e58c77fb58136f5247df9574860f7">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02405.html#ac81a5a5edce7a3bf237b4093457b830a">create</a>(core::system::Systems &amp;systems, bool &amp;unpause)</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a96a3751d2be36ed4a6e40192f3da6464">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02405.html#aa943c46956f23be2bd35d63bbcd692d8">name</a>() const override</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02453.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02453.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02453.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02453.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a94cbfa212aab746d45d0ac7170f2a08f">update</a>(bl::engine::Engine &amp;engine, float dt, float) override</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02405.html#a24a9134d4b7c7b459fe4eb56fea6867d">~FlyMap</a>()=default</td><td class="entry"><a class="el" href="a02405.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02453.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02453.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a469493702ad12c5896a79632c62a34dc">create</a>(core::pplmn::MoveId move)</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02405.html#ad4a7c4788cc6adb6c0483451fc22e47b">doCreate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a2c861ae36896578a831e1193a3875474">doSceneAdd</a>(bl::rc::Scene *overlay) override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02405.html#a27ee44767463846cb3dcd2aebded2701">doSceneRemove</a>() override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a84fabdb843f87e29bd8f65a6d738caeb">draw</a>(bl::rc::scene::CodeScene::RenderContext &amp;ctx) override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02405.html#a8fe3c39ecae3b00a6277c6b62e6646fb">getEntity</a>() const override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">protected</span><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02405.html#a3deb75bced1a5211a4803d556188672a">getSize</a>() const override</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02405.html#a8c7958db980a291501c008ccff096839">~MoveInfoRow</a>()=default</td><td class="entry"><a class="el" href="a02405.html">game::menu::MoveInfoRow</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

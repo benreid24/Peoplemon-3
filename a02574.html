@@ -66,25 +66,30 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a01153.html">sandstorm</a></li><li class="navelem"><a class="el" href="a02577.html">SandUpdater</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01134.html">map</a></li><li class="navelem"><a class="el" href="a01142.html">weather</a></li><li class="navelem"><a class="el" href="a02577.html">Fog</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::sandstorm::SandUpdater Member List</div>  </div>
+<div class="title">core::map::weather::Fog Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02577.html">core::map::weather::sandstorm::SandUpdater</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02577.html">core::map::weather::Fog</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a5c507d030982e9fc220691b596fa5606">SandUpdater</a>(bl::rc::Observer &amp;observer, SandSink &amp;sink)</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::sandstorm::SandUpdater</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02577.html#a65f8529d1675ead1cf016511b981197f">update</a>(Proxy &amp;proxy, float, float) override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::sandstorm::SandUpdater</a></td><td class="entry"><span class="mlabel">inline</span><span class="mlabel">virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a011d4ace44b8d94c8101698a31eae2b0">~SandUpdater</a>()=default</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::sandstorm::SandUpdater</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a363198746b5701dbe3c60af35fdd3172">Fog</a>(bool thick)</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="a02577.html#a7abd9a562f88072b0dad94548f34da03">start</a>(bl::engine::Engine &amp;engine, bl::rc::RenderTarget &amp;renderTarget, Map &amp;map) override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a006dd0233fbf667a52ac42f5b133a90c">stop</a>() override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02577.html#aae75145834c972195d18ed804a929540">stopped</a>() const override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02577.html#a34546f007d7e10480e6fd5c6c5a0feca">type</a>() const override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02577.html#a3dc1077da6f77b13781e3969a04f6868">update</a>(float dt) override</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02541.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a02541.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02577.html#acfd7cf5482027d01b6c5118c62c0d8b4">~Fog</a>()</td><td class="entry"><a class="el" href="a02577.html">core::map::weather::Fog</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

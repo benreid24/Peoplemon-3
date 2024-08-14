@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Scripts/MapChangeContext.cpp File Reference</title>
+<title>Peoplemon: src/Core/Resources.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,36 +66,50 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_6edc84a9acc94cea070447f5eeb2cf24.html">Scripts</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
+<a href="#namespaces">Namespaces</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
-<div class="title">MapChangeContext.cpp File Reference</div>  </div>
+<div class="title">Resources.cpp File Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;<a class="el" href="a00311_source.html">Core/Scripts/MapChangeContext.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00299_source.html">Core/Scripts/BaseFunctions.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="a00356_source.html">Core/Systems/Systems.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="a00296_source.html">Core/Resources.hpp</a>&gt;</code><br />
+<code>#include &lt;BLIB/Logging.hpp&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00281_source.html">Core/Properties.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="a00284_source.html">Core/Resources/BundleHandlers.hpp</a>&gt;</code><br />
 </div>
 <p><a href="a00806_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
 Namespaces</h2></td></tr>
-<tr class="memitem:a01101"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01101.html">core</a></td></tr>
-<tr class="memdesc:a01101"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
+<tr class="memitem:a01123"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01123.html">core</a></td></tr>
+<tr class="memdesc:a01123"><td class="mdescLeft">&#160;</td><td class="mdescRight">Core classes and functionality for both the editor and game. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a01124"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01124.html">core::script</a></td></tr>
-<tr class="memdesc:a01124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of helpers and contexts for in-game scripts. <br /></td></tr>
+<tr class="memitem:a01145"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01145.html">core::res</a></td></tr>
+<tr class="memdesc:a01145"><td class="mdescLeft">&#160;</td><td class="mdescRight">Collection of utilities for resource bundling and management. <br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:gad33d85e09660ea3585e1353113905170"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01114.html#gad33d85e09660ea3585e1353113905170">core::res::installDevLoaders</a> ()</td></tr>
+<tr class="memdesc:gad33d85e09660ea3585e1353113905170"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the BLIB resource managers in dev mode.  <a href="a01114.html#gad33d85e09660ea3585e1353113905170">More...</a><br /></td></tr>
+<tr class="separator:gad33d85e09660ea3585e1353113905170"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga49e5132b191e1d2d64eef9960598ca70"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01114.html#ga49e5132b191e1d2d64eef9960598ca70">core::res::installProdLoaders</a> ()</td></tr>
+<tr class="memdesc:ga49e5132b191e1d2d64eef9960598ca70"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets up the BLIB resource managers in prod mode and mounts the resource bundles.  <a href="a01114.html#ga49e5132b191e1d2d64eef9960598ca70">More...</a><br /></td></tr>
+<tr class="separator:ga49e5132b191e1d2d64eef9960598ca70"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01114.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">core::res::createBundles</a> ()</td></tr>
+<tr class="memdesc:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the resource bundles.  <a href="a01114.html#ga06a2b1d1c4ad02dd161574d9dc3ec524">More...</a><br /></td></tr>
+<tr class="separator:ga06a2b1d1c4ad02dd161574d9dc3ec524"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

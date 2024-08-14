@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Maps/Event.cpp Source File</title>
+<title>Peoplemon: src/Core/Files/MoveDB.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,40 +66,62 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5001348a2480bad73fa9dfa1ff33ad64.html">Maps</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_994c653631f7b2778c11e1a06b2fb1e1.html">Files</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Event.cpp</div>  </div>
+<div class="title">MoveDB.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00185.html">Core/Maps/Event.hpp</a>&gt;</span></div>
+<a href="a00680.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00158.html">Core/Files/MoveDB.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>map</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a01733.html#a326f9ba9256628d2db4b3429c1ea0ee0">    7</a></span>&#160;<a class="code" href="a01733.html#a326f9ba9256628d2db4b3429c1ea0ee0">Event::Event</a>()</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;: trigger(<a class="code" href="a01733.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a>::OnEnter) {}</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="a01733.html#ac85c5b74c5b1fca7397733c8c040040a">   10</a></span>&#160;<a class="code" href="a01733.html#a326f9ba9256628d2db4b3429c1ea0ee0">Event::Event</a>(<span class="keyword">const</span> std::string&amp; s, <span class="keyword">const</span> sf::Vector2i&amp; pos, <span class="keyword">const</span> sf::Vector2i&amp; sz, <a class="code" href="a01733.html#a14f3d414a99e46aa6f6ade27229d374d">Trigger</a> t)</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;: trigger(t)</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;, position(pos)</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;, areaSize(sz)</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, script(s) {}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;} <span class="comment">// namespace map</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00185_html"><div class="ttname"><a href="a00185.html">Event.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01733_html_a14f3d414a99e46aa6f6ade27229d374d"><div class="ttname"><a href="a01733.html#a14f3d414a99e46aa6f6ade27229d374d">core::map::Event::Trigger</a></div><div class="ttdeci">Trigger</div><div class="ttdoc">What action triggers the event.</div><div class="ttdef"><b>Definition:</b> <a href="a00185_source.html#l00021">Event.hpp:21</a></div></div>
-<div class="ttc" id="aa01733_html_a326f9ba9256628d2db4b3429c1ea0ee0"><div class="ttname"><a href="a01733.html#a326f9ba9256628d2db4b3429c1ea0ee0">core::map::Event::Event</a></div><div class="ttdeci">Event()</div><div class="ttdoc">Creates an empty event.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00007">Event.cpp:7</a></div></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>file</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">using namespace </span>pplmn;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a01705.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">   12</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">MoveDB::load</a>() { <span class="keywordflow">return</span> MoveDbManager::initializeExisting(<a class="code" href="a01957.html#a038a6813af0970f528b3d49aeecee57f">Properties::MoveDBFile</a>(), *<span class="keyword">this</span>); }</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01705.html#ac18f45b9af2d1f2e2a094fc3d8e35326">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#ac18f45b9af2d1f2e2a094fc3d8e35326">MoveDB::loadDev</a>(std::istream&amp; input) {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;MoveDB&gt;::deserializeStream(input, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;}</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01705.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">   18</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">MoveDB::loadProd</a>(bl::serial::binary::InputStream&amp; input) {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keywordflow">return</span> bl::serial::binary::Serializer&lt;MoveDB&gt;::deserialize(input, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a01705.html#ac3ac1f59fc19473e982b5f7e486fc398">   22</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#ac3ac1f59fc19473e982b5f7e486fc398">MoveDB::save</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    std::ofstream output(<a class="code" href="a01957.html#a038a6813af0970f528b3d49aeecee57f">Properties::MoveDBFile</a>().c_str());</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;MoveDB&gt;::serializeStream(output, *<span class="keyword">this</span>, 4, 0);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;}</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno"><a class="line" href="a01705.html#ac9e0193820c27ebe84cada30666d8011">   27</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#ac9e0193820c27ebe84cada30666d8011">MoveDB::saveBundle</a>(bl::serial::binary::OutputStream&amp; output,</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                        bl::resource::bundle::FileHandlerContext&amp;)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <span class="keywordflow">return</span> bl::serial::binary::Serializer&lt;MoveDB&gt;::serialize(output, *<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;} <span class="comment">// namespace file</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00158_html"><div class="ttname"><a href="a00158.html">MoveDB.hpp</a></div></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01705_html_a0ffbd1d3b95bfc74f5f64a904efc5a6f"><div class="ttname"><a href="a01705.html#a0ffbd1d3b95bfc74f5f64a904efc5a6f">core::file::MoveDB::loadProd</a></div><div class="ttdeci">bool loadProd(bl::serial::binary::InputStream &amp;input)</div><div class="ttdoc">Loads the database from its json format.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00018">MoveDB.cpp:18</a></div></div>
+<div class="ttc" id="aa01705_html_ab9e44bcb41bb9f4d2d70b4b8370f650b"><div class="ttname"><a href="a01705.html#ab9e44bcb41bb9f4d2d70b4b8370f650b">core::file::MoveDB::load</a></div><div class="ttdeci">bool load()</div><div class="ttdoc">Loads the moves from the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00012">MoveDB.cpp:12</a></div></div>
+<div class="ttc" id="aa01705_html_ac18f45b9af2d1f2e2a094fc3d8e35326"><div class="ttname"><a href="a01705.html#ac18f45b9af2d1f2e2a094fc3d8e35326">core::file::MoveDB::loadDev</a></div><div class="ttdeci">bool loadDev(std::istream &amp;input)</div><div class="ttdoc">Loads the database from its json format.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00014">MoveDB.cpp:14</a></div></div>
+<div class="ttc" id="aa01705_html_ac3ac1f59fc19473e982b5f7e486fc398"><div class="ttname"><a href="a01705.html#ac3ac1f59fc19473e982b5f7e486fc398">core::file::MoveDB::save</a></div><div class="ttdeci">bool save() const</div><div class="ttdoc">Saves the moves to the data file.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00022">MoveDB.cpp:22</a></div></div>
+<div class="ttc" id="aa01705_html_ac9e0193820c27ebe84cada30666d8011"><div class="ttname"><a href="a01705.html#ac9e0193820c27ebe84cada30666d8011">core::file::MoveDB::saveBundle</a></div><div class="ttdeci">bool saveBundle(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</div><div class="ttdoc">Saves the data from this object to the given bundle and registers depency files if any.</div><div class="ttdef"><b>Definition:</b> <a href="a00680_source.html#l00027">MoveDB.cpp:27</a></div></div>
+<div class="ttc" id="aa01957_html_a038a6813af0970f528b3d49aeecee57f"><div class="ttname"><a href="a01957.html#a038a6813af0970f528b3d49aeecee57f">core::Properties::MoveDBFile</a></div><div class="ttdeci">static const std::string &amp; MoveDBFile()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00636">Properties.cpp:636</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

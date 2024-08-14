@@ -66,28 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a02473.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01155.html">state</a></li><li class="navelem"><a class="el" href="a02473.html">FlyMap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::Base Member List</div>  </div>
+<div class="title">game::state::FlyMap Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02473.html">core::map::weather::Base</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02473.html">game::state::FlyMap</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">start</a>(bl::engine::Engine &amp;engine, Map &amp;map)=0</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02473.html#adea1271d369903e717e122178f312034">stop</a>()=0</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02473.html#a322285a2f2aedb30791f826f4e45278b">stopped</a>() const =0</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02473.html#af408f0694287fd7c7c2060de024b20d7">type</a>() const =0</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">update</a>(float dt)=0</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
-  <tr><td class="entry"><a class="el" href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a>()=default</td><td class="entry"><a class="el" href="a02473.html">core::map::weather::Base</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02473.html#ac24e58c77fb58136f5247df9574860f7">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02473.html#ac81a5a5edce7a3bf237b4093457b830a">create</a>(core::system::Systems &amp;systems, bool &amp;unpause)</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02473.html#a96a3751d2be36ed4a6e40192f3da6464">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02473.html#aa943c46956f23be2bd35d63bbcd692d8">name</a>() const override</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02473.html#a94cbfa212aab746d45d0ac7170f2a08f">update</a>(bl::engine::Engine &amp;engine, float dt, float) override</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02473.html#a24a9134d4b7c7b459fe4eb56fea6867d">~FlyMap</a>()=default</td><td class="entry"><a class="el" href="a02473.html">game::state::FlyMap</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

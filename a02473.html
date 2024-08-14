@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::map::weather::Base Struct Reference</title>
+<title>Peoplemon: game::state::FlyMap Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,72 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a02473.html">Base</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01155.html">state</a></li><li class="navelem"><a class="el" href="a02473.html">FlyMap</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02470.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::map::weather::Base Struct Reference<span class="mlabels"><span class="mlabel">abstract</span></span><div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01090.html">Maps</a> &raquo; <a class="el" href="a01100.html">Weather</a></div></div>  </div>
+<div class="title">game::state::FlyMap Class Reference<div class="ingroups"><a class="el" href="a01104.html">Editor</a> &#124; <a class="el" href="a01105.html">Game</a> &raquo; <a class="el" href="a01120.html">States</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p><a class="el" href="a02473.html" title="Base class for all weather types.">Base</a> class for all weather types.  
+<p>Engine state for the fly map.  
  <a href="a02473.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00704_source.html">Base.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00536_source.html">FlyMap.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
-  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::weather::Base:</div>
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for game::state::FlyMap:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
  <div class="center">
-  <img src="a02473.png" usemap="#core::map::weather::Base_map" alt=""/>
-  <map id="core::map::weather::Base_map" name="core::map::weather::Base_map">
-<area href="a02509.html" title="Weather type for thin or thick fog." alt="core::map::weather::Fog" shape="rect" coords="0,56,183,80"/>
-<area href="a02545.html" title="Weather type for rainy days. Handles light and hard rain and owns thunder if need be." alt="core::map::weather::Rain" shape="rect" coords="193,56,376,80"/>
-<area href="a02597.html" title="Creates sandstorms." alt="core::map::weather::Sandstorm" shape="rect" coords="386,56,569,80"/>
-<area href="a02629.html" title="Snow weather system." alt="core::map::weather::Snow" shape="rect" coords="579,56,762,80"/>
-<area href="a02633.html" title="Makes sunny weather." alt="core::map::weather::Sunny" shape="rect" coords="772,56,955,80"/>
+  <img src="a02473.png" usemap="#game::state::FlyMap_map" alt=""/>
+  <map id="game::state::FlyMap_map" name="game::state::FlyMap_map">
+<area href="a02521.html" title="Parent to all game states. Provides some commonly required data like core game systems." alt="game::state::State" shape="rect" coords="0,56,123,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a1a8feb776aebad8e099e8b56d9a9b2b5"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">~Base</a> ()=default</td></tr>
-<tr class="memdesc:a1a8feb776aebad8e099e8b56d9a9b2b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02473.html" title="Base class for all weather types.">Base</a> object.  <a href="a02473.html#a1a8feb776aebad8e099e8b56d9a9b2b5">More...</a><br /></td></tr>
-<tr class="separator:a1a8feb776aebad8e099e8b56d9a9b2b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af408f0694287fd7c7c2060de024b20d7"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#af408f0694287fd7c7c2060de024b20d7">type</a> () const =0</td></tr>
-<tr class="memdesc:af408f0694287fd7c7c2060de024b20d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the type of weather this is.  <a href="a02473.html#af408f0694287fd7c7c2060de024b20d7">More...</a><br /></td></tr>
-<tr class="separator:af408f0694287fd7c7c2060de024b20d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a60aa031cb8b915c59cda8bc809af1d31"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">update</a> (float dt)=0</td></tr>
-<tr class="memdesc:a60aa031cb8b915c59cda8bc809af1d31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Update the weather.  <a href="a02473.html#a60aa031cb8b915c59cda8bc809af1d31">More...</a><br /></td></tr>
-<tr class="separator:a60aa031cb8b915c59cda8bc809af1d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0778a39a5195b07fa3a57c90f55c6762"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">start</a> (bl::engine::Engine &amp;engine, <a class="el" href="a01781.html">Map</a> &amp;map)=0</td></tr>
-<tr class="memdesc:a0778a39a5195b07fa3a57c90f55c6762"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the weather using the initial area.  <a href="a02473.html#a0778a39a5195b07fa3a57c90f55c6762">More...</a><br /></td></tr>
-<tr class="separator:a0778a39a5195b07fa3a57c90f55c6762"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adea1271d369903e717e122178f312034"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#adea1271d369903e717e122178f312034">stop</a> ()=0</td></tr>
-<tr class="memdesc:adea1271d369903e717e122178f312034"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the weather.  <a href="a02473.html#adea1271d369903e717e122178f312034">More...</a><br /></td></tr>
-<tr class="separator:adea1271d369903e717e122178f312034"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a322285a2f2aedb30791f826f4e45278b"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a322285a2f2aedb30791f826f4e45278b">stopped</a> () const =0</td></tr>
-<tr class="memdesc:a322285a2f2aedb30791f826f4e45278b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when the weather has completed stopping.  <a href="a02473.html#a322285a2f2aedb30791f826f4e45278b">More...</a><br /></td></tr>
-<tr class="separator:a322285a2f2aedb30791f826f4e45278b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24a9134d4b7c7b459fe4eb56fea6867d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a24a9134d4b7c7b459fe4eb56fea6867d">~FlyMap</a> ()=default</td></tr>
+<tr class="memdesc:a24a9134d4b7c7b459fe4eb56fea6867d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02473.html" title="Engine state for the fly map.">FlyMap</a> state.  <a href="a02473.html#a24a9134d4b7c7b459fe4eb56fea6867d">More...</a><br /></td></tr>
+<tr class="separator:a24a9134d4b7c7b459fe4eb56fea6867d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa943c46956f23be2bd35d63bbcd692d8"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#aa943c46956f23be2bd35d63bbcd692d8">name</a> () const override</td></tr>
+<tr class="memdesc:aa943c46956f23be2bd35d63bbcd692d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns "FlyMap".  <a href="a02473.html#aa943c46956f23be2bd35d63bbcd692d8">More...</a><br /></td></tr>
+<tr class="separator:aa943c46956f23be2bd35d63bbcd692d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac24e58c77fb58136f5247df9574860f7"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#ac24e58c77fb58136f5247df9574860f7">activate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:ac24e58c77fb58136f5247df9574860f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Activates the state.  <a href="a02473.html#ac24e58c77fb58136f5247df9574860f7">More...</a><br /></td></tr>
+<tr class="separator:ac24e58c77fb58136f5247df9574860f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a96a3751d2be36ed4a6e40192f3da6464"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a96a3751d2be36ed4a6e40192f3da6464">deactivate</a> (bl::engine::Engine &amp;engine) override</td></tr>
+<tr class="memdesc:a96a3751d2be36ed4a6e40192f3da6464"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deactivates the state.  <a href="a02473.html#a96a3751d2be36ed4a6e40192f3da6464">More...</a><br /></td></tr>
+<tr class="separator:a96a3751d2be36ed4a6e40192f3da6464"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a94cbfa212aab746d45d0ac7170f2a08f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#a94cbfa212aab746d45d0ac7170f2a08f">update</a> (bl::engine::Engine &amp;engine, float dt, float) override</td></tr>
+<tr class="memdesc:a94cbfa212aab746d45d0ac7170f2a08f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the state and menus and whatnot.  <a href="a02473.html#a94cbfa212aab746d45d0ac7170f2a08f">More...</a><br /></td></tr>
+<tr class="separator:a94cbfa212aab746d45d0ac7170f2a08f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:ac81a5a5edce7a3bf237b4093457b830a"><td class="memItemLeft" align="right" valign="top">static bl::engine::State::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02473.html#ac81a5a5edce7a3bf237b4093457b830a">create</a> (<a class="el" href="a02109.html">core::system::Systems</a> &amp;<a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, bool &amp;unpause)</td></tr>
+<tr class="memdesc:ac81a5a5edce7a3bf237b4093457b830a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the fly map state.  <a href="a02473.html#ac81a5a5edce7a3bf237b4093457b830a">More...</a><br /></td></tr>
+<tr class="separator:ac81a5a5edce7a3bf237b4093457b830a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:abef8cda2c9a894f74c716672440f6e4b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td></tr>
+<tr class="separator:abef8cda2c9a894f74c716672440f6e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p><a class="el" href="a02473.html" title="Base class for all weather types.">Base</a> class for all weather types. </p>
+<div class="textblock"><p>Engine state for the fly map. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00704_source.html#l00028">28</a> of file <a class="el" href="a00704_source.html">Base.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00536_source.html#l00020">20</a> of file <a class="el" href="a00536_source.html">FlyMap.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a1a8feb776aebad8e099e8b56d9a9b2b5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a8feb776aebad8e099e8b56d9a9b2b5">&#9670;&nbsp;</a></span>~Base()</h2>
+<a id="a24a9134d4b7c7b459fe4eb56fea6867d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24a9134d4b7c7b459fe4eb56fea6867d">&#9670;&nbsp;</a></span>~FlyMap()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -134,7 +140,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual core::map::weather::Base::~Base </td>
+          <td class="memname">virtual game::state::FlyMap::~FlyMap </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -147,13 +153,13 @@ Public Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Destroy the <a class="el" href="a02473.html" title="Base class for all weather types.">Base</a> object. </p>
+<p>Destroy the <a class="el" href="a02473.html" title="Engine state for the fly map.">FlyMap</a> state. </p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a0778a39a5195b07fa3a57c90f55c6762"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0778a39a5195b07fa3a57c90f55c6762">&#9670;&nbsp;</a></span>start()</h2>
+<a id="ac24e58c77fb58136f5247df9574860f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac24e58c77fb58136f5247df9574860f7">&#9670;&nbsp;</a></span>activate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,16 +168,54 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void core::map::weather::Base::start </td>
+          <td class="memname">void game::state::FlyMap::activate </td>
           <td>(</td>
           <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
-          <td class="paramname"><em>engine</em>, </td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Activates the state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02521.html#a2245c2f3ab8cbd78e345b4b940ffa442">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00114">114</a> of file <a class="el" href="a01067_source.html">FlyMap.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac81a5a5edce7a3bf237b4093457b830a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac81a5a5edce7a3bf237b4093457b830a">&#9670;&nbsp;</a></span>create()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::engine::State::Ptr game::state::FlyMap::create </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype"><a class="el" href="a01781.html">Map</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em>&#160;</td>
+          <td class="paramtype">bool &amp;&#160;</td>
+          <td class="paramname"><em>unpause</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -181,26 +225,27 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Start the weather using the initial area. </p>
+<p>Creates the fly map state. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
-    <tr><td class="paramname">map</td><td>The map the weather is in </td></tr>
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
+    <tr><td class="paramname">unpause</td><td>Boolean param to set if the pause menu should close after this closes </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>bl::engine::State::Ptr The new state </dd></dl>
 
-<p>Implemented in <a class="el" href="a02633.html#a57a33f8b1a549649218a316bc6c2a735">core::map::weather::Sunny</a>, <a class="el" href="a02629.html#a7460089a07af1d352fdf88b8db6629ba">core::map::weather::Snow</a>, <a class="el" href="a02597.html#a91a3979cb4d89974ee985e9b56455f5f">core::map::weather::Sandstorm</a>, <a class="el" href="a02545.html#ac6c9d15072bba5e57ff67a0a6be4c2a9">core::map::weather::Rain</a>, and <a class="el" href="a02509.html#a5f50096b8fd595387e7369f79e0eefc6">core::map::weather::Fog</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00017">17</a> of file <a class="el" href="a01067_source.html">FlyMap.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adea1271d369903e717e122178f312034"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adea1271d369903e717e122178f312034">&#9670;&nbsp;</a></span>stop()</h2>
+<a id="a96a3751d2be36ed4a6e40192f3da6464"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a96a3751d2be36ed4a6e40192f3da6464">&#9670;&nbsp;</a></span>deactivate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -209,27 +254,36 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual void core::map::weather::Base::stop </td>
+          <td class="memname">void game::state::FlyMap::deactivate </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Stop the weather. </p>
+<p>Deactivates the state. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>Implemented in <a class="el" href="a02633.html#af5fd897a9474b14b51a12622229f9124">core::map::weather::Sunny</a>, <a class="el" href="a02629.html#a002ac5c20717ad3e786eba3d14d22b01">core::map::weather::Snow</a>, <a class="el" href="a02597.html#a2ed89923f6145684440ad67d94ddfa50">core::map::weather::Sandstorm</a>, <a class="el" href="a02545.html#a1e2c26d2a0bc7bbcfe34b986bf511936">core::map::weather::Rain</a>, and <a class="el" href="a02509.html#a006dd0233fbf667a52ac42f5b133a90c">core::map::weather::Fog</a>.</p>
+<p>Implements <a class="el" href="a02521.html#a63ff495c10ee7d986be1750173d24c6b">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00131">131</a> of file <a class="el" href="a01067_source.html">FlyMap.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a322285a2f2aedb30791f826f4e45278b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a322285a2f2aedb30791f826f4e45278b">&#9670;&nbsp;</a></span>stopped()</h2>
+<a id="aa943c46956f23be2bd35d63bbcd692d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa943c46956f23be2bd35d63bbcd692d8">&#9670;&nbsp;</a></span>name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +292,7 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual bool core::map::weather::Base::stopped </td>
+          <td class="memname">const char * game::state::FlyMap::name </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>
@@ -246,20 +300,21 @@ Public Member Functions</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns true when the weather has completed stopping. </p>
-<dl class="section return"><dt>Returns</dt><dd>True if no particles remain, false if not finished stopping </dd></dl>
+<p>Returns "FlyMap". </p>
 
-<p>Implemented in <a class="el" href="a02633.html#a5a00727a61b6fd19b0b5fe4429f2faf0">core::map::weather::Sunny</a>, <a class="el" href="a02629.html#a1e2d19add6534381d1edd4ce30e965e4">core::map::weather::Snow</a>, <a class="el" href="a02597.html#a07ac834a6cc7ba446edd52f27ebe35c3">core::map::weather::Sandstorm</a>, <a class="el" href="a02545.html#a264b133ab12761b7e6f8dc3e93a5b0aa">core::map::weather::Rain</a>, and <a class="el" href="a02509.html#aae75145834c972195d18ed804a929540">core::map::weather::Fog</a>.</p>
+<p>Implements <a class="el" href="a02521.html#ae62840bb33e67ff1b1ea7b6c9431d249">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00112">112</a> of file <a class="el" href="a01067_source.html">FlyMap.cpp</a>.</p>
 
 </div>
 </div>
-<a id="af408f0694287fd7c7c2060de024b20d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af408f0694287fd7c7c2060de024b20d7">&#9670;&nbsp;</a></span>type()</h2>
+<a id="a94cbfa212aab746d45d0ac7170f2a08f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a94cbfa212aab746d45d0ac7170f2a08f">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,70 +323,85 @@ Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">virtual <a class="el" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> core::map::weather::Base::type </td>
+          <td class="memname">void game::state::FlyMap::update </td>
           <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
         </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Returns the type of weather this is. </p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d" title="The type of weather.">Weather::Type</a> The type of weather this is </dd></dl>
-
-<p>Implemented in <a class="el" href="a02633.html#ad22350cf0d664aeeb8247251b2090f31">core::map::weather::Sunny</a>, <a class="el" href="a02629.html#a01d72106d7be3681a9405a04e8b18e20">core::map::weather::Snow</a>, <a class="el" href="a02597.html#a6137cabe409261ebd68b3de8ff975d30">core::map::weather::Sandstorm</a>, <a class="el" href="a02545.html#a401fbef52b8a04f28d13ff4d5812a0bc">core::map::weather::Rain</a>, and <a class="el" href="a02509.html#a34546f007d7e10480e6fd5c6c5a0feca">core::map::weather::Fog</a>.</p>
-
-</div>
-</div>
-<a id="a60aa031cb8b915c59cda8bc809af1d31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a60aa031cb8b915c59cda8bc809af1d31">&#9670;&nbsp;</a></span>update()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">virtual void core::map::weather::Base::update </td>
-          <td>(</td>
+          <td class="paramkey"></td>
+          <td></td>
           <td class="paramtype">float&#160;</td>
-          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td class="paramname"><em>dt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname">&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Update the weather. </p>
+<p>Updates the state and menus and whatnot. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">dt</td><td>Time elapsed in seconds since last call to update </td></tr>
+    <tr><td class="paramname">engine</td><td>The game engine </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Implemented in <a class="el" href="a02633.html#a55650f587eacb32d90e2b0936d6f8c77">core::map::weather::Sunny</a>, <a class="el" href="a02629.html#a792edfd9888f819b8dc6b1cc9dd84c40">core::map::weather::Snow</a>, <a class="el" href="a02597.html#a12ffb97e3a097d0ebb79499ef5c33fa1">core::map::weather::Sandstorm</a>, <a class="el" href="a02545.html#ae97c2b16cce4438446990321c3c41dbe">core::map::weather::Rain</a>, and <a class="el" href="a02509.html#a3dc1077da6f77b13781e3969a04f6868">core::map::weather::Fog</a>.</p>
+<p>Implements <a class="el" href="a02521.html#aa294a09e38106bec03bde9a8bfcd3f3f">game::state::State</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a01067_source.html#l00136">136</a> of file <a class="el" href="a01067_source.html">FlyMap.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Maps/Weather/<a class="el" href="a00704_source.html">Base.hpp</a></li>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="abef8cda2c9a894f74c716672440f6e4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abef8cda2c9a894f74c716672440f6e4b">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02109.html">core::system::Systems</a>&amp; game::state::State::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a03391_source.html#l00066">66</a> of file <a class="el" href="a03391_source.html">State.hpp</a>.</p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Game/States/<a class="el" href="a00536_source.html">FlyMap.hpp</a></li>
+<li>src/Game/States/<a class="el" href="a01067_source.html">FlyMap.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

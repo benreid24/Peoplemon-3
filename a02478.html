@@ -66,27 +66,31 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a01150.html">fog</a></li><li class="navelem"><a class="el" href="a02481.html">GpuParticle</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01155.html">state</a></li><li class="navelem"><a class="el" href="a02481.html">MainGame</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::fog::GpuParticle Member List</div>  </div>
+<div class="title">game::state::MainGame Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02481.html">game::state::MainGame</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a4f17952892a852f0a139031fa050506e">GpuParticle</a>()=default</td><td class="entry"><a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02481.html#a142a269fdce2439c40e8e3c2ac8db065">operator=</a>(const Particle &amp;p)</td><td class="entry"><a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a5c855b79b722eae5449089bfcecfcd2f">pos</a></td><td class="entry"><a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02481.html#a46bdc73d65b34d63f74ecec3db5a1014">rotation</a></td><td class="entry"><a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a30d18ad4c6d30a5600969188a040f111">scale</a></td><td class="entry"><a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a5a1e06c32c343d46f42a47c3535e292c">activate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02481.html#af52604a5df0abe639e62fbe0af65f557">create</a>(core::system::Systems &amp;systems)</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">static</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a5927fca05c0a0a8ef5e62f1057514cbc">deactivate</a>(bl::engine::Engine &amp;engine) override</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02481.html#a0884a6523fd406e4e4488c6b1cb0cfdb">name</a>() const override</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02481.html#a96758bd49abff5762cf219de09ad3f99">update</a>(bl::engine::Engine &amp;engine, float dt, float) override</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02481.html#a6fce55916b635eb5d8a6da9b76c7eed7">~MainGame</a>()</td><td class="entry"><a class="el" href="a02481.html">game::state::MainGame</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

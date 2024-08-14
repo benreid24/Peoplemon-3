@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::pcl::RenderConfigMap&lt; Evolution::Spark &gt; Struct Reference</title>
+<title>Peoplemon: editor::component::EditMap::EditCatchRegionAction Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,84 +66,51 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01107.html">bl</a></li><li class="navelem"><a class="el" href="a01108.html">pcl</a></li><li class="navelem"><a class="el" href="a02849.html">RenderConfigMap&lt; Evolution::Spark &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01140.html">component</a></li><li class="navelem"><a class="el" href="a02177.html">EditMap</a></li><li class="navelem"><a class="el" href="a02849.html">EditCatchRegionAction</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="a02846.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::pcl::RenderConfigMap&lt; Evolution::Spark &gt; Struct Reference</div>  </div>
+<div class="title">editor::component::EditMap::EditCatchRegionAction Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><code>#include &lt;<a class="el" href="a00926_source.html">MapActions.hpp</a>&gt;</code></p>
+
+<p>Inherits editor::component::EditMap::Action.</p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ac0c6a168ffba09e3d204bfdf5925ed47"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">GlobalShaderPayload</a> = RenderConfigDefaults&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::<a class="el" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">GlobalShaderPayload</a></td></tr>
-<tr class="separator:ac0c6a168ffba09e3d204bfdf5925ed47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a943d8c28a3159db790769f45dec6e9bc"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a943d8c28a3159db790769f45dec6e9bc">DescriptorSets</a> = RenderConfigDescriptorList&lt; bl::rc::ds::Scene2DFactory, DescriptorSetFactory&lt; <a class="el" href="a02397.html">Evolution::Spark</a>, <a class="el" href="a02377.html">evo::GpuSpark</a> &gt; &gt;</td></tr>
-<tr class="separator:a943d8c28a3159db790769f45dec6e9bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76cacf740775240b7342ece7cb663a59"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><b>Ptr</b> = std::shared_ptr&lt; Action &gt;</td></tr>
+<tr class="separator:a76cacf740775240b7342ece7cb663a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:a553c5e8148d5d03f8d02c9d6b75ca345"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a553c5e8148d5d03f8d02c9d6b75ca345">PipelineId</a> = <a class="el" href="a01933.html#a112c3012cb58271d555eea37b7115f37">core::Properties::EvolutionSparkPipelineId</a></td></tr>
-<tr class="separator:a553c5e8148d5d03f8d02c9d6b75ca345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abd331e8d9010367d5043feb4507f7fb3"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#abd331e8d9010367d5043feb4507f7fb3">ContainsTransparency</a> = false</td></tr>
-<tr class="separator:abd331e8d9010367d5043feb4507f7fb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a341241a8d9e5d6056ed2db40e8947e60"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a341241a8d9e5d6056ed2db40e8947e60">CreateRenderPipeline</a> = true</td></tr>
-<tr class="separator:a341241a8d9e5d6056ed2db40e8947e60"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afe2db949ab1b8ed37f7dc169e3240e7c"><td class="memItemLeft" align="right" valign="top">static constexpr std::initializer_list&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#afe2db949ab1b8ed37f7dc169e3240e7c">RenderPassIds</a></td></tr>
-<tr class="separator:afe2db949ab1b8ed37f7dc169e3240e7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a959b44f4085f506098ac93061ec66977"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a959b44f4085f506098ac93061ec66977">EnableDepthTesting</a> = false</td></tr>
-<tr class="separator:a959b44f4085f506098ac93061ec66977"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2ccde7cec92a82a863c0ae90ce995369"><td class="memItemLeft" align="right" valign="top">static constexpr VkPrimitiveTopology&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a2ccde7cec92a82a863c0ae90ce995369">Topology</a> = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td></tr>
-<tr class="separator:a2ccde7cec92a82a863c0ae90ce995369"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aebd4314a07bd15957697db5ebad3e83a"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#aebd4314a07bd15957697db5ebad3e83a">VertexShader</a></td></tr>
-<tr class="separator:aebd4314a07bd15957697db5ebad3e83a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a69ec556e96ef383b86b41bdbfa8aa3e1"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a69ec556e96ef383b86b41bdbfa8aa3e1">FragmentShader</a></td></tr>
-<tr class="separator:a69ec556e96ef383b86b41bdbfa8aa3e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a22010329e73569321d93addbd05520f2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a22010329e73569321d93addbd05520f2">~EditCatchRegionAction</a> ()=default</td></tr>
+<tr class="separator:a22010329e73569321d93addbd05520f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa41cc426277bc9eda46a0f8cfadd3710"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#aa41cc426277bc9eda46a0f8cfadd3710">apply</a> (<a class="el" href="a02177.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:aa41cc426277bc9eda46a0f8cfadd3710"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34a3b15bcf841f9a66a859e18dd72322"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a34a3b15bcf841f9a66a859e18dd72322">undo</a> (<a class="el" href="a02177.html">EditMap</a> &amp;map) override</td></tr>
+<tr class="separator:a34a3b15bcf841f9a66a859e18dd72322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a78a4517e016982c51a99ba5e8001cc55"><td class="memItemLeft" align="right" valign="top">virtual const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#a78a4517e016982c51a99ba5e8001cc55">description</a> () const override</td></tr>
+<tr class="separator:a78a4517e016982c51a99ba5e8001cc55"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aac9ef00472f2fb2e57d2d679696d8925"><td class="memItemLeft" align="right" valign="top">static Action::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html#aac9ef00472f2fb2e57d2d679696d8925">create</a> (std::uint8_t index, const <a class="el" href="a01741.html">core::map::CatchRegion</a> &amp;value, const <a class="el" href="a01741.html">core::map::CatchRegion</a> &amp;orig)</td></tr>
+<tr class="separator:aac9ef00472f2fb2e57d2d679696d8925"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00016">16</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00926_source.html#l00602">602</a> of file <a class="el" href="a00926_source.html">MapActions.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a943d8c28a3159db790769f45dec6e9bc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a943d8c28a3159db790769f45dec6e9bc">&#9670;&nbsp;</a></span>DescriptorSets</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::<a class="el" href="a02849.html#a943d8c28a3159db790769f45dec6e9bc">DescriptorSets</a> =  RenderConfigDescriptorList&lt;bl::rc::ds::Scene2DFactory, DescriptorSetFactory&lt;<a class="el" href="a02397.html">Evolution::Spark</a>, <a class="el" href="a02377.html">evo::GpuSpark</a>&gt; &gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00025">25</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ac0c6a168ffba09e3d204bfdf5925ed47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0c6a168ffba09e3d204bfdf5925ed47">&#9670;&nbsp;</a></span>GlobalShaderPayload</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::<a class="el" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">GlobalShaderPayload</a> =  RenderConfigDefaults&lt;<a class="el" href="a02397.html">Evolution::Spark</a>&gt;::<a class="el" href="a02849.html#ac0c6a168ffba09e3d204bfdf5925ed47">GlobalShaderPayload</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00024">24</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="abd331e8d9010367d5043feb4507f7fb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abd331e8d9010367d5043feb4507f7fb3">&#9670;&nbsp;</a></span>ContainsTransparency</h2>
+<a id="a76cacf740775240b7342ece7cb663a59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a76cacf740775240b7342ece7cb663a59">&#9670;&nbsp;</a></span>Ptr</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,22 +119,23 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::ContainsTransparency = false</td>
+          <td class="memname">using editor::component::EditMap::Action::Ptr =  std::shared_ptr&lt;Action&gt;</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00018">18</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00386_source.html#l00632">632</a> of file <a class="el" href="a00386_source.html">EditMap.hpp</a>.</p>
 
 </div>
 </div>
-<a id="a341241a8d9e5d6056ed2db40e8947e60"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a341241a8d9e5d6056ed2db40e8947e60">&#9670;&nbsp;</a></span>CreateRenderPipeline</h2>
+<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a22010329e73569321d93addbd05520f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22010329e73569321d93addbd05520f2">&#9670;&nbsp;</a></span>~EditCatchRegionAction()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,22 +144,24 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::CreateRenderPipeline = true</td>
+          <td class="memname">virtual editor::component::EditMap::EditCatchRegionAction::~EditCatchRegionAction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00020">20</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a959b44f4085f506098ac93061ec66977"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a959b44f4085f506098ac93061ec66977">&#9670;&nbsp;</a></span>EnableDepthTesting</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aa41cc426277bc9eda46a0f8cfadd3710"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa41cc426277bc9eda46a0f8cfadd3710">&#9670;&nbsp;</a></span>apply()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,22 +170,26 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::EnableDepthTesting = false</td>
+          <td class="memname">bool editor::component::EditMap::EditCatchRegionAction::apply </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02177.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00029">29</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l01370">1370</a> of file <a class="el" href="a00923_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a69ec556e96ef383b86b41bdbfa8aa3e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a69ec556e96ef383b86b41bdbfa8aa3e1">&#9670;&nbsp;</a></span>FragmentShader</h2>
+<a id="aac9ef00472f2fb2e57d2d679696d8925"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac9ef00472f2fb2e57d2d679696d8925">&#9670;&nbsp;</a></span>create()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,24 +198,42 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::FragmentShader</td>
+          <td class="memname">EditMap::Action::Ptr editor::component::EditMap::EditCatchRegionAction::create </td>
+          <td>(</td>
+          <td class="paramtype">std::uint8_t&#160;</td>
+          <td class="paramname"><em>index</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01741.html">core::map::CatchRegion</a> &amp;&#160;</td>
+          <td class="paramname"><em>value</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="a01741.html">core::map::CatchRegion</a> &amp;&#160;</td>
+          <td class="paramname"><em>orig</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">        <span class="stringliteral">&quot;Resources/Shaders/Particles/evolution_spark.frag.spv&quot;</span></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00034">34</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l01357">1357</a> of file <a class="el" href="a00923_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a553c5e8148d5d03f8d02c9d6b75ca345"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a553c5e8148d5d03f8d02c9d6b75ca345">&#9670;&nbsp;</a></span>PipelineId</h2>
+<a id="a78a4517e016982c51a99ba5e8001cc55"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a78a4517e016982c51a99ba5e8001cc55">&#9670;&nbsp;</a></span>description()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,22 +242,25 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint32_t bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::PipelineId = <a class="el" href="a01933.html#a112c3012cb58271d555eea37b7115f37">core::Properties::EvolutionSparkPipelineId</a></td>
+          <td class="memname">const char * editor::component::EditMap::EditCatchRegionAction::description </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00017">17</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l01380">1380</a> of file <a class="el" href="a00923_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="afe2db949ab1b8ed37f7dc169e3240e7c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afe2db949ab1b8ed37f7dc169e3240e7c">&#9670;&nbsp;</a></span>RenderPassIds</h2>
+<a id="a34a3b15bcf841f9a66a859e18dd72322"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a34a3b15bcf841f9a66a859e18dd72322">&#9670;&nbsp;</a></span>undo()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,80 +269,33 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::initializer_list&lt;std::uint32_t&gt; bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::RenderPassIds</td>
+          <td class="memname">bool editor::component::EditMap::EditCatchRegionAction::undo </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="a02177.html">EditMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">        RenderConfigDefaults&lt;Evolution::Spark&gt;::RenderPassIds</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00021">21</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a2ccde7cec92a82a863c0ae90ce995369"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ccde7cec92a82a863c0ae90ce995369">&#9670;&nbsp;</a></span>Topology</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr VkPrimitiveTopology bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00030">30</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00923_source.html#l01375">1375</a> of file <a class="el" href="a00923_source.html">MapActions.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aebd4314a07bd15957697db5ebad3e83a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aebd4314a07bd15957697db5ebad3e83a">&#9670;&nbsp;</a></span>VertexShader</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a02397.html">Evolution::Spark</a> &gt;::VertexShader</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">        <span class="stringliteral">&quot;Resources/Shaders/Particles/evolution_spark.vert.spv&quot;</span></div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a01043_source.html#l00032">32</a> of file <a class="el" href="a01043_source.html">Evolution.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Game/States/<a class="el" href="a01043_source.html">Evolution.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/Editor/Components/<a class="el" href="a00926_source.html">MapActions.hpp</a></li>
+<li>src/Editor/Components/<a class="el" href="a00923_source.html">MapActions.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

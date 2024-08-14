@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/HUD/QtyEntry.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/AI.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,161 +66,295 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li><li class="navelem"><a class="el" href="dir_eb4f631c9efc438d7f9e0601d0e06295.html">HUD</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">QtyEntry.cpp</div>  </div>
+<div class="title">AI.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00824.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00329.html">Core/Systems/HUD/QtyEntry.hpp</a>&gt;</span></div>
+<a href="a00824.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00317.html">Core/Systems/AI.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>hud</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;constexpr <span class="keywordtype">float</span> ArrowHeight = 8.f;</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02033.html#ad5804610bd2ee8ac868e848e81ad5551">   16</a></span>&#160;<a class="code" href="a02033.html#ad5804610bd2ee8ac868e848e81ad5551">QtyEntry::QtyEntry</a>(bl::engine::Engine&amp; engine)</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;: engine(engine)</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;, currentOverlay(nullptr)</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;, qty(0)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;, minQty(0)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, maxQty(0) {}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/AI/PathFinder.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Logging.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Math.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/Hashes.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00131.html">Core/Events/PathFind.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">struct </span>PositionHash {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    std::size_t operator()(<span class="keyword">const</span> bl::tmap::Position&amp; pos)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">const</span> std::size_t tileHash = bl::util::Vector2Hash&lt;int&gt;()({pos.position.x, pos.position.y});</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keywordflow">return</span> bl::util::hashCombine(tileHash, pos.level);</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;};</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> QtyEntry::ensureCreated() {</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">if</span> (background.entity() == bl::ecs::InvalidEntity) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        background.create(engine, {10.f, 10.f});</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        background.setFillColor(sf::Color::White);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        background.setOutlineColor(sf::Color::Black);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        background.setOutlineThickness(2.f);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        text.create(engine, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), <span class="stringliteral">&quot;0&quot;</span>, 20, sf::Color::Black);</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        text.setParent(background);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        upArrow.create(engine, {6.f, 0.f}, {12.f, ArrowHeight}, {0.f, ArrowHeight});</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        upArrow.setFillColor(sf::Color::Black);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        upArrow.setParent(background);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        downArrow.create(engine, {0.f, 0.f}, {12.f, 0.f}, {6.f, ArrowHeight});</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        downArrow.setFillColor(sf::Color::Black);</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        downArrow.setParent(background);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!currentOverlay ||</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        engine.renderer().getObserver().getOrCreateSceneOverlay() != currentOverlay) {</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        currentOverlay = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        background.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        text.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        upArrow.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        downArrow.addToScene(currentOverlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02033.html#a9d446e27002b25b290cd65615a51b60d">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02033.html#a9d446e27002b25b290cd65615a51b60d">QtyEntry::hide</a>() {</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) {</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        background.removeFromScene();</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        currentOverlay = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno"><a class="line" href="a02033.html#a28d989497274f72e2c18edf4ff91fc33">   60</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02033.html#a28d989497274f72e2c18edf4ff91fc33">QtyEntry::setPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos) {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    position = pos;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) {</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        background.getTransform().setPosition(position.x, position.y);</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;}</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno"><a class="line" href="a02033.html#a9840ffb7a01b22bb0dbd7f393233475c">   67</a></span>&#160;sf::Vector2f <a class="code" href="a02033.html#a9840ffb7a01b22bb0dbd7f393233475c">QtyEntry::getSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> {background.getSize().x, background.getSize().y}; }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160; </div>
-<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="a02033.html#a015e9af262756b1070f2c89fab35a9ea">   69</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02033.html#a015e9af262756b1070f2c89fab35a9ea">QtyEntry::configure</a>(<span class="keywordtype">int</span> mn, <span class="keywordtype">int</span> mx, <span class="keywordtype">int</span> q) {</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    ensureCreated();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="comment">// determine max text width</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    text.getSection().setString(std::to_string(mn));</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <span class="keywordtype">float</span> w = text.getLocalBounds().width;</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    text.getSection().setString(std::to_string(mx));</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    w = std::max(w, text.getLocalBounds().width);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160; </div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// update positions</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    background.getTransform().setPosition(position.x, position.y);</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    background.setSize(</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        {w + 12.f,</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;         ArrowHeight * 2.f + text.getLocalBounds().height + 6.f + text.getLocalBounds().top + 6.f});</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    upArrow.getTransform().setPosition(w * 0.5f, 4.f);</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    downArrow.getTransform().setPosition(w * 0.5f, background.getSize().y - ArrowHeight - 2.f);</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    text.getTransform().setPosition(0.f, ArrowHeight + 5.f);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// update data</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    qty    = q;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    minQty = mn;</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    maxQty = mx;</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    updateText();</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;}</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="keywordtype">void</span> QtyEntry::updateText() {</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    text.getSection().setString(std::to_string(qty));</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    text.getTransform().setPosition(background.getSize().x * 0.5f -</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;                                        text.getLocalBounds().width * 0.5f,</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;                                    text.getTransform().getLocalPosition().y);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    upArrow.setHidden(qty &gt;= maxQty);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    downArrow.setHidden(qty &lt;= minQty);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;}</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
-<div class="line"><a name="l00103"></a><span class="lineno"><a class="line" href="a02033.html#aa76371cec91e35cb513d508ecc387176">  103</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="a02033.html#aa76371cec91e35cb513d508ecc387176">QtyEntry::curQty</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> qty; }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a02033.html#a4b8dad15ad9090a48a910a0d8284f93a">  105</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02033.html#a4b8dad15ad9090a48a910a0d8284f93a">QtyEntry::up</a>(<span class="keywordtype">int</span> q, <span class="keywordtype">bool</span> ignore) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (rateLimit(ignore)) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    qty = std::min(maxQty, qty + q);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    bl::audio::AudioSystem::playOrRestartSound(<a class="code" href="a01933.html#a71828ece76ce4f95c13e26c9907df1af">Properties::MenuMoveSound</a>());</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    updateText();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno"><a class="line" href="a02033.html#a717f49a7212c5aafa9b97313d54acbf2">  112</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02033.html#a717f49a7212c5aafa9b97313d54acbf2">QtyEntry::down</a>(<span class="keywordtype">int</span> q, <span class="keywordtype">bool</span> ignore) {</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span> (rateLimit(ignore)) <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    qty = std::max(minQty, qty - q);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    bl::audio::AudioSystem::playOrRestartSound(<a class="code" href="a01933.html#a71828ece76ce4f95c13e26c9907df1af">Properties::MenuMoveSound</a>());</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    updateText();</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;}</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="keywordtype">bool</span> QtyEntry::rateLimit(<span class="keywordtype">bool</span> ignore) {</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keywordflow">if</span> (debounce.getElapsedTime().asSeconds() &gt;= 0.4f || ignore) {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        debounce.restart();</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    }</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;}</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;} <span class="comment">// namespace hud</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00329_html"><div class="ttname"><a href="a00329.html">QtyEntry.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01933_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00363">Properties.cpp:363</a></div></div>
-<div class="ttc" id="aa01933_html_a71828ece76ce4f95c13e26c9907df1af"><div class="ttname"><a href="a01933.html#a71828ece76ce4f95c13e26c9907df1af">core::Properties::MenuMoveSound</a></div><div class="ttdeci">static bl::audio::AudioSystem::Handle MenuMoveSound()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00702">Properties.cpp:702</a></div></div>
-<div class="ttc" id="aa02033_html_a015e9af262756b1070f2c89fab35a9ea"><div class="ttname"><a href="a02033.html#a015e9af262756b1070f2c89fab35a9ea">core::system::hud::QtyEntry::configure</a></div><div class="ttdeci">void configure(int minQty, int maxQty, int qty)</div><div class="ttdoc">Configures the entry with the given parameters and adds to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00069">QtyEntry.cpp:69</a></div></div>
-<div class="ttc" id="aa02033_html_a28d989497274f72e2c18edf4ff91fc33"><div class="ttname"><a href="a02033.html#a28d989497274f72e2c18edf4ff91fc33">core::system::hud::QtyEntry::setPosition</a></div><div class="ttdeci">void setPosition(const sf::Vector2f &amp;position)</div><div class="ttdoc">Sets the position of the selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00060">QtyEntry.cpp:60</a></div></div>
-<div class="ttc" id="aa02033_html_a4b8dad15ad9090a48a910a0d8284f93a"><div class="ttname"><a href="a02033.html#a4b8dad15ad9090a48a910a0d8284f93a">core::system::hud::QtyEntry::up</a></div><div class="ttdeci">void up(int q, bool ignoreDebounce)</div><div class="ttdoc">Increments the qty up.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00105">QtyEntry.cpp:105</a></div></div>
-<div class="ttc" id="aa02033_html_a717f49a7212c5aafa9b97313d54acbf2"><div class="ttname"><a href="a02033.html#a717f49a7212c5aafa9b97313d54acbf2">core::system::hud::QtyEntry::down</a></div><div class="ttdeci">void down(int q, bool ignoreDebounce)</div><div class="ttdoc">Decrements the qty down.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00112">QtyEntry.cpp:112</a></div></div>
-<div class="ttc" id="aa02033_html_a9840ffb7a01b22bb0dbd7f393233475c"><div class="ttname"><a href="a02033.html#a9840ffb7a01b22bb0dbd7f393233475c">core::system::hud::QtyEntry::getSize</a></div><div class="ttdeci">sf::Vector2f getSize() const</div><div class="ttdoc">Returns the size of the entry in pixels.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00067">QtyEntry.cpp:67</a></div></div>
-<div class="ttc" id="aa02033_html_a9d446e27002b25b290cd65615a51b60d"><div class="ttname"><a href="a02033.html#a9d446e27002b25b290cd65615a51b60d">core::system::hud::QtyEntry::hide</a></div><div class="ttdeci">void hide()</div><div class="ttdoc">Removes the quantity entry from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00053">QtyEntry.cpp:53</a></div></div>
-<div class="ttc" id="aa02033_html_aa76371cec91e35cb513d508ecc387176"><div class="ttname"><a href="a02033.html#aa76371cec91e35cb513d508ecc387176">core::system::hud::QtyEntry::curQty</a></div><div class="ttdeci">int curQty() const</div><div class="ttdoc">Returns the currently selected qty.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00103">QtyEntry.cpp:103</a></div></div>
-<div class="ttc" id="aa02033_html_ad5804610bd2ee8ac868e848e81ad5551"><div class="ttname"><a href="a02033.html#ad5804610bd2ee8ac868e848e81ad5551">core::system::hud::QtyEntry::QtyEntry</a></div><div class="ttdeci">QtyEntry(bl::engine::Engine &amp;engine)</div><div class="ttdoc">Construct a new quantity entry helper.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00016">QtyEntry.cpp:16</a></div></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">using</span> PathFinder = bl::ai::PathFinder&lt;bl::tmap::Position, PositionHash&gt;;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a02009.html#a6cfa6e6029611935d58e614c7fd841ec">   26</a></span>&#160;<a class="code" href="a02009.html#a6cfa6e6029611935d58e614c7fd841ec">AI::AI</a>(<a class="code" href="a02109.html">Systems</a>&amp; o)</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;: owner(o) {}</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="keywordtype">void</span> AI::init(bl::engine::Engine&amp;) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    standing  = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getOrCreateView&lt;StandingTypes&gt;();</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    spinning  = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getOrCreateView&lt;SpinTypes&gt;();</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    paths     = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getOrCreateView&lt;FixedPathTypes&gt;();</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    wandering = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getOrCreateView&lt;WanderTypes&gt;();</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;}</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="keywordtype">void</span> AI::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    standing-&gt;forEach([](StandingRow&amp; cs) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        cs.get&lt;<a class="code" href="a01445.html">component::StandingBehavior</a>&gt;()-&gt;update(*cs.get&lt;bl::tmap::Position&gt;(),</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;                                                      *cs.get&lt;<a class="code" href="a01405.html">component::Controllable</a>&gt;());</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    });</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    spinning-&gt;forEach([dt](SpinRow&amp; cs) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        cs.get&lt;component::SpinBehavior&gt;()-&gt;update(</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;            *cs.get&lt;bl::tmap::Position&gt;(), *cs.get&lt;component::Controllable&gt;(), dt);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    });</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    paths-&gt;forEach([](FixedPathRow&amp; cs) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        cs.get&lt;component::FixedPathBehavior&gt;()-&gt;update(*cs.get&lt;bl::tmap::Position&gt;(),</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;                                                       *cs.get&lt;component::Controllable&gt;());</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    });</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    wandering-&gt;forEach([dt](WanderRow&amp; cs) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        cs.get&lt;component::WanderBehavior&gt;()-&gt;update(</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            *cs.get&lt;bl::tmap::Position&gt;(), *cs.get&lt;component::Controllable&gt;(), dt);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    });</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keyword">auto</span>&amp; ecs = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    ecs.getAllComponents&lt;component::PathFinder&gt;().forEachWithWrites(</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        [<span class="keyword">this</span>, &amp;ecs](bl::ecs::Entity entity, component::PathFinder&amp; path) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> cleanup = [<span class="keyword">this</span>, entity, &amp;ecs]() {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;                ecs.removeComponent&lt;component::PathFinder&gt;(entity);</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;                owner.<a class="code" href="a02109.html#a93591789b40dcfcfb17d73c33004f83f">controllable</a>().<a class="code" href="a02025.html#a1f32ff96157e3fae74e0d0517cc74229">resetEntityLock</a>(entity);</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;            };</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;            <span class="keyword">auto</span> cs = ecs.getComponentSet&lt;bl::ecs::Require&lt;bl::tmap::Position, component::Movable&gt;&gt;(</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                entity);</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;            <span class="keywordflow">if</span> (!cs.isValid()) {</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Cannot pathfind entity without Movable/Position component: &quot;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                             &lt;&lt; entity;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;                cleanup();</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;                <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;            }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;            <span class="keywordflow">if</span> (!cs.get&lt;component::Movable&gt;()-&gt;moving()) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;                <span class="keywordflow">if</span> (path.step == path.path.size()) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;                    <span class="keywordflow">if</span> (cs.get&lt;bl::tmap::Position&gt;()-&gt;direction != path.destination.direction) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;                        owner.<a class="code" href="a02109.html#a41e33ceb29b9098d1d611b395bc8c544">movement</a>().<a class="code" href="a02085.html#a89dec9aa18e78a1ae724e793dc0cf660">moveEntity</a>(entity, path.destination.direction, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;                    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;                    cleanup();</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;                    bl::event::Dispatcher::dispatch&lt;event::PathFindCompleted&gt;({entity, <span class="keyword">true</span>});</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;                <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;                    bl::tmap::Position&amp; cpos       = *cs.get&lt;bl::tmap::Position&gt;();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;                    <span class="keyword">const</span> bl::tmap::Position&amp; npos = path.path[path.step];</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;                    ++path.step;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                    cpos.direction = bl::tmap::Position::facePosition(cpos, npos);</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;                    <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a41e33ceb29b9098d1d611b395bc8c544">movement</a>().<a class="code" href="a02085.html#a89dec9aa18e78a1ae724e793dc0cf660">moveEntity</a>(entity, cpos.direction, <span class="keyword">false</span>)) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;                        BL_LOG_INFO &lt;&lt; <span class="stringliteral">&quot;Entity path blocked, recomputing&quot;</span>;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                        <span class="keywordflow">if</span> (!findPath(entity, path)) {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to find new path, aborting&quot;</span>;</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;                            cleanup();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;                        }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;                        <span class="comment">// continue and let the motion start on the next frame</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                    }</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;                }</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            }</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        });</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno"><a class="line" href="a02009.html#ab18c59753224295a92d6b4c2aa4569f3">  100</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#ab18c59753224295a92d6b4c2aa4569f3">AI::addBehavior</a>(bl::ecs::Entity e, <span class="keyword">const</span> <a class="code" href="a01565.html">file::Behavior</a>&amp; behavior) {</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="keywordflow">switch</span> (behavior.<a class="code" href="a01565.html#aa6932ace51bea09427dd858c5f9deeb5">type</a>()) {</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90">file::Behavior::StandStill</a>:</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02009.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">makeStanding</a>(e, behavior.<a class="code" href="a01565.html#aca41efed8d546564ff12d1f7d3cfbaf0">standing</a>().<a class="code" href="a01569.html#a8eb809863053f2b762a18928d36d40ed">facedir</a>);</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1ae6cf42958535e2f8bd4b5ac3bf6773b4">file::Behavior::SpinInPlace</a>:</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02009.html#a7ee0cb800ee7509fc644db0bf719458f">makeSpinning</a>(e, behavior.<a class="code" href="a01565.html#a99c9764e8dbe01b063b9af44eb9318ad">spinning</a>().<a class="code" href="a01573.html#a6ff6adf534a6c9501948f889b44fb594">spinDir</a>);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1a1d484cd2b7bf7da96ecfedbccad6c75b">file::Behavior::FollowingPath</a>:</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02009.html#aecfcc9b237d20a7e7f7bfe91b381ceed">makeFollowPath</a>(e, behavior.<a class="code" href="a01565.html#adbb97a8a6732199a7554bd2fca970fd3">path</a>());</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1a139ef04a6b064c68dedaf415d67f086c">file::Behavior::Wandering</a>:</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="keywordflow">return</span> <a class="code" href="a02009.html#af24a059ed46ebd8201a09a3102dca54c">makeWander</a>(e, behavior.<a class="code" href="a01565.html#ac55f0f266c211ad2d257f8e85e79e412">wander</a>().<a class="code" href="a01585.html#ac9179ce64e365c5d67e3dfbbc78b9f86">radius</a>);</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    }</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160; </div>
+<div class="line"><a name="l00115"></a><span class="lineno"><a class="line" href="a02009.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">  115</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">AI::makeStanding</a>(bl::ecs::Entity e, bl::tmap::Direction dir) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(e);</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().addComponent&lt;<a class="code" href="a01445.html">component::StandingBehavior</a>&gt;(e, {dir})) {</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to add standing behavior to entity: &quot;</span> &lt;&lt; e;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    }</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;}</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
+<div class="line"><a name="l00126"></a><span class="lineno"><a class="line" href="a02009.html#a7ee0cb800ee7509fc644db0bf719458f">  126</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#a7ee0cb800ee7509fc644db0bf719458f">AI::makeSpinning</a>(bl::ecs::Entity e, <a class="code" href="a01573.html#a848d9fe437bc10ef7fea6a9bb9d8655a">file::Behavior::Spinning::Direction</a> dir) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    <a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(e);</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160; </div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().addComponent&lt;<a class="code" href="a01441.html">component::SpinBehavior</a>&gt;(e, {dir})) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to add spinning behavior to entity: &quot;</span> &lt;&lt; e;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;}</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno"><a class="line" href="a02009.html#aecfcc9b237d20a7e7f7bfe91b381ceed">  136</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#aecfcc9b237d20a7e7f7bfe91b381ceed">AI::makeFollowPath</a>(bl::ecs::Entity e, <span class="keyword">const</span> <a class="code" href="a01577.html">file::Behavior::Path</a>&amp; path) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(e);</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().addComponent&lt;<a class="code" href="a01409.html">component::FixedPathBehavior</a>&gt;(e, {path})) {</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to add fixed path behavior to entity: &quot;</span> &lt;&lt; e;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    }</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;}</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; </div>
+<div class="line"><a name="l00146"></a><span class="lineno"><a class="line" href="a02009.html#af24a059ed46ebd8201a09a3102dca54c">  146</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#af24a059ed46ebd8201a09a3102dca54c">AI::makeWander</a>(bl::ecs::Entity e, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius) {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">removeAi</a>(e);</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keyword">const</span> bl::tmap::Position* pos = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::tmap::Position&gt;(e);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;    <span class="keywordflow">if</span> (!pos) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Cannot add wander behavior to entity (&quot;</span> &lt;&lt; e</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;                     &lt;&lt; <span class="stringliteral">&quot;) without position component&quot;</span>;</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;    <span class="keywordflow">if</span> (!owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().addComponent&lt;<a class="code" href="a01453.html">component::WanderBehavior</a>&gt;(</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            e, {radius, sf::Vector2i(pos-&gt;position.x, pos-&gt;position.y)})) {</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Failed to add wander behavior to entity: &quot;</span> &lt;&lt; e;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
+<div class="line"><a name="l00164"></a><span class="lineno"><a class="line" href="a02009.html#ae37405fd7ef1b3956e4c1c7dd073abdd">  164</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02009.html#ae37405fd7ef1b3956e4c1c7dd073abdd">AI::moveToPosition</a>(bl::ecs::Entity entity, <span class="keyword">const</span> bl::tmap::Position&amp; dest) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <a class="code" href="a01405.html">component::Controllable</a>* ctrl =</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;<a class="code" href="a01405.html">component::Controllable</a>&gt;(entity);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <span class="keywordflow">if</span> (ctrl) { ctrl-&gt;<a class="code" href="a01405.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">setLocked</a>(<span class="keyword">true</span>); }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="a01425.html">component::PathFinder</a> path(dest);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">if</span> (!findPath(entity, path)) {</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        <span class="keywordflow">if</span> (ctrl) { ctrl-&gt;<a class="code" href="a01405.html#a684e622e78595232078a6a3ea4fe8ca3">resetLock</a>(); }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().emplaceComponent&lt;<a class="code" href="a01425.html">component::PathFinder</a>&gt;(entity, std::move(path));</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;}</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160; </div>
+<div class="line"><a name="l00178"></a><span class="lineno"><a class="line" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">  178</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">AI::removeAi</a>(bl::ecs::Entity ent) {</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;    owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().removeComponent&lt;<a class="code" href="a01445.html">component::StandingBehavior</a>&gt;(ent);</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().removeComponent&lt;<a class="code" href="a01441.html">component::SpinBehavior</a>&gt;(ent);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;    owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().removeComponent&lt;<a class="code" href="a01409.html">component::FixedPathBehavior</a>&gt;(ent);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;    owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().removeComponent&lt;<a class="code" href="a01453.html">component::WanderBehavior</a>&gt;(ent);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="keywordtype">bool</span> AI::findPath(bl::ecs::Entity ent, <a class="code" href="a01425.html">component::PathFinder</a>&amp; path) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    bl::tmap::Position* start = owner.<a class="code" href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().ecs().getComponent&lt;bl::tmap::Position&gt;(ent);</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <span class="keywordflow">if</span> (!start) {</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;        BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Tried to pathfind an entity without a position: &quot;</span> &lt;&lt; ent;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    }</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01805.html">map::Map</a>&amp; cmap = owner.<a class="code" href="a02109.html#ad71abe5cc74772044d51b1108df6ade4">world</a>().<a class="code" href="a02121.html#a9e7738a624376c5030f9634f4afeb759">activeMap</a>();</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keyword">const</span> Position&amp; psys = owner.<a class="code" href="a02109.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">position</a>();</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160; </div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> getAdjacent = [&amp;cmap,</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;                              &amp;psys](<span class="keyword">const</span> bl::tmap::Position&amp; pos,</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;                                     std::vector&lt;std::pair&lt;bl::tmap::Position, int&gt;&gt;&amp; adjacent) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keyword">const</span> std::array&lt;bl::tmap::Direction, 4&gt; dirs{bl::tmap::Direction::Up,</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;                                                      bl::tmap::Direction::Right,</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                                                      bl::tmap::Direction::Down,</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                                                      bl::tmap::Direction::Left};</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        bl::tmap::Position tpos(pos.level, pos.position, pos.direction);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        ;</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> bl::tmap::Direction dir : dirs) {</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;            tpos.direction = dir;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;            <span class="keywordflow">if</span> (!cmap.<a class="code" href="a01805.html#af7787ab87bea6bbd55aebb6d44dd13ba">movePossible</a>(tpos, dir)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;            <span class="keyword">const</span> bl::tmap::Position apos = cmap.<a class="code" href="a01805.html#a0b70c7190c71d276fc76abc917bbbb8d">adjacentTile</a>(tpos, dir);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;            <span class="keywordflow">if</span> (!cmap.<a class="code" href="a01805.html#a6abed109636e3b1323cf774ba11b6f44">contains</a>(apos)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;            <span class="keywordflow">if</span> (!psys.spaceFree(apos)) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;            adjacent.emplace_back(apos, 1);</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;        }</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    };</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160; </div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> estDistance = [](<span class="keyword">const</span> bl::tmap::Position&amp; p1, <span class="keyword">const</span> bl::tmap::Position&amp; p2) -&gt; <span class="keywordtype">int</span> {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span> diff = p1.position - p2.position;</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;        <span class="keyword">const</span> <span class="keywordtype">int</span> tdist = std::abs(diff.x) + std::abs(diff.y);</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        <span class="keywordflow">return</span> tdist + (p1.level &gt;= p2.level ? p1.level - p2.level : p2.level - p1.level);</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    };</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    path.<a class="code" href="a01425.html#a76a9a9f10c71f69347b056d14b7d3d8c">step</a> = 0;</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">return</span> PathFinder::findPath(*start, path.<a class="code" href="a01425.html#a17d14cf9edbf92feaa0635c14b53d91d">destination</a>, getAdjacent, estDistance, path.<a class="code" href="a01425.html#ad877ade3232920dd47b329ac0a77287e">path</a>);</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00131_html"><div class="ttname"><a href="a00131.html">PathFind.hpp</a></div></div>
+<div class="ttc" id="aa00317_html"><div class="ttname"><a href="a00317.html">AI.hpp</a></div></div>
+<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01405_html"><div class="ttname"><a href="a01405.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03277_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01405_html_a4ab44a5346c7f6c8c4ecd0884fe6b79e"><div class="ttname"><a href="a01405.html#a4ab44a5346c7f6c8c4ecd0884fe6b79e">core::component::Controllable::setLocked</a></div><div class="ttdeci">void setLocked(bool lock, bool preserve=true)</div><div class="ttdoc">Locks the controllable and prevents any commands from being processed. Optionally remembers the previ...</div><div class="ttdef"><b>Definition:</b> <a href="a03421_source.html#l00045">Controllable.cpp:45</a></div></div>
+<div class="ttc" id="aa01405_html_a684e622e78595232078a6a3ea4fe8ca3"><div class="ttname"><a href="a01405.html#a684e622e78595232078a6a3ea4fe8ca3">core::component::Controllable::resetLock</a></div><div class="ttdeci">void resetLock()</div><div class="ttdoc">Resets the lock state back to the last preserved state.</div><div class="ttdef"><b>Definition:</b> <a href="a03421_source.html#l00050">Controllable.cpp:50</a></div></div>
+<div class="ttc" id="aa01409_html"><div class="ttname"><a href="a01409.html">core::component::FixedPathBehavior</a></div><div class="ttdoc">Add this component to an entity to make it follow a fixed path.</div><div class="ttdef"><b>Definition:</b> <a href="a00080_source.html#l00017">FixedPathBehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa01425_html"><div class="ttname"><a href="a01425.html">core::component::PathFinder</a></div><div class="ttdoc">Component that dynamically navigates an entity to a specific tile. The entities Controllable componen...</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00018">PathFinder.hpp:18</a></div></div>
+<div class="ttc" id="aa01425_html_a17d14cf9edbf92feaa0635c14b53d91d"><div class="ttname"><a href="a01425.html#a17d14cf9edbf92feaa0635c14b53d91d">core::component::PathFinder::destination</a></div><div class="ttdeci">bl::tmap::Position destination</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00028">PathFinder.hpp:28</a></div></div>
+<div class="ttc" id="aa01425_html_a76a9a9f10c71f69347b056d14b7d3d8c"><div class="ttname"><a href="a01425.html#a76a9a9f10c71f69347b056d14b7d3d8c">core::component::PathFinder::step</a></div><div class="ttdeci">unsigned int step</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00030">PathFinder.hpp:30</a></div></div>
+<div class="ttc" id="aa01425_html_ad877ade3232920dd47b329ac0a77287e"><div class="ttname"><a href="a01425.html#ad877ade3232920dd47b329ac0a77287e">core::component::PathFinder::path</a></div><div class="ttdeci">std::vector&lt; bl::tmap::Position &gt; path</div><div class="ttdef"><b>Definition:</b> <a href="a00092_source.html#l00029">PathFinder.hpp:29</a></div></div>
+<div class="ttc" id="aa01441_html"><div class="ttname"><a href="a01441.html">core::component::SpinBehavior</a></div><div class="ttdoc">Add this to an entity to make it spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00017">SpinBehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa01445_html"><div class="ttname"><a href="a01445.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
+<div class="ttc" id="aa01453_html"><div class="ttname"><a href="a01453.html">core::component::WanderBehavior</a></div><div class="ttdoc">Add this component to an entity to make it wander around.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00018">WanderBehavior.hpp:18</a></div></div>
+<div class="ttc" id="aa01565_html"><div class="ttname"><a href="a01565.html">core::file::Behavior</a></div><div class="ttdoc">Set of behaviors for NPCs and trainers.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00019">Behavior.hpp:19</a></div></div>
+<div class="ttc" id="aa01565_html_a99c9764e8dbe01b063b9af44eb9318ad"><div class="ttname"><a href="a01565.html#a99c9764e8dbe01b063b9af44eb9318ad">core::file::Behavior::spinning</a></div><div class="ttdeci">Spinning &amp; spinning()</div><div class="ttdoc">The data for spinning.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00106">Behavior.cpp:106</a></div></div>
+<div class="ttc" id="aa01565_html_aa6932ace51bea09427dd858c5f9deeb5"><div class="ttname"><a href="a01565.html#aa6932ace51bea09427dd858c5f9deeb5">core::file::Behavior::type</a></div><div class="ttdeci">Type type() const</div><div class="ttdoc">The type of behavior this is.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00075">Behavior.cpp:75</a></div></div>
+<div class="ttc" id="aa01565_html_ac55f0f266c211ad2d257f8e85e79e412"><div class="ttname"><a href="a01565.html#ac55f0f266c211ad2d257f8e85e79e412">core::file::Behavior::wander</a></div><div class="ttdeci">Wander &amp; wander()</div><div class="ttdoc">The data for wandering.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00114">Behavior.cpp:114</a></div></div>
+<div class="ttc" id="aa01565_html_aca41efed8d546564ff12d1f7d3cfbaf0"><div class="ttname"><a href="a01565.html#aca41efed8d546564ff12d1f7d3cfbaf0">core::file::Behavior::standing</a></div><div class="ttdeci">Standing &amp; standing()</div><div class="ttdoc">The data for standing still.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00102">Behavior.cpp:102</a></div></div>
+<div class="ttc" id="aa01565_html_acd71b7b95ca61f055f30cc3bc6fb91f1a139ef04a6b064c68dedaf415d67f086c"><div class="ttname"><a href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1a139ef04a6b064c68dedaf415d67f086c">core::file::Behavior::Wandering</a></div><div class="ttdeci">@ Wandering</div><div class="ttdoc">The character is allowed to wander freely.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00034">Behavior.hpp:33</a></div></div>
+<div class="ttc" id="aa01565_html_acd71b7b95ca61f055f30cc3bc6fb91f1a1d484cd2b7bf7da96ecfedbccad6c75b"><div class="ttname"><a href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1a1d484cd2b7bf7da96ecfedbccad6c75b">core::file::Behavior::FollowingPath</a></div><div class="ttdeci">@ FollowingPath</div><div class="ttdoc">The character will follow a preset path.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00030">Behavior.hpp:30</a></div></div>
+<div class="ttc" id="aa01565_html_acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90"><div class="ttname"><a href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90">core::file::Behavior::StandStill</a></div><div class="ttdeci">@ StandStill</div><div class="ttdoc">The character will stand and face a given direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00024">Behavior.hpp:24</a></div></div>
+<div class="ttc" id="aa01565_html_acd71b7b95ca61f055f30cc3bc6fb91f1ae6cf42958535e2f8bd4b5ac3bf6773b4"><div class="ttname"><a href="a01565.html#acd71b7b95ca61f055f30cc3bc6fb91f1ae6cf42958535e2f8bd4b5ac3bf6773b4">core::file::Behavior::SpinInPlace</a></div><div class="ttdeci">@ SpinInPlace</div><div class="ttdoc">The character will spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00027">Behavior.hpp:27</a></div></div>
+<div class="ttc" id="aa01565_html_adbb97a8a6732199a7554bd2fca970fd3"><div class="ttname"><a href="a01565.html#adbb97a8a6732199a7554bd2fca970fd3">core::file::Behavior::path</a></div><div class="ttdeci">Path &amp; path()</div><div class="ttdoc">The data for path following.</div><div class="ttdef"><b>Definition:</b> <a href="a00671_source.html#l00110">Behavior.cpp:110</a></div></div>
+<div class="ttc" id="aa01569_html_a8eb809863053f2b762a18928d36d40ed"><div class="ttname"><a href="a01569.html#a8eb809863053f2b762a18928d36d40ed">core::file::Behavior::Standing::facedir</a></div><div class="ttdeci">bl::tmap::Direction facedir</div><div class="ttdoc">The direction to face.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00039">Behavior.hpp:39</a></div></div>
+<div class="ttc" id="aa01573_html_a6ff6adf534a6c9501948f889b44fb594"><div class="ttname"><a href="a01573.html#a6ff6adf534a6c9501948f889b44fb594">core::file::Behavior::Spinning::spinDir</a></div><div class="ttdeci">enum core::file::Behavior::Spinning::Direction spinDir</div></div>
+<div class="ttc" id="aa01573_html_a848d9fe437bc10ef7fea6a9bb9d8655a"><div class="ttname"><a href="a01573.html#a848d9fe437bc10ef7fea6a9bb9d8655a">core::file::Behavior::Spinning::Direction</a></div><div class="ttdeci">Direction</div><div class="ttdoc">The direction to spin.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00051">Behavior.hpp:51</a></div></div>
+<div class="ttc" id="aa01577_html"><div class="ttname"><a href="a01577.html">core::file::Behavior::Path</a></div><div class="ttdoc">Contains data for when the behavior type is following a path.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00070">Behavior.hpp:70</a></div></div>
+<div class="ttc" id="aa01585_html_ac9179ce64e365c5d67e3dfbbc78b9f86"><div class="ttname"><a href="a01585.html#ac9179ce64e365c5d67e3dfbbc78b9f86">core::file::Behavior::Wander::radius</a></div><div class="ttdeci">std::uint32_t radius</div><div class="ttdoc">The radius to stay within, in tiles.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00107">Behavior.hpp:107</a></div></div>
+<div class="ttc" id="aa01805_html"><div class="ttname"><a href="a01805.html">core::map::Map</a></div><div class="ttdoc">The primary map class that represents a usable map in the game.</div><div class="ttdef"><b>Definition:</b> <a href="a03352_source.html#l00049">Map.hpp:49</a></div></div>
+<div class="ttc" id="aa01805_html_a0b70c7190c71d276fc76abc917bbbb8d"><div class="ttname"><a href="a01805.html#a0b70c7190c71d276fc76abc917bbbb8d">core::map::Map::adjacentTile</a></div><div class="ttdeci">bl::tmap::Position adjacentTile(const bl::tmap::Position &amp;pos, bl::tmap::Direction dir) const</div><div class="ttdoc">Returns the adjacent position to the given position when moving in the given direction....</div><div class="ttdef"><b>Definition:</b> <a href="a03448_source.html#l00276">Map.cpp:276</a></div></div>
+<div class="ttc" id="aa01805_html_a6abed109636e3b1323cf774ba11b6f44"><div class="ttname"><a href="a01805.html#a6abed109636e3b1323cf774ba11b6f44">core::map::Map::contains</a></div><div class="ttdeci">bool contains(const bl::tmap::Position &amp;position) const</div><div class="ttdoc">Returns whether or not the map contains the given position.</div><div class="ttdef"><b>Definition:</b> <a href="a03448_source.html#l00271">Map.cpp:271</a></div></div>
+<div class="ttc" id="aa01805_html_af7787ab87bea6bbd55aebb6d44dd13ba"><div class="ttname"><a href="a01805.html#af7787ab87bea6bbd55aebb6d44dd13ba">core::map::Map::movePossible</a></div><div class="ttdeci">bool movePossible(const bl::tmap::Position &amp;position, bl::tmap::Direction dir) const</div><div class="ttdoc">Returns whether or not a particular movement is possible. Does not take into account entities blockin...</div><div class="ttdef"><b>Definition:</b> <a href="a03448_source.html#l00329">Map.cpp:329</a></div></div>
+<div class="ttc" id="aa02009_html_a6cfa6e6029611935d58e614c7fd841ec"><div class="ttname"><a href="a02009.html#a6cfa6e6029611935d58e614c7fd841ec">core::system::AI::AI</a></div><div class="ttdeci">AI(Systems &amp;owner)</div><div class="ttdoc">Construct a new AI system.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00026">AI.cpp:26</a></div></div>
+<div class="ttc" id="aa02009_html_a73cd3a7b19fb9c10d6c85299956ab0ca"><div class="ttname"><a href="a02009.html#a73cd3a7b19fb9c10d6c85299956ab0ca">core::system::AI::removeAi</a></div><div class="ttdeci">void removeAi(bl::ecs::Entity ent)</div><div class="ttdoc">Removes any ai behavior from the given entity. Does not affect path finding.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00178">AI.cpp:178</a></div></div>
+<div class="ttc" id="aa02009_html_a7ee0cb800ee7509fc644db0bf719458f"><div class="ttname"><a href="a02009.html#a7ee0cb800ee7509fc644db0bf719458f">core::system::AI::makeSpinning</a></div><div class="ttdeci">bool makeSpinning(bl::ecs::Entity entity, file::Behavior::Spinning::Direction dir)</div><div class="ttdoc">Makes the given entity spin in place. Replaces any existing behavior.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00126">AI.cpp:126</a></div></div>
+<div class="ttc" id="aa02009_html_ab18c59753224295a92d6b4c2aa4569f3"><div class="ttname"><a href="a02009.html#ab18c59753224295a92d6b4c2aa4569f3">core::system::AI::addBehavior</a></div><div class="ttdeci">bool addBehavior(bl::ecs::Entity entity, const file::Behavior &amp;behavior)</div><div class="ttdoc">Helper function for adding the given behavior to the given entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00100">AI.cpp:100</a></div></div>
+<div class="ttc" id="aa02009_html_ae04faf4dd4d3c18d1ed4f7498dc09f68"><div class="ttname"><a href="a02009.html#ae04faf4dd4d3c18d1ed4f7498dc09f68">core::system::AI::makeStanding</a></div><div class="ttdeci">bool makeStanding(bl::ecs::Entity entity, bl::tmap::Direction dir)</div><div class="ttdoc">Makes the given entity stand in place. Replaces any existing behavior on the entity.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00115">AI.cpp:115</a></div></div>
+<div class="ttc" id="aa02009_html_ae37405fd7ef1b3956e4c1c7dd073abdd"><div class="ttname"><a href="a02009.html#ae37405fd7ef1b3956e4c1c7dd073abdd">core::system::AI::moveToPosition</a></div><div class="ttdeci">bool moveToPosition(bl::ecs::Entity entity, const bl::tmap::Position &amp;dest)</div><div class="ttdoc">Uses a pathfinder to navigate the entity to the given position and end up facing the given direction....</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00164">AI.cpp:164</a></div></div>
+<div class="ttc" id="aa02009_html_aecfcc9b237d20a7e7f7bfe91b381ceed"><div class="ttname"><a href="a02009.html#aecfcc9b237d20a7e7f7bfe91b381ceed">core::system::AI::makeFollowPath</a></div><div class="ttdeci">bool makeFollowPath(bl::ecs::Entity entity, const file::Behavior::Path &amp;path)</div><div class="ttdoc">Make the entity follow a fixed path. Replaces existing behavior.</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00136">AI.cpp:136</a></div></div>
+<div class="ttc" id="aa02009_html_af24a059ed46ebd8201a09a3102dca54c"><div class="ttname"><a href="a02009.html#af24a059ed46ebd8201a09a3102dca54c">core::system::AI::makeWander</a></div><div class="ttdeci">bool makeWander(bl::ecs::Entity entity, unsigned int radius)</div><div class="ttdoc">Makes the given entity wander around within the given radius. Replaces any existing behavior the enti...</div><div class="ttdef"><b>Definition:</b> <a href="a00824_source.html#l00146">AI.cpp:146</a></div></div>
+<div class="ttc" id="aa02025_html_a1f32ff96157e3fae74e0d0517cc74229"><div class="ttname"><a href="a02025.html#a1f32ff96157e3fae74e0d0517cc74229">core::system::Controllable::resetEntityLock</a></div><div class="ttdeci">bool resetEntityLock(bl::ecs::Entity entity)</div><div class="ttdoc">Resets the given entity's lock state to the last remembered value.</div><div class="ttdef"><b>Definition:</b> <a href="a03424_source.html#l00026">Controllable.cpp:26</a></div></div>
+<div class="ttc" id="aa02085_html_a89dec9aa18e78a1ae724e793dc0cf660"><div class="ttname"><a href="a02085.html#a89dec9aa18e78a1ae724e793dc0cf660">core::system::Movement::moveEntity</a></div><div class="ttdeci">bool moveEntity(bl::ecs::Entity entity, bl::tmap::Direction direction, bool fast)</div><div class="ttdoc">Moves an entity in the given direction using either its fast or slow speed.</div><div class="ttdef"><b>Definition:</b> <a href="a00848_source.html#l00027">Movement.cpp:27</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02109_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02109.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00035">Systems.cpp:35</a></div></div>
+<div class="ttc" id="aa02109_html_a41e33ceb29b9098d1d611b395bc8c544"><div class="ttname"><a href="a02109.html#a41e33ceb29b9098d1d611b395bc8c544">core::system::Systems::movement</a></div><div class="ttdeci">Movement &amp; movement()</div><div class="ttdoc">Returns a reference to the movement system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00051">Systems.cpp:51</a></div></div>
+<div class="ttc" id="aa02109_html_a77a77d45e2bddf8fd0e4e4d2f693bc9f"><div class="ttname"><a href="a02109.html#a77a77d45e2bddf8fd0e4e4d2f693bc9f">core::system::Systems::position</a></div><div class="ttdeci">Position &amp; position()</div><div class="ttdoc">Returns a reference to the position system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00047">Systems.cpp:47</a></div></div>
+<div class="ttc" id="aa02109_html_a93591789b40dcfcfb17d73c33004f83f"><div class="ttname"><a href="a02109.html#a93591789b40dcfcfb17d73c33004f83f">core::system::Systems::controllable</a></div><div class="ttdeci">Controllable &amp; controllable()</div><div class="ttdoc">Returns the controllable entity system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00063">Systems.cpp:63</a></div></div>
+<div class="ttc" id="aa02109_html_ad71abe5cc74772044d51b1108df6ade4"><div class="ttname"><a href="a02109.html#ad71abe5cc74772044d51b1108df6ade4">core::system::Systems::world</a></div><div class="ttdeci">World &amp; world()</div><div class="ttdoc">Modifiable accessor for the world system.</div><div class="ttdef"><b>Definition:</b> <a href="a00863_source.html#l00043">Systems.cpp:43</a></div></div>
+<div class="ttc" id="aa02121_html_a9e7738a624376c5030f9634f4afeb759"><div class="ttname"><a href="a02121.html#a9e7738a624376c5030f9634f4afeb759">core::system::World::activeMap</a></div><div class="ttdeci">map::Map &amp; activeMap()</div><div class="ttdoc">Returns a reference to the active map.</div><div class="ttdef"><b>Definition:</b> <a href="a00869_source.html#l00084">World.cpp:84</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

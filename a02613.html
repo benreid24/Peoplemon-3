@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::pcl::RenderConfigMap&lt; Snowflake &gt; Struct Reference</title>
+<title>Peoplemon: core::map::weather::Rain Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,108 +66,104 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01107.html">bl</a></li><li class="navelem"><a class="el" href="a01108.html">pcl</a></li><li class="navelem"><a class="el" href="a02613.html">RenderConfigMap&lt; Snowflake &gt;</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01134.html">map</a></li><li class="navelem"><a class="el" href="a01142.html">weather</a></li><li class="navelem"><a class="el" href="a02613.html">Rain</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#pub-types">Public Types</a> &#124;
-<a href="#pub-static-attribs">Static Public Attributes</a> &#124;
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="a02610.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">bl::pcl::RenderConfigMap&lt; Snowflake &gt; Struct Reference</div>  </div>
+<div class="title">core::map::weather::Rain Class Reference<div class="ingroups"><a class="el" href="a01103.html">Core</a> &raquo; <a class="el" href="a01111.html">Maps</a> &raquo; <a class="el" href="a01122.html">Weather</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p><a class="el" href="a01857.html" title="Parent weather system for maps. Manages active weather.">Weather</a> type for rainy days. Handles light and hard rain and owns thunder if need be.  
+ <a href="a02613.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="a00728_source.html">Rain.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for core::map::weather::Rain:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02613.png" usemap="#core::map::weather::Rain_map" alt=""/>
+  <map id="core::map::weather::Rain_map" name="core::map::weather::Rain_map">
+<area href="a02541.html" title="Base class for all weather types." alt="core::map::weather::Base" shape="rect" coords="0,0,152,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:aafc99f828cff24abd078ac3014141988"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#aafc99f828cff24abd078ac3014141988">GlobalShaderPayload</a> = <a class="el" href="a01108.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a></td></tr>
-<tr class="separator:aafc99f828cff24abd078ac3014141988"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7b23ce803d5a768e7ca0c3c5c25cfb65"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a7b23ce803d5a768e7ca0c3c5c25cfb65">DescriptorSets</a> = bl::pcl::RenderConfigDescriptorList&lt; bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a>, <a class="el" href="a01108.html#aa82bb68c57ad1411ba17435962f0d573">GpuSnowflake</a> &gt; &gt;</td></tr>
-<tr class="separator:a7b23ce803d5a768e7ca0c3c5c25cfb65"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
-Static Public Attributes</h2></td></tr>
-<tr class="memitem:aa856486a66497ba40cd67ca01f39ebed"><td class="memItemLeft" align="right" valign="top">static constexpr std::uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#aa856486a66497ba40cd67ca01f39ebed">PipelineId</a> = <a class="el" href="a01933.html#a3e872f5ce09962959a631d9f0179d4b0">core::Properties::SnowflakePipelineId</a></td></tr>
-<tr class="separator:aa856486a66497ba40cd67ca01f39ebed"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa35a21add061b9d489eb5d409c1ec158"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#aa35a21add061b9d489eb5d409c1ec158">ContainsTransparency</a> = true</td></tr>
-<tr class="separator:aa35a21add061b9d489eb5d409c1ec158"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9b81189c1f5250f812396cc44773529"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#aa9b81189c1f5250f812396cc44773529">CreateRenderPipeline</a> = true</td></tr>
-<tr class="separator:aa9b81189c1f5250f812396cc44773529"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adfd1540f46923a88c1225d8ac6c8cf70"><td class="memItemLeft" align="right" valign="top">static constexpr std::initializer_list&lt; std::uint32_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#adfd1540f46923a88c1225d8ac6c8cf70">RenderPassIds</a></td></tr>
-<tr class="separator:adfd1540f46923a88c1225d8ac6c8cf70"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a127060c2b21bece311f9cc67da5f1fca"><td class="memItemLeft" align="right" valign="top">static constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a127060c2b21bece311f9cc67da5f1fca">EnableDepthTesting</a> = true</td></tr>
-<tr class="separator:a127060c2b21bece311f9cc67da5f1fca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a961e34db4fed02d3ef23b486cfe4b557"><td class="memItemLeft" align="right" valign="top">static constexpr VkPrimitiveTopology&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a961e34db4fed02d3ef23b486cfe4b557">Topology</a> = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td></tr>
-<tr class="separator:a961e34db4fed02d3ef23b486cfe4b557"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a457a4b7dd48e4b3b69ca8a60e954d2b2"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a457a4b7dd48e4b3b69ca8a60e954d2b2">VertexShader</a> = &quot;Resources/Shaders/Particles/snowflake.vert.spv&quot;</td></tr>
-<tr class="separator:a457a4b7dd48e4b3b69ca8a60e954d2b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a253d8893f1e0df92c774d819bdab74c1"><td class="memItemLeft" align="right" valign="top">static constexpr const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a253d8893f1e0df92c774d819bdab74c1">FragmentShader</a></td></tr>
-<tr class="separator:a253d8893f1e0df92c774d819bdab74c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a6eb323fb81944530506583b7ffda4392"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a6eb323fb81944530506583b7ffda4392">Rain</a> (bool hard, bool thunder)</td></tr>
+<tr class="memdesc:a6eb323fb81944530506583b7ffda4392"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02613.html" title="Weather type for rainy days. Handles light and hard rain and owns thunder if need be.">Rain</a> system.  <a href="a02613.html#a6eb323fb81944530506583b7ffda4392">More...</a><br /></td></tr>
+<tr class="separator:a6eb323fb81944530506583b7ffda4392"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a82885718014cb1e2d87f5c1fcb3f31cb"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a82885718014cb1e2d87f5c1fcb3f31cb">~Rain</a> ()</td></tr>
+<tr class="memdesc:a82885718014cb1e2d87f5c1fcb3f31cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02613.html" title="Weather type for rainy days. Handles light and hard rain and owns thunder if need be.">Rain</a>.  <a href="a02613.html#a82885718014cb1e2d87f5c1fcb3f31cb">More...</a><br /></td></tr>
+<tr class="separator:a82885718014cb1e2d87f5c1fcb3f31cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a401fbef52b8a04f28d13ff4d5812a0bc"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a401fbef52b8a04f28d13ff4d5812a0bc">type</a> () const override</td></tr>
+<tr class="memdesc:a401fbef52b8a04f28d13ff4d5812a0bc"><td class="mdescLeft">&#160;</td><td class="mdescRight">One of LightRain, LightRainThunder, HardRain, or HardRainThunder.  <a href="a02613.html#a401fbef52b8a04f28d13ff4d5812a0bc">More...</a><br /></td></tr>
+<tr class="separator:a401fbef52b8a04f28d13ff4d5812a0bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3aac3a8f2ad2f46116f50b056ecc87aa"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a3aac3a8f2ad2f46116f50b056ecc87aa">start</a> (bl::engine::Engine &amp;engine, bl::rc::RenderTarget &amp;renderTarget, <a class="el" href="a01805.html">Map</a> &amp;map) override</td></tr>
+<tr class="memdesc:a3aac3a8f2ad2f46116f50b056ecc87aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the rain.  <a href="a02613.html#a3aac3a8f2ad2f46116f50b056ecc87aa">More...</a><br /></td></tr>
+<tr class="separator:a3aac3a8f2ad2f46116f50b056ecc87aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e2c26d2a0bc7bbcfe34b986bf511936"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a1e2c26d2a0bc7bbcfe34b986bf511936">stop</a> () override</td></tr>
+<tr class="memdesc:a1e2c26d2a0bc7bbcfe34b986bf511936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stop the rain.  <a href="a02613.html#a1e2c26d2a0bc7bbcfe34b986bf511936">More...</a><br /></td></tr>
+<tr class="separator:a1e2c26d2a0bc7bbcfe34b986bf511936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a264b133ab12761b7e6f8dc3e93a5b0aa"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#a264b133ab12761b7e6f8dc3e93a5b0aa">stopped</a> () const override</td></tr>
+<tr class="memdesc:a264b133ab12761b7e6f8dc3e93a5b0aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true when all rain is fallen after <a class="el" href="a02613.html#a1e2c26d2a0bc7bbcfe34b986bf511936" title="Stop the rain.">stop()</a> is called.  <a href="a02613.html#a264b133ab12761b7e6f8dc3e93a5b0aa">More...</a><br /></td></tr>
+<tr class="separator:a264b133ab12761b7e6f8dc3e93a5b0aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae97c2b16cce4438446990321c3c41dbe"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html#ae97c2b16cce4438446990321c3c41dbe">update</a> (float dt) override</td></tr>
+<tr class="memdesc:ae97c2b16cce4438446990321c3c41dbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the rain.  <a href="a02613.html#ae97c2b16cce4438446990321c3c41dbe">More...</a><br /></td></tr>
+<tr class="separator:ae97c2b16cce4438446990321c3c41dbe"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00079">79</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-</div><h2 class="groupheader">Member Typedef Documentation</h2>
-<a id="a7b23ce803d5a768e7ca0c3c5c25cfb65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b23ce803d5a768e7ca0c3c5c25cfb65">&#9670;&nbsp;</a></span>DescriptorSets</h2>
+<div class="textblock"><p><a class="el" href="a01857.html" title="Parent weather system for maps. Manages active weather.">Weather</a> type for rainy days. Handles light and hard rain and owns thunder if need be. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00728_source.html#l00034">34</a> of file <a class="el" href="a00728_source.html">Rain.hpp</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a6eb323fb81944530506583b7ffda4392"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6eb323fb81944530506583b7ffda4392">&#9670;&nbsp;</a></span>Rain()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::<a class="el" href="a02613.html#a7b23ce803d5a768e7ca0c3c5c25cfb65">DescriptorSets</a> =  bl::pcl::RenderConfigDescriptorList&lt;bl::rc::ds::TexturePoolFactory, bl::rc::ds::Scene2DFactory, bl::pcl::DescriptorSetFactory&lt;<a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a>, <a class="el" href="a01108.html#aa82bb68c57ad1411ba17435962f0d573">GpuSnowflake</a>&gt; &gt;</td>
+          <td class="memname">core::map::weather::Rain::Rain </td>
+          <td>(</td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>hard</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00089">89</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aafc99f828cff24abd078ac3014141988"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafc99f828cff24abd078ac3014141988">&#9670;&nbsp;</a></span>GlobalShaderPayload</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">using bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::<a class="el" href="a02613.html#aafc99f828cff24abd078ac3014141988">GlobalShaderPayload</a> =  <a class="el" href="a01108.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a></td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>thunder</em>&#160;</td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00088">88</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="aa35a21add061b9d489eb5d409c1ec158"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa35a21add061b9d489eb5d409c1ec158">&#9670;&nbsp;</a></span>ContainsTransparency</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::ContainsTransparency = true</td>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00081">81</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+<p>Construct a new <a class="el" href="a02613.html" title="Weather type for rainy days. Handles light and hard rain and owns thunder if need be.">Rain</a> system. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">hard</td><td>True to make hard rain, false for light </td></tr>
+    <tr><td class="paramname">thunder</td><td>True for periodic thunder, false for no thunder </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00196">196</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa9b81189c1f5250f812396cc44773529"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9b81189c1f5250f812396cc44773529">&#9670;&nbsp;</a></span>CreateRenderPipeline</h2>
+<a id="a82885718014cb1e2d87f5c1fcb3f31cb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a82885718014cb1e2d87f5c1fcb3f31cb">&#9670;&nbsp;</a></span>~Rain()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -176,22 +172,28 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::CreateRenderPipeline = true</td>
+          <td class="memname">core::map::weather::Rain::~Rain </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00083">83</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+<p>Destroy the <a class="el" href="a02613.html" title="Weather type for rainy days. Handles light and hard rain and owns thunder if need be.">Rain</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00212">212</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a127060c2b21bece311f9cc67da5f1fca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a127060c2b21bece311f9cc67da5f1fca">&#9670;&nbsp;</a></span>EnableDepthTesting</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a3aac3a8f2ad2f46116f50b056ecc87aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3aac3a8f2ad2f46116f50b056ecc87aa">&#9670;&nbsp;</a></span>start()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -200,22 +202,54 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr bool bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::EnableDepthTesting = true</td>
+          <td class="memname">void core::map::weather::Rain::start </td>
+          <td>(</td>
+          <td class="paramtype">bl::engine::Engine &amp;&#160;</td>
+          <td class="paramname"><em>engine</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bl::rc::RenderTarget &amp;&#160;</td>
+          <td class="paramname"><em>renderTarget</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01805.html">Map</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00094">94</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+<p>Start the rain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">engine</td><td>The game engine instance </td></tr>
+    <tr><td class="paramname">renderTarget</td><td>The render target the weather will be rendered to </td></tr>
+    <tr><td class="paramname">map</td><td>The map the weather is in </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02541.html#ab67efd651f188f1cf08c921f24ef0d50">core::map::weather::Base</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00220">220</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a253d8893f1e0df92c774d819bdab74c1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a253d8893f1e0df92c774d819bdab74c1">&#9670;&nbsp;</a></span>FragmentShader</h2>
+<a id="a1e2c26d2a0bc7bbcfe34b986bf511936"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e2c26d2a0bc7bbcfe34b986bf511936">&#9670;&nbsp;</a></span>stop()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -224,24 +258,29 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::FragmentShader</td>
+          <td class="memname">void core::map::weather::Rain::stop </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">        bl::rc::Config::ShaderIds::Fragment2DRotatedParticle</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00097">97</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+
+<p>Stop the rain. </p>
+
+<p>Implements <a class="el" href="a02541.html#adea1271d369903e717e122178f312034">core::map::weather::Base</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00257">257</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="aa856486a66497ba40cd67ca01f39ebed"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa856486a66497ba40cd67ca01f39ebed">&#9670;&nbsp;</a></span>PipelineId</h2>
+<a id="a264b133ab12761b7e6f8dc3e93a5b0aa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a264b133ab12761b7e6f8dc3e93a5b0aa">&#9670;&nbsp;</a></span>stopped()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,22 +289,30 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::uint32_t bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::PipelineId = <a class="el" href="a01933.html#a3e872f5ce09962959a631d9f0179d4b0">core::Properties::SnowflakePipelineId</a></td>
+          <td class="memname">bool core::map::weather::Rain::stopped </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00080">80</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+<p>Returns true when all rain is fallen after <a class="el" href="a02613.html#a1e2c26d2a0bc7bbcfe34b986bf511936" title="Stop the rain.">stop()</a> is called. </p>
+<dl class="section return"><dt>Returns</dt><dd>True if rain done terminating, false if rain still falling </dd></dl>
+
+<p>Implements <a class="el" href="a02541.html#a322285a2f2aedb30791f826f4e45278b">core::map::weather::Base</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00263">263</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="adfd1540f46923a88c1225d8ac6c8cf70"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfd1540f46923a88c1225d8ac6c8cf70">&#9670;&nbsp;</a></span>RenderPassIds</h2>
+<a id="a401fbef52b8a04f28d13ff4d5812a0bc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a401fbef52b8a04f28d13ff4d5812a0bc">&#9670;&nbsp;</a></span>type()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -274,24 +321,29 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr std::initializer_list&lt;std::uint32_t&gt; bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::RenderPassIds</td>
+          <td class="memname"><a class="el" href="a01857.html#a1be4194375652797f8c87a7881b2ff3d">Weather::Type</a> core::map::weather::Rain::type </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">=</div>
-<div class="line">        bl::pcl::RenderConfigDefaults&lt;Snowflake&gt;::RenderPassIds</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00085">85</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+
+<p>One of LightRain, LightRainThunder, HardRain, or HardRainThunder. </p>
+
+<p>Implements <a class="el" href="a02541.html#af408f0694287fd7c7c2060de024b20d7">core::map::weather::Base</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00218">218</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a961e34db4fed02d3ef23b486cfe4b557"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a961e34db4fed02d3ef23b486cfe4b557">&#9670;&nbsp;</a></span>Topology</h2>
+<a id="ae97c2b16cce4438446990321c3c41dbe"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae97c2b16cce4438446990321c3c41dbe">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -300,52 +352,43 @@ Static Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">constexpr VkPrimitiveTopology bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::Topology = VK_PRIMITIVE_TOPOLOGY_POINT_LIST</td>
+          <td class="memname">void core::map::weather::Rain::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00095">95</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
+<p>Updates the rain. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed since last call to update, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02541.html#a60aa031cb8b915c59cda8bc809af1d31">core::map::weather::Base</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00265">265</a> of file <a class="el" href="a00725_source.html">Rain.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a457a4b7dd48e4b3b69ca8a60e954d2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a457a4b7dd48e4b3b69ca8a60e954d2b2">&#9670;&nbsp;</a></span>VertexShader</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">constexpr const char* bl::pcl::RenderConfigMap&lt; <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> &gt;::VertexShader = &quot;Resources/Shaders/Particles/snowflake.vert.spv&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span><span class="mlabel">constexpr</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00096">96</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-
-</div>
-</div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>src/Core/Maps/Weather/<a class="el" href="a00725_source.html">Snow.cpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>src/Core/Maps/Weather/<a class="el" href="a00728_source.html">Rain.hpp</a></li>
+<li>src/Core/Maps/Weather/<a class="el" href="a00725_source.html">Rain.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

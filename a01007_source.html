@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/Menus/PeopledexRow.cpp Source File</title>
+<title>Peoplemon: src/Editor/Pages/Subpages/LevelTransitions.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,142 +66,100 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_7dcf36a62d3315b9c9e8a1eee995a4a4.html">Menus</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_cb88133ef9b61a004a5ddb3e6b99b47e.html">Pages</a></li><li class="navelem"><a class="el" href="dir_4f6d59bc35823594d40b8f208c64723b.html">Subpages</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">PeopledexRow.cpp</div>  </div>
+<div class="title">LevelTransitions.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01007.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00500.html">Game/Menus/PeopledexRow.hpp</a>&gt;</span></div>
+<a href="a01007.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00491.html">Editor/Pages/Subpages/LevelTransitions.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03283.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Utilities.hpp&gt;</span></div>
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>menu</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;std::string toString(<a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl) {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    std::string r = std::to_string(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(ppl));</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keywordflow">while</span> (r.size() &lt; 3) { r.insert(0, <span class="stringliteral">&quot;0&quot;</span>); }</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> <span class="stringliteral">&quot;No&quot;</span> + r;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="a02341.html#a8eaaf17144df9e3488557c6b2f6173b8">   20</a></span>&#160;<a class="code" href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">PeopledexRow::Ptr</a> <a class="code" href="a02341.html#a8eaaf17144df9e3488557c6b2f6173b8">PeopledexRow::create</a>(<a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01921.html">core::player::Peopledex</a>&amp; dex) {</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">Ptr</a>{<span class="keyword">new</span> <a class="code" href="a02341.html">PeopledexRow</a>(ppl, dex)};</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00395.html">Editor/Components/HighlightRadioButton.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01139.html">editor</a></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>page</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">using</span> <a class="code" href="a01111.html#gacd6894855472f8b22d022ece25eda9b4">core::map::LevelTransition</a>;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">using namespace </span>bl::gui;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">const</span> std::pair&lt;std::string, LevelTransition&gt; source[] = {</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    {<span class="stringliteral">&quot;EditorResources/LevelTransitions/horUpLeft.png&quot;</span>, LevelTransition::HorizontalRightDown},</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {<span class="stringliteral">&quot;EditorResources/LevelTransitions/horUpRight.png&quot;</span>, LevelTransition::HorizontalRightUp},</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    {<span class="stringliteral">&quot;EditorResources/LevelTransitions/vertUpDown.png&quot;</span>, LevelTransition::VerticalTopDown},</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    {<span class="stringliteral">&quot;EditorResources/LevelTransitions/vertUpUp.png&quot;</span>, LevelTransition::VerticalTopUp}};</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">const</span> std::size_t sourceN = std::size(source);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;} <span class="comment">// namespace</span></div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160; </div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;PeopledexRow::PeopledexRow(<a class="code" href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl, <span class="keyword">const</span> <a class="code" href="a01921.html">core::player::Peopledex</a>&amp; dex)</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;: ppl(ppl)</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;, dex(dex) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    getSignal(Item::Selected).willAlwaysCall(std::bind(&amp;PeopledexRow::makeActive, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    getSignal(Item::Deselected).willAlwaysCall(std::bind(&amp;PeopledexRow::makeInactive, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="a02341.html#a51a273191035498752f7109766591ded">   31</a></span>&#160;glm::vec2 <a class="code" href="a02341.html#a51a273191035498752f7109766591ded">PeopledexRow::getSize</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> bgndTxtr-&gt;size(); }</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="a02341.html#a45fcd7ec3571460c32cf7d2464b28e5b">   33</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02341.html#a45fcd7ec3571460c32cf7d2464b28e5b">PeopledexRow::doCreate</a>(bl::engine::Engine&amp; engine) {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> intel  = dex.<a class="code" href="a01921.html#a266e81d1213eebdece583a0d712344a2">getIntelLevel</a>(ppl);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">bool</span> caught = dex.<a class="code" href="a01921.html#a96a9bddc02e5a581271e90c2f7fd9740">getCaught</a>(ppl) &gt; 0;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keyword">const</span> std::string&amp; ImgPath = <a class="code" href="a01933.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a>();</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">auto</span>&amp; jp                   = bl::util::FileUtil::joinPath;</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    bgndTxtr = engine.renderer().texturePool().getOrLoadTexture(jp(ImgPath, <span class="stringliteral">&quot;Peopledex/item.png&quot;</span>));</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    activeBgndTxtr =</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        engine.renderer().texturePool().getOrLoadTexture(jp(ImgPath, <span class="stringliteral">&quot;Peopledex/itemActive.png&quot;</span>));</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    background.create(engine, bgndTxtr);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> mid = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(bgndTxtr-&gt;size().y) * 0.5f;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    ballTxtr = engine.renderer().texturePool().getOrLoadTexture(</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        jp(<a class="code" href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a>(), <span class="stringliteral">&quot;item.png&quot;</span>));</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    constexpr <span class="keywordtype">float</span> BallX = 26.f;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> bw        = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(ballTxtr-&gt;size().x) * 0.5f;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (caught) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        ball.create(engine, ballTxtr);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        ball.getTransform().setOrigin(ballTxtr-&gt;size() * 0.5f);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        ball.getTransform().setPosition({BallX, mid});</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        ball.setParent(background);</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordtype">id</span>.create(engine, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a>(), toString(ppl), 14, sf::Color::Black);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordtype">id</span>.getTransform().setPosition(bw + BallX, mid);</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">id</span>.getTransform().setOrigin(0.f,</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;                                <span class="keywordtype">id</span>.getLocalBounds().height * 0.5f + <span class="keywordtype">id</span>.getLocalBounds().top * 0.5f);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordtype">id</span>.setParent(background);</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    name.create(engine,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;                <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a>(),</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;                intel != <a class="code" href="a01921.html#af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06">core::player::Peopledex::NoIntel</a> ? <a class="code" href="a01869.html#ab9b9c3a216937bd06a0726667dd981b2">core::pplmn::Peoplemon::name</a>(ppl) :</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;                                                            <span class="stringliteral">&quot;???&quot;</span>,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                24,</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                sf::Color::Black);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    name.getTransform().setOrigin(</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        0.f, name.getLocalBounds().height * 0.5f + name.getLocalBounds().top * 0.5f);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    name.getTransform().setPosition(<span class="keywordtype">id</span>.getTransform().getLocalPosition().x + 65.f, mid);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    name.setParent(background);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02341.html#a96f33d517b0758e41d9c6daa5b8dc38a">   75</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02341.html#a96f33d517b0758e41d9c6daa5b8dc38a">PeopledexRow::doSceneAdd</a>(bl::rc::Scene* overlay) {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keywordtype">id</span>.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    name.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">if</span> (ball.entity() != bl::ecs::InvalidEntity) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        ball.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02341.html#a06e46989a112de09f80bec6b78d35d86">   84</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02341.html#a06e46989a112de09f80bec6b78d35d86">PeopledexRow::doSceneRemove</a>() { background.removeFromScene(); }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
-<div class="line"><a name="l00086"></a><span class="lineno"><a class="line" href="a02341.html#a6848c01f11679c6ecd5b615b129a3f68">   86</a></span>&#160;bl::ecs::Entity <a class="code" href="a02341.html#a6848c01f11679c6ecd5b615b129a3f68">PeopledexRow::getEntity</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> background.entity(); }</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="keywordtype">void</span> PeopledexRow::makeActive() { background.setTexture(activeBgndTxtr); }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="keywordtype">void</span> PeopledexRow::makeInactive() { background.setTexture(bgndTxtr); }</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno"><a class="line" href="a02341.html#aca99c397bb79d73cfd2d38e32d29a42a">   92</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02341.html#aca99c397bb79d73cfd2d38e32d29a42a">PeopledexRow::draw</a>(bl::rc::scene::CodeScene::RenderContext&amp; ctx) {</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    background.draw(ctx);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    <span class="keywordtype">id</span>.draw(ctx);</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    name.draw(ctx);</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">if</span> (ball.entity() != bl::ecs::InvalidEntity) { ball.draw(ctx); }</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;}</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;} <span class="comment">// namespace menu</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="a02377.html#a2014ee5db4fee704d4be4d977a0f3a4d">   24</a></span>&#160;<a class="code" href="a02377.html#a2014ee5db4fee704d4be4d977a0f3a4d">LevelTransitions::LevelTransitions</a>() {</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    content = Box::create(LinePacker::create(LinePacker::Vertical, 8.f));</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    Label::Ptr help =</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        Label::create(<span class="stringliteral">&quot;Walking in the direction of the arrow on a transition makes the &quot;</span></div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                      <span class="stringliteral">&quot;player go up a level. Walking opposite the arrow makes the player &quot;</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;                      <span class="stringliteral">&quot;go down a level. Walking perpendicular has no effect.&quot;</span>);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    help-&gt;setTextWrapping(bl::gui::Label::WrapToAcquisition);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    content-&gt;pack(help, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    RadioButton::Ptr noneBut = RadioButton::create(<span class="stringliteral">&quot;Flat&quot;</span>, <span class="stringliteral">&quot;flat&quot;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    noneBut-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        .willAlwaysCall(std::bind(&amp;LevelTransitions::update, <span class="keyword">this</span>, <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">LevelTransition::None</a>));</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    content-&gt;pack(noneBut);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    Box::Ptr row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    row-&gt;setHorizontalAlignment(RenderSettings::Left);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    RadioButton::Group* group = noneBut-&gt;getRadioGroup();</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; sourceN; ++i) {</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair = source[i];</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">auto</span> txtr        = ImageManager::load(pair.first);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        Image::Ptr img   = Image::create(txtr);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        img-&gt;scaleToSize({64, 64});</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a02213.html#ae94199920bb76763de3727781370a416">component::HighlightRadioButton::Ptr</a> but =</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;            <a class="code" href="a02213.html#a35bafb19f836081e138745476836221b">component::HighlightRadioButton::create</a>(img, group);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;        but-&gt;getSignal(Event::LeftClicked)</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;            .willAlwaysCall(std::bind(&amp;LevelTransitions::update, <span class="keyword">this</span>, pair.second));</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        row-&gt;pack(but, <span class="keyword">false</span>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> (i == 1) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            content-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            row = Box::create(LinePacker::create(LinePacker::Horizontal, 4));</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            row-&gt;setHorizontalAlignment(RenderSettings::Left);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        }</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    content-&gt;pack(row, <span class="keyword">true</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;}</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="a02377.html#a9aac7aca2220e839a6371b0231c865a3">   62</a></span>&#160;Element::Ptr <a class="code" href="a02377.html#a9aac7aca2220e839a6371b0231c865a3">LevelTransitions::getContent</a>() { <span class="keywordflow">return</span> content; }</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno"><a class="line" href="a02377.html#a39074233fd8e29a1b64e3dd223a9a906">   64</a></span>&#160;<a class="code" href="a01111.html#gacd6894855472f8b22d022ece25eda9b4">LevelTransition</a> <a class="code" href="a02377.html#a39074233fd8e29a1b64e3dd223a9a906">LevelTransitions::getActive</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> active; }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="keywordtype">void</span> LevelTransitions::update(<a class="code" href="a01111.html#gacd6894855472f8b22d022ece25eda9b4">LevelTransition</a> lt) { active = lt; }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace page</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;} <span class="comment">// namespace editor</span></div>
 <div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
 <div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa00500_html"><div class="ttname"><a href="a00500.html">PeopledexRow.hpp</a></div></div>
-<div class="ttc" id="aa01091_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01091.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03256_source.html#l00016">Id.hpp:16</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa01869_html_ab9b9c3a216937bd06a0726667dd981b2"><div class="ttname"><a href="a01869.html#ab9b9c3a216937bd06a0726667dd981b2">core::pplmn::Peoplemon::name</a></div><div class="ttdeci">static const std::string &amp; name(Id id)</div><div class="ttdoc">Returns the name of the given Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03373_source.html#l00126">Peoplemon.cpp:126</a></div></div>
-<div class="ttc" id="aa01921_html"><div class="ttname"><a href="a01921.html">core::player::Peopledex</a></div><div class="ttdoc">Maintains the information required to populate the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a03295_source.html#l00024">Peopledex.hpp:24</a></div></div>
-<div class="ttc" id="aa01921_html_a266e81d1213eebdece583a0d712344a2"><div class="ttname"><a href="a01921.html#a266e81d1213eebdece583a0d712344a2">core::player::Peopledex::getIntelLevel</a></div><div class="ttdeci">IntelLevel getIntelLevel(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns the level of intel on the given peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03385_source.html#l00042">Peopledex.cpp:42</a></div></div>
-<div class="ttc" id="aa01921_html_a96a9bddc02e5a581271e90c2f7fd9740"><div class="ttname"><a href="a01921.html#a96a9bddc02e5a581271e90c2f7fd9740">core::player::Peopledex::getCaught</a></div><div class="ttdeci">unsigned int getCaught(pplmn::Id peoplemon) const</div><div class="ttdoc">Returns how many of the given peoplemon have been caught.</div><div class="ttdef"><b>Definition:</b> <a href="a03385_source.html#l00026">Peopledex.cpp:26</a></div></div>
-<div class="ttc" id="aa01921_html_af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06"><div class="ttname"><a href="a01921.html#af72738f75b59895e9be958f3938a3256a632c4457377ca5d8862729ecd6dd3d06">core::player::Peopledex::NoIntel</a></div><div class="ttdeci">@ NoIntel</div><div class="ttdef"><b>Definition:</b> <a href="a03295_source.html#l00027">Peopledex.hpp:27</a></div></div>
-<div class="ttc" id="aa01933_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00363">Properties.cpp:363</a></div></div>
-<div class="ttc" id="aa01933_html_a83a1435c52995339e6a350c3120a9beb"><div class="ttname"><a href="a01933.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a></div><div class="ttdeci">static const std::string &amp; MenuImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00303">Properties.cpp:303</a></div></div>
-<div class="ttc" id="aa01933_html_ad00a636ee72ff65264fc176b8c91d144"><div class="ttname"><a href="a01933.html#ad00a636ee72ff65264fc176b8c91d144">core::Properties::ImagePath</a></div><div class="ttdeci">static const std::string &amp; ImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00333">Properties.cpp:333</a></div></div>
-<div class="ttc" id="aa02341_html"><div class="ttname"><a href="a02341.html">game::menu::PeopledexRow</a></div><div class="ttdoc">Item row for peoplemon in the peopledex.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00018">PeopledexRow.hpp:18</a></div></div>
-<div class="ttc" id="aa02341_html_a06e46989a112de09f80bec6b78d35d86"><div class="ttname"><a href="a02341.html#a06e46989a112de09f80bec6b78d35d86">game::menu::PeopledexRow::doSceneRemove</a></div><div class="ttdeci">virtual void doSceneRemove() override</div><div class="ttdoc">Called when the item should be removed from the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00084">PeopledexRow.cpp:84</a></div></div>
-<div class="ttc" id="aa02341_html_a45fcd7ec3571460c32cf7d2464b28e5b"><div class="ttname"><a href="a02341.html#a45fcd7ec3571460c32cf7d2464b28e5b">game::menu::PeopledexRow::doCreate</a></div><div class="ttdeci">virtual void doCreate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Called at least once when the item is added to a menu. Should create required graphics primitives and...</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00033">PeopledexRow.cpp:33</a></div></div>
-<div class="ttc" id="aa02341_html_a51a273191035498752f7109766591ded"><div class="ttname"><a href="a02341.html#a51a273191035498752f7109766591ded">game::menu::PeopledexRow::getSize</a></div><div class="ttdeci">virtual glm::vec2 getSize() const override</div><div class="ttdoc">Returns the size that the row takes up.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00031">PeopledexRow.cpp:31</a></div></div>
-<div class="ttc" id="aa02341_html_a6848c01f11679c6ecd5b615b129a3f68"><div class="ttname"><a href="a02341.html#a6848c01f11679c6ecd5b615b129a3f68">game::menu::PeopledexRow::getEntity</a></div><div class="ttdeci">virtual bl::ecs::Entity getEntity() const override</div><div class="ttdoc">Returns the entity (or top level entity) of the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00086">PeopledexRow.cpp:86</a></div></div>
-<div class="ttc" id="aa02341_html_a8eaaf17144df9e3488557c6b2f6173b8"><div class="ttname"><a href="a02341.html#a8eaaf17144df9e3488557c6b2f6173b8">game::menu::PeopledexRow::create</a></div><div class="ttdeci">static Ptr create(core::pplmn::Id ppl, const core::player::Peopledex &amp;dex)</div><div class="ttdoc">Create a new peopledex row.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00020">PeopledexRow.cpp:20</a></div></div>
-<div class="ttc" id="aa02341_html_a96f33d517b0758e41d9c6daa5b8dc38a"><div class="ttname"><a href="a02341.html#a96f33d517b0758e41d9c6daa5b8dc38a">game::menu::PeopledexRow::doSceneAdd</a></div><div class="ttdeci">virtual void doSceneAdd(bl::rc::Scene *overlay) override</div><div class="ttdoc">Called when the item should be added to the overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00075">PeopledexRow.cpp:75</a></div></div>
-<div class="ttc" id="aa02341_html_a9cc62017bf50878eb68b4934c453f3b8"><div class="ttname"><a href="a02341.html#a9cc62017bf50878eb68b4934c453f3b8">game::menu::PeopledexRow::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; PeopledexRow &gt; Ptr</div><div class="ttdoc">Pointer to the row item.</div><div class="ttdef"><b>Definition:</b> <a href="a00500_source.html#l00021">PeopledexRow.hpp:21</a></div></div>
-<div class="ttc" id="aa02341_html_aca99c397bb79d73cfd2d38e32d29a42a"><div class="ttname"><a href="a02341.html#aca99c397bb79d73cfd2d38e32d29a42a">game::menu::PeopledexRow::draw</a></div><div class="ttdeci">virtual void draw(bl::rc::scene::CodeScene::RenderContext &amp;ctx) override</div><div class="ttdoc">Renders the item.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00092">PeopledexRow.cpp:92</a></div></div>
-<div class="ttc" id="aa03283_html"><div class="ttname"><a href="a03283.html">Peoplemon.hpp</a></div></div>
+<div class="ttc" id="aa00395_html"><div class="ttname"><a href="a00395.html">HighlightRadioButton.hpp</a></div></div>
+<div class="ttc" id="aa00491_html"><div class="ttname"><a href="a00491.html">LevelTransitions.hpp</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00039">Control.hpp:38</a></div></div>
+<div class="ttc" id="aa01111_html_gacd6894855472f8b22d022ece25eda9b4"><div class="ttname"><a href="a01111.html#gacd6894855472f8b22d022ece25eda9b4">core::map::LevelTransition</a></div><div class="ttdeci">LevelTransition</div><div class="ttdoc">Represents a level transition in a map. Level transitions are applied when an entity moves either ont...</div><div class="ttdef"><b>Definition:</b> <a href="a00194_source.html#l00019">LevelTransition.hpp:19</a></div></div>
+<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00010">Tile.hpp:11</a></div></div>
+<div class="ttc" id="aa02213_html_a35bafb19f836081e138745476836221b"><div class="ttname"><a href="a02213.html#a35bafb19f836081e138745476836221b">editor::component::HighlightRadioButton::create</a></div><div class="ttdeci">static Ptr create(bl::gui::Element::Ptr child, bl::gui::RadioButton::Group *group=nullptr)</div><div class="ttdoc">Creates a new HighlightRadioButton.</div><div class="ttdef"><b>Definition:</b> <a href="a00908_source.html#l00010">HighlightRadioButton.cpp:10</a></div></div>
+<div class="ttc" id="aa02213_html_ae94199920bb76763de3727781370a416"><div class="ttname"><a href="a02213.html#ae94199920bb76763de3727781370a416">editor::component::HighlightRadioButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; HighlightRadioButton &gt; Ptr</div><div class="ttdoc">Pointer to a HighlightRadioButton.</div><div class="ttdef"><b>Definition:</b> <a href="a00395_source.html#l00019">HighlightRadioButton.hpp:19</a></div></div>
+<div class="ttc" id="aa02377_html_a2014ee5db4fee704d4be4d977a0f3a4d"><div class="ttname"><a href="a02377.html#a2014ee5db4fee704d4be4d977a0f3a4d">editor::page::LevelTransitions::LevelTransitions</a></div><div class="ttdeci">LevelTransitions()</div><div class="ttdoc">Construct a new Level Transitions GUI page.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00024">LevelTransitions.cpp:24</a></div></div>
+<div class="ttc" id="aa02377_html_a39074233fd8e29a1b64e3dd223a9a906"><div class="ttname"><a href="a02377.html#a39074233fd8e29a1b64e3dd223a9a906">editor::page::LevelTransitions::getActive</a></div><div class="ttdeci">core::map::LevelTransition getActive() const</div><div class="ttdoc">Returns the currently selected level transition type.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00064">LevelTransitions.cpp:64</a></div></div>
+<div class="ttc" id="aa02377_html_a9aac7aca2220e839a6371b0231c865a3"><div class="ttname"><a href="a02377.html#a9aac7aca2220e839a6371b0231c865a3">editor::page::LevelTransitions::getContent</a></div><div class="ttdeci">bl::gui::Element::Ptr getContent()</div><div class="ttdoc">Returns a packable GUI element to add this page to the GUI.</div><div class="ttdef"><b>Definition:</b> <a href="a01007_source.html#l00062">LevelTransitions.cpp:62</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

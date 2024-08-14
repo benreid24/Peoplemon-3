@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: bl::pcl Namespace Reference</title>
+<title>Peoplemon: Files</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -50,6 +50,7 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
+</div><!-- top -->
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -64,280 +65,48 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="a01107.html">bl</a></li><li class="navelem"><a class="el" href="a01108.html">pcl</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#nested-classes">Classes</a> &#124;
-<a href="#typedef-members">Typedefs</a>  </div>
+<a href="#nested-classes">Classes</a>  </div>
   <div class="headertitle">
-<div class="title">bl::pcl Namespace Reference</div>  </div>
+<div class="title">Files<div class="ingroups"><a class="el" href="a01103.html">Core</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Collection of data classes that provide saving and loading of different game file formats.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01349.html">RenderConfigMap&lt; PeoplemonSpark &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01565.html">core::file::Behavior</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set of behaviors for NPCs and trainers.  <a href="a01565.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02489.html">RenderConfigMap&lt; Particle &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01637.html">core::file::GameSave</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Represents a game save and provides functionality to load and save.  <a href="a01637.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02529.html">RenderConfigMap&lt; Raindrop &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01697.html">core::file::ItemDB</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads and stores metadata surrounding items in the game.  <a href="a01697.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02565.html">RenderConfigMap&lt; Sand &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01705.html">core::file::MoveDB</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stores the metadata of all peoplemon moves.  <a href="a01705.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02569.html">RenderConfigMap&lt; Swirl &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01713.html">core::file::NPC</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">File data for NPCs.  <a href="a01713.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02613.html">RenderConfigMap&lt; Snowflake &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01721.html">core::file::PeoplemonDB</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Data structure that holds the underlaying data for all the peoplemon.  <a href="a01721.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02849.html">RenderConfigMap&lt; Evolution::Spark &gt;</a></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01729.html">core::file::Trainer</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static data for trainers in the world.  <a href="a01729.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
-Typedefs</h2></td></tr>
-<tr class="memitem:a180bd427120ecc4de8029fb2d4c11a2f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a180bd427120ecc4de8029fb2d4c11a2f">PeoplemonSpark</a> = <a class="el" href="a01337.html">core::battle::view::PeoplemonSpark</a></td></tr>
-<tr class="separator:a180bd427120ecc4de8029fb2d4c11a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7645fc70a85abd32006fe654d49c9d31"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a7645fc70a85abd32006fe654d49c9d31">GpuPeoplemonSpark</a> = <a class="el" href="a01341.html">core::battle::view::PeoplemonSparkGpu</a></td></tr>
-<tr class="separator:a7645fc70a85abd32006fe654d49c9d31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aeb5ac8ff54aa7315678a85562b72a78d"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#aeb5ac8ff54aa7315678a85562b72a78d">GlobalShaderStruct</a> = <a class="el" href="a01345.html">core::battle::view::PeoplemonSparkGlobalShaderPayload</a></td></tr>
-<tr class="separator:aeb5ac8ff54aa7315678a85562b72a78d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a91b84bcc70c9b02f8837581d9537246f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a91b84bcc70c9b02f8837581d9537246f">Particle</a> = <a class="el" href="a02477.html">core::map::weather::fog::Particle</a></td></tr>
-<tr class="separator:a91b84bcc70c9b02f8837581d9537246f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a58959b6f7eb0cfeddbb4932967f5d079">GpuParticle</a> = <a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td></tr>
-<tr class="separator:a58959b6f7eb0cfeddbb4932967f5d079"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1fe2649dda87e4a4cc500096513be57c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a1fe2649dda87e4a4cc500096513be57c">GlobalShaderInfo</a> = <a class="el" href="a02485.html">core::map::weather::fog::GlobalShaderInfo</a></td></tr>
-<tr class="separator:a1fe2649dda87e4a4cc500096513be57c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad46bdcc461002055a4540e535b218594"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#ad46bdcc461002055a4540e535b218594">Raindrop</a> = <a class="el" href="a02513.html">core::map::weather::rain::Raindrop</a></td></tr>
-<tr class="separator:ad46bdcc461002055a4540e535b218594"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a12dc52f012ce06ffd15e90347a190155"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a12dc52f012ce06ffd15e90347a190155">GpuRaindrop</a> = <a class="el" href="a02517.html">core::map::weather::rain::GpuRaindrop</a></td></tr>
-<tr class="separator:a12dc52f012ce06ffd15e90347a190155"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6d56c8b6ae3bbaa1fc5f6ade882484e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">Sand</a> = <a class="el" href="a02549.html">core::map::weather::sandstorm::Sand</a></td></tr>
-<tr class="separator:ad6d56c8b6ae3bbaa1fc5f6ade882484e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a923cf8da7c5d618e47d0cb6de16f813e"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">Swirl</a> = <a class="el" href="a02553.html">core::map::weather::sandstorm::Swirl</a></td></tr>
-<tr class="separator:a923cf8da7c5d618e47d0cb6de16f813e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1bf25e3d34eb0f246503862f82749948"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a1bf25e3d34eb0f246503862f82749948">GpuSwirl</a> = <a class="el" href="a02557.html">core::map::weather::sandstorm::GpuSwirl</a></td></tr>
-<tr class="separator:a1bf25e3d34eb0f246503862f82749948"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a443f1b3666011b23a7768c5286f2706f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">Snowflake</a> = <a class="el" href="a02601.html">core::map::weather::snow::Snowflake</a></td></tr>
-<tr class="separator:a443f1b3666011b23a7768c5286f2706f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa82bb68c57ad1411ba17435962f0d573"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01108.html#aa82bb68c57ad1411ba17435962f0d573">GpuSnowflake</a> = <a class="el" href="a02605.html">core::map::weather::snow::GpuSnowflake</a></td></tr>
-<tr class="separator:aa82bb68c57ad1411ba17435962f0d573"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Typedef Documentation</h2>
-<a id="a1fe2649dda87e4a4cc500096513be57c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1fe2649dda87e4a4cc500096513be57c">&#9670;&nbsp;</a></span>GlobalShaderInfo</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">typedef <a class="el" href="a02609.html">core::map::weather::snow::GlobalShaderInfo</a> <a class="el" href="a01108.html#a1fe2649dda87e4a4cc500096513be57c">bl::pcl::GlobalShaderInfo</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00079">79</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aeb5ac8ff54aa7315678a85562b72a78d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb5ac8ff54aa7315678a85562b72a78d">&#9670;&nbsp;</a></span>GlobalShaderStruct</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#aeb5ac8ff54aa7315678a85562b72a78d">bl::pcl::GlobalShaderStruct</a> = typedef <a class="el" href="a01345.html">core::battle::view::PeoplemonSparkGlobalShaderPayload</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00069">69</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a58959b6f7eb0cfeddbb4932967f5d079"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a58959b6f7eb0cfeddbb4932967f5d079">&#9670;&nbsp;</a></span>GpuParticle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a58959b6f7eb0cfeddbb4932967f5d079">bl::pcl::GpuParticle</a> = typedef <a class="el" href="a02481.html">core::map::weather::fog::GpuParticle</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00078">78</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7645fc70a85abd32006fe654d49c9d31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7645fc70a85abd32006fe654d49c9d31">&#9670;&nbsp;</a></span>GpuPeoplemonSpark</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a7645fc70a85abd32006fe654d49c9d31">bl::pcl::GpuPeoplemonSpark</a> = typedef <a class="el" href="a01341.html">core::battle::view::PeoplemonSparkGpu</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00068">68</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a12dc52f012ce06ffd15e90347a190155"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a12dc52f012ce06ffd15e90347a190155">&#9670;&nbsp;</a></span>GpuRaindrop</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a12dc52f012ce06ffd15e90347a190155">bl::pcl::GpuRaindrop</a> = typedef <a class="el" href="a02517.html">core::map::weather::rain::GpuRaindrop</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00078">78</a> of file <a class="el" href="a00713_source.html">Rain.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aa82bb68c57ad1411ba17435962f0d573"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa82bb68c57ad1411ba17435962f0d573">&#9670;&nbsp;</a></span>GpuSnowflake</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#aa82bb68c57ad1411ba17435962f0d573">bl::pcl::GpuSnowflake</a> = typedef <a class="el" href="a02605.html">core::map::weather::snow::GpuSnowflake</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00075">75</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a1bf25e3d34eb0f246503862f82749948"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1bf25e3d34eb0f246503862f82749948">&#9670;&nbsp;</a></span>GpuSwirl</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a1bf25e3d34eb0f246503862f82749948">bl::pcl::GpuSwirl</a> = typedef <a class="el" href="a02557.html">core::map::weather::sandstorm::GpuSwirl</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00074">74</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a91b84bcc70c9b02f8837581d9537246f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91b84bcc70c9b02f8837581d9537246f">&#9670;&nbsp;</a></span>Particle</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a91b84bcc70c9b02f8837581d9537246f">bl::pcl::Particle</a> = typedef <a class="el" href="a02477.html">core::map::weather::fog::Particle</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00707_source.html#l00077">77</a> of file <a class="el" href="a00707_source.html">Fog.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a180bd427120ecc4de8029fb2d4c11a2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a180bd427120ecc4de8029fb2d4c11a2f">&#9670;&nbsp;</a></span>PeoplemonSpark</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a180bd427120ecc4de8029fb2d4c11a2f">bl::pcl::PeoplemonSpark</a> = typedef <a class="el" href="a01337.html">core::battle::view::PeoplemonSpark</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00065_source.html#l00067">67</a> of file <a class="el" href="a00065_source.html">PeoplemonSpark.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ad46bdcc461002055a4540e535b218594"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad46bdcc461002055a4540e535b218594">&#9670;&nbsp;</a></span>Raindrop</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#ad46bdcc461002055a4540e535b218594">bl::pcl::Raindrop</a> = typedef <a class="el" href="a02513.html">core::map::weather::rain::Raindrop</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00713_source.html#l00077">77</a> of file <a class="el" href="a00713_source.html">Rain.cpp</a>.</p>
-
-</div>
-</div>
-<a id="ad6d56c8b6ae3bbaa1fc5f6ade882484e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6d56c8b6ae3bbaa1fc5f6ade882484e">&#9670;&nbsp;</a></span>Sand</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#ad6d56c8b6ae3bbaa1fc5f6ade882484e">bl::pcl::Sand</a> = typedef <a class="el" href="a02549.html">core::map::weather::sandstorm::Sand</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00072">72</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a443f1b3666011b23a7768c5286f2706f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a443f1b3666011b23a7768c5286f2706f">&#9670;&nbsp;</a></span>Snowflake</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a443f1b3666011b23a7768c5286f2706f">bl::pcl::Snowflake</a> = typedef <a class="el" href="a02601.html">core::map::weather::snow::Snowflake</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00725_source.html#l00074">74</a> of file <a class="el" href="a00725_source.html">Snow.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a923cf8da7c5d618e47d0cb6de16f813e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a923cf8da7c5d618e47d0cb6de16f813e">&#9670;&nbsp;</a></span>Swirl</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="a01108.html#a923cf8da7c5d618e47d0cb6de16f813e">bl::pcl::Swirl</a> = typedef <a class="el" href="a02553.html">core::map::weather::sandstorm::Swirl</a></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00719_source.html#l00073">73</a> of file <a class="el" href="a00719_source.html">Sandstorm.cpp</a>.</p>
-
-</div>
-</div>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<p>Collection of data classes that provide saving and loading of different game file formats. </p>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

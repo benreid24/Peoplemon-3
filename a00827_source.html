@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Systems/HUD/ScreenKeyboard.cpp Source File</title>
+<title>Peoplemon: src/Core/Systems/Clock.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,204 +66,145 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li><li class="navelem"><a class="el" href="dir_eb4f631c9efc438d7f9e0601d0e06295.html">HUD</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_5050c667cea7e741a25fe57d926653bc.html">Systems</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">ScreenKeyboard.cpp</div>  </div>
+<div class="title">Clock.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00332.html">Core/Systems/HUD/ScreenKeyboard.hpp</a>&gt;</span></div>
+<a href="a00827.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00320.html">Core/Systems/Clock.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Engine.hpp&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>system</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00146.html">Core/Events/TimeChange.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03316.html">Core/Files/GameSave.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;cmath&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>hud</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>system</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;constexpr <span class="keywordtype">float</span> InputAreaHeight = 35.f;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;}</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02013.html#a8f2156d7456cce38f0c8b5e6a71ee793">   12</a></span>&#160;<a class="code" href="a02013.html#a8f2156d7456cce38f0c8b5e6a71ee793">Clock::Clock</a>(<a class="code" href="a02109.html">Systems</a>&amp; owner)</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: owner(owner)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, currentTime(12, 0, 1)</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;, residual(0.f) {}</div>
 <div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160; </div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="keyword">using namespace </span>bl::menu;</div>
+<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="a02013.html#a778cc44bba610c75b6401a6b2465bd7e">   17</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a02017.html">Clock::Time</a>&amp; <a class="code" href="a02013.html#a778cc44bba610c75b6401a6b2465bd7e">Clock::now</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> currentTime; }</div>
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">   19</a></span>&#160;<a class="code" href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">ScreenKeyboard::ScreenKeyboard</a>(bl::engine::Engine&amp; engine, <span class="keyword">const</span> <a class="code" href="a02037.html#a000a2c5ffd2c8dde2599d2e9e34da872">OnSubmit</a>&amp; os)</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;: engine(engine)</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;, onSubmit(os)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;, minLen(0)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, maxLen(16)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, position() {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::lazyCreate() {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) { <span class="keywordflow">return</span>; }</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keywordtype">void</span> Clock::update(std::mutex&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>, <span class="keywordtype">float</span>) {</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    residual += dt;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">float</span> minutes = std::floor(residual);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    <span class="keywordflow">if</span> (minutes &gt; 0) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        residual -= minutes; <span class="comment">// 1 real second = 1 game minute</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        currentTime.<a class="code" href="a02017.html#acb6aa99294897af8d1874adb9927387c">addMinutes</a>(<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(minutes + 0.1f));</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        bl::event::Dispatcher::dispatch&lt;event::TimeChange&gt;({currentTime});</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    }</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div>
 <div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    keyboardMenu.create(</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        engine, engine.renderer().getObserver(), ArrowSelector::create(8.f, sf::Color::Black));</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    Item::Ptr space = TextItem::create(<span class="stringliteral">&quot;(space)&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Black, 24);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    space-&gt;getSignal(Item::EventType::Activated).willAlwaysCall([<span class="keyword">this</span>]() {</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        input.push_back(<span class="charliteral">&#39; &#39;</span>);</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        renderedInput.getSection().setString(input);</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    });</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    Item::Ptr del = TextItem::create(<span class="stringliteral">&quot;(del)&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Red, 24);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    del-&gt;getSignal(Item::EventType::Activated).willAlwaysCall([<span class="keyword">this</span>]() {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        input.pop_back();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        renderedInput.getSection().setString(input);</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    });</div>
+<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="a02013.html#a9c6a0731f099a28c8b5ded37cf010d74">   29</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02013.html#a9c6a0731f099a28c8b5ded37cf010d74">Clock::set</a>(<span class="keyword">const</span> <a class="code" href="a02017.html">Time</a>&amp; n) {</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    currentTime = n;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::TimeChange&gt;({currentTime});</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a02017.html#a39287d2e33949272f8f941dea8f3e32d">   34</a></span>&#160;<a class="code" href="a02017.html#a39287d2e33949272f8f941dea8f3e32d">Clock::Time::Time</a>()</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;: day(0)</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;, hour(12)</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;, minute(0) {}</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="a02017.html#ae396842cd58bc4cfe8583f35a8705a0d">   39</a></span>&#160;<a class="code" href="a02017.html#a39287d2e33949272f8f941dea8f3e32d">Clock::Time::Time</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> h, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;: day(d)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;, hour(h)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;, minute(m) {}</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    Item::Ptr submit = TextItem::create(<span class="stringliteral">&quot;Submit&quot;</span>, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Green, 24);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    submit-&gt;getSignal(Item::EventType::Activated)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        .willAlwaysCall(std::bind(&amp;ScreenKeyboard::onEnter, <span class="keyword">this</span>));</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    std::vector&lt;std::vector&lt;TextItem::Ptr&gt;&gt; keys;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    keys.resize(4);</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) { keys[i].reserve(<span class="keyword">static_cast&lt;</span>std::size_t<span class="keyword">&gt;</span>(13)); }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> createKey = [<span class="keyword">this</span>, &amp;keys](<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i, <span class="keywordtype">char</span> k) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        keys[i].emplace_back(</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            TextItem::create(std::string(1, k), <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">Properties::MenuFont</a>(), sf::Color::Black, 24));</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        keys[i]</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;            .back()</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;            -&gt;getSignal(Item::EventType::Activated)</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;            .willAlwaysCall(std::bind(&amp;ScreenKeyboard::onKeyPress, <span class="keyword">this</span>, k));</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    };</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;A&#39;</span>; l &lt;= <span class="charliteral">&#39;M&#39;</span>; ++l) { createKey(0, l); }</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;N&#39;</span>; l &lt;= <span class="charliteral">&#39;Z&#39;</span>; ++l) { createKey(1, l); }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;a&#39;</span>; l &lt;= <span class="charliteral">&#39;m&#39;</span>; ++l) { createKey(2, l); }</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">char</span> l = <span class="charliteral">&#39;n&#39;</span>; l &lt;= <span class="charliteral">&#39;z&#39;</span>; ++l) { createKey(3, l); }</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <a class="code" href="a01104.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">Item</a>* topRow[3] = {space.get(), del.get(), submit.get()};</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    keyboardMenu.setPosition({3.f, InputAreaHeight - 6.f});</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    keyboardMenu.setMinWidth(28.f);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    keyboardMenu.setMinHeight(30.f);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    keyboardMenu.setPadding({18.f, 4.f});</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    keyboardMenu.setRootItem(space);</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    keyboardMenu.addItem(del, space.get(), Item::Right);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    keyboardMenu.addItem(submit, del.get(), Item::Right);</div>
+<div class="line"><a name="l00044"></a><span class="lineno"><a class="line" href="a02017.html#acb6aa99294897af8d1874adb9927387c">   44</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02017.html#acb6aa99294897af8d1874adb9927387c">Clock::Time::addMinutes</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> m) {</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nm = minute + m;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> h  = nm / 60;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    minute                = nm % 60;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">if</span> (h &gt; 0) addHours(h);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;}</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="a02017.html#a6b43df7a9de86d0b242209a531a92055">   51</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02017.html#a6b43df7a9de86d0b242209a531a92055">Clock::Time::addHours</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> h) {</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> nh = hour + h;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> d  = nh / 24;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    hour                  = nh % 24;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    day += d;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno"><a class="line" href="a02017.html#aec51da110e08724aad9f153307f02a6a">   58</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02017.html#aec51da110e08724aad9f153307f02a6a">Clock::Time::operator==</a>(<span class="keyword">const</span> <a class="code" href="a02017.html">Time</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> minute == right.<a class="code" href="a02017.html#a232574606b98573f432b2ea332670b7d">minute</a> &amp;&amp; hour == right.<a class="code" href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">hour</a> &amp;&amp;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;           (right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a> == 0 || day == 0 || day == right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a>);</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
+<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a02017.html#a53624d9149ef672f6d2f47ddfce90030">   63</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02017.html#a53624d9149ef672f6d2f47ddfce90030">Clock::Time::operator&lt;</a>(<span class="keyword">const</span> <a class="code" href="a02017.html">Time</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (day != 0 &amp;&amp; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a> != 0) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">if</span> (day &lt; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        <span class="keywordflow">if</span> (day &gt; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordflow">if</span> (hour &lt; right.<a class="code" href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">hour</a>)</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hour == right.<a class="code" href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">hour</a>)</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <span class="keywordflow">return</span> minute &lt; right.<a class="code" href="a02017.html#a232574606b98573f432b2ea332670b7d">minute</a>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    keyboardMenu.addItem(keys[0][0], space.get(), Item::Bottom);</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; keys[0].size(); ++i) {</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        keyboardMenu.addItem(keys[0][i], keys[0][i - 1].get(), Item::Right);</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (i &lt; 3) { keyboardMenu.attachExisting(keys[0][i].get(), topRow[i], Item::Bottom); }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">else</span> { keyboardMenu.attachExisting(submit.get(), keys[0][i].get(), Item::Top, <span class="keyword">false</span>); }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    keyboardMenu.attachExisting(keys[0].back().get(), keys[0].front().get(), Item::Left);</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 1; i &lt; 4; ++i) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;        <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> j = 0; j &lt; keys[i].size(); ++j) {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;            <span class="keywordflow">if</span> (j &lt; keys[i - 1].size()) {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;                keyboardMenu.addItem(keys[i][j], keys[i - 1][j].get(), Item::Bottom);</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;            }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;            <span class="keywordflow">else</span> { keyboardMenu.addItem(keys[i][j], keys[i][j - 1].get(), Item::Right); }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;            <span class="keywordflow">if</span> (j &gt; 0) {</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;                keyboardMenu.attachExisting(keys[i][j].get(), keys[i][j - 1].get(), Item::Right);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;            }</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        keyboardMenu.attachExisting(keys[i].back().get(), keys[i].front().get(), Item::Left);</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i = 0; i &lt; keys.back().size(); ++i) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">if</span> (i &lt; 3) { keyboardMenu.attachExisting(keys.back()[i].get(), topRow[i], Item::Top); }</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            keyboardMenu.attachExisting(submit.get(), keys.back()[i].get(), Item::Bottom, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        }</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    keyboardMenu.setSelectedItem(keys[0][0].get());</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    keyboardMenu.setDepth(0.f);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    background.create(engine,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;                      {keyboardMenu.getBounds().width + 28.f,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;                       keyboardMenu.getBounds().height + InputAreaHeight + 20.f});</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    background.setFillColor(sf::Color::White);</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    background.setOutlineColor(sf::Color::Black);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    background.setOutlineThickness(2.f);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    background.getTransform().setPosition(position.x, position.y);</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    background.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth);</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    engine.ecs().setEntityParentDestructionBehavior(</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;        background.entity(), bl::ecs::ParentDestructionBehavior::OrphanedByParent);</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160; </div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    renderedInput.create(engine, <a class="code" href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a>(), <span class="stringliteral">&quot;&quot;</span>, 28, sf::Color::Black);</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    renderedInput.getTransform().setPosition(15.f, 5.f);</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    renderedInput.setParent(background);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;}</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160; </div>
-<div class="line"><a name="l00121"></a><span class="lineno"><a class="line" href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">  121</a></span>&#160;<a class="code" href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">ScreenKeyboard::~ScreenKeyboard</a>() { <a class="code" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">stop</a>(); }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
-<div class="line"><a name="l00123"></a><span class="lineno"><a class="line" href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">  123</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">ScreenKeyboard::start</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mn, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mx) {</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;    lazyCreate();</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;    minLen = mn;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;    maxLen = mx;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    input.clear();</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    renderedInput.getSection().setString(input);</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    inputDriver.drive(&amp;keyboardMenu);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> overlay = engine.renderer().getObserver().getOrCreateSceneOverlay();</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    background.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    renderedInput.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    keyboardMenu.addToOverlay(background.entity());</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;}</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160; </div>
-<div class="line"><a name="l00138"></a><span class="lineno"><a class="line" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">  138</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">ScreenKeyboard::stop</a>() {</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    inputDriver.drive(<span class="keyword">nullptr</span>);</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) { background.removeFromScene(); }</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">  143</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">ScreenKeyboard::process</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> ctrl, <span class="keywordtype">bool</span> ignore) {</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    inputDriver.sendControl(ctrl, ignore);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; </div>
-<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">  147</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">ScreenKeyboard::setPosition</a>(<span class="keyword">const</span> sf::Vector2f&amp; pos) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    position = pos;</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">if</span> (background.entity() != bl::ecs::InvalidEntity) {</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;        background.getTransform().setPosition(pos.x, pos.y);</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    }</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;}</div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160; </div>
-<div class="line"><a name="l00154"></a><span class="lineno"><a class="line" href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">  154</a></span>&#160;<span class="keyword">const</span> std::string&amp; <a class="code" href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">ScreenKeyboard::value</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> input; }</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160; </div>
-<div class="line"><a name="l00156"></a><span class="lineno"><a class="line" href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">  156</a></span>&#160;sf::Vector2f <a class="code" href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">ScreenKeyboard::getSize</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;    <span class="keywordflow">return</span> {background.getSize().x, background.getSize().y};</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::onKeyPress(<span class="keywordtype">char</span> c) {</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    input.push_back(c);</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    renderedInput.getSection().setString(input);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;}</div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160; </div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="keywordtype">void</span> ScreenKeyboard::onEnter() {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <span class="keywordflow">if</span> (input.size() &gt;= minLen &amp;&amp; input.size() &lt;= maxLen) { onSubmit(input); }</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;} <span class="comment">// namespace hud</span></div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00332_html"><div class="ttname"><a href="a00332.html">ScreenKeyboard.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01104_html_a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679"><div class="ttname"><a href="a01104.html#a9f4dbdd126a3cad461c287d3626e196aa7d74f3b92b19da5e606d737d339a9679">core::battle::TurnAction::Item</a></div><div class="ttdeci">@ Item</div></div>
-<div class="ttc" id="aa01933_html_a22b887080308edc006321b75020f9023"><div class="ttname"><a href="a01933.html#a22b887080308edc006321b75020f9023">core::Properties::MenuFont</a></div><div class="ttdeci">static const sf::VulkanFont &amp; MenuFont()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00363">Properties.cpp:363</a></div></div>
-<div class="ttc" id="aa02037_html_a000a2c5ffd2c8dde2599d2e9e34da872"><div class="ttname"><a href="a02037.html#a000a2c5ffd2c8dde2599d2e9e34da872">core::system::hud::ScreenKeyboard::OnSubmit</a></div><div class="ttdeci">std::function&lt; void(const std::string &amp;)&gt; OnSubmit</div><div class="ttdef"><b>Definition:</b> <a href="a00332_source.html#l00029">ScreenKeyboard.hpp:29</a></div></div>
-<div class="ttc" id="aa02037_html_a15fbb1e57df6c799d37a637e153eeb2a"><div class="ttname"><a href="a02037.html#a15fbb1e57df6c799d37a637e153eeb2a">core::system::hud::ScreenKeyboard::getSize</a></div><div class="ttdeci">sf::Vector2f getSize() const</div><div class="ttdoc">Returns the size of the screen keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00156">ScreenKeyboard.cpp:156</a></div></div>
-<div class="ttc" id="aa02037_html_a1ca52d3385438b2c8bb5513d2a774cdc"><div class="ttname"><a href="a02037.html#a1ca52d3385438b2c8bb5513d2a774cdc">core::system::hud::ScreenKeyboard::start</a></div><div class="ttdeci">void start(unsigned int minLen=0, unsigned int maxLen=16)</div><div class="ttdoc">Subscribes the keyboard to the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00123">ScreenKeyboard.cpp:123</a></div></div>
-<div class="ttc" id="aa02037_html_a53fd26fa824e285bc6d5776150b70ca2"><div class="ttname"><a href="a02037.html#a53fd26fa824e285bc6d5776150b70ca2">core::system::hud::ScreenKeyboard::process</a></div><div class="ttdeci">void process(unsigned int ctrl, bool ignoreDebounce)</div><div class="ttdoc">Handles player input.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00143">ScreenKeyboard.cpp:143</a></div></div>
-<div class="ttc" id="aa02037_html_a57cd989e29d2d8e5aad4a7bee8635e89"><div class="ttname"><a href="a02037.html#a57cd989e29d2d8e5aad4a7bee8635e89">core::system::hud::ScreenKeyboard::setPosition</a></div><div class="ttdeci">void setPosition(const sf::Vector2f &amp;position)</div><div class="ttdoc">Sets the position of the keyboard. The default is (??)</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00147">ScreenKeyboard.cpp:147</a></div></div>
-<div class="ttc" id="aa02037_html_aa59b54eba02acafd30bc6bd77bfa7ad1"><div class="ttname"><a href="a02037.html#aa59b54eba02acafd30bc6bd77bfa7ad1">core::system::hud::ScreenKeyboard::stop</a></div><div class="ttdeci">void stop()</div><div class="ttdoc">Unsubscribes the keyboard from the event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00138">ScreenKeyboard.cpp:138</a></div></div>
-<div class="ttc" id="aa02037_html_ace27bbb977260d4a4c328b1dafa35f6d"><div class="ttname"><a href="a02037.html#ace27bbb977260d4a4c328b1dafa35f6d">core::system::hud::ScreenKeyboard::ScreenKeyboard</a></div><div class="ttdeci">ScreenKeyboard(bl::engine::Engine &amp;engine, const OnSubmit &amp;onSubmit)</div><div class="ttdoc">Construct a new Screen Keyboard.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00019">ScreenKeyboard.cpp:19</a></div></div>
-<div class="ttc" id="aa02037_html_afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6"><div class="ttname"><a href="a02037.html#afb8d1fdbbd9c8d6a1fac2ac6bfd52cf6">core::system::hud::ScreenKeyboard::~ScreenKeyboard</a></div><div class="ttdeci">~ScreenKeyboard()</div><div class="ttdoc">Unsubscribes the keyboard if still subscribed.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00121">ScreenKeyboard.cpp:121</a></div></div>
-<div class="ttc" id="aa02037_html_afc78ba18cf213cb9159c214d4973fe03"><div class="ttname"><a href="a02037.html#afc78ba18cf213cb9159c214d4973fe03">core::system::hud::ScreenKeyboard::value</a></div><div class="ttdeci">const std::string &amp; value() const</div><div class="ttdoc">Returns the current input value.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00154">ScreenKeyboard.cpp:154</a></div></div>
+<div class="line"><a name="l00075"></a><span class="lineno"><a class="line" href="a02017.html#a82cd5121756fd17d10a7562b2cd3f0bb">   75</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02017.html#a82cd5121756fd17d10a7562b2cd3f0bb">Clock::Time::operator&gt;</a>(<span class="keyword">const</span> <a class="code" href="a02017.html">Time</a>&amp; right)<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keywordflow">if</span> (day != 0 &amp;&amp; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a> != 0) {</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        <span class="keywordflow">if</span> (day &lt; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">if</span> (day &gt; right.<a class="code" href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">day</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    }</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <span class="keywordflow">if</span> (hour &gt; right.<a class="code" href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">hour</a>)</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hour == right.<a class="code" href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">hour</a>)</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <span class="keywordflow">return</span> minute &gt; right.<a class="code" href="a02017.html#a232574606b98573f432b2ea332670b7d">minute</a>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno"><a class="line" href="a02013.html#a78a77f8dd85455cedad4fc88af98a1d2">   87</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02013.html#a78a77f8dd85455cedad4fc88af98a1d2">Clock::observe</a>(<span class="keyword">const</span> <a class="code" href="a01489.html">event::GameSaveInitializing</a>&amp; save) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    save.<a class="code" href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">gameSave</a>.<a class="code" href="a01637.html#afa4d12f556b56030839019d87e80e9fd">clock</a>.<a class="code" href="a01657.html#aaabe6a3b50a85bce217d96be4a0c936d">time</a> = &amp;currentTime;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;}</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno"><a class="line" href="a02013.html#aa12616bc7ed0b2e6b77d486682d4d1b9">   91</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02013.html#a78a77f8dd85455cedad4fc88af98a1d2">Clock::observe</a>(<span class="keyword">const</span> <a class="code" href="a01493.html">event::GameSaveLoaded</a>&amp;) {</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    bl::event::Dispatcher::dispatch&lt;event::TimeChange&gt;({currentTime});</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;}</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="keywordtype">void</span> Clock::init(bl::engine::Engine&amp;) {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    bl::event::Dispatcher::subscribe(<span class="keyword">this</span>);</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    currentTime = {};</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;}</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;} <span class="comment">// namespace system</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="ttc" id="aa00146_html"><div class="ttname"><a href="a00146.html">TimeChange.hpp</a></div></div>
+<div class="ttc" id="aa00320_html"><div class="ttname"><a href="a00320.html">Clock.hpp</a></div></div>
+<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01489_html"><div class="ttname"><a href="a01489.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00022">GameSave.hpp:22</a></div></div>
+<div class="ttc" id="aa01489_html_ac6fbd08a5bcbfc66c3df65f5f33965a8"><div class="ttname"><a href="a01489.html#ac6fbd08a5bcbfc66c3df65f5f33965a8">core::event::GameSaveInitializing::gameSave</a></div><div class="ttdeci">file::GameSave &amp; gameSave</div><div class="ttdoc">Game save being initialized.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00024">GameSave.hpp:24</a></div></div>
+<div class="ttc" id="aa01493_html"><div class="ttname"><a href="a01493.html">core::event::GameSaveLoaded</a></div><div class="ttdoc">Fired when a game save is loaded. Fired after the load is complete.</div><div class="ttdef"><b>Definition:</b> <a href="a03313_source.html#l00046">GameSave.hpp:46</a></div></div>
+<div class="ttc" id="aa01637_html_afa4d12f556b56030839019d87e80e9fd"><div class="ttname"><a href="a01637.html#afa4d12f556b56030839019d87e80e9fd">core::file::GameSave::clock</a></div><div class="ttdeci">struct core::file::GameSave::ClockPointers clock</div></div>
+<div class="ttc" id="aa01657_html_aaabe6a3b50a85bce217d96be4a0c936d"><div class="ttname"><a href="a01657.html#aaabe6a3b50a85bce217d96be4a0c936d">core::file::GameSave::ClockPointers::time</a></div><div class="ttdeci">system::Clock::Time * time</div><div class="ttdef"><b>Definition:</b> <a href="a03316_source.html#l00068">GameSave.hpp:68</a></div></div>
+<div class="ttc" id="aa02013_html_a778cc44bba610c75b6401a6b2465bd7e"><div class="ttname"><a href="a02013.html#a778cc44bba610c75b6401a6b2465bd7e">core::system::Clock::now</a></div><div class="ttdeci">const Time &amp; now() const</div><div class="ttdoc">Returns the current in game time.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00017">Clock.cpp:17</a></div></div>
+<div class="ttc" id="aa02013_html_a78a77f8dd85455cedad4fc88af98a1d2"><div class="ttname"><a href="a02013.html#a78a77f8dd85455cedad4fc88af98a1d2">core::system::Clock::observe</a></div><div class="ttdeci">virtual void observe(const event::GameSaveInitializing &amp;save) override</div><div class="ttdoc">Adds saved clock data to the save file.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00087">Clock.cpp:87</a></div></div>
+<div class="ttc" id="aa02013_html_a8f2156d7456cce38f0c8b5e6a71ee793"><div class="ttname"><a href="a02013.html#a8f2156d7456cce38f0c8b5e6a71ee793">core::system::Clock::Clock</a></div><div class="ttdeci">Clock(Systems &amp;owner)</div><div class="ttdoc">Initializes the clock system.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00012">Clock.cpp:12</a></div></div>
+<div class="ttc" id="aa02013_html_a9c6a0731f099a28c8b5ded37cf010d74"><div class="ttname"><a href="a02013.html#a9c6a0731f099a28c8b5ded37cf010d74">core::system::Clock::set</a></div><div class="ttdeci">void set(const Time &amp;time)</div><div class="ttdoc">Sets the current time.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00029">Clock.cpp:29</a></div></div>
+<div class="ttc" id="aa02017_html"><div class="ttname"><a href="a02017.html">core::system::Clock::Time</a></div><div class="ttdoc">Simple struct representing a point in time.</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00032">Clock.hpp:32</a></div></div>
+<div class="ttc" id="aa02017_html_a232574606b98573f432b2ea332670b7d"><div class="ttname"><a href="a02017.html#a232574606b98573f432b2ea332670b7d">core::system::Clock::Time::minute</a></div><div class="ttdeci">unsigned int minute</div><div class="ttdoc">Current minute of the hour. In range [0, 59].</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00040">Clock.hpp:40</a></div></div>
+<div class="ttc" id="aa02017_html_a39287d2e33949272f8f941dea8f3e32d"><div class="ttname"><a href="a02017.html#a39287d2e33949272f8f941dea8f3e32d">core::system::Clock::Time::Time</a></div><div class="ttdeci">Time()</div><div class="ttdoc">Construct a new Time at noon of day 0.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00034">Clock.cpp:34</a></div></div>
+<div class="ttc" id="aa02017_html_a4ed3e91d3d24580e9e002b4dc33ab9d4"><div class="ttname"><a href="a02017.html#a4ed3e91d3d24580e9e002b4dc33ab9d4">core::system::Clock::Time::day</a></div><div class="ttdeci">unsigned int day</div><div class="ttdoc">Number of days elapsed in game since beginning. Starts at 1.</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00034">Clock.hpp:34</a></div></div>
+<div class="ttc" id="aa02017_html_a53624d9149ef672f6d2f47ddfce90030"><div class="ttname"><a href="a02017.html#a53624d9149ef672f6d2f47ddfce90030">core::system::Clock::Time::operator&lt;</a></div><div class="ttdeci">bool operator&lt;(const Time &amp;right) const</div><div class="ttdoc">Checks to see if a given time appears later than the current time. Counts days unless either day is 0...</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00063">Clock.cpp:63</a></div></div>
+<div class="ttc" id="aa02017_html_a6b43df7a9de86d0b242209a531a92055"><div class="ttname"><a href="a02017.html#a6b43df7a9de86d0b242209a531a92055">core::system::Clock::Time::addHours</a></div><div class="ttdeci">void addHours(unsigned int hours)</div><div class="ttdoc">Adds the number of hours to this time. Wraps days.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00051">Clock.cpp:51</a></div></div>
+<div class="ttc" id="aa02017_html_a789f50e27085ce572ee9bcb6850b834b"><div class="ttname"><a href="a02017.html#a789f50e27085ce572ee9bcb6850b834b">core::system::Clock::Time::hour</a></div><div class="ttdeci">unsigned int hour</div><div class="ttdoc">Current hour of the day, in range [0, 23].</div><div class="ttdef"><b>Definition:</b> <a href="a00320_source.html#l00037">Clock.hpp:37</a></div></div>
+<div class="ttc" id="aa02017_html_a82cd5121756fd17d10a7562b2cd3f0bb"><div class="ttname"><a href="a02017.html#a82cd5121756fd17d10a7562b2cd3f0bb">core::system::Clock::Time::operator&gt;</a></div><div class="ttdeci">bool operator&gt;(const Time &amp;right) const</div><div class="ttdoc">Checks to see if a given time appears earlier than the current time. Counts days unless either day is...</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00075">Clock.cpp:75</a></div></div>
+<div class="ttc" id="aa02017_html_acb6aa99294897af8d1874adb9927387c"><div class="ttname"><a href="a02017.html#acb6aa99294897af8d1874adb9927387c">core::system::Clock::Time::addMinutes</a></div><div class="ttdeci">void addMinutes(unsigned int minutes)</div><div class="ttdoc">Adds the amount of minutes to this time. Wraps hours and days.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00044">Clock.cpp:44</a></div></div>
+<div class="ttc" id="aa02017_html_aec51da110e08724aad9f153307f02a6a"><div class="ttname"><a href="a02017.html#aec51da110e08724aad9f153307f02a6a">core::system::Clock::Time::operator==</a></div><div class="ttdeci">bool operator==(const Time &amp;right) const</div><div class="ttdoc">Checks if two times are the same. Compares days as well unless either day is 0.</div><div class="ttdef"><b>Definition:</b> <a href="a00827_source.html#l00058">Clock.cpp:58</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa03316_html"><div class="ttname"><a href="a03316.html">GameSave.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: editor::page::Towns Class Reference</title>
+<title>Peoplemon: editor::page::Map Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,84 +66,100 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01120.html">editor</a></li><li class="navelem"><a class="el" href="a01127.html">page</a></li><li class="navelem"><a class="el" href="a02321.html">Towns</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01139.html">editor</a></li><li class="navelem"><a class="el" href="a01149.html">page</a></li><li class="navelem"><a class="el" href="a02321.html">Map</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="a02318.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">editor::page::Towns Class Reference<div class="ingroups"><a class="el" href="a01083.html">Editor</a> &raquo; <a class="el" href="a01097.html">Pages</a></div></div>  </div>
+<div class="title">editor::page::Map Class Reference<div class="ingroups"><a class="el" href="a01104.html">Editor</a> &raquo; <a class="el" href="a01119.html">Pages</a></div></div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Subpage for creating, editing, deleting, and placing towns in maps.  
+<p><a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything.  
  <a href="a02321.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00485_source.html">Towns.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a03355_source.html">Map.hpp</a>&gt;</code></p>
+<div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for editor::page::Map:</div>
+<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-0-content" class="dyncontent" style="display:none;">
+ <div class="center">
+  <img src="a02321.png" usemap="#editor::page::Map_map" alt=""/>
+  <map id="editor::page::Map_map" name="editor::page::Map_map">
+<area href="a02329.html" title="Base class for all editor pages." alt="editor::page::Page" shape="rect" coords="0,0,113,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a647c5d855398a7915fec73ece0b5ecd5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a647c5d855398a7915fec73ece0b5ecd5">Towns</a> (<a class="el" href="a02313.html">MapArea</a> &amp;map)</td></tr>
-<tr class="memdesc:a647c5d855398a7915fec73ece0b5ecd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the towns subpage and GUI elements.  <a href="a02321.html#a647c5d855398a7915fec73ece0b5ecd5">More...</a><br /></td></tr>
-<tr class="separator:a647c5d855398a7915fec73ece0b5ecd5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a114f09e0adea341791a6322b7e3439a7"><td class="memItemLeft" align="right" valign="top">bl::gui::Element::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a114f09e0adea341791a6322b7e3439a7">getContent</a> ()</td></tr>
-<tr class="memdesc:a114f09e0adea341791a6322b7e3439a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the GUI element to pack.  <a href="a02321.html#a114f09e0adea341791a6322b7e3439a7">More...</a><br /></td></tr>
-<tr class="separator:a114f09e0adea341791a6322b7e3439a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a244f65aa50b052633703228643fe55fa"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a244f65aa50b052633703228643fe55fa">setGUI</a> (bl::gui::GUI *gui)</td></tr>
-<tr class="memdesc:a244f65aa50b052633703228643fe55fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the primary GUI object.  <a href="a02321.html#a244f65aa50b052633703228643fe55fa">More...</a><br /></td></tr>
-<tr class="separator:a244f65aa50b052633703228643fe55fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad982dc0b9fe75c564ec5aa14f8ba005"><td class="memItemLeft" align="right" valign="top">std::uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#aad982dc0b9fe75c564ec5aa14f8ba005">selected</a> () const</td></tr>
-<tr class="memdesc:aad982dc0b9fe75c564ec5aa14f8ba005"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the currently selected town index.  <a href="a02321.html#aad982dc0b9fe75c564ec5aa14f8ba005">More...</a><br /></td></tr>
-<tr class="separator:aad982dc0b9fe75c564ec5aa14f8ba005"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a165441ca7edce3e3ef07637803f19bac"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a165441ca7edce3e3ef07637803f19bac">refresh</a> ()</td></tr>
-<tr class="memdesc:a165441ca7edce3e3ef07637803f19bac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Refreshes the list of towns in the page.  <a href="a02321.html#a165441ca7edce3e3ef07637803f19bac">More...</a><br /></td></tr>
-<tr class="separator:a165441ca7edce3e3ef07637803f19bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a171e29a91b9df7cbf18375a1a3b7e445"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a171e29a91b9df7cbf18375a1a3b7e445">Map</a> (<a class="el" href="a02109.html">core::system::Systems</a> &amp;<a class="el" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a>)</td></tr>
+<tr class="memdesc:a171e29a91b9df7cbf18375a1a3b7e445"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a02321.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything.">Map</a> page.  <a href="a02321.html#a171e29a91b9df7cbf18375a1a3b7e445">More...</a><br /></td></tr>
+<tr class="separator:a171e29a91b9df7cbf18375a1a3b7e445"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8194c31a67f17a82caf335c1a4248951"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a8194c31a67f17a82caf335c1a4248951">~Map</a> ()=default</td></tr>
+<tr class="memdesc:a8194c31a67f17a82caf335c1a4248951"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroy the <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>.  <a href="a02321.html#a8194c31a67f17a82caf335c1a4248951">More...</a><br /></td></tr>
+<tr class="separator:a8194c31a67f17a82caf335c1a4248951"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#ab376c3860063dd5d6c35cbd9ce9576f3">update</a> (float dt) override</td></tr>
+<tr class="memdesc:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the game world and systems.  <a href="a02321.html#ab376c3860063dd5d6c35cbd9ce9576f3">More...</a><br /></td></tr>
+<tr class="separator:ab376c3860063dd5d6c35cbd9ce9576f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85bc1e7f0df4e6da0f1cc3aa0ae5059c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a85bc1e7f0df4e6da0f1cc3aa0ae5059c">syncGui</a> ()</td></tr>
+<tr class="memdesc:a85bc1e7f0df4e6da0f1cc3aa0ae5059c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the GUI elements to sync with the data.  <a href="a02321.html#a85bc1e7f0df4e6da0f1cc3aa0ae5059c">More...</a><br /></td></tr>
+<tr class="separator:a85bc1e7f0df4e6da0f1cc3aa0ae5059c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ca56d8d39860251755e5800924e57ea"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a6ca56d8d39860251755e5800924e57ea">getContent</a> ()</td></tr>
+<tr class="memdesc:a6ca56d8d39860251755e5800924e57ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the content to put in the editor.  <a href="a02329.html#a6ca56d8d39860251755e5800924e57ea">More...</a><br /></td></tr>
+<tr class="separator:a6ca56d8d39860251755e5800924e57ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#ad50b571e79e7c949f5097ba17ad4aa03">registerGui</a> (bl::gui::GUI *<a class="el" href="a02329.html#a7ece0b91553c68d952d61903d417d51b">parent</a>)</td></tr>
+<tr class="memdesc:ad50b571e79e7c949f5097ba17ad4aa03"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the parent GUI.  <a href="a02329.html#ad50b571e79e7c949f5097ba17ad4aa03">More...</a><br /></td></tr>
+<tr class="separator:ad50b571e79e7c949f5097ba17ad4aa03"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a9c9b393938390b356b02d443bac522ac"><td class="memItemLeft" align="right" valign="top">static sf::Color&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02321.html#a9c9b393938390b356b02d443bac522ac">getColor</a> (std::uint8_t index)</td></tr>
-<tr class="memdesc:a9c9b393938390b356b02d443bac522ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the color to use for the given town.  <a href="a02321.html#a9c9b393938390b356b02d443bac522ac">More...</a><br /></td></tr>
-<tr class="separator:a9c9b393938390b356b02d443bac522ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:af7278d27f56dbefc4a2843d9541a92cc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#af7278d27f56dbefc4a2843d9541a92cc">systems</a></td></tr>
+<tr class="separator:af7278d27f56dbefc4a2843d9541a92cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memItemLeft" align="right" valign="top">bl::gui::Box::Ptr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a70ad60a18f3e0b6f066be1fd5b25213b">content</a></td></tr>
+<tr class="separator:a70ad60a18f3e0b6f066be1fd5b25213b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ece0b91553c68d952d61903d417d51b"><td class="memItemLeft" align="right" valign="top">bl::gui::GUI *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a02329.html#a7ece0b91553c68d952d61903d417d51b">parent</a></td></tr>
+<tr class="separator:a7ece0b91553c68d952d61903d417d51b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Subpage for creating, editing, deleting, and placing towns in maps. </p>
+<div class="textblock"><p><a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a> for map editing. Tiles, levels, events, NPC's, weather, lighting, everything. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00485_source.html#l00022">22</a> of file <a class="el" href="a00485_source.html">Towns.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03355_source.html#l00029">29</a> of file <a class="el" href="a03355_source.html">Map.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a647c5d855398a7915fec73ece0b5ecd5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a647c5d855398a7915fec73ece0b5ecd5">&#9670;&nbsp;</a></span>Towns()</h2>
+<a id="a171e29a91b9df7cbf18375a1a3b7e445"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a171e29a91b9df7cbf18375a1a3b7e445">&#9670;&nbsp;</a></span>Map()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">editor::page::Towns::Towns </td>
+          <td class="memname">editor::page::Map::Map </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="a02313.html">MapArea</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="a02109.html">core::system::Systems</a> &amp;&#160;</td>
+          <td class="paramname"><em>systems</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Creates the towns subpage and GUI elements. </p>
+<p>Construct a new <a class="el" href="a02321.html" title="Page for map editing. Tiles, levels, events, NPC&#39;s, weather, lighting, everything.">Map</a> page. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">map</td><td>The edit map component </td></tr>
+    <tr><td class="paramname">systems</td><td>The primary systems object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00019">19</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a03451_source.html#l00021">21</a> of file <a class="el" href="a03451_source.html">Map.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9c9b393938390b356b02d443bac522ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9c9b393938390b356b02d443bac522ac">&#9670;&nbsp;</a></span>getColor()</h2>
+<a id="a8194c31a67f17a82caf335c1a4248951"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8194c31a67f17a82caf335c1a4248951">&#9670;&nbsp;</a></span>~Map()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,126 +168,230 @@ Static Public Member Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">sf::Color editor::page::Towns::getColor </td>
+          <td class="memname">virtual editor::page::Map::~Map </td>
           <td>(</td>
-          <td class="paramtype">std::uint8_t&#160;</td>
-          <td class="paramname"><em>index</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+<span class="mlabels"><span class="mlabel">virtual</span><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Returns the color to use for the given town. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00107">107</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
+<p>Destroy the <a class="el" href="a02329.html" title="Base class for all editor pages.">Page</a>. </p>
 
 </div>
 </div>
-<a id="a114f09e0adea341791a6322b7e3439a7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a114f09e0adea341791a6322b7e3439a7">&#9670;&nbsp;</a></span>getContent()</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a6ca56d8d39860251755e5800924e57ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ca56d8d39860251755e5800924e57ea">&#9670;&nbsp;</a></span>getContent()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Element::Ptr editor::page::Towns::getContent </td>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::getContent </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Returns the GUI element to pack. </p>
+<p>Returns the content to put in the editor. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00101">101</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00989_source.html#l00011">11</a> of file <a class="el" href="a00989_source.html">Page.cpp</a>.</p>
 
 </div>
 </div>
-<a id="a165441ca7edce3e3ef07637803f19bac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a165441ca7edce3e3ef07637803f19bac">&#9670;&nbsp;</a></span>refresh()</h2>
+<a id="ad50b571e79e7c949f5097ba17ad4aa03"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad50b571e79e7c949f5097ba17ad4aa03">&#9670;&nbsp;</a></span>registerGui()</h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void editor::page::Towns::refresh </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Refreshes the list of towns in the page. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00109">109</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
-
-</div>
-</div>
-<a id="aad982dc0b9fe75c564ec5aa14f8ba005"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad982dc0b9fe75c564ec5aa14f8ba005">&#9670;&nbsp;</a></span>selected()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::uint8_t editor::page::Towns::selected </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Returns the currently selected town index. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00103">103</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a244f65aa50b052633703228643fe55fa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a244f65aa50b052633703228643fe55fa">&#9670;&nbsp;</a></span>setGUI()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void editor::page::Towns::setGUI </td>
+          <td class="memname">void editor::page::Page::registerGui </td>
           <td>(</td>
           <td class="paramtype">bl::gui::GUI *&#160;</td>
-          <td class="paramname"><em>gui</em></td><td>)</td>
+          <td class="paramname"><em>parent</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
-<p>Set the primary GUI object. </p>
+<p>Registers the parent GUI. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">gui</td><td>The primary GUI object </td></tr>
+    <tr><td class="paramname">parent</td><td>The parent GUI object </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00992_source.html#l00105">105</a> of file <a class="el" href="a00992_source.html">Towns.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00989_source.html#l00013">13</a> of file <a class="el" href="a00989_source.html">Page.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a85bc1e7f0df4e6da0f1cc3aa0ae5059c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85bc1e7f0df4e6da0f1cc3aa0ae5059c">&#9670;&nbsp;</a></span>syncGui()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::Map::syncGui </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Updates the GUI elements to sync with the data. </p>
+
+<p class="definition">Definition at line <a class="el" href="a03451_source.html#l00871">871</a> of file <a class="el" href="a03451_source.html">Map.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ab376c3860063dd5d6c35cbd9ce9576f3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab376c3860063dd5d6c35cbd9ce9576f3">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void editor::page::Map::update </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Updates the game world and systems. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">dt</td><td>Time elapsed in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="a02329.html#a2b795b1243ceabcf90c0cb492ae7f903">editor::page::Page</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="a03451_source.html#l00467">467</a> of file <a class="el" href="a03451_source.html">Map.cpp</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a70ad60a18f3e0b6f066be1fd5b25213b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70ad60a18f3e0b6f066be1fd5b25213b">&#9670;&nbsp;</a></span>content</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::Box::Ptr editor::page::Page::content</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00069">69</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a7ece0b91553c68d952d61903d417d51b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7ece0b91553c68d952d61903d417d51b">&#9670;&nbsp;</a></span>parent</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bl::gui::GUI* editor::page::Page::parent</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00070">70</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
+
+</div>
+</div>
+<a id="af7278d27f56dbefc4a2843d9541a92cc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7278d27f56dbefc4a2843d9541a92cc">&#9670;&nbsp;</a></span>systems</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="a02109.html">core::system::Systems</a>&amp; editor::page::Page::systems</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00473_source.html#l00068">68</a> of file <a class="el" href="a00473_source.html">Page.hpp</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/Editor/Pages/Subpages/<a class="el" href="a00485_source.html">Towns.hpp</a></li>
-<li>src/Editor/Pages/Subpages/<a class="el" href="a00992_source.html">Towns.cpp</a></li>
+<li>include/Editor/Pages/<a class="el" href="a03355_source.html">Map.hpp</a></li>
+<li>src/Editor/Pages/<a class="el" href="a03451_source.html">Map.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:03 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

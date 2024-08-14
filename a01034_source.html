@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Game/States/Battle/WildIntro.hpp Source File</title>
+<title>Peoplemon: src/Game/Menus/StorageCursor.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,61 +66,262 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_6496ffd378408be870187957e1319ed1.html">States</a></li><li class="navelem"><a class="el" href="dir_ab80aba2c35c17b703a902db6ecb3f93.html">Battle</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_b43036362fece0f978c3c8156df55d19.html">Game</a></li><li class="navelem"><a class="el" href="dir_7dcf36a62d3315b9c9e8a1eee995a4a4.html">Menus</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">WildIntro.hpp</div>  </div>
+<div class="title">StorageCursor.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a01034.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATE_BATTLE_WILDINTRO_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATE_BATTLE_WILDINTRO_HPP</span></div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00515.html">Game/States/BattleWrapperState.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01129.html">game</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>state</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span>intros</div>
+<a href="a01034.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00518.html">Game/Menus/StorageCursor.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;BLIB/Components/Velocity2D.hpp&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Util/FileUtil.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03370.html">Core/Peoplemon/Peoplemon.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03328.html">Core/Player/StorageSystem.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00521.html">Game/Menus/StorageGrid.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160; </div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01153.html">game</a></div>
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="a02841.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02841.html">WildSequence</a> : <span class="keyword">public</span> <a class="code" href="a02369.html">SequenceBase</a> {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <a class="code" href="a02841.html#a9908fe35530bd656855b9b459970c2f6">WildSequence</a>();</div>
-<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a02841.html#a18cc08e17a21d399b61ba714f68de2c2">   16</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02841.html#a18cc08e17a21d399b61ba714f68de2c2">~WildSequence</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02841.html#a17a406ce6c0d766a02f7ac3362be1c47">start</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02841.html#ab5324119b802f303a3e9aa474b409c28">update</a>(<span class="keywordtype">float</span> dt) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="a02841.html#af2937866fb444c4cd68967a3b11f8549">finished</a>() <span class="keyword">const override</span>;</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    bl::engine::Engine* e;</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordtype">float</span> time;</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordtype">float</span> shuffleTime;</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    bl::gfx::Rectangle background;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordtype">void</span>* uniform;</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;};</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;} <span class="comment">// namespace intros</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;} <span class="comment">// namespace state</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;} <span class="comment">// namespace game</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">BattleWrapperState.hpp</a></div></div>
-<div class="ttc" id="aa01129_html"><div class="ttname"><a href="a01129.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00494_source.html#l00014">BagItemButton.hpp:15</a></div></div>
-<div class="ttc" id="aa02369_html"><div class="ttname"><a href="a02369.html">game::state::intros::SequenceBase</a></div><div class="ttdef"><b>Definition:</b> <a href="a00515_source.html#l00012">BattleWrapperState.hpp:12</a></div></div>
-<div class="ttc" id="aa02841_html"><div class="ttname"><a href="a02841.html">game::state::intros::WildSequence</a></div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00013">WildIntro.hpp:13</a></div></div>
-<div class="ttc" id="aa02841_html_a17a406ce6c0d766a02f7ac3362be1c47"><div class="ttname"><a href="a02841.html#a17a406ce6c0d766a02f7ac3362be1c47">game::state::intros::WildSequence::start</a></div><div class="ttdeci">virtual void start(bl::engine::Engine &amp;engine) override</div><div class="ttdef"><b>Definition:</b> <a href="a01031_source.html#l00040">WildIntro.cpp:40</a></div></div>
-<div class="ttc" id="aa02841_html_a18cc08e17a21d399b61ba714f68de2c2"><div class="ttname"><a href="a02841.html#a18cc08e17a21d399b61ba714f68de2c2">game::state::intros::WildSequence::~WildSequence</a></div><div class="ttdeci">virtual ~WildSequence()=default</div></div>
-<div class="ttc" id="aa02841_html_a9908fe35530bd656855b9b459970c2f6"><div class="ttname"><a href="a02841.html#a9908fe35530bd656855b9b459970c2f6">game::state::intros::WildSequence::WildSequence</a></div><div class="ttdeci">WildSequence()</div><div class="ttdef"><b>Definition:</b> <a href="a01031_source.html#l00036">WildIntro.cpp:36</a></div></div>
-<div class="ttc" id="aa02841_html_ab5324119b802f303a3e9aa474b409c28"><div class="ttname"><a href="a02841.html#ab5324119b802f303a3e9aa474b409c28">game::state::intros::WildSequence::update</a></div><div class="ttdeci">virtual void update(float dt) override</div><div class="ttdef"><b>Definition:</b> <a href="a01031_source.html#l00077">WildIntro.cpp:77</a></div></div>
-<div class="ttc" id="aa02841_html_af2937866fb444c4cd68967a3b11f8549"><div class="ttname"><a href="a02841.html#af2937866fb444c4cd68967a3b11f8549">game::state::intros::WildSequence::finished</a></div><div class="ttdeci">virtual bool finished() const override</div><div class="ttdef"><b>Definition:</b> <a href="a01031_source.html#l00095">WildIntro.cpp:95</a></div></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="keyword">namespace </span>menu</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;{</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="keywordtype">float</span> StorageCursor::size = 40.f;</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keyword">namespace</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;{</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;constexpr <span class="keywordtype">float</span> MoveTime    = 0.3f;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;constexpr <span class="keywordtype">float</span> RotateRate  = 360.f;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;constexpr <span class="keywordtype">float</span> FlashPeriod = 0.4f;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;glm::vec2 moveVector(<a class="code" href="a01136.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a> dir) {</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keywordflow">switch</span> (dir) {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keywordflow">return</span> {1.f, 0.f};</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a>:</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keywordflow">return</span> {0.f, 1.f};</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a>:</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">return</span> {-1.f, 0.f};</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a>:</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordflow">return</span> {0.f, -1.f};</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keywordflow">return</span> {0.f, 0.f};</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;} <span class="comment">// namespace</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160; </div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a02417.html#af770998163a63a391ed04434b90e33f5">   38</a></span>&#160;<a class="code" href="a02417.html#af770998163a63a391ed04434b90e33f5">StorageCursor::StorageCursor</a>(bl::engine::Engine&amp; engine)</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;: engine(engine)</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;, position(0, 0)</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;, moveDir(<a class="code" href="a01123.html">core</a>::input::Control::<a class="code" href="a01109.html#gaf9a43071401d217a03ca35e89affedf2">EntityControl</a>::None)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;, pplInScene(false) {</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    cursorTxtr = engine.renderer().texturePool().getOrLoadTexture(bl::util::FileUtil::joinPath(</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <a class="code" href="a01957.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a>(), <span class="stringliteral">&quot;StorageSystem/storageCursor.png&quot;</span>));</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    cursor.create(engine, cursorTxtr);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    cursor.getTransform().setDepth(bl::cam::OverlayCamera::MinDepth + 1.f);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    size    = cursorTxtr-&gt;size().x;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    moveVel = size / MoveTime;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    offset  = 0.f;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="a02417.html#a8bf027ae6681036a67d4987112e56eb6">   53</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a8bf027ae6681036a67d4987112e56eb6">StorageCursor::activate</a>(bl::ecs::Entity parent) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    cursor.setParent(parent);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    bl::rc::Scene* overlay = engine.renderer().getObserver().getCurrentOverlay();</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    cursor.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (peoplemon.entity() != bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        peoplemon.addToScene(overlay, bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        pplInScene = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;        pplInScene = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        cursor.flash(FlashPeriod, FlashPeriod);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    }</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    syncPos();</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;}</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno"><a class="line" href="a02417.html#a08d9ab088f9bb33b708035f298e1a907">   68</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a08d9ab088f9bb33b708035f298e1a907">StorageCursor::deactivate</a>() {</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    cursor.removeFromScene();</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordflow">if</span> (peoplemon.entity() != bl::ecs::InvalidEntity) { peoplemon.removeFromScene(); }</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    pplInScene = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160; </div>
+<div class="line"><a name="l00074"></a><span class="lineno"><a class="line" href="a02417.html#a37e4913f74723bb9e6dc80aec6bf6dd9">   74</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a37e4913f74723bb9e6dc80aec6bf6dd9">StorageCursor::setHidden</a>(<span class="keywordtype">bool</span> hide) {</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">if</span> (hide) {</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;        cursor.stopFlashing();</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;        cursor.setHidden(<span class="keyword">true</span>);</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    }</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!pplInScene &amp;&amp; !engine.ecs().hasComponent&lt;bl::com::Toggler&gt;(cursor.entity())) {</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        cursor.flash(FlashPeriod, FlashPeriod);</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    }</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;}</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
+<div class="line"><a name="l00084"></a><span class="lineno"><a class="line" href="a02417.html#a1c9b6ef5c377b0c3b6229fccff6ccde7">   84</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a1c9b6ef5c377b0c3b6229fccff6ccde7">StorageCursor::update</a>(<span class="keywordtype">float</span> dt) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <span class="keywordflow">if</span> (pplInScene) { peoplemon.getTransform().rotate(RotateRate * dt); }</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160; </div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">switch</span> (moveDir) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a>:</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a>:</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a>:</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a>:</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        offset += moveVel * dt;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        cursor.getTransform().move(moveVector(moveDir) * moveVel * dt);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;        <span class="keywordflow">if</span> (offset &gt;= size) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            moveDir = <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::EntityControl::None</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;            syncPos();</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        }</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keywordflow">break</span>;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    }</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;}</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="a02417.html#a6eb287533d5974170a0e1be0f561f7a2">  105</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02417.html#a6eb287533d5974170a0e1be0f561f7a2">StorageCursor::process</a>(<a class="code" href="a01136.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a> cmd, <span class="keywordtype">bool</span> skip) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a02417.html#aa050ff2da0961668024b33326c7b86c1">moving</a>()) {</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        <span class="keywordflow">if</span> (!skip) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;        <span class="comment">// finish in-progress move</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        syncPos();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    }</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    moveDir = cmd;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    offset  = 0.f;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordflow">switch</span> (cmd) {</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a>:</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;        <span class="keywordflow">if</span> (position.y &gt; 0) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            --position.y;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        }</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160; </div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a>:</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span> (position.x &lt; <a class="code" href="a01953.html#a5763cb544169e00f853acdd729ea0046">core::player::StorageSystem::BoxWidth</a> - 1) {</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            ++position.x;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        }</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a>:</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        <span class="keywordflow">if</span> (position.y &lt; <a class="code" href="a01953.html#a28fac98e0b52f386357152fce0c455c5">core::player::StorageSystem::BoxHeight</a> - 1) {</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;            ++position.y;</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;        }</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordflow">case</span> <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a>:</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;        <span class="keywordflow">if</span> (position.x &gt; 0) {</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;            --position.x;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;        }</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">default</span>:</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        moveDir = <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::EntityControl::None</a>;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
+<div class="line"><a name="l00150"></a><span class="lineno"><a class="line" href="a02417.html#a6fbea49e3b0673d1d53e83abeaa3c79a">  150</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a6fbea49e3b0673d1d53e83abeaa3c79a">StorageCursor::setHolding</a>(<a class="code" href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a> ppl) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="keywordflow">if</span> (ppl != <a class="code" href="a01112.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a>) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;        pplTxtr = engine.renderer().texturePool().getOrLoadTexture(</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;            <a class="code" href="a01893.html#aeb1b03ef2dd34e4e83568c186d8e3d87">core::pplmn::Peoplemon::thumbnailImage</a>(ppl));</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160; </div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;        <span class="keywordflow">if</span> (peoplemon.entity() == bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;            peoplemon.create(engine, pplTxtr);</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;            peoplemon.getTransform().setOrigin(pplTxtr-&gt;size() * 0.5f);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;            peoplemon.getTransform().setPosition(size * 0.5f, size * 0.5f);</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;            peoplemon.setParent(cursor);</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;        }</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;        <span class="keywordflow">else</span> { peoplemon.setTexture(pplTxtr); }</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;        <span class="keywordflow">if</span> (!pplInScene) {</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;            pplInScene = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;            peoplemon.addToScene(engine.renderer().getObserver().getCurrentOverlay(),</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;                                 bl::rc::UpdateSpeed::Dynamic);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;        }</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;        peoplemon.getTransform().setRotation(0.f);</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;        peoplemon.scaleToSize({size, size});</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;        cursor.stopFlashing();</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    }</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (peoplemon.entity() != bl::ecs::InvalidEntity) {</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;        peoplemon.removeFromScene();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        pplInScene = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;        cursor.flash(FlashPeriod, FlashPeriod);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    }</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00180"></a><span class="lineno"><a class="line" href="a02417.html#aa050ff2da0961668024b33326c7b86c1">  180</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a02417.html#aa050ff2da0961668024b33326c7b86c1">StorageCursor::moving</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> moveDir != <a class="code" href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::EntityControl::None</a>; }</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160; </div>
+<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="a02417.html#a83b6ddc1059af3f634d80d473d1dea23">  182</a></span>&#160;<span class="keyword">const</span> sf::Vector2i&amp; <a class="code" href="a02417.html#a83b6ddc1059af3f634d80d473d1dea23">StorageCursor::getPosition</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> position; }</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno"><a class="line" href="a02417.html#ac65a0cab8baa60a60d6a05e5445f4055">  184</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#ac65a0cab8baa60a60d6a05e5445f4055">StorageCursor::setX</a>(<span class="keywordtype">int</span> x) {</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    position.x = x;</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    syncPos();</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;}</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno"><a class="line" href="a02417.html#aff0460afa73959537e4dd8ba53ebe6f1">  189</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#aff0460afa73959537e4dd8ba53ebe6f1">StorageCursor::pageLeft</a>() {</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    position.x = <a class="code" href="a01953.html#a5763cb544169e00f853acdd729ea0046">core::player::StorageSystem::BoxWidth</a> - 1;</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    syncPos();</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;}</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno"><a class="line" href="a02417.html#a6adf7fbfaf13719e1e8532f6ab3ed828">  194</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02417.html#a6adf7fbfaf13719e1e8532f6ab3ed828">StorageCursor::pageRight</a>() {</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    position.x = 0;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    syncPos();</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;}</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160; </div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="keywordtype">void</span> StorageCursor::syncPos() { cursor.getTransform().setPosition(makePos()); }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160; </div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;glm::vec2 StorageCursor::makePos()<span class="keyword"> const </span>{</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="keywordflow">return</span> glm::vec2(position.x, position.y) * size + <a class="code" href="a02421.html#acdde23bc62de7328b792b721c6e5936f">menu::StorageGrid::BoxPosition</a>;</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;}</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno"><a class="line" href="a02417.html#a8730040872076baeafa9431908e0c93a">  205</a></span>&#160;<span class="keywordtype">float</span> <a class="code" href="a02417.html#a8730040872076baeafa9431908e0c93a">StorageCursor::TileSize</a>() { <span class="keywordflow">return</span> size; }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;} <span class="comment">// namespace menu</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
+<div class="ttc" id="aa00518_html"><div class="ttname"><a href="a00518.html">StorageCursor.hpp</a></div></div>
+<div class="ttc" id="aa00521_html"><div class="ttname"><a href="a00521.html">StorageGrid.hpp</a></div></div>
+<div class="ttc" id="aa01109_html_gaf9a43071401d217a03ca35e89affedf2"><div class="ttname"><a href="a01109.html#gaf9a43071401d217a03ca35e89affedf2">core::input::Control::EntityControl</a></div><div class="ttdeci">EntityControl</div><div class="ttdoc">Contains the various inputs a player or AI can use to control the game or an NPC.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00028">Control.hpp:28</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a0dcfeb8a10ec44b94a8bb7e57e9f9a07">core::input::Control::MoveDown</a></div><div class="ttdeci">@ MoveDown</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00031">Control.hpp:31</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2a5c901845de1e00083b7af54583348b8d">core::input::Control::None</a></div><div class="ttdeci">@ None</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00039">Control.hpp:38</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ac50384917b108b811c6ee3c6ab6265ee">core::input::Control::MoveLeft</a></div><div class="ttdeci">@ MoveLeft</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00032">Control.hpp:32</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2ada6387ec73cfdd98077542bb0cea330f">core::input::Control::MoveRight</a></div><div class="ttdeci">@ MoveRight</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00030">Control.hpp:30</a></div></div>
+<div class="ttc" id="aa01109_html_ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4"><div class="ttname"><a href="a01109.html#ggaf9a43071401d217a03ca35e89affedf2aee8967b5c62d193bc94d7562cb7b68e4">core::input::Control::MoveUp</a></div><div class="ttdeci">@ MoveUp</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00029">Control.hpp:29</a></div></div>
+<div class="ttc" id="aa01112_html_gaff5f3dd1e35d3d00dddc8e9983d5a8a8"><div class="ttname"><a href="a01112.html#gaff5f3dd1e35d3d00dddc8e9983d5a8a8">core::pplmn::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">The id of a peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03343_source.html#l00016">Id.hpp:16</a></div></div>
+<div class="ttc" id="aa01112_html_ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e"><div class="ttname"><a href="a01112.html#ggaff5f3dd1e35d3d00dddc8e9983d5a8a8a88183b946cc5f0e8c96b2e66e1c74a7e">core::pplmn::Id::Unknown</a></div><div class="ttdeci">@ Unknown</div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01136_html_a362a94172d86c7b7662228aeab1b7516"><div class="ttname"><a href="a01136.html#a362a94172d86c7b7662228aeab1b7516">core::input::EntityControl</a></div><div class="ttdeci">std::underlying_type_t&lt; Control::EntityControl &gt; EntityControl</div><div class="ttdoc">Helper typedef to avoid too much casting boilerplate.</div><div class="ttdef"><b>Definition:</b> <a href="a00164_source.html#l00044">Control.hpp:44</a></div></div>
+<div class="ttc" id="aa01153_html"><div class="ttname"><a href="a01153.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00506_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01893_html_aeb1b03ef2dd34e4e83568c186d8e3d87"><div class="ttname"><a href="a01893.html#aeb1b03ef2dd34e4e83568c186d8e3d87">core::pplmn::Peoplemon::thumbnailImage</a></div><div class="ttdeci">static std::string thumbnailImage(Id id)</div><div class="ttdoc">Returns the path of the image to render as the peoplemon thumbnail.</div><div class="ttdef"><b>Definition:</b> <a href="a03460_source.html#l00211">Peoplemon.cpp:211</a></div></div>
+<div class="ttc" id="aa01953_html_a28fac98e0b52f386357152fce0c455c5"><div class="ttname"><a href="a01953.html#a28fac98e0b52f386357152fce0c455c5">core::player::StorageSystem::BoxHeight</a></div><div class="ttdeci">static constexpr int BoxHeight</div><div class="ttdef"><b>Definition:</b> <a href="a03328_source.html#l00026">StorageSystem.hpp:26</a></div></div>
+<div class="ttc" id="aa01953_html_a5763cb544169e00f853acdd729ea0046"><div class="ttname"><a href="a01953.html#a5763cb544169e00f853acdd729ea0046">core::player::StorageSystem::BoxWidth</a></div><div class="ttdeci">static constexpr int BoxWidth</div><div class="ttdef"><b>Definition:</b> <a href="a03328_source.html#l00025">StorageSystem.hpp:25</a></div></div>
+<div class="ttc" id="aa01957_html_a83a1435c52995339e6a350c3120a9beb"><div class="ttname"><a href="a01957.html#a83a1435c52995339e6a350c3120a9beb">core::Properties::MenuImagePath</a></div><div class="ttdeci">static const std::string &amp; MenuImagePath()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00303">Properties.cpp:303</a></div></div>
+<div class="ttc" id="aa02417_html_a08d9ab088f9bb33b708035f298e1a907"><div class="ttname"><a href="a02417.html#a08d9ab088f9bb33b708035f298e1a907">game::menu::StorageCursor::deactivate</a></div><div class="ttdeci">void deactivate()</div><div class="ttdoc">Removes from the current scene.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00068">StorageCursor.cpp:68</a></div></div>
+<div class="ttc" id="aa02417_html_a1c9b6ef5c377b0c3b6229fccff6ccde7"><div class="ttname"><a href="a02417.html#a1c9b6ef5c377b0c3b6229fccff6ccde7">game::menu::StorageCursor::update</a></div><div class="ttdeci">void update(float dt)</div><div class="ttdoc">Updates the cursor motion.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00084">StorageCursor.cpp:84</a></div></div>
+<div class="ttc" id="aa02417_html_a37e4913f74723bb9e6dc80aec6bf6dd9"><div class="ttname"><a href="a02417.html#a37e4913f74723bb9e6dc80aec6bf6dd9">game::menu::StorageCursor::setHidden</a></div><div class="ttdeci">void setHidden(bool hide)</div><div class="ttdoc">Show or hide the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00074">StorageCursor.cpp:74</a></div></div>
+<div class="ttc" id="aa02417_html_a6adf7fbfaf13719e1e8532f6ab3ed828"><div class="ttname"><a href="a02417.html#a6adf7fbfaf13719e1e8532f6ab3ed828">game::menu::StorageCursor::pageRight</a></div><div class="ttdeci">void pageRight()</div><div class="ttdoc">Updates the cursor position if the box to the right is switched to.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00194">StorageCursor.cpp:194</a></div></div>
+<div class="ttc" id="aa02417_html_a6eb287533d5974170a0e1be0f561f7a2"><div class="ttname"><a href="a02417.html#a6eb287533d5974170a0e1be0f561f7a2">game::menu::StorageCursor::process</a></div><div class="ttdeci">bool process(core::input::EntityControl cmd, bool skipAnim)</div><div class="ttdoc">Processes user input to move the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00105">StorageCursor.cpp:105</a></div></div>
+<div class="ttc" id="aa02417_html_a6fbea49e3b0673d1d53e83abeaa3c79a"><div class="ttname"><a href="a02417.html#a6fbea49e3b0673d1d53e83abeaa3c79a">game::menu::StorageCursor::setHolding</a></div><div class="ttdeci">void setHolding(core::pplmn::Id peoplemon)</div><div class="ttdoc">Sets a Peoplemon to render with the cursor. Pass Unknown to clear.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00150">StorageCursor.cpp:150</a></div></div>
+<div class="ttc" id="aa02417_html_a83b6ddc1059af3f634d80d473d1dea23"><div class="ttname"><a href="a02417.html#a83b6ddc1059af3f634d80d473d1dea23">game::menu::StorageCursor::getPosition</a></div><div class="ttdeci">const sf::Vector2i &amp; getPosition() const</div><div class="ttdoc">Returns the position of the cursor in the box.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00182">StorageCursor.cpp:182</a></div></div>
+<div class="ttc" id="aa02417_html_a8730040872076baeafa9431908e0c93a"><div class="ttname"><a href="a02417.html#a8730040872076baeafa9431908e0c93a">game::menu::StorageCursor::TileSize</a></div><div class="ttdeci">static float TileSize()</div><div class="ttdoc">Returns the size of a square on the grid.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00205">StorageCursor.cpp:205</a></div></div>
+<div class="ttc" id="aa02417_html_a8bf027ae6681036a67d4987112e56eb6"><div class="ttname"><a href="a02417.html#a8bf027ae6681036a67d4987112e56eb6">game::menu::StorageCursor::activate</a></div><div class="ttdeci">void activate(bl::ecs::Entity parent)</div><div class="ttdoc">Adds to the current overlay.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00053">StorageCursor.cpp:53</a></div></div>
+<div class="ttc" id="aa02417_html_aa050ff2da0961668024b33326c7b86c1"><div class="ttname"><a href="a02417.html#aa050ff2da0961668024b33326c7b86c1">game::menu::StorageCursor::moving</a></div><div class="ttdeci">bool moving() const</div><div class="ttdoc">Returns whether or not the cursor position is being interpolated.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00180">StorageCursor.cpp:180</a></div></div>
+<div class="ttc" id="aa02417_html_ac65a0cab8baa60a60d6a05e5445f4055"><div class="ttname"><a href="a02417.html#ac65a0cab8baa60a60d6a05e5445f4055">game::menu::StorageCursor::setX</a></div><div class="ttdeci">void setX(int x)</div><div class="ttdoc">Sets the x position of the cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00184">StorageCursor.cpp:184</a></div></div>
+<div class="ttc" id="aa02417_html_af770998163a63a391ed04434b90e33f5"><div class="ttname"><a href="a02417.html#af770998163a63a391ed04434b90e33f5">game::menu::StorageCursor::StorageCursor</a></div><div class="ttdeci">StorageCursor(bl::engine::Engine &amp;engine)</div><div class="ttdoc">Construct a new Storage Cursor.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00038">StorageCursor.cpp:38</a></div></div>
+<div class="ttc" id="aa02417_html_aff0460afa73959537e4dd8ba53ebe6f1"><div class="ttname"><a href="a02417.html#aff0460afa73959537e4dd8ba53ebe6f1">game::menu::StorageCursor::pageLeft</a></div><div class="ttdeci">void pageLeft()</div><div class="ttdoc">Updates the cursor position if the box to the left is switched to.</div><div class="ttdef"><b>Definition:</b> <a href="a01034_source.html#l00189">StorageCursor.cpp:189</a></div></div>
+<div class="ttc" id="aa02421_html_acdde23bc62de7328b792b721c6e5936f"><div class="ttname"><a href="a02421.html#acdde23bc62de7328b792b721c6e5936f">game::menu::StorageGrid::BoxPosition</a></div><div class="ttdeci">static constexpr glm::vec2 BoxPosition</div><div class="ttdef"><b>Definition:</b> <a href="a00521_source.html#l00022">StorageGrid.hpp:22</a></div></div>
+<div class="ttc" id="aa03328_html"><div class="ttname"><a href="a03328.html">StorageSystem.hpp</a></div></div>
+<div class="ttc" id="aa03370_html"><div class="ttname"><a href="a03370.html">Peoplemon.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

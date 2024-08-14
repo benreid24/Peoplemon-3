@@ -66,24 +66,29 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01112.html">map</a></li><li class="navelem"><a class="el" href="a01118.html">weather</a></li><li class="navelem"><a class="el" href="a01152.html">rain</a></li><li class="navelem"><a class="el" href="a02521.html">GlobalShaderInfo</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01153.html">game</a></li><li class="navelem"><a class="el" href="a01155.html">state</a></li><li class="navelem"><a class="el" href="a02521.html">State</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">core::map::weather::rain::GlobalShaderInfo Member List</div>  </div>
+<div class="title">game::state::State Member List</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="a02521.html">core::map::weather::rain::GlobalShaderInfo</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="a02521.html">game::state::State</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a4c1eed064a6a04cbde47168d2c48d325">info</a></td><td class="entry"><a class="el" href="a02521.html">core::map::weather::rain::GlobalShaderInfo</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="a02521.html#a7ca41efbdef9c1491f10ca4f2549c55e">rotation</a></td><td class="entry"><a class="el" href="a02521.html">core::map::weather::rain::GlobalShaderInfo</a></td><td class="entry"></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a2245c2f3ab8cbd78e345b4b940ffa442">activate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02521.html#a63ff495c10ee7d986be1750173d24c6b">deactivate</a>(bl::engine::Engine &amp;engine) override=0</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#ae62840bb33e67ff1b1ea7b6c9431d249">name</a>() const override=0</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02521.html#a39e069c6f70b4af602662b1256d29972">State</a>(core::system::Systems &amp;systems, bl::engine::StateMask::V mask)</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a></td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">protected</span></td></tr>
+  <tr><td class="entry"><a class="el" href="a02521.html#aa294a09e38106bec03bde9a8bfcd3f3f">update</a>(bl::engine::Engine &amp;engine, float dt, float realDt) override=0</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">pure virtual</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="a02521.html#a8f476c44d4104c353117a2e92742ec90">~State</a>()=default</td><td class="entry"><a class="el" href="a02521.html">game::state::State</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:58 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: include/Core/Systems/Scripts.hpp Source File</title>
+<title>Peoplemon: include/Core/Events/BagMenu.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,66 +66,60 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_9ee9775a41bd202429166df6e1b725b2.html">Systems</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_7d40579ff302046f2f9f8f8501b8cf30.html">Events</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Scripts.hpp</div>  </div>
+<div class="title">BagMenu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03307.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_SYSTEMS_SCRIPTS_HPP</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_SYSTEMS_SCRIPTS_HPP</span></div>
+<a href="a03307.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_EVENTS_BAGMENU_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_EVENTS_BAGMENU_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Events.hpp&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Scripts.hpp&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Serialization/JSON.hpp&gt;</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03226.html">Core/Events/GameSave.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span>system</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">class </span>Systems;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno"><a class="line" href="a02081.html">   22</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02081.html">Scripts</a> : <span class="keyword">public</span> bl::event::Listener&lt;event::GameSaveInitializing&gt; {</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    <a class="code" href="a02081.html#acd5823a50ebc893def97feab9547844c">Scripts</a>(<a class="code" href="a02085.html">Systems</a>&amp; owner);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02081.html#a6a89c17e45218a569c2af20321e2089c">init</a>();</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keyword">const</span> bl::script::Value* <a class="code" href="a02081.html#a011aba1e228d5fdb9b2400e490bb0f70">getEntry</a>(<span class="keyword">const</span> std::string&amp; name) <span class="keyword">const</span>;</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a02081.html#a388763697fcf3166e10d634183978787">setEntry</a>(<span class="keyword">const</span> std::string&amp; name, <span class="keyword">const</span> bl::script::Value&amp; val);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="a02085.html">Systems</a>&amp; owner;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    std::unordered_map&lt;std::string, bl::script::Value&gt; entries;</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="a02081.html#ad907317ce8f0753ec6b1cd9fee2276de">   57</a></span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> observe(<span class="keyword">const</span> <a class="code" href="a01465.html">event::GameSaveInitializing</a>&amp; save) <span class="keyword">override</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keyword">friend</span> <span class="keyword">struct </span>bl::serial::SerializableObject&lt;<a class="code" href="a02081.html">Scripts</a>&gt;;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;};</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;} <span class="comment">// namespace system</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160; </div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01465_html"><div class="ttname"><a href="a01465.html">core::event::GameSaveInitializing</a></div><div class="ttdoc">Fired when the game is saving or loading. Allows systems to hook in their data.</div><div class="ttdef"><b>Definition:</b> <a href="a03226_source.html#l00022">GameSave.hpp:22</a></div></div>
-<div class="ttc" id="aa02081_html"><div class="ttname"><a href="a02081.html">core::system::Scripts</a></div><div class="ttdoc">System that stores and handles saving/loading of save entries for scripts.</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00022">Scripts.hpp:22</a></div></div>
-<div class="ttc" id="aa02081_html_a011aba1e228d5fdb9b2400e490bb0f70"><div class="ttname"><a href="a02081.html#a011aba1e228d5fdb9b2400e490bb0f70">core::system::Scripts::getEntry</a></div><div class="ttdeci">const bl::script::Value * getEntry(const std::string &amp;name) const</div><div class="ttdoc">Returns the save entry with the given name. May be null if not found.</div><div class="ttdef"><b>Definition:</b> <a href="a03403_source.html#l00015">Scripts.cpp:15</a></div></div>
-<div class="ttc" id="aa02081_html_a388763697fcf3166e10d634183978787"><div class="ttname"><a href="a02081.html#a388763697fcf3166e10d634183978787">core::system::Scripts::setEntry</a></div><div class="ttdeci">void setEntry(const std::string &amp;name, const bl::script::Value &amp;val)</div><div class="ttdoc">Sets a save entry.</div><div class="ttdef"><b>Definition:</b> <a href="a03403_source.html#l00020">Scripts.cpp:20</a></div></div>
-<div class="ttc" id="aa02081_html_a6a89c17e45218a569c2af20321e2089c"><div class="ttname"><a href="a02081.html#a6a89c17e45218a569c2af20321e2089c">core::system::Scripts::init</a></div><div class="ttdeci">void init()</div><div class="ttdoc">Subscribes to the game event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a03403_source.html#l00013">Scripts.cpp:13</a></div></div>
-<div class="ttc" id="aa02081_html_acd5823a50ebc893def97feab9547844c"><div class="ttname"><a href="a02081.html#acd5823a50ebc893def97feab9547844c">core::system::Scripts::Scripts</a></div><div class="ttdeci">Scripts(Systems &amp;owner)</div><div class="ttdoc">Initializes the scripting system.</div><div class="ttdef"><b>Definition:</b> <a href="a03403_source.html#l00010">Scripts.cpp:10</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa03226_html"><div class="ttname"><a href="a03226.html">GameSave.hpp</a></div></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03340.html">Core/Items/Id.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="a01132.html">    8</a></span>&#160;<span class="keyword">namespace </span>event</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="a01465.html">   16</a></span>&#160;<span class="keyword">struct </span><a class="code" href="a01465.html">OpenBagMenu</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfb">   18</a></span>&#160;    <span class="keyword">enum struct</span> <a class="code" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfb">Context</a> { <a class="code" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfba461779234ebd4cecb4ab0eacd80e5f7a">BattleUse</a>, <a class="code" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfbaa6ea893fdc6e0771ff6d14028a6d7f3e">PauseMenu</a> };</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
+<div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="a01465.html#a7112bdc1a484393d7ddf99edc3c0c0e3">   28</a></span>&#160;    <a class="code" href="a01465.html#a7112bdc1a484393d7ddf99edc3c0c0e3">OpenBagMenu</a>(<a class="code" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfb">Context</a> ctx, <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>* <a class="code" href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a> = <span class="keyword">nullptr</span>, <span class="keywordtype">int</span> <a class="code" href="a01465.html#a6cab0173c23c7808e82a85825bebd590">outNow</a> = -1,</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;                <span class="keywordtype">int</span>* <a class="code" href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a> = <span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    : <a class="code" href="a01465.html#a468a5356eb66f28874362be4be3cd83d">context</a>(ctx)</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    , <a class="code" href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a>(<a class="code" href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a>)</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    , <a class="code" href="a01465.html#a6cab0173c23c7808e82a85825bebd590">outNow</a>(<a class="code" href="a01465.html#a6cab0173c23c7808e82a85825bebd590">outNow</a>)</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    , <a class="code" href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a>(<a class="code" href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a>) {}</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="a01465.html#a468a5356eb66f28874362be4be3cd83d">   35</a></span>&#160;    <span class="keyword">const</span> <a class="code" href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfb">Context</a> <a class="code" href="a01465.html#a468a5356eb66f28874362be4be3cd83d">context</a>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">   36</a></span>&#160;    <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">item::Id</a>* <span class="keyword">const</span> <a class="code" href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">result</a>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a01465.html#a6cab0173c23c7808e82a85825bebd590">   37</a></span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="a01465.html#a6cab0173c23c7808e82a85825bebd590">outNow</a>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">   38</a></span>&#160;    <span class="keywordtype">int</span>* <span class="keyword">const</span> <a class="code" href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">chosenPeoplemon</a>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace event</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace core</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa01110_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03340_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01465_html"><div class="ttname"><a href="a01465.html">core::event::OpenBagMenu</a></div><div class="ttdoc">Event that is fired when the bag menu should be opened.</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00016">BagMenu.hpp:16</a></div></div>
+<div class="ttc" id="aa01465_html_a2c291e9ea2d046b1e465d55660efd5dd"><div class="ttname"><a href="a01465.html#a2c291e9ea2d046b1e465d55660efd5dd">core::event::OpenBagMenu::result</a></div><div class="ttdeci">item::Id *const result</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00036">BagMenu.hpp:36</a></div></div>
+<div class="ttc" id="aa01465_html_a468a5356eb66f28874362be4be3cd83d"><div class="ttname"><a href="a01465.html#a468a5356eb66f28874362be4be3cd83d">core::event::OpenBagMenu::context</a></div><div class="ttdeci">const Context context</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00035">BagMenu.hpp:35</a></div></div>
+<div class="ttc" id="aa01465_html_a4ac3a8885434cf2f3c7682d6a6f4a3f2"><div class="ttname"><a href="a01465.html#a4ac3a8885434cf2f3c7682d6a6f4a3f2">core::event::OpenBagMenu::chosenPeoplemon</a></div><div class="ttdeci">int *const chosenPeoplemon</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00038">BagMenu.hpp:38</a></div></div>
+<div class="ttc" id="aa01465_html_a6cab0173c23c7808e82a85825bebd590"><div class="ttname"><a href="a01465.html#a6cab0173c23c7808e82a85825bebd590">core::event::OpenBagMenu::outNow</a></div><div class="ttdeci">const int outNow</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00037">BagMenu.hpp:37</a></div></div>
+<div class="ttc" id="aa01465_html_a7112bdc1a484393d7ddf99edc3c0c0e3"><div class="ttname"><a href="a01465.html#a7112bdc1a484393d7ddf99edc3c0c0e3">core::event::OpenBagMenu::OpenBagMenu</a></div><div class="ttdeci">OpenBagMenu(Context ctx, item::Id *result=nullptr, int outNow=-1, int *chosenPeoplemon=nullptr)</div><div class="ttdoc">Construct a new Open Bag Menu event.</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00028">BagMenu.hpp:28</a></div></div>
+<div class="ttc" id="aa01465_html_ad78f0398fc4b23471a2f3bf557393cfb"><div class="ttname"><a href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfb">core::event::OpenBagMenu::Context</a></div><div class="ttdeci">Context</div><div class="ttdoc">Represents how the menu should be opened.</div><div class="ttdef"><b>Definition:</b> <a href="a03307_source.html#l00018">BagMenu.hpp:18</a></div></div>
+<div class="ttc" id="aa01465_html_ad78f0398fc4b23471a2f3bf557393cfba461779234ebd4cecb4ab0eacd80e5f7a"><div class="ttname"><a href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfba461779234ebd4cecb4ab0eacd80e5f7a">core::event::OpenBagMenu::Context::BattleUse</a></div><div class="ttdeci">@ BattleUse</div></div>
+<div class="ttc" id="aa01465_html_ad78f0398fc4b23471a2f3bf557393cfbaa6ea893fdc6e0771ff6d14028a6d7f3e"><div class="ttname"><a href="a01465.html#ad78f0398fc4b23471a2f3bf557393cfbaa6ea893fdc6e0771ff6d14028a6d7f3e">core::event::OpenBagMenu::Context::PauseMenu</a></div><div class="ttdeci">@ PauseMenu</div></div>
+<div class="ttc" id="aa03340_html"><div class="ttname"><a href="a03340.html">Id.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/Files/Trainer.cpp Source File</title>
+<title>Peoplemon: include/Core/Maps/RenderLevel.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,105 +66,19 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_994c653631f7b2778c11e1a06b2fb1e1.html">Files</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_8213943ce0b792be39d34390845932ae.html">Core</a></li><li class="navelem"><a class="el" href="dir_083694e1ca3d992c5d720f83754314f5.html">Maps</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Trainer.cpp</div>  </div>
+<div class="title">RenderLevel.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03358.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03217.html">Core/Files/Trainer.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03202.html">Core/Items/Item.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00296.html">Core/Resources.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>file</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="a01705.html#ae4f9e86cebbfa28e61cee9cab01b9297">   11</a></span>&#160;<a class="code" href="a01705.html#ae4f9e86cebbfa28e61cee9cab01b9297">Trainer::Trainer</a>()</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;: payout(0) {}</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="a01705.html#aae7dcadabea0b6c9741747a951b14874">   14</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#aae7dcadabea0b6c9741747a951b14874">Trainer::save</a>(<span class="keyword">const</span> std::string&amp; file)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    std::ofstream output(file.c_str());</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;Trainer&gt;::serializeStream(output, *<span class="keyword">this</span>, 4, 0);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;}</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="a01705.html#a6573a976a44ec864bf1ebda4e46908b6">   19</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#a6573a976a44ec864bf1ebda4e46908b6">Trainer::saveBundle</a>(bl::serial::binary::OutputStream&amp; output,</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;                         bl::resource::bundle::FileHandlerContext&amp; ctx)<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    <span class="keywordflow">if</span> (!bl::serial::binary::Serializer&lt;Trainer&gt;::serialize(output, *<span class="keyword">this</span>)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    <span class="keyword">const</span> std::array&lt;std::string, 4&gt; Suffixes{<span class="stringliteral">&quot;up.anim&quot;</span>, <span class="stringliteral">&quot;right.anim&quot;</span>, <span class="stringliteral">&quot;down.anim&quot;</span>, <span class="stringliteral">&quot;left.anim&quot;</span>};</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    <span class="keyword">const</span> std::string ap =</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        bl::util::FileUtil::joinPath(<a class="code" href="a01933.html#a98a7cbf88fd1253a6598bd885d4fdc95">Properties::CharacterAnimationPath</a>(), <a class="code" href="a01705.html#a4076555f46f631f0c8ef42c2bba8e676">animation</a>);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string&amp; s : Suffixes) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">const</span> std::string p = bl::util::FileUtil::joinPath(ap, s);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keywordflow">if</span> (bl::util::FileUtil::exists(p)) { ctx.addDependencyFile(p); }</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keywordflow">else</span> { BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Trainer &quot;</span> &lt;&lt; <a class="code" href="a01705.html#ab06008a26fe9889e54941f66af523041">name</a> &lt;&lt; <span class="stringliteral">&quot; is missing anim: &quot;</span> &lt;&lt; p; }</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> addConv = [<span class="keyword">this</span>, &amp;ctx](<span class="keyword">const</span> std::string&amp; cf) {</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">const</span> std::string c = bl::util::FileUtil::joinPath(<a class="code" href="a01933.html#a35bb869c9e6407a33bc87dcfd3055ec2">Properties::ConversationPath</a>(), cf);</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keywordflow">if</span> (bl::util::FileUtil::exists(c)) { ctx.addDependencyFile(c); }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keywordflow">else</span> { BL_LOG_WARN &lt;&lt; <span class="stringliteral">&quot;Trainer &quot;</span> &lt;&lt; <a class="code" href="a01705.html#ab06008a26fe9889e54941f66af523041">name</a> &lt;&lt; <span class="stringliteral">&quot; is missing conversation &quot;</span> &lt;&lt; cf; }</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    };</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    addConv(<a class="code" href="a01705.html#af19a011a9d20784fd5136e8fbf0e8645">prebattleConversation</a>);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    addConv(<a class="code" href="a01705.html#a404abcb2008c2ab1f9227e84ebc797fd">postBattleConversation</a>);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno"><a class="line" href="a01705.html#abd0c4097d6d87577a68c78782895bcce">   43</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#abd0c4097d6d87577a68c78782895bcce">Trainer::load</a>(<span class="keyword">const</span> std::string&amp; file, bl::tmap::Direction spawnDir) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="a01705.html#ac47a7a59b5628684e917f1ff02e99499">sourceFile</a> = file;</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">if</span> (!TrainerManager::initializeExisting(file, *<span class="keyword">this</span>)) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01705.html#ac4ba3d99464f7d87dc2383eaee686170">behavior</a>.<a class="code" href="a01541.html#aa6932ace51bea09427dd858c5f9deeb5">type</a>() == <a class="code" href="a01541.html#acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90">Behavior::StandStill</a>) { <a class="code" href="a01705.html#ac4ba3d99464f7d87dc2383eaee686170">behavior</a>.<a class="code" href="a01541.html#aca41efed8d546564ff12d1f7d3cfbaf0">standing</a>().<a class="code" href="a01545.html#a8eb809863053f2b762a18928d36d40ed">facedir</a> = spawnDir; }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01705.html#a34079f71b8113e20d6058282ded89096">payout</a> == 0) { <a class="code" href="a01705.html#a34079f71b8113e20d6058282ded89096">payout</a> = 40; }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">auto</span>&amp; ppl : <a class="code" href="a01705.html#a1288e555a01414f59e00753361be6c51">peoplemon</a>) { ppl.heal(); }</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno"><a class="line" href="a01705.html#ab686286c402145c7a24bb5783f95aa1d">   52</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#ab686286c402145c7a24bb5783f95aa1d">Trainer::loadProd</a>(bl::serial::binary::InputStream&amp; input) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> bl::serial::binary::Serializer&lt;Trainer&gt;::deserialize(input, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a01705.html#a1cc18c26726616b8d0d6d9abb4545fbf">   56</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01705.html#a1cc18c26726616b8d0d6d9abb4545fbf">Trainer::loadDev</a>(std::istream&amp; input) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> bl::serial::json::Serializer&lt;Trainer&gt;::deserializeStream(input, *<span class="keyword">this</span>);</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160; </div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;} <span class="comment">// namespace file</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
-<div class="ttc" id="aa00296_html"><div class="ttname"><a href="a00296.html">Resources.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01541_html_aa6932ace51bea09427dd858c5f9deeb5"><div class="ttname"><a href="a01541.html#aa6932ace51bea09427dd858c5f9deeb5">core::file::Behavior::type</a></div><div class="ttdeci">Type type() const</div><div class="ttdoc">The type of behavior this is.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00075">Behavior.cpp:75</a></div></div>
-<div class="ttc" id="aa01541_html_aca41efed8d546564ff12d1f7d3cfbaf0"><div class="ttname"><a href="a01541.html#aca41efed8d546564ff12d1f7d3cfbaf0">core::file::Behavior::standing</a></div><div class="ttdeci">Standing &amp; standing()</div><div class="ttdoc">The data for standing still.</div><div class="ttdef"><b>Definition:</b> <a href="a00659_source.html#l00102">Behavior.cpp:102</a></div></div>
-<div class="ttc" id="aa01541_html_acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90"><div class="ttname"><a href="a01541.html#acd71b7b95ca61f055f30cc3bc6fb91f1acff945436a740a3c580e217cd88caf90">core::file::Behavior::StandStill</a></div><div class="ttdeci">@ StandStill</div><div class="ttdoc">The character will stand and face a given direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00024">Behavior.hpp:24</a></div></div>
-<div class="ttc" id="aa01545_html_a8eb809863053f2b762a18928d36d40ed"><div class="ttname"><a href="a01545.html#a8eb809863053f2b762a18928d36d40ed">core::file::Behavior::Standing::facedir</a></div><div class="ttdeci">bl::tmap::Direction facedir</div><div class="ttdoc">The direction to face.</div><div class="ttdef"><b>Definition:</b> <a href="a00152_source.html#l00039">Behavior.hpp:39</a></div></div>
-<div class="ttc" id="aa01705_html_a1288e555a01414f59e00753361be6c51"><div class="ttname"><a href="a01705.html#a1288e555a01414f59e00753361be6c51">core::file::Trainer::peoplemon</a></div><div class="ttdeci">std::vector&lt; pplmn::OwnedPeoplemon &gt; peoplemon</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00078">Trainer.hpp:78</a></div></div>
-<div class="ttc" id="aa01705_html_a1cc18c26726616b8d0d6d9abb4545fbf"><div class="ttname"><a href="a01705.html#a1cc18c26726616b8d0d6d9abb4545fbf">core::file::Trainer::loadDev</a></div><div class="ttdeci">bool loadDev(std::istream &amp;input)</div><div class="ttdoc">Loads the trainer from the json stream.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00056">Trainer.cpp:56</a></div></div>
-<div class="ttc" id="aa01705_html_a34079f71b8113e20d6058282ded89096"><div class="ttname"><a href="a01705.html#a34079f71b8113e20d6058282ded89096">core::file::Trainer::payout</a></div><div class="ttdeci">std::uint8_t payout</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00080">Trainer.hpp:80</a></div></div>
-<div class="ttc" id="aa01705_html_a404abcb2008c2ab1f9227e84ebc797fd"><div class="ttname"><a href="a01705.html#a404abcb2008c2ab1f9227e84ebc797fd">core::file::Trainer::postBattleConversation</a></div><div class="ttdeci">std::string postBattleConversation</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00074">Trainer.hpp:74</a></div></div>
-<div class="ttc" id="aa01705_html_a4076555f46f631f0c8ef42c2bba8e676"><div class="ttname"><a href="a01705.html#a4076555f46f631f0c8ef42c2bba8e676">core::file::Trainer::animation</a></div><div class="ttdeci">std::string animation</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00072">Trainer.hpp:72</a></div></div>
-<div class="ttc" id="aa01705_html_a6573a976a44ec864bf1ebda4e46908b6"><div class="ttname"><a href="a01705.html#a6573a976a44ec864bf1ebda4e46908b6">core::file::Trainer::saveBundle</a></div><div class="ttdeci">bool saveBundle(bl::serial::binary::OutputStream &amp;output, bl::resource::bundle::FileHandlerContext &amp;ctx) const</div><div class="ttdoc">Saves the data from this object to the given bundle and registers depency files if any.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00019">Trainer.cpp:19</a></div></div>
-<div class="ttc" id="aa01705_html_aae7dcadabea0b6c9741747a951b14874"><div class="ttname"><a href="a01705.html#aae7dcadabea0b6c9741747a951b14874">core::file::Trainer::save</a></div><div class="ttdeci">bool save(const std::string &amp;file) const</div><div class="ttdoc">Saves the trainer data to the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00014">Trainer.cpp:14</a></div></div>
-<div class="ttc" id="aa01705_html_ab06008a26fe9889e54941f66af523041"><div class="ttname"><a href="a01705.html#ab06008a26fe9889e54941f66af523041">core::file::Trainer::name</a></div><div class="ttdeci">std::string name</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00071">Trainer.hpp:71</a></div></div>
-<div class="ttc" id="aa01705_html_ab686286c402145c7a24bb5783f95aa1d"><div class="ttname"><a href="a01705.html#ab686286c402145c7a24bb5783f95aa1d">core::file::Trainer::loadProd</a></div><div class="ttdeci">bool loadProd(bl::serial::binary::InputStream &amp;input)</div><div class="ttdoc">Loads the trainer from it's binary format.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00052">Trainer.cpp:52</a></div></div>
-<div class="ttc" id="aa01705_html_abd0c4097d6d87577a68c78782895bcce"><div class="ttname"><a href="a01705.html#abd0c4097d6d87577a68c78782895bcce">core::file::Trainer::load</a></div><div class="ttdeci">bool load(const std::string &amp;file, bl::tmap::Direction spawnDir=bl::tmap::Direction::Down)</div><div class="ttdoc">Loads the trainer data from the given file.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00043">Trainer.cpp:43</a></div></div>
-<div class="ttc" id="aa01705_html_ac47a7a59b5628684e917f1ff02e99499"><div class="ttname"><a href="a01705.html#ac47a7a59b5628684e917f1ff02e99499">core::file::Trainer::sourceFile</a></div><div class="ttdeci">std::string sourceFile</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00083">Trainer.hpp:83</a></div></div>
-<div class="ttc" id="aa01705_html_ac4ba3d99464f7d87dc2383eaee686170"><div class="ttname"><a href="a01705.html#ac4ba3d99464f7d87dc2383eaee686170">core::file::Trainer::behavior</a></div><div class="ttdeci">Behavior behavior</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00077">Trainer.hpp:77</a></div></div>
-<div class="ttc" id="aa01705_html_ae4f9e86cebbfa28e61cee9cab01b9297"><div class="ttname"><a href="a01705.html#ae4f9e86cebbfa28e61cee9cab01b9297">core::file::Trainer::Trainer</a></div><div class="ttdeci">Trainer()</div><div class="ttdoc">Gives sane defaults.</div><div class="ttdef"><b>Definition:</b> <a href="a03358_source.html#l00011">Trainer.cpp:11</a></div></div>
-<div class="ttc" id="aa01705_html_af19a011a9d20784fd5136e8fbf0e8645"><div class="ttname"><a href="a01705.html#af19a011a9d20784fd5136e8fbf0e8645">core::file::Trainer::prebattleConversation</a></div><div class="ttdeci">std::string prebattleConversation</div><div class="ttdef"><b>Definition:</b> <a href="a03217_source.html#l00073">Trainer.hpp:73</a></div></div>
-<div class="ttc" id="aa01933_html_a35bb869c9e6407a33bc87dcfd3055ec2"><div class="ttname"><a href="a01933.html#a35bb869c9e6407a33bc87dcfd3055ec2">core::Properties::ConversationPath</a></div><div class="ttdeci">static const std::string &amp; ConversationPath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00539">Properties.cpp:539</a></div></div>
-<div class="ttc" id="aa01933_html_a98a7cbf88fd1253a6598bd885d4fdc95"><div class="ttname"><a href="a01933.html#a98a7cbf88fd1253a6598bd885d4fdc95">core::Properties::CharacterAnimationPath</a></div><div class="ttdeci">static const std::string &amp; CharacterAnimationPath()</div><div class="ttdef"><b>Definition:</b> <a href="a00785_source.html#l00557">Properties.cpp:557</a></div></div>
-<div class="ttc" id="aa03202_html"><div class="ttname"><a href="a03202.html">Item.hpp</a></div></div>
-<div class="ttc" id="aa03217_html"><div class="ttname"><a href="a03217.html">Trainer.hpp</a></div></div>
-</div><!-- fragment --></div><!-- contents -->
+<a href="a03358.html">Go to the documentation of this file.</a><div class="fragment"></div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

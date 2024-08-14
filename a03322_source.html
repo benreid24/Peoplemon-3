@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Core/AI/Conversation.cpp Source File</title>
+<title>Peoplemon: include/Game/States/PeoplemonMenu.hpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,180 +66,141 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_a2f0e5642e47e7ed59fe0f0829eafb5f.html">Core</a></li><li class="navelem"><a class="el" href="dir_50678d9690c379b0e0b8b89a2e44057c.html">AI</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a class="el" href="dir_42f88387b2411e5d672af5da212cf282.html">Game</a></li><li class="navelem"><a class="el" href="dir_63f60c6c182692e62620af266969e641.html">States</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">Conversation.cpp</div>  </div>
+<div class="title">PeoplemonMenu.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a03322.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03166.html">Core/AI/Conversation.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00302.html">Core/Scripts/ConversationContext.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00308.html">Core/Scripts/LegacyWarn.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00356.html">Core/Systems/Systems.hpp</a>&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
-<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;{</div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">namespace </span>ai</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="keyword">namespace</span></div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;file::Conversation::Node errorNode() {</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    file::Conversation::Node node;</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    node.setType(<a class="code" href="a01593.html#af2fcaf16b4ce64411e9382567991f78eae1144bd89a8b0c88a5754ebaee46c827">file::Conversation::Node::Talk</a>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    node.message() = <span class="stringliteral">&quot;&lt;ERROR: Current node is invalid&gt;&quot;</span>;</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    <span class="keywordflow">return</span> node;</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;}</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;} <span class="comment">// namespace</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a01237.html#adc8c8967fa26d26d905b466dffa27cf6">   21</a></span>&#160;<a class="code" href="a01237.html#adc8c8967fa26d26d905b466dffa27cf6">Conversation::Conversation</a>(<a class="code" href="a02085.html">system::Systems</a>&amp; s)</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: systems(s)</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, nodes(nullptr)</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;, current(0) {}</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
-<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="a01237.html#afa9786aa974ff5bc082e5c371c1aec9a">   26</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01237.html#afa9786aa974ff5bc082e5c371c1aec9a">Conversation::setConversation</a>(<span class="keyword">const</span> <a class="code" href="a01589.html">file::Conversation</a>&amp; conv, bl::ecs::Entity e, <span class="keywordtype">bool</span> t) {</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    nodes         = &amp;conv.<a class="code" href="a01589.html#a966ec1403830724de5d2ce2dfc6631bc">nodes</a>();</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    current       = 0;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    entity        = e;</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    alreadyTalked = t;</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    followNodes();</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;}</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
-<div class="line"><a name="l00034"></a><span class="lineno"><a class="line" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">   34</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">Conversation::finished</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> nodes &amp;&amp; current &gt;= nodes-&gt;size(); }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
-<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="a01237.html#aca98664465772bfc586aac07028cf04a">   36</a></span>&#160;<span class="keyword">const</span> <a class="code" href="a01593.html">file::Conversation::Node</a>&amp; <a class="code" href="a01237.html#aca98664465772bfc586aac07028cf04a">Conversation::currentNode</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>()) <span class="keywordflow">return</span> nodes-&gt;at(current);</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="a01593.html">file::Conversation::Node</a> garbage = errorNode();</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> garbage;</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160; </div>
-<div class="line"><a name="l00042"></a><span class="lineno"><a class="line" href="a01237.html#a58a30139629398b7ac280c1d623febcf">   42</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01237.html#a58a30139629398b7ac280c1d623febcf">Conversation::notifyNext</a>() {</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>()) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        current = nodes-&gt;at(current).next();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        followNodes();</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;}</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160; </div>
-<div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="a01237.html#a8e0a2f9daee0c2320b63c86512e2dc49">   49</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01237.html#a8e0a2f9daee0c2320b63c86512e2dc49">Conversation::notifyCheckPassed</a>() {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>()) {</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        current = nodes-&gt;at(current).nextOnPass();</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        followNodes();</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    }</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160; </div>
-<div class="line"><a name="l00056"></a><span class="lineno"><a class="line" href="a01237.html#a69aa2e5032d179d992770a787183e61d">   56</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01237.html#a69aa2e5032d179d992770a787183e61d">Conversation::notifyCheckFailed</a>() {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>()) {</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        current = nodes-&gt;at(current).nextOnReject();</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;        followNodes();</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    }</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<a href="a03322.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef GAME_STATES_PEOPLEMONMENU_HPP</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define GAME_STATES_PEOPLEMONMENU_HPP</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;BLIB/Graphics.hpp&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;BLIB/Interfaces/Menu.hpp&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;BLIB/Resources.hpp&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03319.html">Core/Events/PeoplemonMenu.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00167.html">Core/Input/MenuDriver.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00515.html">Game/Menus/PeoplemonButton.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03391.html">Game/States/State.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01153.html">game</a></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keyword">namespace </span>state</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div>
+<div class="line"><a name="l00021"></a><span class="lineno"><a class="line" href="a02509.html">   21</a></span>&#160;<span class="keyword">class </span><a class="code" href="a02509.html">PeoplemonMenu</a></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;: <span class="keyword">public</span> <a class="code" href="a02521.html">State</a></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;, <span class="keyword">public</span> bl::input::Listener {</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="keyword">public</span>:</div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="a02509.html#a9afe096f82cbf02b9f8bf6810b77b1d3">   25</a></span>&#160;    <span class="keyword">using</span> <a class="code" href="a01521.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> = <a class="code" href="a01521.html#a922eedf4fe4080648361bc520b77a2d5">core::event::OpenPeoplemonMenu::Context</a>;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <span class="keyword">static</span> bl::engine::State::Ptr <a class="code" href="a02509.html#aee15106459f57eb6ce63160a3b1139dd">create</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <a class="code" href="a01521.html#a922eedf4fe4080648361bc520b77a2d5">Context</a> ctx,</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;                                         <span class="keywordtype">int</span> outNow = -1, <span class="keywordtype">int</span>* chosen = <span class="keyword">nullptr</span>,</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;                                         <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item = <a class="code" href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="a02509.html#a6e691464490bc3c2007b4747e6087e17">   41</a></span>&#160;    <span class="keyword">virtual</span> <a class="code" href="a02509.html#a6e691464490bc3c2007b4747e6087e17">~PeoplemonMenu</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">virtual</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a02509.html#a1d55deb0256a0c8d65d276013a3875c9">name</a>() <span class="keyword">const override</span>;</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02509.html#a0417128978d6a9cc83c1aece588ea645">activate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02509.html#ae4330f4c2b468c538b342661fe13dbc8">deactivate</a>(bl::engine::Engine&amp; engine) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="a02509.html#a9d615cd4f473ec58e55b2d0af178ec16">update</a>(bl::engine::Engine&amp;, <span class="keywordtype">float</span> dt, <span class="keywordtype">float</span>) <span class="keyword">override</span>;</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160; </div>
-<div class="line"><a name="l00063"></a><span class="lineno"><a class="line" href="a01237.html#a9dbb8b01be97b67152554105faa29a97">   63</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a01237.html#a9dbb8b01be97b67152554105faa29a97">Conversation::notifyChoiceMade</a>(<span class="keyword">const</span> std::string&amp; choice) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="a01237.html#aca98664465772bfc586aac07028cf04a">currentNode</a>().getType() == <a class="code" href="a01593.html#af2fcaf16b4ce64411e9382567991f78ead938a95d031eaea735e3e2532a9c4050">file::Conversation::Node::Prompt</a>) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span>&amp; pair : nodes-&gt;at(current).choices()) {</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;            <span class="keywordflow">if</span> (pair.first == choice) {</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;                current = pair.second;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;                followNodes();</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;                <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;            }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        }</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    }</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="keywordtype">void</span> Conversation::followNodes() {</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">using</span> E               = <a class="code" href="a01593.html#af2fcaf16b4ce64411e9382567991f78e">file::Conversation::Node::Type</a>;</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">const</span> <span class="keyword">auto</span> isBlocking = [<span class="keyword">this</span>](<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i) {</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        <span class="keywordflow">switch</span> (nodes-&gt;at(i).getType()) {</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;        <span class="keywordflow">case</span> E::CheckInteracted:</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        <span class="keywordflow">case</span> E::CheckSaveFlag:</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        <span class="keywordflow">case</span> E::RunScript:</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keywordflow">case</span> E::SetSaveFlag:</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;            <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;        }</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    };</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <span class="keywordflow">while</span> (!<a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>() &amp;&amp; !isBlocking(current)) {</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;        <span class="keywordflow">switch</span> (nodes-&gt;at(current).getType()) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keywordflow">case</span> E::CheckInteracted:</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;            current =</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;                alreadyTalked ? nodes-&gt;at(current).nextOnPass() : nodes-&gt;at(current).nextOnReject();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160; </div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        <span class="keywordflow">case</span> E::SetSaveFlag:</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;            systems.<a class="code" href="a02085.html#adbf956366f458de91791b525731c36de">interaction</a>().<a class="code" href="a02057.html#ae3637e295d384fc1fd4fee88eee4ac8e">setFlag</a>(nodes-&gt;at(current).saveFlag());</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;            current = nodes-&gt;at(current).next();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160; </div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">case</span> E::CheckSaveFlag:</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            current = systems.<a class="code" href="a02085.html#adbf956366f458de91791b525731c36de">interaction</a>().<a class="code" href="a02057.html#a306b164ae361ff48e1c75409c5f6d6db">flagSet</a>(nodes-&gt;at(current).saveFlag()) ?</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;                          nodes-&gt;at(current).nextOnPass() :</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;                          nodes-&gt;at(current).nextOnReject();</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;        <span class="keywordflow">case</span> E::RunScript: {</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;            <span class="keyword">const</span> <span class="keyword">auto</span> cb = [<span class="keyword">this</span>](bl::ecs::Entity e) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;                <span class="keywordflow">if</span> (e != entity) <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;                <span class="keywordflow">return</span> <a class="code" href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">finished</a>();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;            };</div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160; </div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <a class="code" href="a01973.html#af1e1206fb0e640a241cce44950bebb1b">script::LegacyWarn::warn</a>(nodes-&gt;at(current).script());</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;            bl::script::Script script(nodes-&gt;at(current).script(),</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                                      script::ConversationContext(systems, entity, cb));</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            <span class="keywordflow">if</span> (nodes-&gt;at(current).runConcurrently()) {</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                script.runBackground(&amp;systems.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().scriptManager());</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;            }</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                script.run(&amp;systems.<a class="code" href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">engine</a>().scriptManager());</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            current = nodes-&gt;at(current).next();</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        } <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160; </div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">default</span>:</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            BL_LOG_ERROR &lt;&lt; <span class="stringliteral">&quot;Unhandled nonblocking node type &quot;</span> &lt;&lt; nodes-&gt;at(current).getType()</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;                         &lt;&lt; <span class="stringliteral">&quot;, terminating&quot;</span>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            current = nodes-&gt;size();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;            <span class="keywordflow">break</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;        }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;} <span class="comment">// namespace ai</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;} <span class="comment">// namespace core</span></div>
-<div class="ttc" id="aa00302_html"><div class="ttname"><a href="a00302.html">ConversationContext.hpp</a></div></div>
-<div class="ttc" id="aa00308_html"><div class="ttname"><a href="a00308.html">LegacyWarn.hpp</a></div></div>
-<div class="ttc" id="aa00356_html"><div class="ttname"><a href="a00356.html">Systems.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01237_html_a58a30139629398b7ac280c1d623febcf"><div class="ttname"><a href="a01237.html#a58a30139629398b7ac280c1d623febcf">core::ai::Conversation::notifyNext</a></div><div class="ttdeci">void notifyNext()</div><div class="ttdoc">Continues to the next node on player input.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00042">Conversation.cpp:42</a></div></div>
-<div class="ttc" id="aa01237_html_a5e225fd3305f10349d174ece5d32c43a"><div class="ttname"><a href="a01237.html#a5e225fd3305f10349d174ece5d32c43a">core::ai::Conversation::finished</a></div><div class="ttdeci">bool finished() const</div><div class="ttdoc">Returns whether or not the conversation is finished.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00034">Conversation.cpp:34</a></div></div>
-<div class="ttc" id="aa01237_html_a69aa2e5032d179d992770a787183e61d"><div class="ttname"><a href="a01237.html#a69aa2e5032d179d992770a787183e61d">core::ai::Conversation::notifyCheckFailed</a></div><div class="ttdeci">void notifyCheckFailed()</div><div class="ttdoc">Jumps to the node for a check pass (ie take item/money fail etc)</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00056">Conversation.cpp:56</a></div></div>
-<div class="ttc" id="aa01237_html_a8e0a2f9daee0c2320b63c86512e2dc49"><div class="ttname"><a href="a01237.html#a8e0a2f9daee0c2320b63c86512e2dc49">core::ai::Conversation::notifyCheckPassed</a></div><div class="ttdeci">void notifyCheckPassed()</div><div class="ttdoc">Jumps to the node for a check pass (ie take item/money success etc)</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00049">Conversation.cpp:49</a></div></div>
-<div class="ttc" id="aa01237_html_a9dbb8b01be97b67152554105faa29a97"><div class="ttname"><a href="a01237.html#a9dbb8b01be97b67152554105faa29a97">core::ai::Conversation::notifyChoiceMade</a></div><div class="ttdeci">void notifyChoiceMade(const std::string &amp;choice)</div><div class="ttdoc">Jumps to the node for the given choice if the current node is a Prompt.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00063">Conversation.cpp:63</a></div></div>
-<div class="ttc" id="aa01237_html_aca98664465772bfc586aac07028cf04a"><div class="ttname"><a href="a01237.html#aca98664465772bfc586aac07028cf04a">core::ai::Conversation::currentNode</a></div><div class="ttdeci">const file::Conversation::Node &amp; currentNode() const</div><div class="ttdoc">Returns the current node.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00036">Conversation.cpp:36</a></div></div>
-<div class="ttc" id="aa01237_html_adc8c8967fa26d26d905b466dffa27cf6"><div class="ttname"><a href="a01237.html#adc8c8967fa26d26d905b466dffa27cf6">core::ai::Conversation::Conversation</a></div><div class="ttdeci">Conversation(system::Systems &amp;systems)</div><div class="ttdoc">Creates an empty conversation wrapper.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00021">Conversation.cpp:21</a></div></div>
-<div class="ttc" id="aa01237_html_afa9786aa974ff5bc082e5c371c1aec9a"><div class="ttname"><a href="a01237.html#afa9786aa974ff5bc082e5c371c1aec9a">core::ai::Conversation::setConversation</a></div><div class="ttdeci">void setConversation(const file::Conversation &amp;conversation, bl::ecs::Entity entity, bool talked)</div><div class="ttdoc">Sets the wrapper to point to the given underlying. The underlying must remain in scope during the lif...</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00026">Conversation.cpp:26</a></div></div>
-<div class="ttc" id="aa01589_html"><div class="ttname"><a href="a01589.html">core::file::Conversation</a></div><div class="ttdoc">Stores a conversation that an NPC or trainer can have with the player.</div><div class="ttdef"><b>Definition:</b> <a href="a03169_source.html#l00022">Conversation.hpp:22</a></div></div>
-<div class="ttc" id="aa01589_html_a966ec1403830724de5d2ce2dfc6631bc"><div class="ttname"><a href="a01589.html#a966ec1403830724de5d2ce2dfc6631bc">core::file::Conversation::nodes</a></div><div class="ttdeci">const std::vector&lt; Node &gt; &amp; nodes() const</div><div class="ttdoc">Returns the list of nodes in the conversation.</div><div class="ttdef"><b>Definition:</b> <a href="a03325_source.html#l00083">Conversation.cpp:83</a></div></div>
-<div class="ttc" id="aa01593_html"><div class="ttname"><a href="a01593.html">core::file::Conversation::Node</a></div><div class="ttdoc">Building block of conversations. A conversation is a tree of nodes and each node is an action that ha...</div><div class="ttdef"><b>Definition:</b> <a href="a03169_source.html#l00029">Conversation.hpp:29</a></div></div>
-<div class="ttc" id="aa01593_html_af2fcaf16b4ce64411e9382567991f78e"><div class="ttname"><a href="a01593.html#af2fcaf16b4ce64411e9382567991f78e">core::file::Conversation::Node::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">Represents the different effects that nodes can have.</div><div class="ttdef"><b>Definition:</b> <a href="a03169_source.html#l00035">Conversation.hpp:35</a></div></div>
-<div class="ttc" id="aa01593_html_af2fcaf16b4ce64411e9382567991f78ead938a95d031eaea735e3e2532a9c4050"><div class="ttname"><a href="a01593.html#af2fcaf16b4ce64411e9382567991f78ead938a95d031eaea735e3e2532a9c4050">core::file::Conversation::Node::Prompt</a></div><div class="ttdeci">@ Prompt</div><div class="ttdoc">This will output a message then prompt the player for a choice.</div><div class="ttdef"><b>Definition:</b> <a href="a03169_source.html#l00040">Conversation.hpp:40</a></div></div>
-<div class="ttc" id="aa01593_html_af2fcaf16b4ce64411e9382567991f78eae1144bd89a8b0c88a5754ebaee46c827"><div class="ttname"><a href="a01593.html#af2fcaf16b4ce64411e9382567991f78eae1144bd89a8b0c88a5754ebaee46c827">core::file::Conversation::Node::Talk</a></div><div class="ttdeci">@ Talk</div><div class="ttdoc">This just outputs a message.</div><div class="ttdef"><b>Definition:</b> <a href="a03169_source.html#l00037">Conversation.hpp:37</a></div></div>
-<div class="ttc" id="aa01973_html_af1e1206fb0e640a241cce44950bebb1b"><div class="ttname"><a href="a01973.html#af1e1206fb0e640a241cce44950bebb1b">core::script::LegacyWarn::warn</a></div><div class="ttdeci">static void warn(const std::string &amp;script)</div><div class="ttdoc">In debug mode logs a warning if the given script is detected to be legacy.</div><div class="ttdef"><b>Definition:</b> <a href="a00308_source.html#l00026">LegacyWarn.hpp:26</a></div></div>
-<div class="ttc" id="aa02057_html_a306b164ae361ff48e1c75409c5f6d6db"><div class="ttname"><a href="a02057.html#a306b164ae361ff48e1c75409c5f6d6db">core::system::Interaction::flagSet</a></div><div class="ttdeci">bool flagSet(const std::string &amp;flag) const</div><div class="ttdoc">Checks if the given conversation flag has been set.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00253">Interaction.cpp:253</a></div></div>
-<div class="ttc" id="aa02057_html_ae3637e295d384fc1fd4fee88eee4ac8e"><div class="ttname"><a href="a02057.html#ae3637e295d384fc1fd4fee88eee4ac8e">core::system::Interaction::setFlag</a></div><div class="ttdeci">void setFlag(const std::string &amp;flag)</div><div class="ttdoc">Sets the conversation flag.</div><div class="ttdef"><b>Definition:</b> <a href="a00833_source.html#l00255">Interaction.cpp:255</a></div></div>
-<div class="ttc" id="aa02085_html"><div class="ttname"><a href="a02085.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
-<div class="ttc" id="aa02085_html_a0b3fe0efa3165c0fb5344e927a89a7c2"><div class="ttname"><a href="a02085.html#a0b3fe0efa3165c0fb5344e927a89a7c2">core::system::Systems::engine</a></div><div class="ttdeci">const bl::engine::Engine &amp; engine() const</div><div class="ttdoc">Const accessor for the Engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00035">Systems.cpp:35</a></div></div>
-<div class="ttc" id="aa02085_html_adbf956366f458de91791b525731c36de"><div class="ttname"><a href="a02085.html#adbf956366f458de91791b525731c36de">core::system::Systems::interaction</a></div><div class="ttdeci">Interaction &amp; interaction()</div><div class="ttdoc">Returns the interaction system.</div><div class="ttdef"><b>Definition:</b> <a href="a00851_source.html#l00067">Systems.cpp:67</a></div></div>
-<div class="ttc" id="aa03166_html"><div class="ttname"><a href="a03166.html">Conversation.hpp</a></div></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <span class="keyword">enum</span> MenuState {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        Browsing,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;        SelectingMove,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;        Moving,</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        ShowingMessage,</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;        UsingItem,</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;        UsingItemWaitView,</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        UsingItemWaitMessage,</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        WaitingForgetConfirm,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        WaitingForgetChoice</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    };</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;    <span class="keyword">const</span> <a class="code" href="a02509.html#a9afe096f82cbf02b9f8bf6810b77b1d3">Context</a> context;</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    <span class="keyword">const</span> <span class="keywordtype">int</span> outNow;</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="keywordtype">int</span>* chosenPeoplemon;</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keyword">const</span> <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> useItem;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160; </div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    MenuState state;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mover1;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mover2;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    glm::vec2 moveVel;</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    glm::vec2 mover1Dest;</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    glm::vec2 mover2Dest;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160; </div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    bl::rc::res::TextureRef backgroundTxtr;</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    bl::gfx::Sprite background;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    bl::menu::Menu menu;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <a class="code" href="a01109.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a> inputDriver;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <a class="code" href="a02413.html#a92c69624db93006871ad425e2135a90f">menu::PeoplemonButton::Ptr</a> buttons[6];</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;    bl::menu::ImageItem::Ptr backBut;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    bl::menu::Menu actionMenu;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    bl::menu::Item* actionRoot;</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordtype">bool</span> actionOpen;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <a class="code" href="a02509.html">PeoplemonMenu</a>(<a class="code" href="a02109.html">core::system::Systems</a>&amp; <a class="code" href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">systems</a>, <a class="code" href="a02509.html#a9afe096f82cbf02b9f8bf6810b77b1d3">Context</a> ctx, <span class="keywordtype">int</span> outNow, <span class="keywordtype">int</span>* chosen,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;                  <a class="code" href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a> item);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordtype">void</span> connectButtons();</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordtype">bool</span> canCancel() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordtype">void</span> setSelectable(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> i);</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordtype">void</span> selected(<a class="code" href="a02413.html">menu::PeoplemonButton</a>* but);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160; </div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    <span class="keywordtype">void</span> chosen(); <span class="comment">// store or battle switch</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="keywordtype">void</span> showInfo();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="keywordtype">void</span> startMove();</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="keywordtype">void</span> cleanupMove(<span class="keywordtype">bool</span> completed);</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordtype">void</span> takeItem();</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="keywordtype">void</span> resetAction();</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="keywordtype">void</span> messageDone();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="keywordtype">void</span> closeActionMenu();</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="keywordtype">void</span> confirmMoveDelete(<span class="keyword">const</span> std::string&amp; choice);</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordtype">void</span> delMove(<span class="keyword">const</span> std::string&amp; choice);</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160; </div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="keyword">virtual</span> <span class="keywordtype">bool</span> observe(<span class="keyword">const</span> bl::input::Actor&amp;, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> activatedControl,</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                         bl::input::DispatchType, <span class="keywordtype">bool</span> eventTriggered) <span class="keyword">override</span>;</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;};</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;} <span class="comment">// namespace state</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;} <span class="comment">// namespace game</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aa00167_html"><div class="ttname"><a href="a00167.html">MenuDriver.hpp</a></div></div>
+<div class="ttc" id="aa00515_html"><div class="ttname"><a href="a00515.html">PeoplemonButton.hpp</a></div></div>
+<div class="ttc" id="aa01109_html_ga4177a2fb4c67d583c7ea3ab587db8791"><div class="ttname"><a href="a01109.html#ga4177a2fb4c67d583c7ea3ab587db8791">core::input::MenuDriver</a></div><div class="ttdeci">bl::menu::TriggerDriver&lt; Control::MoveUp, Control::MoveRight, Control::MoveDown, Control::MoveLeft, Control::Interact &gt; MenuDriver</div><div class="ttdoc">Helper typedef for Peoplemon specific menu driving.</div><div class="ttdef"><b>Definition:</b> <a href="a00167_source.html#l00017">MenuDriver.hpp:18</a></div></div>
+<div class="ttc" id="aa01110_html_gaf2565ceb5b45ea8af94be0067e7474ca"><div class="ttname"><a href="a01110.html#gaf2565ceb5b45ea8af94be0067e7474ca">core::item::Id</a></div><div class="ttdeci">Id</div><div class="ttdoc">Represents an item in its simplist form.</div><div class="ttdef"><b>Definition:</b> <a href="a03340_source.html#l00024">Id.hpp:24</a></div></div>
+<div class="ttc" id="aa01110_html_ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754"><div class="ttname"><a href="a01110.html#ggaf2565ceb5b45ea8af94be0067e7474caa6adf97f83acf6453d4a6a4b1070f3754">core::item::Id::None</a></div><div class="ttdeci">@ None</div></div>
+<div class="ttc" id="aa01153_html"><div class="ttname"><a href="a01153.html">game</a></div><div class="ttdoc">Parent namespace for all functionality unique to the game.</div><div class="ttdef"><b>Definition:</b> <a href="a00506_source.html#l00014">BagItemButton.hpp:15</a></div></div>
+<div class="ttc" id="aa01521_html_a922eedf4fe4080648361bc520b77a2d5"><div class="ttname"><a href="a01521.html#a922eedf4fe4080648361bc520b77a2d5">core::event::OpenPeoplemonMenu::Context</a></div><div class="ttdeci">Context</div><div class="ttdoc">Represents where the menu is being opened from.</div><div class="ttdef"><b>Definition:</b> <a href="a03319_source.html#l00019">PeoplemonMenu.hpp:19</a></div></div>
+<div class="ttc" id="aa02109_html"><div class="ttname"><a href="a02109.html">core::system::Systems</a></div><div class="ttdoc">Owns all primary systems and a reference to the engine.</div><div class="ttdef"><b>Definition:</b> <a href="a00356_source.html#l00047">Systems.hpp:47</a></div></div>
+<div class="ttc" id="aa02413_html"><div class="ttname"><a href="a02413.html">game::menu::PeoplemonButton</a></div><div class="ttdoc">Menu item for peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a00515_source.html#l00017">PeoplemonButton.hpp:17</a></div></div>
+<div class="ttc" id="aa02413_html_a92c69624db93006871ad425e2135a90f"><div class="ttname"><a href="a02413.html#a92c69624db93006871ad425e2135a90f">game::menu::PeoplemonButton::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; PeoplemonButton &gt; Ptr</div><div class="ttdef"><b>Definition:</b> <a href="a00515_source.html#l00019">PeoplemonButton.hpp:19</a></div></div>
+<div class="ttc" id="aa02509_html"><div class="ttname"><a href="a02509.html">game::state::PeoplemonMenu</a></div><div class="ttdoc">Provides the menu for viewing and selecting Peoplemon.</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00021">PeoplemonMenu.hpp:23</a></div></div>
+<div class="ttc" id="aa02509_html_a0417128978d6a9cc83c1aece588ea645"><div class="ttname"><a href="a02509.html#a0417128978d6a9cc83c1aece588ea645">game::state::PeoplemonMenu::activate</a></div><div class="ttdeci">virtual void activate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Subscribes the menu to the engine event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00135">PeoplemonMenu.cpp:135</a></div></div>
+<div class="ttc" id="aa02509_html_a1d55deb0256a0c8d65d276013a3875c9"><div class="ttname"><a href="a02509.html#a1d55deb0256a0c8d65d276013a3875c9">game::state::PeoplemonMenu::name</a></div><div class="ttdeci">virtual const char * name() const override</div><div class="ttdoc">Returns &quot;PeoplemonMenu&quot;.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00133">PeoplemonMenu.cpp:133</a></div></div>
+<div class="ttc" id="aa02509_html_a6e691464490bc3c2007b4747e6087e17"><div class="ttname"><a href="a02509.html#a6e691464490bc3c2007b4747e6087e17">game::state::PeoplemonMenu::~PeoplemonMenu</a></div><div class="ttdeci">virtual ~PeoplemonMenu()=default</div><div class="ttdoc">Cleans up all resources.</div></div>
+<div class="ttc" id="aa02509_html_a9afe096f82cbf02b9f8bf6810b77b1d3"><div class="ttname"><a href="a02509.html#a9afe096f82cbf02b9f8bf6810b77b1d3">game::state::PeoplemonMenu::Context</a></div><div class="ttdeci">core::event::OpenPeoplemonMenu::Context Context</div><div class="ttdef"><b>Definition:</b> <a href="a03322_source.html#l00025">PeoplemonMenu.hpp:25</a></div></div>
+<div class="ttc" id="aa02509_html_a9d615cd4f473ec58e55b2d0af178ec16"><div class="ttname"><a href="a02509.html#a9d615cd4f473ec58e55b2d0af178ec16">game::state::PeoplemonMenu::update</a></div><div class="ttdeci">virtual void update(bl::engine::Engine &amp;, float dt, float) override</div><div class="ttdoc">Does nothing.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00259">PeoplemonMenu.cpp:259</a></div></div>
+<div class="ttc" id="aa02509_html_ae4330f4c2b468c538b342661fe13dbc8"><div class="ttname"><a href="a02509.html#ae4330f4c2b468c538b342661fe13dbc8">game::state::PeoplemonMenu::deactivate</a></div><div class="ttdeci">virtual void deactivate(bl::engine::Engine &amp;engine) override</div><div class="ttdoc">Unsubscribes the menu to the engine event bus.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00205">PeoplemonMenu.cpp:205</a></div></div>
+<div class="ttc" id="aa02509_html_aee15106459f57eb6ce63160a3b1139dd"><div class="ttname"><a href="a02509.html#aee15106459f57eb6ce63160a3b1139dd">game::state::PeoplemonMenu::create</a></div><div class="ttdeci">static bl::engine::State::Ptr create(core::system::Systems &amp;systems, Context ctx, int outNow=-1, int *chosen=nullptr, core::item::Id item=core::item::Id::None)</div><div class="ttdoc">Creates a new PeoplemonMenu state.</div><div class="ttdef"><b>Definition:</b> <a href="a01091_source.html#l00039">PeoplemonMenu.cpp:39</a></div></div>
+<div class="ttc" id="aa02521_html"><div class="ttname"><a href="a02521.html">game::state::State</a></div><div class="ttdoc">Parent to all game states. Provides some commonly required data like core game systems.</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00029">State.hpp:29</a></div></div>
+<div class="ttc" id="aa02521_html_abef8cda2c9a894f74c716672440f6e4b"><div class="ttname"><a href="a02521.html#abef8cda2c9a894f74c716672440f6e4b">game::state::State::systems</a></div><div class="ttdeci">core::system::Systems &amp; systems</div><div class="ttdef"><b>Definition:</b> <a href="a03391_source.html#l00066">State.hpp:66</a></div></div>
+<div class="ttc" id="aa03319_html"><div class="ttname"><a href="a03319.html">PeoplemonMenu.hpp</a></div></div>
+<div class="ttc" id="aa03391_html"><div class="ttname"><a href="a03391.html">State.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

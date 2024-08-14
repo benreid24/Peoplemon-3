@@ -77,19 +77,19 @@ $(function() {
 <a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef CORE_COMPONENTS_WANDERBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define CORE_COMPONENTS_WANDERBEHAVIOR_HPP</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160; </div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03190.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a03277.html">Core/Components/Controllable.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00101.html">Core/Components/SpinBehavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00104.html">Core/Components/StandingBehavior.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01101.html">core</a></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01123.html">core</a></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>component</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01429.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01429.html">WanderBehavior</a> {</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="a01453.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="a01453.html">WanderBehavior</a> {</div>
 <div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="keyword">public</span>:</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01429.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius, <span class="keyword">const</span> sf::Vector2i&amp; origin);</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    <a class="code" href="a01453.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> radius, <span class="keyword">const</span> sf::Vector2i&amp; origin);</div>
 <div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01429.html#adfa32643c1b7704c46362ea79b768551">update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01381.html">Controllable</a>&amp; controller, <span class="keywordtype">float</span> dt);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordtype">void</span> <a class="code" href="a01453.html#adfa32643c1b7704c46362ea79b768551">update</a>(bl::tmap::Position&amp; position, <a class="code" href="a01405.html">Controllable</a>&amp; controller, <span class="keywordtype">float</span> dt);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
 <div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="keyword">private</span>:</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <span class="keyword">struct </span>WalkData {</div>
@@ -102,8 +102,8 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keyword">union </span>Data {</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;        WalkData walking;</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a01421.html">StandingBehavior</a> standing;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a01417.html">SpinBehavior</a> spinning;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <a class="code" href="a01445.html">StandingBehavior</a> standing;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <a class="code" href="a01441.html">SpinBehavior</a> spinning;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160; </div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        Data();</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    } data;</div>
@@ -131,19 +131,19 @@ $(function() {
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aa00101_html"><div class="ttname"><a href="a00101.html">SpinBehavior.hpp</a></div></div>
 <div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">StandingBehavior.hpp</a></div></div>
-<div class="ttc" id="aa01101_html"><div class="ttname"><a href="a01101.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03166_source.html#l00014">Conversation.hpp:15</a></div></div>
-<div class="ttc" id="aa01381_html"><div class="ttname"><a href="a01381.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03190_source.html#l00022">Controllable.hpp:22</a></div></div>
-<div class="ttc" id="aa01417_html"><div class="ttname"><a href="a01417.html">core::component::SpinBehavior</a></div><div class="ttdoc">Add this to an entity to make it spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00017">SpinBehavior.hpp:17</a></div></div>
-<div class="ttc" id="aa01421_html"><div class="ttname"><a href="a01421.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
-<div class="ttc" id="aa01429_html"><div class="ttname"><a href="a01429.html">core::component::WanderBehavior</a></div><div class="ttdoc">Add this component to an entity to make it wander around.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00018">WanderBehavior.hpp:18</a></div></div>
-<div class="ttc" id="aa01429_html_ab82ba28e5298eeba0356925ed31b7a71"><div class="ttname"><a href="a01429.html#ab82ba28e5298eeba0356925ed31b7a71">core::component::WanderBehavior::WanderBehavior</a></div><div class="ttdeci">WanderBehavior(unsigned int radius, const sf::Vector2i &amp;origin)</div><div class="ttdoc">Construct a new Wander Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00010">WanderBehavior.cpp:10</a></div></div>
-<div class="ttc" id="aa01429_html_adfa32643c1b7704c46362ea79b768551"><div class="ttname"><a href="a01429.html#adfa32643c1b7704c46362ea79b768551">core::component::WanderBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller, float dt)</div><div class="ttdoc">Updates the entity and wanders around.</div><div class="ttdef"><b>Definition:</b> <a href="a00650_source.html#l00019">WanderBehavior.cpp:19</a></div></div>
-<div class="ttc" id="aa03190_html"><div class="ttname"><a href="a03190.html">Controllable.hpp</a></div></div>
+<div class="ttc" id="aa01123_html"><div class="ttname"><a href="a01123.html">core</a></div><div class="ttdoc">Core classes and functionality for both the editor and game.</div><div class="ttdef"><b>Definition:</b> <a href="a03253_source.html#l00014">Conversation.hpp:15</a></div></div>
+<div class="ttc" id="aa01405_html"><div class="ttname"><a href="a01405.html">core::component::Controllable</a></div><div class="ttdoc">Adding this component to an entity allows it to be controlled.</div><div class="ttdef"><b>Definition:</b> <a href="a03277_source.html#l00022">Controllable.hpp:22</a></div></div>
+<div class="ttc" id="aa01441_html"><div class="ttname"><a href="a01441.html">core::component::SpinBehavior</a></div><div class="ttdoc">Add this to an entity to make it spin in place.</div><div class="ttdef"><b>Definition:</b> <a href="a00101_source.html#l00017">SpinBehavior.hpp:17</a></div></div>
+<div class="ttc" id="aa01445_html"><div class="ttname"><a href="a01445.html">core::component::StandingBehavior</a></div><div class="ttdoc">AI behavior for standing in place facing a fixed direction.</div><div class="ttdef"><b>Definition:</b> <a href="a00104_source.html#l00016">StandingBehavior.hpp:16</a></div></div>
+<div class="ttc" id="aa01453_html"><div class="ttname"><a href="a01453.html">core::component::WanderBehavior</a></div><div class="ttdoc">Add this component to an entity to make it wander around.</div><div class="ttdef"><b>Definition:</b> <a href="a00110_source.html#l00018">WanderBehavior.hpp:18</a></div></div>
+<div class="ttc" id="aa01453_html_ab82ba28e5298eeba0356925ed31b7a71"><div class="ttname"><a href="a01453.html#ab82ba28e5298eeba0356925ed31b7a71">core::component::WanderBehavior::WanderBehavior</a></div><div class="ttdeci">WanderBehavior(unsigned int radius, const sf::Vector2i &amp;origin)</div><div class="ttdoc">Construct a new Wander Behavior component.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00010">WanderBehavior.cpp:10</a></div></div>
+<div class="ttc" id="aa01453_html_adfa32643c1b7704c46362ea79b768551"><div class="ttname"><a href="a01453.html#adfa32643c1b7704c46362ea79b768551">core::component::WanderBehavior::update</a></div><div class="ttdeci">void update(bl::tmap::Position &amp;position, Controllable &amp;controller, float dt)</div><div class="ttdoc">Updates the entity and wanders around.</div><div class="ttdef"><b>Definition:</b> <a href="a00662_source.html#l00019">WanderBehavior.cpp:19</a></div></div>
+<div class="ttc" id="aa03277_html"><div class="ttname"><a href="a03277.html">Controllable.hpp</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:01 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:56 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

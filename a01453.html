@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: core::event::EntityMoved Struct Reference</title>
+<title>Peoplemon: core::component::WanderBehavior Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,82 +66,55 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="a01101.html">core</a></li><li class="navelem"><a class="el" href="a01110.html">event</a></li><li class="navelem"><a class="el" href="a01453.html">EntityMoved</a></li>  </ul>
+<li class="navelem"><a class="el" href="a01123.html">core</a></li><li class="navelem"><a class="el" href="a01131.html">component</a></li><li class="navelem"><a class="el" href="a01453.html">WanderBehavior</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="a01450.html">List of all members</a>  </div>
   <div class="headertitle">
-<div class="title">core::event::EntityMoved Struct Reference<div class="ingroups"><a class="el" href="a01082.html">Core</a> &raquo; <a class="el" href="a01086.html">Events</a></div></div>  </div>
+<div class="title">core::component::WanderBehavior Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
 
-<p>Fired after an entity begins moving from one position to another.  
+<p>Add this component to an entity to make it wander around.  
  <a href="a01453.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="a00122_source.html">EntityMoved.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="a00110_source.html">WanderBehavior.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#a676b6f5aba893b3b05a9fdd7d3d821cb">EntityMoved</a> (bl::ecs::Entity <a class="el" href="a01453.html#a6bc4cf3380f910db6882963c753d9737">entity</a>, const bl::tmap::Position &amp;oldPos, const bl::tmap::Position &amp;pos, bool <a class="el" href="a01453.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a>=false)</td></tr>
-<tr class="memdesc:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="a01453.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event.  <a href="a01453.html#a676b6f5aba893b3b05a9fdd7d3d821cb">More...</a><br /></td></tr>
-<tr class="separator:a676b6f5aba893b3b05a9fdd7d3d821cb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a6bc4cf3380f910db6882963c753d9737"><td class="memItemLeft" align="right" valign="top">const bl::ecs::Entity&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#a6bc4cf3380f910db6882963c753d9737">entity</a></td></tr>
-<tr class="memdesc:a6bc4cf3380f910db6882963c753d9737"><td class="mdescLeft">&#160;</td><td class="mdescRight">The entity that moved.  <a href="a01453.html#a6bc4cf3380f910db6882963c753d9737">More...</a><br /></td></tr>
-<tr class="separator:a6bc4cf3380f910db6882963c753d9737"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a210093d307dd7fec324edbbee4be76c8"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#a210093d307dd7fec324edbbee4be76c8">previousPosition</a></td></tr>
-<tr class="memdesc:a210093d307dd7fec324edbbee4be76c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The previous position of the entity.  <a href="a01453.html#a210093d307dd7fec324edbbee4be76c8">More...</a><br /></td></tr>
-<tr class="separator:a210093d307dd7fec324edbbee4be76c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4812816633bea3298a323a69b2c53327"><td class="memItemLeft" align="right" valign="top">const bl::tmap::Position &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#a4812816633bea3298a323a69b2c53327">position</a></td></tr>
-<tr class="memdesc:a4812816633bea3298a323a69b2c53327"><td class="mdescLeft">&#160;</td><td class="mdescRight">The current position of the entity.  <a href="a01453.html#a4812816633bea3298a323a69b2c53327">More...</a><br /></td></tr>
-<tr class="separator:a4812816633bea3298a323a69b2c53327"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memItemLeft" align="right" valign="top">const bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#ab7d6aa90c92e672054f09cf32b1dcdb3">running</a></td></tr>
-<tr class="memdesc:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Whether or not the entity is running.  <a href="a01453.html#ab7d6aa90c92e672054f09cf32b1dcdb3">More...</a><br /></td></tr>
-<tr class="separator:ab7d6aa90c92e672054f09cf32b1dcdb3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab82ba28e5298eeba0356925ed31b7a71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#ab82ba28e5298eeba0356925ed31b7a71">WanderBehavior</a> (unsigned int radius, const sf::Vector2i &amp;origin)</td></tr>
+<tr class="memdesc:ab82ba28e5298eeba0356925ed31b7a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Wander Behavior component.  <a href="a01453.html#ab82ba28e5298eeba0356925ed31b7a71">More...</a><br /></td></tr>
+<tr class="separator:ab82ba28e5298eeba0356925ed31b7a71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adfa32643c1b7704c46362ea79b768551"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="a01453.html#adfa32643c1b7704c46362ea79b768551">update</a> (bl::tmap::Position &amp;position, <a class="el" href="a01405.html">Controllable</a> &amp;controller, float dt)</td></tr>
+<tr class="memdesc:adfa32643c1b7704c46362ea79b768551"><td class="mdescLeft">&#160;</td><td class="mdescRight">Updates the entity and wanders around.  <a href="a01453.html#adfa32643c1b7704c46362ea79b768551">More...</a><br /></td></tr>
+<tr class="separator:adfa32643c1b7704c46362ea79b768551"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Fired after an entity begins moving from one position to another. </p>
+<div class="textblock"><p>Add this component to an entity to make it wander around. </p>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00018">18</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00018">18</a> of file <a class="el" href="a00110_source.html">WanderBehavior.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a676b6f5aba893b3b05a9fdd7d3d821cb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a676b6f5aba893b3b05a9fdd7d3d821cb">&#9670;&nbsp;</a></span>EntityMoved()</h2>
+<a id="ab82ba28e5298eeba0356925ed31b7a71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab82ba28e5298eeba0356925ed31b7a71">&#9670;&nbsp;</a></span>WanderBehavior()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">core::event::EntityMoved::EntityMoved </td>
+          <td class="memname">core::component::WanderBehavior::WanderBehavior </td>
           <td>(</td>
-          <td class="paramtype">bl::ecs::Entity&#160;</td>
-          <td class="paramname"><em>entity</em>, </td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>radius</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
-          <td class="paramname"><em>oldPos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const bl::tmap::Position &amp;&#160;</td>
-          <td class="paramname"><em>pos</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>running</em> = <code>false</code>&#160;</td>
+          <td class="paramtype">const sf::Vector2i &amp;&#160;</td>
+          <td class="paramname"><em>origin</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -149,108 +122,77 @@ Public Attributes</h2></td></tr>
           <td></td><td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Construct a new <a class="el" href="a01453.html" title="Fired after an entity begins moving from one position to another.">EntityMoved</a> event. </p>
+<p>Construct a new Wander Behavior component. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">entity</td><td>The entity that moved </td></tr>
-    <tr><td class="paramname">oldPos</td><td>The old position </td></tr>
-    <tr><td class="paramname">pos</td><td>The current position </td></tr>
+    <tr><td class="paramname">radius</td><td>The radius to stay within, in tiles </td></tr>
+    <tr><td class="paramname">origin</td><td>The starting position, in tiles </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00038">38</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00010">10</a> of file <a class="el" href="a00662_source.html">WanderBehavior.cpp</a>.</p>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a6bc4cf3380f910db6882963c753d9737"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6bc4cf3380f910db6882963c753d9737">&#9670;&nbsp;</a></span>entity</h2>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="adfa32643c1b7704c46362ea79b768551"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adfa32643c1b7704c46362ea79b768551">&#9670;&nbsp;</a></span>update()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">const bl::ecs::Entity core::event::EntityMoved::entity</td>
+          <td class="memname">void core::component::WanderBehavior::update </td>
+          <td>(</td>
+          <td class="paramtype">bl::tmap::Position &amp;&#160;</td>
+          <td class="paramname"><em>position</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The entity that moved. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00020">20</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a4812816633bea3298a323a69b2c53327"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4812816633bea3298a323a69b2c53327">&#9670;&nbsp;</a></span>position</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">const bl::tmap::Position&amp; core::event::EntityMoved::position</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="a01405.html">Controllable</a> &amp;&#160;</td>
+          <td class="paramname"><em>controller</em>, </td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The current position of the entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00026">26</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="a210093d307dd7fec324edbbee4be76c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a210093d307dd7fec324edbbee4be76c8">&#9670;&nbsp;</a></span>previousPosition</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">const bl::tmap::Position core::event::EntityMoved::previousPosition</td>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>dt</em>&#160;</td>
         </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>The previous position of the entity. </p>
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00023">23</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
-
-</div>
-</div>
-<a id="ab7d6aa90c92e672054f09cf32b1dcdb3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab7d6aa90c92e672054f09cf32b1dcdb3">&#9670;&nbsp;</a></span>running</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
         <tr>
-          <td class="memname">const bool core::event::EntityMoved::running</td>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Whether or not the entity is running. </p>
+<p>Updates the entity and wanders around. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">position</td><td>The position of the entity </td></tr>
+    <tr><td class="paramname">controller</td><td>The controllable of the entity </td></tr>
+    <tr><td class="paramname">dt</td><td>Time elapsed, in seconds </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00029">29</a> of file <a class="el" href="a00122_source.html">EntityMoved.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="a00662_source.html#l00019">19</a> of file <a class="el" href="a00662_source.html">WanderBehavior.cpp</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this struct was generated from the following file:<ul>
-<li>include/Core/Events/<a class="el" href="a00122_source.html">EntityMoved.hpp</a></li>
+<hr/>The documentation for this class was generated from the following files:<ul>
+<li>include/Core/Components/<a class="el" href="a00110_source.html">WanderBehavior.hpp</a></li>
+<li>src/Core/Components/<a class="el" href="a00662_source.html">WanderBehavior.cpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>

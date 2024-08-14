@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Peoplemon: src/Editor/Components/WeatherSelect.cpp Source File</title>
+<title>Peoplemon: src/Editor/Components/Render/EditMapComponent.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -66,70 +66,96 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_4bd1ebb85acf5915171c6010ad9053a2.html">Editor</a></li><li class="navelem"><a class="el" href="dir_0efa3151a3c2824ea7005a40a4cab54c.html">Components</a></li><li class="navelem"><a class="el" href="dir_8422310b373ea55ed10ae19df91f1f16.html">Render</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="headertitle">
-<div class="title">WeatherSelect.cpp</div>  </div>
+<div class="title">EditMapComponent.cpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="a00956.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00449.html">Editor/Components/WeatherSelect.hpp</a>&gt;</span></div>
+<a href="a00956.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00437.html">Editor/Components/Render/EditMapComponent.hpp</a>&gt;</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160; </div>
-<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01120.html">editor</a></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;{</div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="keyword">namespace </span>component</div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;{</div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="a02241.html#a4bda2a5c352e753c40ba7ee81e047b83">    7</a></span>&#160;<a class="code" href="a02241.html#a925d23911cf07c60b99c3a351c98d9af">WeatherSelect::Ptr</a> <a class="code" href="a02241.html#a4bda2a5c352e753c40ba7ee81e047b83">WeatherSelect::create</a>() { <span class="keywordflow">return</span> <a class="code" href="a02241.html#a925d23911cf07c60b99c3a351c98d9af">Ptr</a>(<span class="keyword">new</span> <a class="code" href="a02241.html">WeatherSelect</a>()); }</div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160; </div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;WeatherSelect::WeatherSelect()</div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;: ComboBox() {</div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    addOption(<span class="stringliteral">&quot;None&quot;</span>);</div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    addOption(<span class="stringliteral">&quot;AllRandom&quot;</span>);</div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    addOption(<span class="stringliteral">&quot;LightRain&quot;</span>);</div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    addOption(<span class="stringliteral">&quot;LightRainThunder&quot;</span>);</div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    addOption(<span class="stringliteral">&quot;HardRain&quot;</span>);</div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    addOption(<span class="stringliteral">&quot;HardRainThunder&quot;</span>);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    addOption(<span class="stringliteral">&quot;LightSnow&quot;</span>);</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    addOption(<span class="stringliteral">&quot;LightSnowThunder&quot;</span>);</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    addOption(<span class="stringliteral">&quot;HardSnow&quot;</span>);</div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    addOption(<span class="stringliteral">&quot;HardSnowThunder&quot;</span>);</div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    addOption(<span class="stringliteral">&quot;ThinFog&quot;</span>);</div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;    addOption(<span class="stringliteral">&quot;ThickFog&quot;</span>);</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    addOption(<span class="stringliteral">&quot;Sunny&quot;</span>);</div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    addOption(<span class="stringliteral">&quot;SandStorm&quot;</span>);</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    addOption(<span class="stringliteral">&quot;WaterRandom&quot;</span>);</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    addOption(<span class="stringliteral">&quot;SnowRandom&quot;</span>);</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    addOption(<span class="stringliteral">&quot;DesertRandom&quot;</span>);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;    setSelectedOption(0);</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;    setMaxHeight(300);</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;}</div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00281.html">Core/Properties.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="a00386.html">Editor/Components/EditMap.hpp</a>&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="keyword">namespace </span><a class="code" href="a01139.html">editor</a></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;{</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>component</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keyword">namespace </span>rdr</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;{</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="a02273.html#a3828ecfbeb91897fef103b3d1b3b8e99">   12</a></span>&#160;<a class="code" href="a02273.html#a3828ecfbeb91897fef103b3d1b3b8e99">EditMapComponent::EditMapComponent</a>()</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;: Component(HighlightState::IgnoresMouse)</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;, enginePtr(nullptr) {}</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> EditMapComponent::setVisible(<span class="keywordtype">bool</span> visible) { sprite.setHidden(!visible); }</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="keywordtype">void</span> EditMapComponent::onElementUpdated() {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <a class="code" href="a02177.html">EditMap</a>&amp; owner = getOwnerAs&lt;EditMap&gt;();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    <span class="keywordflow">if</span> (renderTexture-&gt;getCurrentScene() != owner.<a class="code" href="a01805.html#ad9115435875251b6bc956bc6e4544634">scene</a>) {</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keywordflow">if</span> (renderTexture-&gt;sceneCount() &gt; 0) { renderTexture-&gt;popScene(); }</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        renderTexture-&gt;pushScene(owner.<a class="code" href="a01805.html#ad9115435875251b6bc956bc6e4544634">scene</a>);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;    }</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;}</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160; </div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="keywordtype">void</span> EditMapComponent::onRenderSettingChange() {</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;    <span class="comment">// noop</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;}</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160; </div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;bl::ecs::Entity EditMapComponent::getEntity()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> sprite.entity(); }</div>
 <div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160; </div>
-<div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="a02241.html#a27049c11c9d5e2d7c468290378ecd784">   32</a></span>&#160;<a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a> <a class="code" href="a02241.html#a27049c11c9d5e2d7c468290378ecd784">WeatherSelect::selectedWeather</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> getSelectedOption() &gt;= 0 ? <span class="keyword">static_cast&lt;</span><a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a><span class="keyword">&gt;</span>(getSelectedOption()) :</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;                                      <a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6">core::map::Weather::None</a>;</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="a02241.html#abfeb670d060bd4ed58c8c0176ed0150d">   37</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="a02241.html#abfeb670d060bd4ed58c8c0176ed0150d">WeatherSelect::setSelectedWeather</a>(<a class="code" href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a> t) {</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    setSelectedOption(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(t));</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="keywordtype">void</span> EditMapComponent::doCreate(bl::engine::Engine&amp; engine, bl::gui::rdr::Renderer&amp;) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    enginePtr   = &amp;engine;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">auto</span>&amp; owner = getOwnerAs&lt;EditMap&gt;();</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160; </div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    renderTexture = engine.renderer().createRenderTexture(</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        glm::u32vec2(<a class="code" href="a01957.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a>(), <a class="code" href="a01957.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a>()));</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    sprite.create(engine, renderTexture-&gt;getTexture());</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;} <span class="comment">// namespace component</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;} <span class="comment">// namespace editor</span></div>
-<div class="ttc" id="aa00449_html"><div class="ttname"><a href="a00449.html">WeatherSelect.hpp</a></div></div>
-<div class="ttc" id="aa01120_html"><div class="ttname"><a href="a01120.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00245_source.html#l00014">OwnedPeoplemon.hpp:15</a></div></div>
-<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3d"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3d">core::map::Weather::Type</a></div><div class="ttdeci">Type</div><div class="ttdoc">The type of weather.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00038">Weather.hpp:38</a></div></div>
-<div class="ttc" id="aa01833_html_a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6"><div class="ttname"><a href="a01833.html#a1be4194375652797f8c87a7881b2ff3da4a0d80dc091e1208a436c516ea0ac9b6">core::map::Weather::None</a></div><div class="ttdeci">@ None</div><div class="ttdoc">No weather will occur.</div><div class="ttdef"><b>Definition:</b> <a href="a03250_source.html#l00040">Weather.hpp:40</a></div></div>
-<div class="ttc" id="aa02241_html"><div class="ttname"><a href="a02241.html">editor::component::WeatherSelect</a></div><div class="ttdoc">Helper component to select weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00017">WeatherSelect.hpp:17</a></div></div>
-<div class="ttc" id="aa02241_html_a27049c11c9d5e2d7c468290378ecd784"><div class="ttname"><a href="a02241.html#a27049c11c9d5e2d7c468290378ecd784">editor::component::WeatherSelect::selectedWeather</a></div><div class="ttdeci">core::map::Weather::Type selectedWeather() const</div><div class="ttdoc">Returns the currently selected weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00032">WeatherSelect.cpp:32</a></div></div>
-<div class="ttc" id="aa02241_html_a4bda2a5c352e753c40ba7ee81e047b83"><div class="ttname"><a href="a02241.html#a4bda2a5c352e753c40ba7ee81e047b83">editor::component::WeatherSelect::create</a></div><div class="ttdeci">static Ptr create()</div><div class="ttdoc">Creates a new weather selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00007">WeatherSelect.cpp:7</a></div></div>
-<div class="ttc" id="aa02241_html_a925d23911cf07c60b99c3a351c98d9af"><div class="ttname"><a href="a02241.html#a925d23911cf07c60b99c3a351c98d9af">editor::component::WeatherSelect::Ptr</a></div><div class="ttdeci">std::shared_ptr&lt; WeatherSelect &gt; Ptr</div><div class="ttdoc">Pointer to the weather selector.</div><div class="ttdef"><b>Definition:</b> <a href="a00449_source.html#l00020">WeatherSelect.hpp:20</a></div></div>
-<div class="ttc" id="aa02241_html_abfeb670d060bd4ed58c8c0176ed0150d"><div class="ttname"><a href="a02241.html#abfeb670d060bd4ed58c8c0176ed0150d">editor::component::WeatherSelect::setSelectedWeather</a></div><div class="ttdeci">void setSelectedWeather(core::map::Weather::Type type)</div><div class="ttdoc">Sets the currently selected weather.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00037">WeatherSelect.cpp:37</a></div></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="keywordtype">void</span> EditMapComponent::doSceneAdd(bl::rc::Overlay* overlay) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    sprite.addToScene(overlay, bl::rc::UpdateSpeed::Static);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160; </div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="keywordtype">void</span> EditMapComponent::doSceneRemove() { sprite.removeFromScene(); }</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="keywordtype">void</span> EditMapComponent::handleAcquisition() {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    EditMap&amp; owner = getOwnerAs&lt;EditMap&gt;();</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160; </div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// only respond to valid acquisition</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    <span class="keyword">const</span> glm::u32vec2 acq(owner.getAcquisition().width, owner.getAcquisition().height);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <span class="keywordflow">if</span> (acq.x &gt; 0 &amp;&amp; acq.x &lt; 5000 &amp;&amp; acq.y &gt; 0 &amp;&amp; acq.y &lt; 5000) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <span class="keywordflow">if</span> (acq != renderTexture-&gt;getSize()) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;            renderTexture-&gt;resize(acq);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;            sprite.scaleToSize(acq);</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;        }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        handleMove();</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keywordtype">void</span> EditMapComponent::handleMove() {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    EditMap&amp; owner = getOwnerAs&lt;EditMap&gt;();</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    sprite.getTransform().setPosition(owner.getLocalPosition().x, owner.getLocalPosition().y);</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160; </div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;} <span class="comment">// namespace rdr</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;} <span class="comment">// namespace component</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;} <span class="comment">// namespace editor</span></div>
+<div class="ttc" id="aa00281_html"><div class="ttname"><a href="a00281.html">Properties.hpp</a></div></div>
+<div class="ttc" id="aa00386_html"><div class="ttname"><a href="a00386.html">EditMap.hpp</a></div></div>
+<div class="ttc" id="aa00437_html"><div class="ttname"><a href="a00437.html">EditMapComponent.hpp</a></div></div>
+<div class="ttc" id="aa01139_html"><div class="ttname"><a href="a01139.html">editor</a></div><div class="ttdoc">All classes and functionality used for implementing the game editor.</div><div class="ttdef"><b>Definition:</b> <a href="a00215_source.html#l00010">Tile.hpp:11</a></div></div>
+<div class="ttc" id="aa01805_html_ad9115435875251b6bc956bc6e4544634"><div class="ttname"><a href="a01805.html#ad9115435875251b6bc956bc6e4544634">core::map::Map::scene</a></div><div class="ttdeci">bl::rc::SceneRef scene</div><div class="ttdef"><b>Definition:</b> <a href="a03352_source.html#l00328">Map.hpp:328</a></div></div>
+<div class="ttc" id="aa01957_html_a1c0e01b7aac945e979717ba95c79ddf8"><div class="ttname"><a href="a01957.html#a1c0e01b7aac945e979717ba95c79ddf8">core::Properties::WindowWidth</a></div><div class="ttdeci">static int WindowWidth()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00250">Properties.cpp:250</a></div></div>
+<div class="ttc" id="aa01957_html_aaf3c4e564ae07fc9ed130083580fcb6f"><div class="ttname"><a href="a01957.html#aaf3c4e564ae07fc9ed130083580fcb6f">core::Properties::WindowHeight</a></div><div class="ttdeci">static int WindowHeight()</div><div class="ttdef"><b>Definition:</b> <a href="a00797_source.html#l00256">Properties.cpp:256</a></div></div>
+<div class="ttc" id="aa02177_html"><div class="ttname"><a href="a02177.html">editor::component::EditMap</a></div><div class="ttdoc">Wrapper over the core::Map class that is directly usable in a bl::gui::GUI.</div><div class="ttdef"><b>Definition:</b> <a href="a00386_source.html#l00026">EditMap.hpp:28</a></div></div>
+<div class="ttc" id="aa02273_html_a3828ecfbeb91897fef103b3d1b3b8e99"><div class="ttname"><a href="a02273.html#a3828ecfbeb91897fef103b3d1b3b8e99">editor::component::rdr::EditMapComponent::EditMapComponent</a></div><div class="ttdeci">EditMapComponent()</div><div class="ttdoc">Creates the component.</div><div class="ttdef"><b>Definition:</b> <a href="a00956_source.html#l00012">EditMapComponent.cpp:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- HTML footer for doxygen 1.8.15-->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jun 24 2024 21:08:02 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Aug 14 2024 04:13:57 for Peoplemon by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.9.1
 </small></address>
