@@ -113,6 +113,13 @@ public:
      */
     bl::com::Transform2D& getTransform() { return *transform; }
 
+    /**
+     * @brief Set whether the entity is hidden or not
+     *
+     * @param hide True to hide, false to render
+     */
+    void setHidden(bool hide);
+
 private:
     enum SourceType { Walk, Run, SingleAnim, Sprite } srcType;
     union {
@@ -120,6 +127,7 @@ private:
         res::RunWalkAnimations* runSrc;
         bl::gfx::a2d::AnimationData* animSrc;
     };
+    bl::rc::rcom::DrawableBase* drawable;
     bl::com::Transform2D* transform;
     bl::com::Animation2DPlayer* player;
     bl::ecs::Entity shadow;

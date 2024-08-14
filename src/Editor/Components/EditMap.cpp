@@ -274,7 +274,8 @@ void EditMap::update(float dt) {
 
         // reset entities
         if (exportState.entitiesHidden) {
-            // TODO - unhide
+            systems->engine().ecs().getAllComponents<core::component::Renderable>().forEach(
+                [](bl::ecs::Entity, core::component::Renderable& rc) { rc.setHidden(false); });
         }
 
         // reset camera and controls
@@ -741,10 +742,11 @@ void EditMap::staticRender(const RenderMapWindow& params) {
         glm::vec2(exportState.center), glm::vec2(exportState.size));
     exportState.camera->setNearAndFarPlanes(-getMinDepth(), 0.f);
 
-    // TODO - hide all entities if required
+    // hide all entities if required
     exportState.entitiesHidden = !params.renderCharacters();
     if (exportState.entitiesHidden) {
-        // TODO - hide
+        systems->engine().ecs().getAllComponents<core::component::Renderable>().forEach(
+            [](bl::ecs::Entity, core::component::Renderable& rc) { rc.setHidden(true); });
     }
 
     // show entire map
