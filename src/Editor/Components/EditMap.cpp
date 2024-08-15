@@ -172,8 +172,8 @@ bool EditMap::editorActivate() {
 
     systems->engine().ecs().destroyAllEntitiesWithFlags(bl::ecs::Flags::WorldObject);
 
-    size = {static_cast<int>(levels.front().bottomLayers().front().width()),
-            static_cast<int>(levels.front().bottomLayers().front().height())};
+    size = {static_cast<int>(levels.front().collisionLayer().width()),
+            static_cast<int>(levels.front().collisionLayer().height())};
     bl::event::Dispatcher::dispatch<core::event::MapSwitch>({*this});
 
     tileset = TilesetManager::load(core::map::Tileset::getFullPath(tilesetField));

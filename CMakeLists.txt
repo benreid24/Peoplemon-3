@@ -35,6 +35,7 @@ add_subdirectory(lib/BLIB)
 include_directories(lib/BLIB/include)
 include_directories(lib/BLIB/lib/SFML/include)
 
+add_executable(Bundler)
 add_executable(Peoplemon)
 add_executable(PeoplemonEditor)
 add_library(Core STATIC)
@@ -43,6 +44,7 @@ include("lib/BLIB/cmake/set_module_path.cmake")
 set_module_path()
 
 include(configure_blib_target)
+configure_blib_target(Bundler)
 configure_blib_target(Peoplemon)
 configure_blib_target(PeoplemonEditor)
 configure_blib_target(Core)
@@ -96,14 +98,12 @@ endif()
 
 set_target_properties(Peoplemon
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
     OUTPUT_NAME "Peoplemon${CMAKE_BUILD_TYPE}"
 )
 
 set_target_properties(PeoplemonEditor
     PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${CMAKE_CURRENT_SOURCE_DIR}"
-    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${CMAKE_CURRENT_SOURCE_DIR}"
+    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
     OUTPUT_NAME "PeoplemonEditor${CMAKE_BUILD_TYPE}"
 )
