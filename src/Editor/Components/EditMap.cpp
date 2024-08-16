@@ -916,7 +916,7 @@ void EditMap::setupOverlay() {
             square.commit();
         }
     }
-    townSquareBatch.component().containsTransparency = true;
+    townSquareBatch.component().setContainsTransparency(true);
     townSquareBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
     townSquareBatch.setHidden(renderOverlay != RenderOverlay::Towns);
 
@@ -944,7 +944,7 @@ void EditMap::setupOverlay() {
                 tile.commit();
             }
         }
-        overlay.shapeBatch.component().containsTransparency = true;
+        overlay.shapeBatch.component().setContainsTransparency(true);
         overlay.shapeBatch.addToScene(scene, bl::rc::UpdateSpeed::Static);
         overlay.shapeBatch.setHidden(renderOverlay != RenderOverlay::CatchTiles ||
                                      overlayLevel != level);
@@ -969,7 +969,7 @@ void EditMap::setupOverlay() {
                 updateCollisionTileTexture(level, x, y);
             }
         }
-        overlay.batch.component().containsTransparency = true;
+        overlay.batch.component().setContainsTransparency(true);
         overlay.batch.addToScene(scene, bl::rc::UpdateSpeed::Static);
         overlay.batch.setHidden(renderOverlay != RenderOverlay::Collisions ||
                                 overlayLevel != level);
@@ -990,7 +990,7 @@ void EditMap::setupOverlay() {
             updateLevelTransitionTexture(x, y);
         }
     }
-    ltOverlay.batch.component().containsTransparency = true;
+    ltOverlay.batch.component().setContainsTransparency(true);
     ltOverlay.batch.addToScene(scene, bl::rc::UpdateSpeed::Static);
     ltOverlay.batch.setHidden(renderOverlay != RenderOverlay::LevelTransitions);
 
@@ -1002,7 +1002,7 @@ void EditMap::setupOverlay() {
     // selection
     if (!selectRect.exists()) { selectRect.create(systems->engine(), {100.f, 100.f}); }
     selectRect.getTransform().setDepth(getMinDepth());
-    selectRect.component().containsTransparency = true;
+    selectRect.component().setContainsTransparency(true);
     selectRect.setHidden(true);
     selectRect.addToScene(scene, bl::rc::UpdateSpeed::Static);
 
@@ -1028,7 +1028,7 @@ void EditMap::setupOverlay() {
         grid[y + 1 + o].pos =
             glm::vec3(sizePixels().x, y / 2 * core::Properties::PixelsPerTile(), 0.f);
     }
-    grid.component().containsTransparency = true;
+    grid.component().setContainsTransparency(true);
     grid.getTransform().setDepth(getMinDepth());
     grid.commit();
     grid.addToSceneWithCustomPipeline(
@@ -1048,7 +1048,7 @@ void EditMap::addSpawnGfx(const core::map::Spawn& spawn) {
     gfx.arrow.getTransform().setPosition(spawn.position.getWorldPosition(PixelsPerTile) +
                                          glm::vec2(PixelsPerTile, PixelsPerTile) * 0.5f);
     gfx.arrow.getTransform().setRotation(90.f * static_cast<float>(spawn.position.direction));
-    gfx.arrow.component().containsTransparency = true;
+    gfx.arrow.component().setContainsTransparency(true);
     gfx.arrow.getTransform().setDepth(getMinDepth() + 0.1f);
     gfx.arrow.setHidden(renderOverlay != RenderOverlay::Spawns);
     gfx.arrow.addToScene(scene, bl::rc::UpdateSpeed::Static);
@@ -1130,7 +1130,7 @@ void EditMap::addEventGfx(unsigned int i) {
     rect.getTransform().setPosition(event.position.x * core::Properties::PixelsPerTile(),
                                     event.position.y * core::Properties::PixelsPerTile());
     rect.getTransform().setDepth(getMinDepth());
-    rect.component().containsTransparency = true;
+    rect.component().setContainsTransparency(true);
     rect.addToScene(scene, bl::rc::UpdateSpeed::Static);
     rect.setHidden(renderOverlay != RenderOverlay::Events);
 }
