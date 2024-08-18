@@ -14,5 +14,5 @@ target_link_libraries(Bundler PRIVATE
 set_target_properties(Bundler
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}"
-    OUTPUT_NAME "Bundler${CMAKE_BUILD_TYPE}"
+    OUTPUT_NAME "Bundler"
 )
