@@ -159,7 +159,6 @@ bl::ecs::Entity Entity::spawnAnimation(std::uint8_t level, const glm::vec2& worl
     BL_LOG_DEBUG << "Created animation entity " << entity;
 
     component::Renderable::createFromAnimation(owner.engine(), entity, map.getScene(), gfx);
-    // TODO - BLIB_UPGRADE - set depth based on pos
 
     cleaner.disarm();
     return entity;
